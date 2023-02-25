@@ -1,5 +1,5 @@
 #include <blib.h>
-
+#include <assert.h>
 size_t strlen(const char *s) {
 	char * p=(char*)s;
 	unsigned int length=0;
