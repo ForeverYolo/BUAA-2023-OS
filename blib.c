@@ -46,11 +46,6 @@ int strcmp(const char *s1, const char *s2) {
 			return c1 - c2;
 			break;
 		}
-		else if(c2 == '\0')
-		{
-			return c1 - c2;
-			break;
-		}
    	 } while (c1 == c2);
     return c1 - c2;
 }
@@ -91,7 +86,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 	{
 		return 0;
 	}
-	while(n-- && *(char*)s1 == *(char*)s2)
+	while(--n && *(char*)s1 == *(char*)s2)
 	{
         	s1 = (char*)s1 + 1;
 		s2 = (char*)s2 + 1;
