@@ -76,7 +76,8 @@ void *memset(void *s, int c, size_t n) {
 void *memcpy(void *out, const void *in, size_t n) {
 	char *csrc = (char *)in;
 	char *cdest = (char *)out;
-	for (int i = 0; i < n; i++) {
+	int i = 0;
+	for (i = 0; i < n; i++) {
 		cdest[i] = csrc[i];
 	}
 	return out;
