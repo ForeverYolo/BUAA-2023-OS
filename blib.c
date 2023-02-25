@@ -1,8 +1,9 @@
 #include <blib.h>
 
 size_t strlen(const char *s) {
+	char * p=(char*)s;
 	unsigned int length=0;
-	while((*s)++!='\0'){ length++;}
+	while((*p)++!='\0'){ length++;}
 	return length;
 }
 
