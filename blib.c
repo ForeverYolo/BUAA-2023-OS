@@ -1,10 +1,10 @@
 #include <blib.h>
 
 size_t strlen(const char *s) {
-	char * p=(char*)s;
-	unsigned int length=0;
-	while((*p)++!='\0'){ length++;}
-	return length;
+	int length = 0;
+	while ( *str++ )
+		++length;
+	return ( length );
 }
 
 char *strcpy(char *dst, const char *src) {
