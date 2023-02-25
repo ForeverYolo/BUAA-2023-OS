@@ -8,7 +8,7 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char *dst, const char *src) {
-	if(dst != NULL && src != NULL)
+	if(dst == NULL && src == NULL)
 	{
 		return NULL;
 	}	
