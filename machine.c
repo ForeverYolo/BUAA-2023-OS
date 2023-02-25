@@ -6,7 +6,7 @@ void m_putch(char ch) {
 }
 
 char m_getch(void) {
-	return *((volatile char *)GETCHAR_ADDRESS)
+	return *((volatile char *)GETCHAR_ADDRESS);
 }
 
 void m_halt(void) {
