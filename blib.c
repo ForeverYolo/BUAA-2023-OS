@@ -1,5 +1,5 @@
 #include <blib.h>
-#include <assert.h>
+
 size_t strlen(const char *s) {
 	char * p=(char*)s;
 	unsigned int length=0;
@@ -8,7 +8,10 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char *dst, const char *src) {
-	assert(dst != NULL && src != NULL); 
+	if(dst != NULL && src != NULL)
+	{
+		return NULL;
+	}	
 	char *ret = dst;
 	while ((*dst++=*src++)!='\0');
 	return ret;
