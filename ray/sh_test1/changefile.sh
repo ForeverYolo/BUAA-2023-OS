@@ -7,8 +7,7 @@ do
 		rm -rf file$a	
 	elif [ $a -gt 40 ]         # else if loop variable is great than 40
 	then
-		mkdir newfile$a
-		cp -r /file$a /newfile$a
+		mv file$a newfile$a
 	fi
 	let a+=1           #don't forget change the loop variable
 done
