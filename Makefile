@@ -1,5 +1,6 @@
-all:
-	gcc hello_os.c -o os_hello
+all: hello_os.c
+	gcc -c hello_os.c -o hello_os.o
 
 clean:
-	rm os_hello
+	rm hello_os.o
+
