@@ -1,5 +1,5 @@
 out: 	
-	gcc ./code/fibo.o -c ./code/fibo.c -I ./include
+	gcc -c ./code/fibo.c -o ./code/fibo.o -I ./include
 clean:
 	rm ./code/*.o
 
