@@ -3,11 +3,11 @@
 
 
 mkdir mydir
-chmod a +x ./mydir
-chmod a +r ./mydir
-chmod a +w ./mydir
+chmod +x ./mydir
+chmod +r ./mydir
+chmod +w ./mydir
 touch myfile
-echo 2023 > ./mydir/myfile
+echo 2023 > myfile
 mv moveme ./mydir
 cp copyme ./mydir
 mv ./mydir/copyme ./mydir/copied
