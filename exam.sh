@@ -3,9 +3,7 @@
 
 
 mkdir mydir
-chmod +x ./mydir
-chmod +r ./mydir
-chmod +w ./mydir
+chmod a+xrw ./mydir
 touch myfile
 echo 2023 > myfile
 mv moveme ./mydir
