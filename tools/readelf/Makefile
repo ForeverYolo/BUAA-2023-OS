@@ -4,7 +4,7 @@
 .PHONY: clean
 
 readelf: main.o readelf.o
-	$(CC) $^ -o $@
+	$(CC) $^ -o $@ 
 
 hello: hello.c
 	$(CC) $^ -o $@ -m32 -static -g
