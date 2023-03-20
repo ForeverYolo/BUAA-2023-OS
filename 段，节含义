@@ -1,0 +1,322 @@
+ELF 文件中段及其相关概念
+在这前的介绍中，在 ELF 文件中包含很多段（Segment），所有这些段都登记在一张称为 程序头表（Program Header Table）的数组里。段头表的每一个表项是一个Elf64_Phdr结构，通过每一个表项可以定位到对应的段，所以也可称之为段头表。程序头只对可执行文件或共享目标文件有意义，对于其它类型的目标文件，该信息可以忽略。
+
+下方给出一张图（图 1），清晰明确地阐述关于 段 的有关概念的文件结构图。
+
+
+图1 ELF 文件中有关节的概念的结构图
+对于图1的注释：（1）一般在分析段的结构的时候，考虑使用执行视图。原图来自官方文档，之前介绍前述的时候使用过这张图。我在这张图的基础之上添加了一些方便理解的注释（2）在介绍 ELF 文件头的时候提到过，文件头中e_phoff成员给出程序头表在 ELF 文件中的起始位置，相对于文件开始处的偏移量；e_phnum成员指明程序头表中包含多少个表项；e_phentsize成员指明了每一个表项的大小。知晓这三个数据成员，就有了程序头表的基础信息。（3）而程序头表中是由多个子表（称为程序头（Segment Header））构成的，上图中之画出了一条虚线示意，而每个程序头的数据结构是Elf64_Phdr结构（针对 64 位 ELF 文件），该数据结构中存放关于节的有关信息，通过这些数据，可以知晓一些节的位置，特性或结构等等的信息（这部分细致的介绍与分析在之后给出）。在上图中，我是用三种颜色的线来分别诠释出：通过程序头表中程序头的数据信息（图中 "Elf64_Phdr" 示意数据结构中存放的数据）检索到节的位置和一些关于节的描述信息。
+
+注：由于本人的研究目标是 64 位 ELF 文件，故当前及之后的内容都只展示 64 位 ELF 文件相关的内容，对于 32 位 ELF 文件的详细的定义都请参考源码和官方文档，再次不多赘述。
+
+至此，ELF 文件中段及其相关概念的介绍部分结束。
+
+ELF 文件程序头表中程序头（Program Header）
+在此直接给出程序头的数据结构的定义。这部分的介绍逻辑：按照Elf64_Phdr数据结构中数据成员的先后顺序，为了方便理解数据成员的意义，对于每个数据成员的取值的介绍在数据成员之后直接给出，并非如官方文档中集中给出数据成员的取值。下方为源码中的定义及其对应的含义。
+
+注：下方代码中//符号后是我注释的具体对应的字节数目，这个数目对应的是 64 位 ELF 文件的数据成员的字段长度，该数据结构的数据成员的顺序与 32 位 ELF 文件有较大的差异。
+
+/* Program segment header.  */
+
+typedef struct
+{
+  Elf64_Word	p_type;			/* Segment type */               // 4 bytes
+  Elf64_Word	p_flags;		/* Segment flags */
+  Elf64_Off	p_offset;		/* Segment file offset */          // 8 bytes
+  Elf64_Addr	p_vaddr;		/* Segment virtual address */    // 8 bytes
+  Elf64_Addr	p_paddr;		/* Segment physical address */
+  Elf64_Xword	p_filesz;		/* Segment size in file */       // 8 bytes
+  Elf64_Xword	p_memsz;		/* Segment size in memory */
+  Elf64_Xword	p_align;		/* Segment alignment */
+} Elf64_Phdr;
+各成员按照数据结构中定义的先后顺序，依次介绍其意义。
+
+p_type（Program Header-Type）：此字段（4 字节）说明本程序头所描述的段的类型，或者如何解析本程序头的信息。下方为源码中部分常用定义、对应取值及其含义。想要了解其余的定义请参见源码及其对应的注释。
+
+/* Legal values for p_type (segment type).  */
+
+#define	PT_NULL		0		 /* Program header table entry unused */
+#define PT_LOAD		1		 /* Loadable program segment */
+#define PT_DYNAMIC	2		 /* Dynamic linking information */
+#define PT_INTERP	3		 /* Program interpreter */
+#define PT_NOTE		4		 /* Auxiliary information */
+#define PT_SHLIB	5		 /* Reserved */
+#define PT_PHDR		6		 /* Entry for header table itself */
+... ...
+PT_NULL（Program Header Type-Null）：此类型表明本程序头是未使用的，本程序头内的其它成员值均无意义。具 有此种类型的程序头应该被忽略。
+
+PT_LOAD（Program Header Type-Loadable）：此类型表明本程序头指向一个可装载的段。段的内容会被从文件中拷贝到内存中。段在文件中的大小是 p_filesz，在内存中的大小是 p_memsz。如果 p_memsz 大于 p_filesz，在内存中多出的存储空间应填 0 补充，也就是说，段在内存中可以比在文件中占用空间更大；而相反，p_filesz 永远不应该比 p_memsz 大，因为这样的话，内存中就将无法完整地映射段的内容。在程序头表中，所有 PT_LOAD 类型的程序头按照 p_vaddr 的值做升序排列。
+
+PT_DYNAMIC（Program Header Type-Dynamic）：此类型表明本段指明了动态连接的信息。
+
+PT_INTERP（Program Header Type-Interpreter）：本段指向了一个以 ”null” 结尾的字符串，这个字符串是一个 ELF 解析器的路径。这种段类型只对可执行程序有意义，当它出现在共享目标文件中时， 是一个无意义的多余项。在一个 ELF 文件中它多只能出现一次，而且必须出现在其它可装载段的表项之前。
+
+PT_NOTE（Program Header Type-Note）：本段指向了一个以 ”null” 结尾的字符串，这个字符串包含一些附加的信息。
+
+PT_SHLIB：该段类型是保留的，而且未定义语法。UNIX System V 系统上的应用程序不会包含这种表项。
+
+p_flags（Program Header-Flags）：此字段（4 字节）给出本段内容的属性，指明了段的权限。虽然 ELF 文件格式中没有规定，但是一个可执行程序至少会有一个可加载的段。当为可加载段创建内存镜像时，系统会按照 p_flags 的指示给段赋予一定的权限。下方为源码中定义、对应取值及其含义。
+
+/* Legal values for p_flags (segment flags).  */
+
+#define PF_X		(1 << 0)	/* Segment is executable */
+#define PF_W		(1 << 1)	/* Segment is writable */
+#define PF_R		(1 << 2)	/* Segment is readable */
+#define PF_MASKOS	0x0ff00000	/* OS-specific */
+#define PF_MASKPROC	0xf0000000	/* Processor-specific */
+对应字段的值与属性的关系，值为 0x1：可执行；值为 0x2：可写；值为 0x4：可读。特殊地，被 PF_MASKOS 所覆盖的权限值是为特殊操作系统保留的，被 PF_MASKPROC 所覆盖的权限值是为特殊处理器保留的。
+
+如果权限值为 0，表示无任何权限。实际的读写权限还要依赖于内存管理器， 在不同的操作系统上，内存管理单元的做法可能会不同。在有些组合方式下，系统给出的权限会比所指定的权限大，但可写权限 PF_W 除外，如果 p_flags 中没有指 定 PF_W 的话，系统一定不会给出写权限。
+
+上述代码中介绍的段的权限只是单独的一个属性值（例如，可写，可读），而在实际中可能会出现属性叠加的情况（例如，可读且可写），这样就出现了属性的组合，属性的叠加对应的就是值的叠加（例如，可读且可写对应的属性值为：0x2+0x4=0x6）。理解总结：（1）可读与可执行是通用的，有其中一个就等于也有了另一个；（2）可写权限是高权限，可以覆盖另外两个，有了可写权限，所有权限 就都有了。
+
+p_offset（Program Header-File Offset）：此字段（8 字节）给出本段内容在文件中的位置，即段内容的开始位置相对于文件开头的偏移量。
+
+p_vaddr（Program Header-Virtual Address）：此字段（8 字节）给出本段内容的开始位置在进程空间中的虚拟地址。
+
+p_paddr（Program Header-Physical Address）：此字段（8 字节）给出本段内容的开始位置在进程空间中的物理地址。对于目前大多数现代操作系统而言，应用程序中段的物理地址事先是不可知的，所以目前这个 成员多数情况下保留不用，或者被操作系统改作它用。
+
+p_filesz（Program Header-File Size）：此字段（8 字节）给出本段内容在文件中的大小，单位是字节，可以是 0。
+
+p_memsz（Program Header-Memory Size）：此字段（8 字节）给出本段内容在内容镜像中的大小，单位是字节，可以是 0。
+
+p_align（Program Header-Alignment ）：此字段（8 字节）指明本段内容如何在内存和文件中对齐。如果该值为 0 或 1，表明没有对齐要求；否则，p_align 应该是一个正整数，并且是 2 的幂次数。p_vaddr 和 p_offset 在对 p_align 取模后应该相等。注：对于可装载的段来说，其 p_vaddr 和 p_offset 的值至少要向内存页面大小对齐。
+
+至此，ELF 文件中程序头数据结构部分介绍结束。
+
+针对 ELF 可执行文件中的程序头（表）的分析
+之前 样例的构建 部分生成的可执行文件hello，使用 010 Editor 导入 ELF 分析模板得到hello的程序头表（包括程序头）部分的 16 进制的信息（也可使用命令：$ hexdump -C hello，在终端实现类似的效果）。首先需要明确一个事情：由于篇幅有限，而且程序头表中的程序头的数据结构完全一样（数据存储或意义可能天差地别），这里不可能将程序头表中的所有程序头都进行分析，但是对于程序头表的分析方法是统一的。按照上述的各成员的先后顺序与字段大小进行分析，按意义块划分得到下图（图 2）。
+
+注：下图中，蓝色选中的区域是程序头表中某一程序头，红色框是节头数据结构Elf64_Shdr的每个数据成员。
+
+
+图2 程序头表某一程序头的分析
+根据上述的介绍，不难从其中得到如下表信息。
+
+数据成员名称	起始地址偏移	16进制值	字节数	意义
+p_type	0xb0	0x1	4	该段的类型：PT_LOAD，是可加载段
+p_flags	0xb4	0x5	4	该段的属性：可读可执行
+p_offset	0xb8	0x0	8	段起始位置的偏移量：0x0
+p_vaddr	0xc0	0x400000	8	段在虚拟内存中的地址是：0x400000
+p_paddr	0xc8	0x400000	8	段在实际内存中的地址是：0x400000
+p_filesz	0xd0	0x6d0(1744)	8	该段在文件中的大小：0x6d0
+p_memsz	0xd8	0x6d0	8	该段在内存中的大小：0x6d0
+p_align	0xe0	0x200000	8	向内存页面大小对齐
+程序头的分析注释：
+
+文件头中存储的有关节的三个数据成员的体现。可从文件头易知：e_phoff=0x40(64)，e_phnum=0x9(9)和e_phentsize=0x38(56)。从上图（图2）中，可知该节的大小是 64 字节的，对应的参数是e_phentsize；e_phoff表明的是节头表开始的偏移量，当前节的开始地址的偏移量为0xb0(176)，不难发现这几个量之间存在关系：0xb0(176)=0x40(64)+0x38(56)*2，式子中数字2的意义就是该节在节头表中的索引为 3，是程序头表中第三个程序头。
+程序头属性相关。对于本程序头来说，段的属性是可读可执行，值是 0x5=0x1（可执行）+0x4（可读），属性的叠加对应的即为属性对应的值的叠加。
+可加载段的对齐值的大小。Linux 会以页为单位管理内存，无论是将磁盘中的数据加载到内存中，还是将内存中的数据写回磁盘，操作系统都会以页面为单位进行操作。绝大多数处理器上的内存页的默认大小都是 4KB，虽然部分处理器会使用 8KB、16KB 或者 64KB 作为默认的页面大小，但是 4KB 的页面仍然是操作系统默认内存页配置的主流。若页面的最大尺寸为 4KB，则段的虚拟地址和文件内偏移量要向 4KB 或者 4KB 的整数倍对齐。这样便于整页的换入换出，可以提高效率。
+作为验证或直接查看：可以直接使用命令$ readelf -l hello，得到hello的程序头表的部分信息。信息的截图如下所示（图 3），与上述自行分析的结果完全相同。下图中红色框中的部分就是上述分析的程序头。
+
+
+图3 readelf 工具分析的结果
+对于文件有关段的内容的介绍全部结束，如有错误，敬请指正。
+
+ELF 文件中节及其相关概念
+在之前的介绍中，在 ELF 文件中可以包含很多节（Section），所有这些节都登记在一张称为节头表（Section Header Table）的数组里。节头表的每一个表项是一个Elf64_Shdr结构，通过每一个表项可以定位到对应的节。
+
+下方给出一张图（图1），清晰明确地阐述关于 节 的有关概念的文件结构图。
+
+
+图1 ELF 文件中有关节的概念的结构图
+对于图1的注释：（1）一般在分析节的结构的时候，考虑使用链接视图。原图来自官方文档，之前介绍前述的时候使用过这张图。我在这张图的基础之上添加了一些方便理解的注释（2）在介绍 ELF 文件头的时候提到过，文件头中e_shoff成员给出节头表在 ELF 文件中的起始位置，相对于文件开始处的偏移量；e_shnum成员指明节头表中包含多少个表项；e_shentsize成员指明了每一个表项的大小。知晓这三个数据成员，就有了节头表的基础信息。（3）而节头表中是由多个子表（称为节头（Section Header））构成的，上图中之画出了一条虚线示意，而每个节头的数据结构是Elf64_Shdr结构（针对 64 位 ELF 文件），该数据结构中存放关于节的有关信息，通过这些数据，可以知晓一些节的位置，特性或结构等等的信息（这部分细致的介绍与分析在之后给出）。在上图中，我是用三种颜色的线来分别诠释出：通过节头表中节头的数据信息（图中 "Elf64_Shdr" 示意数据结构中存放的数据）检索到节的位置和一些关于节的描述信息。
+
+注：由于本人的研究目标是 64 位 ELF 文件，故当前及之后的内容都只展示 64 位 ELF 文件相关的内容，对于 32 位 ELF 文件的详细的定义都请参考源码和官方文档，在此不多赘述。
+
+
+
+通常，ELF 文件中含有众多的节，节区携带了 ELF 文件的所有信息，节需要满足下列这些条件（直观地，从上面的结构图中也不难发现）：
+
+ELF 文件中的每一个节一定对应有一个节头，节头中有对节的描述信息；但有的节头可以没有对应的节，而只是一个空的头。
+每一个节所占用的空间是连续的。
+各个节之间不能互相重叠。
+在 ELF 文件中，节与节之间可能会存在一些多余的字节，这些字节不属于任何节。
+
+
+在官方文档中，还提到“某些特殊节头表表项的索引值被保留”（section header table indexes）的问题。其实，这个问题的根本在于有一些特殊的节的名称是被保留的，或者说一些节的名称有特殊的含义，之前一句话中的“索引”其实就是节的名称的意思，这一点在下方展示出的部分代码中就可见一斑。下方为源码中的定义和部分可取值及其对应的含义。
+
+注：这部分内容在官方文档中是放在这一部分介绍，我选择尊重官方文档中的介绍顺序。但理解此处说明含义，需先有后面Elf64_Shdr数据结构中的sh_name数据成员意义的先验知识，才符合一般的认知逻辑，且该部分知识对于分析 ELF 文件节部分的影响不大，可先看后方数据结构相关内容或直接跳过，理解起来会更顺畅。
+
+/* Special section indices.  */  
+
+#define SHN_UNDEF	0	        /* Undefined section */ 
+#define SHN_LORESERVE	0xff00		/* Start of reserved indices */ 
+#define SHN_LOPROC	0xff00		/* Start of processor-specific */ 
+...  
+#define SHN_HIPROC	0xff1f		/* End of processor-specific */ 
+... 
+#define SHN_ABS		0xfff1		/* Associated symbol is absolute */ 
+#define SHN_COMMON	0xfff2		/* Associated symbol is common */ 
+... 
+#define SHN_HIRESERVE	0xffff		/* End of reserved indices */
+SHN_UNDEF（Section Header Name-Undefinition）：该值被定义为 0，它表示一个未定义的、不存在的节的索引。尽管索引值 0 是一个未定义的保留值，但在节头表中的索引还是会从 0 开始。
+
+SHN_LORESERVE（Section Header Name-Low Index of Reserve）：被保留索引号区间的下限。
+
+SHN_LOPROC（Section Header Name-Low Index of Specific Processor）：为处理器定制节所保留的索引号区间的下限。
+
+SHN_HIPROC（Section Header Name-High Index of Specific Processor）：为处理器定制节所保留的索引号区间的上限。
+
+SHN_ABS（Section Header Name-Absolute）：此节中所定义的符号有绝对的值，这个值不会因重定位而改变。
+
+SHN_COMMON（Section Header Name-Common）：此节中所定义的符号是公共的，比如 FORTRAN COMMON 符号或者未分配的 C 外部变量。
+
+SHN_HIRESERVE（Section Header Name-High Index of Reserve）：被保留索引号区间的上限。
+
+至此，ELF 文件中节及其相关概念的介绍部分结束。
+
+ELF 文件节头表中节头（Section Header）
+至于节头表，节头与节三者的关系，我在上述介绍中已经说明，在此不赘述。直接给出节头的数据结构的定义。这部分的介绍逻辑是：按照Elf64_Shdr数据结构中数据成员的先后顺序，为了方便理解数据成员的意义，对于每个数据成员的取值的介绍在数据成员之后直接给出，并非如官方文档中集中给出数据成员的取值。下方为源码中的定义及其对应的含义。
+
+注：下方代码中//符号后是我注释的具体对应的字节数目，这个数目对应的是 64 位 ELF 文件的数据成员的字段长度。
+
+/* Section header.  */
+
+typedef struct
+{
+  Elf64_Word	sh_name;	 /* Section name (string tbl index) */    // 4 bytes
+  Elf64_Word	sh_type;	 /* Section type */                       
+  Elf64_Xword	sh_flags;	 /* Section flags */                      // 8 bytes
+  Elf64_Addr	sh_addr;	 /* Section virtual addr at execution */  // 8 bytes
+  Elf64_Off	sh_offset;	 /* Section file offset */                // 8 bytes
+  Elf64_Xword	sh_size;	 /* Section size in bytes */
+  Elf64_Word	sh_link;	 /* Link to another section */
+  Elf64_Word	sh_info;	 /* Additional section information */
+  Elf64_Xword	sh_addralign;	 /* Section alignment */
+  Elf64_Xword	sh_entsize;	 /* Entry size if section holds table */
+} Elf64_Shdr;
+各成员按照数据结构中定义的先后顺序，依次介绍其意义。
+
+sh_name（Section Header-Name）：此字段（4 字节）指向（并非指明）本节的名字。准确的说，这里存放的是一个偏移量，然后通过这个偏移量能够找到节的名字。找寻节的名字的逻辑：首先，深刻理解文件头中的数据成员e_shstrndx，意思是：存储节的名字的节对应的节头在节头表中的索引号，这个数字告诉我们：在节头表中，该索引位置的节头对应的节中存放着所有节的名字。然后，找到存放节名字的节的位置，根据偏移量，即可找到该节名字的其实位置，一直读取数据，直到遇到二进制字节码为 0x00 的部分，中间的 16 进制数字对应的 ASCII 码对应的字符串的组合，即为节的名字。
+
+注：这一概念确实比较绕，但是如果清晰理解其中数据成员的意义以及其中严密的逻辑关系，也并非难如登天。我在后面会根据我之前的构建样例，实际分析一个节的信息，我会在那个部分给出准确的数学计算过程和对应的结果。帮助或加深对这一数据成员意义的理解。
+
+sh_type（Section Header-Type）：此字段（4 字节）指明本节的类型，该数据成员的值对节的内容和语义进行分类。下方为源码中部分常用定义、对应取值及其含义。想要了解其余的定义请参见源码及其对应的注释。
+
+/* Legal values for sh_type (section type).  */
+
+#define SHT_NULL	  0		/* Section header table entry unused */
+#define SHT_PROGBITS	  1		/* Program data */
+#define SHT_SYMTAB	  2		/* Symbol table */
+#define SHT_STRTAB	  3		/* String table */
+#define SHT_RELA	  4		/* Relocation entries with addends */
+#define SHT_HASH	  5		/* Symbol hash table */
+#define SHT_DYNAMIC	  6		/* Dynamic linking information */
+#define SHT_NOTE	  7		/* Notes */
+#define SHT_NOBITS	  8		/* Program space with no data (bss) */
+#define SHT_REL		  9		/* Relocation entries, no addends */
+#define SHT_SHLIB	  10		/* Reserved */
+#define SHT_DYNSYM	  11		/* Dynamic linker symbol table */
+...
+SHT_NULL（Section Header Type-Null）：此值表明本节头是一个无效的（非活动的）节头，它也没有对应的节。本节 头中的其它成员的值也都是没有意义的。
+
+SHT_PROGBITS（Section Header Type-Program Bits）：此值表明本节所含有的信息是由程序定义的，本节内容的格式和含义都由程 序来决定。
+
+SHT_SYMTAB/SHT_DYNSYM（Section Header Type-Symbol Table**/S**ection Header Type-Dynamic Symbol）：这两类节都含有符号表。目前，ELF 文件中多只能各包含一个这两种节， 但这种限制以后可能会取消。一般来说，SHT_SYMTAB 提供的符号用于在创建 ELF 文件的时候编辑链接，在运行期间也有可能会用于动态链接。SHT_SYMTAB 包含完整的符号表，它往往会包含很多在运行期间（动态链接）用不到的符号。所以，一个 ELF 文件可以再有一个 SHT_DYNSYM 节，它含有一个较小的符号表，专门用于动态链接。
+
+SHT_STRTAB（Section Header Type-String Table）：此值表明本节是字符串表。ELF 文件中可以包含多个字符串表节。
+
+SHT_RELA（Section Header Type-Relocation Entries with Addends）：此值表明本节是一个重定位节，含有带明确加数（addend）的重定位项，对于 64 位类型的 ELF 文件来说，这个加数就是 Elf64_Rela。一个 ELF 文件可能含有多个重定位节。
+
+SHT_HASH（Section Header Type-Symbol Hash Table）：此值表明本节包含一张哈希表。所有参与动态链接的 ELF 文件都必须要包含一个符号哈希表。目前，一个 ELF 文件中多只能有一个哈希表，但这一限制以后可能会取消。
+
+SHT_DYNAMIC（Section Header Type-Dynamic Linking Information）：此值表明本节包含的是动态链接信息。目前，一个 ELF 文件中多只能有一个 SHT_DYNAMIC 节，但这一限制以后可能会取消。
+
+SHT_DYNAMIC（Section Header Type-Dynamic Linking Information）：此值表明本节包含的是动态链接信息。目前，一个 ELF 文件中多只能有一个 SHT_DYNAMIC 节，但这一限制以后可能会取消。
+
+SHT_NOTE（Section Header Type-Notes）：此值表明本节包含的信息用于以某种方式来标记本文件。
+
+SHT_NOBITS（Section Header Type-No Bits）：此值表明这一节的内容是空的，节并不占用实际的空间。在定义 sh_offset 时提到过，这时 sh_offset 只代表一个逻辑上的位置概念，并不代表实际的内容。
+
+SHT_REL（Section Header Type-Relocation Entries without Addends）：此值表明本节是一个重定位节，含有隐士加数的重定位项。一个 ELF 文件可能含有多个重定位节。
+
+SHT_DYNSYM（Section Header Type-Dynamic Symbol）：此值表明本节是符号表。与 SHT_SYMTAB 同义。
+
+sh_flags（Section Header-Flags）：此字段（64 位 ELF 文件是 8 字节）指明本节的属性，根据该字段的值对应不同的属性。这一数据成成员极为重要，在之后涉及到的部分节归并到段的时候，参考的就是该字段对应的属性值。下方为源码中部分常用定义、对应取值及其含义。
+
+注：（1）我会在之后分析构建样例的过程中，指明这一点，对着例子，一看便知。（2）下方的代码中的宏定义的解释，#define VARIABLE (<x> << <y>)，VARIABLE的值为 <x> 向左移动 <y> 位的结果值。
+
+/* Legal values for sh_flags (section flags).  */
+
+#define SHF_WRITE	     (1 << 0)	/* Writable */
+#define SHF_ALLOC	     (1 << 1)	/* Occupies memory during execution */
+#define SHF_EXECINSTR	     (1 << 2)	/* Executable */
+...
+SHF_WRITE（Section Header Flags-Writable）：此字段值为 0x1 时，此标志被设置，表示本节所包含的内容在进程运行过程中是可写的。
+
+SHF_ALLOC（Section Header Flags-Allocation）：此字段值为 0x2 时，此标志被设置，表示本节内容在进程运行过程中要占用内存单元。并不是所有节都会占用实际的内存，有一些起控制作用的节，在 ELF 文件映射到进程空间时，并不需要占用内存。
+
+SHF_EXECINSTR（Section Header Flags-Execution Instruction）：此字段值为 0x3 时，此标志被设置，表示此节内容是指令代码。sh_addr（Section Header-Address）：此字段（8 字节）指明本节内容需要映射到进程空间中去的映射起始地址；如果不需要映射，此值为 0。
+
+sh_offset（Section Header-Offset）：此字段（8 字节）指明了本节所在的位置，该值是该节的第一个字节在文件中的位置，即相对于文件开头的偏移量，单位是字节。如果该节的类型为 SHT_NOBITS 的话，表明这一节的内容是空的，节并不占用实际的空间，这时 sh_offset 只代表一个逻辑上的位置概念，并不代表实际的内容。
+
+sh_size（Section Header-Size）：此字段（8 字节）指明该节的大小，单位是字节。如果该节的类型为 SHT_NOBITS，此值仍然可能为非零，但没有实际的意义。
+
+sh_link（Section Header-Size）&sh_info（Section Header-Information）：这两个字段（均为 4 字节）意义为：sh_link：给出一个索引值，指向节头表中本节所对应的位置和sh_info：指明该节的附加信息。将这两个数据成员合并到一起进行介绍的原因：对于不同的节类型，这两个数据成员的意义并不相同。对于如下表中所示的节类型来说，sh_link 和 sh_info 含有特殊的信息，对于其他节类型来说，这两个数据成员的值一般都为 0。信息详见下表，下标的信息来源是官方文档中的图1-12。
+
+注：此处对应的具体的意义或关系，我会在之后的章节中进行介绍，对着例子，方便理解。
+
+数据成员 sh_type	sh_link	sh_info
+SHT_DYNAMIC	用于本节中项目的字符串表在节头表中相应的索引值	0
+SHT_HASH	用于本节中哈希表的符号表在节头表中相应的索引值	0
+SHT_REL/SHT_RELA	相应符号表在节头表中的索引值	本重定位节所引用到目标节在节头表中的索引值
+SHT_SYMTAB/SHT_DYNSYM	相关字符串表的节头的索引	符号表中最后一个本地字符的索引号加1
+其他	SHN_UNDEF（0）	0
+sh_addralign（Section Header-Address Alignment）：此字段（8 字节）指明该节内容对齐字节的数量，即该节的地址应该向多少个字节对齐。 也就是说，本节内容在进程空间中的映射地址 sh_addr 必须是一个向 sh_addralign 对齐，即能被 sh_addralign 整除的值。目前，sh_addralign只能取 0、1 或者 2的正整数倍。如果该值为 0或 1，表明本节没有字节对齐约束。
+
+sh_entsize（Section Header-Entry Size）：此字段（8 字节）指明该节对应的每一个表项的大小。有一些节的内容是一张表，且其中每一个表项的大小是固定的。对于这种表来说，本成员指定其每一个表项的大小。如果此值为 0 则表明本节内容不是这种表项方式进行存储的。
+
+至此，ELF 文件中节头数据结构部分介绍结束。
+
+针对 ELF 可执行文件中的节头（表）的分析
+之前 样例的构建 部分生成的可执行文件hello，使用 010 Editor 导入 ELF 分析模板得到hello的节头表（包括节头）部分的 16 进制的信息（也可使用命令：$ hexdump -C hello，在终端实现类似的效果）。首先需要明确一个事情：由于篇幅有限，而且节头表中的节头的数据结构完全一样（数据存储或意义可能天差地别），这里不可能将节头表中的所有节头都进行分析，但是对于节头表中节头的分析方法是统一的。按照上述的各成员的先后顺序与字段大小进行分析，按意义块划分得到下图（图2）。
+
+注：下图中，蓝色选中的区域是节头表中某一节头，红色框是节头数据结构Elf64_Shdr的每个数据成员。
+
+
+图2 示例可执行文件的节头表中某一节头的分析
+根据上述的介绍，不难从其中得到如下表信息。
+
+数据成员名称	起始地址偏移	16进制数值	字节数	意义
+sh_name	0x1928	0x1b	4	下面会详细介绍计算过程
+sh_type	0x192c	0x1	4	该节的类型：PROGBITS
+sh_flags	0x1930	0x2	8	该节的属性：ALLOC（简写为A）
+sh_addr	0x1938	0x400238	8	该节内容需要映射到进程空间，映射起始地址：0x400238
+sh_offset	0x1940	0x238	8	该节开始的第一个字节相较于文件开始的偏移量为：0x238
+sh_size	0x1948	0x1c(28)	8	该节的大小：0x1c（28）字节
+sh_link	0x1950	0x0	4	对于该节的PROGBITS类型，无意义，置零
+sh_info	0x1954	0x0	4	对于该节的PROGBITS类型，无意义，置零
+sh_addralign	0x1958	0x0	8	该节没有字节对齐约束
+sh_entsize	0x1960	0x0	8	该节内容不是按照表项方式进行存储
+节头的分析注释：
+
+文件头中存储的有关节的三个数据成员的体现。可从文件头易知：e_shoff=0x18e8(6376)，e_shnum=0x1d(29)和e_shentsize=0x40(64)。从上图（图2）中，可知该节的大小是 64 字节的，对应的参数是e_shentsize；e_shoff表明的是节头表开始的偏移量，当前节的开始地址的偏移量为0x1928(6440)，不难发现这几个量之间存在关系：0x1928(6440)=0x18e8(6376)+0x40(64)*1，式子中数字1的意义就是该节在节头表中的索引为 1，是节头表中第二个节头。
+
+
+关于节头名字在 ELF 文件中的检索方法（存储方法）。节头的名字都全放在一个专门存储节头名字的节中，这个节的名字是 .shstrtab，找到这个节的起始地址，然后加上数据成员 sh_name 的偏移量，就可以找到对应的节头的名字的存储地址。至于如此设计的原因在之前的介绍中提到过，在此不做赘述。具体步骤如下所示。
+（1）文件头中有数据成员e_shstrndx，在节头表中，找到存储节头名字的节对应的节头的起始地址，计算式子（括号中是数据对应的数据成员）：0x18e8(e_shoff)+0x40(e_shentsize)*0x1c(e_shstrndx)=0x1fe8，0x1fe8为计算结果。如下图（图3）所示，.shstrtab 节的 16 进制数据信息。
+
+
+图3 .shstrtab 节头信息
+（2）找到 ELF 文件起始地址为0x1fe8的位置，然后向后包含该起始字节一共0x40字节的位置，这部分就是 .shstrtab 节头，节头包含有节的信息，而这个节头对应的节中有我需要的所有节头的名字。对于该节的分析，只关心该节在 ELF 文件中的位置，即偏移地址。不难发现，该节对应的偏移量为sh_offset=0x17e1（红色框中的内容）。0x17e1开始就是存储节头名字的节的位置。
+
+（3）找到 ELF 文件起始地址为0x17e1的位置，然后向后偏移sh_name=0x1b的位置作为起始字节，直到遇到字节值为 0x00 停止，这之间的数据对应的 ASCII 码即为节头的名字。如下图（图4）所示，红色框中的字节相较于文件开始出的偏移量是0x17e1，sh_name=0x1b为偏移量 27 个字节，简单的数学关系：0x17e1+0x1b=0x17fc，0x17fc就是节头名称开始的字节，直到遇到字节值为 0x00，可以理解为截断符，为 0x1803 处，这中间的数字通过 ASCII 码兑换表，转换成字符是：.interp（.interp 后面的 “.” 并不算在内），即为上述节头对应的节头名。
+
+
+图4 节头名具体存放位置
+
+
+数据成员sh_flags和sh_addr的理解：sh_flags标志了该节的属性是 ALLOC，说明本节的内容在进程过程中需要占用内存单元；而sh_addr指明了映射到进程空间中的起始地址。
+该节头对应节的内容。根据数据成员sh_offset=0x238，可以找到节的起始位置；通过sh_size=0x1c，一共是 28 个字节的内容；且sh_entsize=0x0表明该节的内容也不是按照一个个表项存储的。如下图（图5）所示，蓝色选中的部分就是该节的所有内容，对于这个例子来说，该节指出 ELF 程序解析器的路径名：/lib64/ld-linux-x86-64.so.2。
+
+图5 节的名字
+
+
+对于其他的节头的分析也是相同的过程，只是数据对应的意义不同而已，可以利用相同的分析方法对其他的节头进行分析与解读。
+
+作为验证或直接查看：可以直接使用命令$ readelf -S hello，得到hello的节头表的部分信息。信息的截图如下所示（图6），与上述自行分析的结果完全相同。下图中红色框中的部分就是上述分析的节头。
+
+
+图6 readelf 工具分析节头的结果
+对于文件有关节的部分的介绍全部结束，如有错误，敬请指正。
