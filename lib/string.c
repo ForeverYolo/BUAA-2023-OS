@@ -3,7 +3,7 @@
 #include <printk.h>
 
 typedef struct {
-	char arr[10086];
+	char arr[100086];
 	int len;
 } mydata;
 
@@ -117,7 +117,7 @@ int sprintf(char *buf, const char *fmt, ...)
 {
 	mydata ans;
        	ans.len  = 0;
-	for (int i = 0; i< 10086;i++)
+	for (int i = 0; i< 100086;i++)
        	{
 		ans.arr[i] = 0;	
 	}
