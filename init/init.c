@@ -4,7 +4,7 @@
 #include <pmap.h>
 #include <printk.h>
 #include <trap.h>
-
+#include <string.h>
 // When build with 'make test lab=?_?', we will replace your 'mips_init' with a generated one from
 // 'tests/lab?_?'.
 #ifdef MOS_INIT_OVERRIDDEN
@@ -13,7 +13,11 @@
 
 void mips_init() {
 	printk("init.c:\tmips_init() is called\n");
-
+	char str[100];
+	sprintf(str, "%d\n", 12321);
+	printk("%s", str);
+	sprintf(str, "%c\n", 97);
+	printk("%s", str);
 	// lab2:
 	// mips_detect_memory();
 	// mips_vm_init();

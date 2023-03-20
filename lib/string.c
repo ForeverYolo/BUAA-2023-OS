@@ -1,4 +1,11 @@
 #include <types.h>
+#include <print.h>
+#include <printk.h>
+
+typedef struct {
+	char arr[10086];
+	int len;
+} mydata;
 
 void *memcpy(void *dst, const void *src, size_t n) {
 	void *dstaddr = dst;
@@ -94,4 +101,37 @@ int strcmp(const char *p, const char *q) {
 	}
 
 	return 0;
+}
+
+void myoutputk(void* data, const char *buf, size_t len) {
+	mydata * tmp = (mydata*) data;
+	int lenth = tmp->len;
+	//printk("myout:%s\n",buf);
+	for (int i = 0; i < len; i++) {
+		tmp->arr[i+lenth]=buf[i];
+	}
+	tmp->len = lenth+len;
+}
+
+int sprintf(char *buf, const char *fmt, ...)
+{
+	mydata ans;
+       	ans.len  = 0;
+	for (int i = 0; i< 10086;i++)
+       	{
+		ans.arr[i] = 0;	
+	}
+	va_list ap;
+	va_start(ap, fmt);
+	vprintfmt(myoutputk, (void*)&ans, fmt, ap);
+	va_end(ap);
+	//printk("test:%s\n", ans.arr);
+	for (int i = 0;i<ans.len;i++)
+	{
+		buf[i] = ans.arr[i];
+	}
+	buf[ans.len]=0;
+	//printk("len:%d\n",ans.len);
+	//printk("testbuf:%s\n",buf);
+	return ans.len;
 }

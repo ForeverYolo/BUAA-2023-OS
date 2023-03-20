@@ -1,5 +1,5 @@
 #include <print.h>
-
+#include <string.h>
 /* forward declaration */
 static void print_char(fmt_callback_t, void *, char, int, int);
 static void print_str(fmt_callback_t, void *, const char *, int, int);
