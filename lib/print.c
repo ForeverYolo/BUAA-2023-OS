@@ -80,6 +80,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 			} else {
 				num = va_arg(ap, int);
 			}
+			neg_flag = 0;
 			if(num < 0)
 			{
 				neg_flag = 1;
