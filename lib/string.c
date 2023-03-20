@@ -131,7 +131,12 @@ int sprintf(char *buf, const char *fmt, ...)
 		buf[i] = ans.arr[i];
 	}
 	buf[ans.len]=0;
+	int count = 0;
+	int i = 0;
+	while(ans.arr[i]!=0) {
+		i++;
+	}
 	//printk("len:%d\n",ans.len);
 	//printk("testbuf:%s\n",buf);
-	return ans.len;
+	return i;
 }
