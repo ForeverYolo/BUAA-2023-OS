@@ -9,7 +9,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 	char c;
 	const char *s;
 	long num;
-
+	
 	int width;
 	int long_flag; // output is long (rather than int)
 	int neg_flag;  // output is negative
@@ -57,9 +57,37 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 			long_flag = 1;
 			fmt++;
 		}
-
+		
+		
 		neg_flag = 0;
 		switch (*fmt) {
+		case 'R':
+			print_char(out, data, '(', 0, 0);
+			if (long_flag) {
+				num = va_arg(ap, long int);
+			} else {
+				num = va_arg(ap, int);
+			}
+			if(num < 0)
+			{
+				neg_flag = 1;
+				num = -num;
+			}
+			print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
+			print_char(out, data, ',', 0, 0);
+			if (long_flag) {
+				num = va_arg(ap, long int);
+			} else {
+				num = va_arg(ap, int);
+			}
+			if(num < 0)
+			{
+				neg_flag = 1;
+				num = -num;
+			}
+			print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
+			print_char(out, data, ')', 0, 0);
+			break;
 		case 'b':
 			if (long_flag) {
 				num = va_arg(ap, long int);
