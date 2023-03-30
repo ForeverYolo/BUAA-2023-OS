@@ -36,7 +36,7 @@ void schedule(int yield) {
 	 */
 	/* Exercise 3.12: Your code here. */
 	//printk("2\n");
-	/*if ( count <= 0 || e == NULL || e->env_status != ENV_RUNNABLE || yield )
+	if ( count <= 0 || e == NULL || e->env_status != ENV_RUNNABLE || yield )
 	{
 		if ( e != NULL )
 		{
@@ -58,7 +58,7 @@ void schedule(int yield) {
 		}		
 	}
 	count--;
-	env_run(e);*/ 
+	env_run(e); 
 	/*if (yield || count <= 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
 		if ( e != NULL && e->env_status == ENV_RUNNABLE )
 		{
@@ -74,7 +74,7 @@ void schedule(int yield) {
 	} else {
 		count--;
 	}*/
-	if(yield != 0 || count == 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
+	/*if(yield != 0 || count == 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
 		if (TAILQ_EMPTY(&env_sched_list)) {
 			panic("error in schedule");
 		}
@@ -91,5 +91,5 @@ void schedule(int yield) {
 		count = e->env_pri;
 	}
 	count--;
-	env_run(e);
+	env_run(e);*/
 }
