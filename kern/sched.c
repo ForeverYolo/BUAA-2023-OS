@@ -35,5 +35,43 @@ void schedule(int yield) {
 	 *   'TAILQ_FIRST', 'TAILQ_REMOVE', 'TAILQ_INSERT_TAIL'
 	 */
 	/* Exercise 3.12: Your code here. */
-
+	//printk("2\n");
+	if ( count == 0 || e == NULL || e->env_status != ENV_RUNNABLE || yield != 0 )
+	{
+		if ( e != NULL )
+		{
+			TAILQ_REMOVE(&env_sched_list,e,env_sched_link);
+			if (e->env_status == ENV_RUNNABLE)
+		       	{
+				TAILQ_INSERT_TAIL(&env_sched_list,e,env_sched_link);
+			}
+		}
+		if ( !TAILQ_EMPTY(&env_sched_list) )
+		{
+			//printk("1");
+			e = TAILQ_FIRST(&env_sched_list);
+			count = e->env_pri;
+		} 
+		else
+		{
+			panic("empty env_sched_list");
+		}		
+	}
+	count--;
+	env_run(e);	
+	//if (yield || count <= 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
+	//	if ( e != NULL && e->env_status == ENV_RUNNABLE )
+	//	{
+	//		TAILQ_REMOVE(&env_sched_list, e, env_sched_link);
+	//		TAILQ_INSERT_TAIL(&env_sched_list, e, env_sched_link);
+	//	}
+	//	e = TAILQ_FIRST(&env_sched_list);
+	//	if (e == NULL) {
+	//		panic("Error!");
+	//	}
+	//	count = e->env_pri;
+	//	env_run(e);
+	//} else {
+	//	count--;
+	//}
 }
