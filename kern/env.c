@@ -257,7 +257,9 @@ int env_alloc(struct Env **new, u_int parent_id) {
 	e->env_runs = 0;	       // for lab6
 	/* Exercise 3.4: Your code here. (3/4) */
 	e->env_id = mkenvid(e);
-	asid_alloc(&(e->env_asid));
+	if ( (r=asid_alloc(&(e->env_asid)))!= 0) {
+		return r;
+	}
 	e->env_parent_id = parent_id;
 	/* Step 4: Initialize the sp and 'cp0_status' in 'e->env_tf'. */
 	// Timer interrupt (STATUS_IM4) will be enabled.

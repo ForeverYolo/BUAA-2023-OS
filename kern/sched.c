@@ -36,7 +36,7 @@ void schedule(int yield) {
 	 */
 	/* Exercise 3.12: Your code here. */
 	//printk("2\n");
-	if ( count == 0 || e == NULL || e->env_status != ENV_RUNNABLE || yield != 0 )
+	/*if ( count <= 0 || e == NULL || e->env_status != ENV_RUNNABLE || yield )
 	{
 		if ( e != NULL )
 		{
@@ -54,24 +54,42 @@ void schedule(int yield) {
 		} 
 		else
 		{
-			panic("empty env_sched_list");
+			panic("schedule: no runnable envs");
 		}		
 	}
 	count--;
-	env_run(e);	
-	//if (yield || count <= 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
-	//	if ( e != NULL && e->env_status == ENV_RUNNABLE )
-	//	{
-	//		TAILQ_REMOVE(&env_sched_list, e, env_sched_link);
-	//		TAILQ_INSERT_TAIL(&env_sched_list, e, env_sched_link);
-	//	}
-	//	e = TAILQ_FIRST(&env_sched_list);
-	//	if (e == NULL) {
-	//		panic("Error!");
-	//	}
-	//	count = e->env_pri;
-	//	env_run(e);
-	//} else {
-	//	count--;
-	//}
+	env_run(e);*/ 
+	/*if (yield || count <= 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
+		if ( e != NULL && e->env_status == ENV_RUNNABLE )
+		{
+			TAILQ_REMOVE(&env_sched_list, e, env_sched_link);
+			TAILQ_INSERT_TAIL(&env_sched_list, e, env_sched_link);
+		}
+		e = TAILQ_FIRST(&env_sched_list);
+		if (e == NULL) {
+			panic("Error!");
+		}
+		count = e->env_pri;
+		env_run(e);
+	} else {
+		count--;
+	}*/
+	if(yield != 0 || count == 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
+		if (TAILQ_EMPTY(&env_sched_list)) {
+			panic("error in schedule");
+		}
+		if (e != NULL) {
+			if (e->env_status == ENV_RUNNABLE) {
+				TAILQ_INSERT_TAIL(&env_sched_list, e, env_sched_link);
+			}
+		}
+		e = TAILQ_FIRST(&env_sched_list);
+		if (e == NULL) {
+			panic("error in schedule");
+		}
+		TAILQ_REMOVE(&env_sched_list, e, env_sched_link);
+		count = e->env_pri;
+	}
+	count--;
+	env_run(e);
 }
