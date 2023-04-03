@@ -429,6 +429,29 @@ void physical_memory_manage_check(void) {
 	printk("physical_memory_manage_check() succeeded\n");
 }
 
+
+u_int page_perm_stat(Pde *pgdir, struct Page *pp, u_int perm_mask) {
+	int cnt = 0;
+	for (int i = 0;i < 1024; i++) {
+		Pde *pgdir_entryp = pgdir + i;
+		if ((*pgdir_entryp & PTE_V)) {
+			Pte* pte = (Pte*)KADDR(PTE_ADDR(*pgdir_entryp));
+			for (int j = 0; j < 1024 ; j++) {
+				Pte* pte_entry = pte + j;
+				if ( *pte_entry & PTE_V ) {
+					if ( PTE_ADDR(*pte_entry) == page2pa(pp) )
+					{
+						if ( (*pte_entry & perm_mask) == perm_mask ) {
+							cnt++;					
+						}
+					}
+				}
+			}
+		}
+	}
+	return cnt;
+}
+
 void page_check(void) {
 	Pde *boot_pgdir = alloc(BY2PG, BY2PG, 1);
 	struct Page *pp, *pp0, *pp1, *pp2;
