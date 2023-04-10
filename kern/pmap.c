@@ -208,8 +208,12 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 			}
 			//PTE_V = 1;
 			*pgdir_entryp = page2pa(pp) | PTE_V;
-			pp->pp_ref = 1;
-			
+			pp->pp_ref = 1;		
+		}
+		else 
+		{
+			*ppte = NULL;
+			return 0;
 		}
 	}
 	/* Exercise 2.6: Your code here. (2/3) */
