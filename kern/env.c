@@ -112,7 +112,15 @@ u_int mkenvid(struct Env *e) {
  */
 int envid2env(u_int envid, struct Env **penv, int checkperm) {
 	struct Env *e;
-
+	
+	if (envid == 0)
+	{
+		e = curenv;
+	}
+	else
+	{
+		e  = &envs[ENVX(envid)];
+	}
 	/* Step 1: Assign value to 'e' using 'envid'. */
 	/* Hint:
 	 *   If envid is zero, set 'penv' to 'curenv'.
@@ -131,7 +139,13 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
 	 *   If violated, return '-E_BAD_ENV'.
 	 */
 	/* Exercise 4.3: Your code here. (2/2) */
-
+	if (checkperm) 
+	{
+		if (e != curenv && e->env_parent_id != curenv->env_id)
+		{
+			return -E_BAD_ENV;
+		}
+	}
 	/* Step 3: Assign 'e' to '*penv'. */
 	*penv = e;
 	return 0;
