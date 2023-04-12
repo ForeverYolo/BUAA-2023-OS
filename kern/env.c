@@ -115,7 +115,8 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
 	
 	if (envid == 0)
 	{
-		e = curenv;
+		*penv = curenv;
+		return 0;
 	}
 	else
 	{
@@ -139,12 +140,10 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
 	 *   If violated, return '-E_BAD_ENV'.
 	 */
 	/* Exercise 4.3: Your code here. (2/2) */
-	if (checkperm) 
+	if (checkperm != 0 && e != curenv && curenv->env_id != e->env_parent_id) 
 	{
-		if (e != curenv && e->env_parent_id != curenv->env_id)
-		{
-			return -E_BAD_ENV;
-		}
+		*penv = NULL;
+		return -E_BAD_ENV;
 	}
 	/* Step 3: Assign 'e' to '*penv'. */
 	*penv = e;

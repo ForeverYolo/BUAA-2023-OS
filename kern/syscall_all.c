@@ -98,6 +98,7 @@ int sys_set_tlb_mod_entry(u_int envid, u_int func) {
 	/* Exercise 4.12: Your code here. (1/2) */
 	if ( (ret = envid2env(envid,&env,1)) < 0 )
 	{
+		printk("好像envid2env寄了?\n");
 		return ret;
 	}	
 	/* Step 2: Set its 'env_user_tlb_mod_entry' to 'func'. */
@@ -269,6 +270,7 @@ int sys_exofork(void) {
 	/* Step 2: Copy the current Trapframe below 'KSTACKTOP' to the new env's 'env_tf'. */
 	/* Exercise 4.9: Your code here. (2/4) */
 	e->env_tf = *((struct Trapframe *)KSTACKTOP - 1);
+	//memcpy(&(e->env_tf),(void*)((struct Trapframe *)KSTACKTOP - 1),sizeof(struct Trapframe));
 	/* Step 3: Set the new env's 'env_tf.regs[2]' to 0 to indicate the return value in child. */
 	/* Exercise 4.9: Your code here. (3/4) */
 	e->env_tf.regs[2] = 0;

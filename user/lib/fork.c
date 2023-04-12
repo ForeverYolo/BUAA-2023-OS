@@ -22,25 +22,31 @@ static void __attribute__((noreturn)) cow_entry(struct Trapframe *tf) {
 	 * 'PTE_COW', launch a 'user_panic'. */
 	/* Exercise 4.13: Your code here. (1/6) */
 	perm = *(vpt+VPN(va)) & 0xfff;
+	//debugf("perm:%d",perm);
 	if ( (perm & PTE_COW) == 0) 
 	{
 		user_panic("pgfault err: COW not found");
 	}
 	/* Step 2: Remove 'PTE_COW' from the 'perm', and add 'PTE_D' to it. */
 	/* Exercise 4.13: Your code here. (2/6) */
+	//debugf("perm赋值\n");
 	perm = (perm & ~PTE_COW) | PTE_D;
 	/* Step 3: Allocate a new page at 'UCOW'. */
 	/* Exercise 4.13: Your code here. (3/6) */
+	//debugf("syscall_mem_alloc\n");
 	syscall_mem_alloc(0,(void*)UCOW,perm);
 	/* Step 4: Copy the content of the faulting page at 'va' to 'UCOW'. */
 	/* Hint: 'va' may not be aligned to a page! */
 	/* Exercise 4.13: Your code here. (4/6) */
+	//debugf("memcpy\n");
 	memcpy((void*)UCOW,(void*)ROUNDDOWN(va,BY2PG),BY2PG);
 	// Step 5: Map the page at 'UCOW' to 'va' with the new 'perm'.
 	/* Exercise 4.13: Your code here. (5/6) */
+	//debugf("syscall_mem_map\n");
 	syscall_mem_map(0,(void*)UCOW,0,(void*)va,perm);
 	// Step 6: Unmap the page at 'UCOW'.
 	/* Exercise 4.13: Your code here. (6/6) */
+	//debugf("syscall_mem_unmap\n");
 	syscall_mem_unmap(0,(void*)UCOW);
 	// Step 7: Return to the faulting routine.
 	int r = syscall_set_trapframe(0, tf);
@@ -111,16 +117,20 @@ int fork(void) {
 	u_int child;
 	u_int i;
 	extern volatile struct Env *env;
-
-	/* Step 1: Set our TLB Mod user exception entry to 'cow_entry' if not done yet. */
-	if (env->env_user_tlb_mod_entry != (u_int)cow_entry) {
+	//debugf("我进来了！\n");
+	/* step 1: Set our TLB Mod user exception entry to 'cow_entry' if not done yet. */
+	if (env->env_user_tlb_mod_entry != (u_int)cow_entry) 
+	{	
+		//debugf("我尝试了\n");
 		try(syscall_set_tlb_mod_entry(0, cow_entry));
 	}
 
 	/* Step 2: Create a child env that's not ready to be scheduled. */
 	// Hint: 'env' should always point to the current env itself, so we should fix it to the
 	// correct value.
+	//debugf("%d\n",child);
 	child = syscall_exofork();
+	//debugf("%d\n",child);
 	if (child == 0) {
 		env = envs + ENVX(syscall_getenvid());
 		return 0;
