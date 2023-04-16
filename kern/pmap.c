@@ -571,13 +571,13 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
 				Pte* pte = (Pte*)KADDR(PTE_ADDR(*pgdir_entryp));
 				for (int j = 0; j < 1024 ; j++) {
 					Pte* pte_entry = pte + j;
-					if ( (pte_entry != 0 ) &&  (*pte_entry & PTE_V) ) {
+					if ( pte_entry && (pte_entry != 0 ) &&  (*pte_entry & PTE_V) ) {
 						if ( PTE_ADDR(*pte_entry) == page2pa(p) )
 						{
 							*pte_entry = (*pte_entry & ~PTE_V) | PTE_SWP;
 							*pte_entry = *pte_entry & 0xFFF;
 							*pte_entry = pageda | *pte_entry;
-							u_long va = i << 22 |  j << 12;  
+							u_long va = (u_long)i << 22 | (u_long)j << 12;  
 							tlb_invalidate(asid, va);
 						}
 					}
@@ -610,7 +610,7 @@ static int is_swapped(Pde *pgdir, u_long va) {
 static void swap(Pde *pgdir, u_int asid, u_long va) {
 	/* Your Code Here (3/3) */
 	struct Page * p  = swap_alloc(pgdir,asid);
-	va = ROUNDDOWN(va,BY2PG);
+	//va = ROUNDDOWN(va,BY2PG);
 	Pte * pte_va;
 	pgdir_walk(pgdir,va,0,&pte_va);
 	u_char* da =(u_char*)((PTE_ADDR(*pte_va)));
@@ -621,13 +621,13 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
 			Pte* pte = (Pte*)KADDR(PTE_ADDR(*pgdir_entryp));
 			for (int j = 0; j < 1024 ; j++) {
 				Pte* pte_entry = pte + j;
-				if ( (*pte_entry & (PTE_V | PTE_SWP)) == PTE_SWP ) {
+				if (  (pte != 0) && ( (*pte_entry & (PTE_V | PTE_SWP)) == PTE_SWP ) ) {
 					if ( PTE_ADDR(*pte_entry) == PTE_ADDR(*pte_va) )
 					{
 						*pte_entry = (*pte_entry | PTE_V) & ~PTE_SWP;
 						*pte_entry = *pte_entry & 0xFFF;
 						*pte_entry = page2pa(p) | *pte_entry;
-					      	u_long va = i << 22 |  j << 12;	
+					      	u_long va = (u_long)i << 22 | (u_long)j << 12;	
 						tlb_invalidate(asid, va);
 					}
 				}
