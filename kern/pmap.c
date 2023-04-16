@@ -613,8 +613,8 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
 	//va = ROUNDDOWN(va,BY2PG);
 	Pte * pte_va;
 	pgdir_walk(pgdir,va,0,&pte_va);
-	u_char* da =(u_char*)((PTE_ADDR(*pte_va)));
-	memcpy((void*)page2kva(p),da,BY2PG);
+	u_long da =((PTE_ADDR(*pte_va)));
+	memcpy((void*)page2kva(p),(void *)da,BY2PG);
 	for (int i = 0;i < 1024; i++) {
 		Pde *pgdir_entryp = pgdir + i;
 		if ( (pgdir_entryp != 0) && (*pgdir_entryp & PTE_V)) {
@@ -634,7 +634,7 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
 			}
 		}
 	}
-	disk_free(da);
+	disk_free((u_char*) da);
 }
 
 Pte swap_lookup(Pde *pgdir, u_int asid, u_long va) {
