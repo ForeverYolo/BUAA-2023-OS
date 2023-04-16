@@ -576,7 +576,7 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
 						{
 							*pte_entry = (*pte_entry & ~PTE_V) | PTE_SWP;
 							*pte_entry = *pte_entry & 0xFFF;
-							*pte_entry = pageda | *pte_entry;
+							*pte_entry = (Pte)(pageda | *pte_entry);
 							u_long va = (u_long)i << 22 | (u_long)j << 12;  
 							tlb_invalidate(asid, va);
 						}
@@ -626,7 +626,7 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
 					{
 						*pte_entry = (*pte_entry | PTE_V) & ~PTE_SWP;
 						*pte_entry = *pte_entry & 0xFFF;
-						*pte_entry = page2pa(p) | *pte_entry;
+						*pte_entry = (Pte)(page2pa(p) | *pte_entry);
 					      	u_long va = (u_long)i << 22 | (u_long)j << 12;	
 						tlb_invalidate(asid, va);
 					}
