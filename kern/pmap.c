@@ -610,7 +610,7 @@ static int is_swapped(Pde *pgdir, u_long va) {
 static void swap(Pde *pgdir, u_int asid, u_long va) {
 	/* Your Code Here (3/3) */
 	struct Page * p  = swap_alloc(pgdir,asid);
-	va = ROUNDDOWN(va,BY2PG);
+	//va = ROUNDDOWN(va,BY2PG);
 	Pte * pte_va;
 	pgdir_walk(pgdir,va,0,&pte_va);
 	u_char* da =(u_char*)((PTE_ADDR(*pte_va) >> 12) * BY2PG);
