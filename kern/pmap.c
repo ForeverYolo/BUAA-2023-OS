@@ -601,7 +601,7 @@ static int is_swapped(Pde *pgdir, u_long va) {
 	Pte *pte;
 	/* Step 1: Get corresponding page table entry. */
 	pgdir_walk(pgdir, va, 0, &pte);
-	if (pte && (*pte & (PTE_SWP | PTE_V)) == PTE_SWP) {
+	if (pte && (*pte & PTE_SWP)) {
 		return 1;
 	}
 	return 0;
