@@ -564,7 +564,7 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
 		int pa = 0x3900000;
 	       	struct Page * p = pa2page(pa);
 		u_char * da = disk_alloc();
-		u_int pageda = ((u_int)da / BY2PG) << 12;
+		u_long pageda = ((u_long)da / BY2PG) << 12;
 		for (int i = 0;i < 1024; i++) {
 			Pde *pgdir_entryp = pgdir + i;
 			if ((*pgdir_entryp & PTE_V)) {
@@ -577,7 +577,7 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
 							*pte_entry = (*pte_entry & ~PTE_V) | PTE_SWP;
 							*pte_entry = *pte_entry & 0xFFF;
 							*pte_entry = pageda | *pte_entry;
-							u_int va = i << 22 |  j << 12;  
+							u_long va = i << 22 |  j << 12;  
 							tlb_invalidate(asid, va);
 						}
 					}
@@ -610,10 +610,10 @@ static int is_swapped(Pde *pgdir, u_long va) {
 static void swap(Pde *pgdir, u_int asid, u_long va) {
 	/* Your Code Here (3/3) */
 	struct Page * p  = swap_alloc(pgdir,asid);
-	//va = ROUNDDOWN(va,BY2PG);
+	va = ROUNDDOWN(va,BY2PG);
 	Pte * pte_va;
 	pgdir_walk(pgdir,va,0,&pte_va);
-	u_char* da =(u_char*)((PTE_ADDR(*pte_va) >> 12) * BY2PG);
+	u_char* da =(u_char*)((PTE_ADDR(*pte_va)));
 	memcpy((void*)page2kva(p),da,BY2PG);
 	for (int i = 0;i < 1024; i++) {
 		Pde *pgdir_entryp = pgdir + i;
@@ -627,7 +627,7 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
 						*pte_entry = (*pte_entry | PTE_V) & ~PTE_SWP;
 						*pte_entry = *pte_entry & 0xFFF;
 						*pte_entry = page2pa(p) | *pte_entry;
-					      	u_int va = i << 22 |  j << 12;	
+					      	u_long va = i << 22 |  j << 12;	
 						tlb_invalidate(asid, va);
 					}
 				}
