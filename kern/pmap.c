@@ -561,8 +561,9 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
 	// Step 1: Ensure free page
 	if (LIST_EMPTY(&page_free_swapable_list)) {
 		/* Your Code Here (1/3) */
+		int pagecnt = asid % 16;
 		int pa = 0x3900000;
-	       	struct Page * p = pa2page(pa);
+	       	struct Page * p = pa2page(pa) + pagecnt;
 		u_char * da = disk_alloc();
 		u_long pageda = ((u_long)da / BY2PG) << 12;
 		for (int i = 0;i < 1024; i++) {
