@@ -622,7 +622,7 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
 			for (int j = 0; j < 1024 ; j++) {
 				Pte* pte_entry = pte + j;
 				if (  (pte != 0) && ( (*pte_entry & (PTE_V | PTE_SWP)) == PTE_SWP ) ) {
-					if ( PTE_ADDR(*pte_entry) == PTE_ADDR(*pte_va) )
+					if ( PTE_ADDR(*pte_entry) == da )
 					{
 						*pte_entry = (*pte_entry | PTE_V) & ~PTE_SWP;
 						*pte_entry = *pte_entry & 0xFFF;

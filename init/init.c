@@ -13,7 +13,8 @@
 
 void mips_init() {
 	printk("init.c:\tmips_init() is called\n");
-
+	printk("%d\n",sizeof(u_long));
+	printk("%d\n",sizeof(u_int));
 	// lab2:
 	// mips_detect_memory();
 	// mips_vm_init();
