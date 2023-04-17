@@ -17,6 +17,19 @@
 void schedule(int yield) {
 	static int count = 0; // remaining time slices of current env
 	struct Env *e = curenv;
+	static int user_time[5];
+	int avaiable_user[5];
+	for (int i = 0 ;i < 5;i++)
+	{
+		avaiable_user[i] = 0;
+	}
+	int avaiable_count = 0;
+	struct Env * nowEnv;
+	TAILQ_FOREACH(nowEnv,&env_sched_list,env_sched_link)
+	{
+		avaiable_user[nowEnv->env_user]++;
+	}
+	
 
 	/* We always decrease the 'count' by 1.
 	 *
@@ -65,11 +78,38 @@ void schedule(int yield) {
 		{
 			TAILQ_REMOVE(&env_sched_list,e,env_sched_link);
 			TAILQ_INSERT_TAIL(&env_sched_list,e,env_sched_link);
+			user_time[e->env_user] += e->env_pri;
 		}
 		if ( !TAILQ_EMPTY(&env_sched_list) )
 		{
 			//printk("1");
-			e = TAILQ_FIRST(&env_sched_list);
+			int targetUser = 100;
+			int targetTimeUsed = 99999999;
+			for (int i = 0 ; i < 5 ; i++ )
+			{
+				if ( avaiable_user[i] !=0 )
+				{
+					if ( user_time[i] < targetTimeUsed )
+					{
+						targetUser = i;
+						targetTimeUsed = user_time[i];
+					}
+					else if (user_time[i] == targetTimeUsed)
+					{
+						if ( i < targetUser)
+						{
+							targetUser = i;
+						}
+					}
+				}
+			}
+			TAILQ_FOREACH(nowEnv,&env_sched_list,env_sched_link)
+			{
+				if (nowEnv -> env_user == targetUser )
+				{
+					e = nowEnv;
+				}
+			}
 			count = e->env_pri;
 		} 
 		else
