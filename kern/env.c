@@ -161,7 +161,16 @@ void env_init(void) {
 	{
 		LIST_INSERT_HEAD(&env_free_list,&envs[i],env_link);
 		envs[i].env_status = ENV_FREE;
+	//	envs[i].env_id = i;
 	}
+	//printk("开始遍历\n");
+	//struct Env * nowEnv;
+	//int kk = 0;
+	//LIST_FOREACH(nowEnv,&env_free_list,env_link)
+	//{	
+	//	kk++;
+	//	printk("当前PCB id:%d\n",nowEnv->env_id);
+	//}
 	/*
 	 * We want to map 'UPAGES' and 'UENVS' to *every* user space with PTE_G permission (without
 	 * PTE_D), then user programs can read (but cannot write) kernel data structures 'pages' and
