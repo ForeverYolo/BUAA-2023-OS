@@ -84,12 +84,12 @@ void schedule(int yield) {
 		{
 			//printk("1");
 			int targetUser = 100;
-			int targetTimeUsed = 99999999;
+			int targetTimeUsed = -1;
 			for (int i = 0 ; i < 5 ; i++ )
 			{
 				if ( avaiable_user[i] !=0 )
 				{
-					if ( user_time[i] < targetTimeUsed )
+					if ( user_time[i] < targetTimeUsed || targetTimeUsed == -1 )
 					{
 						targetUser = i;
 						targetTimeUsed = user_time[i];
@@ -108,6 +108,7 @@ void schedule(int yield) {
 				if (nowEnv -> env_user == targetUser )
 				{
 					e = nowEnv;
+					break;
 				}
 			}
 			count = e->env_pri;
