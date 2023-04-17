@@ -36,7 +36,8 @@ struct Env {
 	u_int env_user_tlb_mod_entry; // user tlb mod handler
 
 	// Lab 6 scheduler counts
-	u_int env_runs; // number of times been env_run'ed
+	u_int env_runs; // number of times been env_run'id
+	u_int env_ov_cnt;
 };
 
 LIST_HEAD(Env_list, Env);
