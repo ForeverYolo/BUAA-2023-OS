@@ -98,7 +98,7 @@ int sys_set_tlb_mod_entry(u_int envid, u_int func) {
 	/* Exercise 4.12: Your code here. (1/2) */
 	if ( (ret = envid2env(envid,&env,1)) < 0 )
 	{
-		printk("好像envid2env寄了?\n");
+		//printk("好像envid2env寄了?\n");
 		return ret;
 	}	
 	/* Step 2: Set its 'env_user_tlb_mod_entry' to 'func'. */
