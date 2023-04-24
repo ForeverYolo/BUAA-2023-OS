@@ -1,0 +1,482 @@
+gxemul -T -C R3000 -M 64 -E testmips  target/mos
+GXemul 0.7.0+dfsg    Copyright (C) 2003-2021  Anders Gavare
+Read the source code and/or documentation for other Copyright messages.
+
+net: 
+    simulated network: 
+        10.0.0.0/8 (max outgoing: TCP=100, UDP=100)
+        gateway+nameserver: 10.0.0.254 (60:50:40:30:20:10)
+        nameserver uses real nameserver 202.112.128.51
+machine: 
+    model: MIPS test machine
+    cpu: R3000 (32-bit, I+D = 4+4 KB, L2 = 0 KB)
+    memory: 64 MB
+    file: loading target/mos
+    cpu0: starting at 0x800118d0 <_start>
+-------------------------------------------------------------------------------
+
+init.c:	mips_init() is called
+Memory size: 65536 KiB, number of pages: 16384
+to memory 80430000 for struct Pages.
+pmap.c:	 mips vm init success
+b816: srv up, pvt is b816
+a814: srv up, pvt is b816
+9812: srv up, pvt is b816
+8810: srv up, pvt is b816
+780e: srv up, pvt is b816
+680c: srv up, pvt is b816
+580a: srv up, pvt is b816
+4808: srv up, pvt is b816
+3005: srv up, pvt is b816
+2804: srv up, pvt is b816
+1802: srv up, pvt is b816
+b015: cli up, pvt is 1001, pvt2 is b816
+b015: sending 1682b to b816
+a013: cli up, pvt is 1001, pvt2 is b816
+a013: sending 15829 to b816
+9011: cli up, pvt is 1001, pvt2 is b816
+9011: sending 14827 to b816
+800f: cli up, pvt is 1001, pvt2 is b816
+800f: sending 13825 to b816
+700d: cli up, pvt is 1001, pvt2 is b816
+700d: sending 12823 to b816
+600b: cli up, pvt is 1001, pvt2 is b816
+600b: sending 11821 to b816
+5009: cli up, pvt is 1001, pvt2 is b816
+5009: sending 1081f to b816
+4007: cli up, pvt is 1001, pvt2 is b816
+4007: sending f81d to b816
+3806: cli up, pvt is 1001, pvt2 is b816
+3806: sending f01c to b816
+2003: cli up, pvt is 1001, pvt2 is b816
+2003: sending d819 to b816
+1001: cli up, pvt is 1001, pvt2 is b816
+1001: sending c817 to b816
+b816: got 1682b from b015
+b015: sending 15829 to a814
+b015: sending 14827 to 9812
+b015: sending 13825 to 8810
+b015: sending 12823 to 780e
+b015: sending 11821 to 680c
+b015: sending 1081f to 580a
+b015: sending f81d to 4808
+b015: sending e01a to 3005
+b015: sending d819 to 2804
+b015: sending c817 to 1802
+a013: sending 14827 to a814
+a814: got 15829 from b015
+9812: got 14827 from b015
+8810: got 13825 from b015
+780e: got 12823 from b015
+680c: got 11821 from b015
+580a: got 1081f from b015
+4808: got f81d from b015
+3005: got e01a from b015
+2804: got d819 from b015
+1802: got c817 from b015
+b816: got 15829 from a013
+a013: sending 13825 to 9812
+a013: sending 12823 to 8810
+a013: sending 11821 to 780e
+a013: sending 1081f to 680c
+a013: sending f81d to 580a
+a013: sending e81b to 4808
+a013: sending d018 to 3005
+a013: sending c817 to 2804
+a013: sending b815 to 1802
+9011: sending 13825 to a814
+a814: got 14827 from a013
+9812: got 13825 from a013
+8810: got 12823 from a013
+780e: got 11821 from a013
+680c: got 1081f from a013
+580a: got f81d from a013
+4808: got e81b from a013
+3005: got d018 from a013
+2804: got c817 from a013
+1802: got b815 from a013
+b816: got 14827 from 9011
+800f: sending 12823 to a814
+a814: got 13825 from 9011
+9011: sending 12823 to 9812
+9011: sending 11821 to 8810
+9011: sending 1081f to 780e
+b816: got 13825 from 800f
+700d: sending 11821 to a814
+9812: got 12823 from 9011
+8810: got 11821 from 9011
+780e: got 1081f from 9011
+9011: sending f81d to 680c
+9011: sending e81b to 580a
+9011: sending d819 to 4808
+9011: sending c016 to 3005
+9011: sending b815 to 2804
+9011: sending a813 to 1802
+a814: got 12823 from 800f
+800f: sending 11821 to 9812
+800f: sending 1081f to 8810
+800f: sending f81d to 780e
+800f: sending e81b to 680c
+b816: got 12823 from 700d
+700d: sending 1081f to 9812
+600b: sending 1081f to a814
+680c: got f81d from 9011
+580a: got e81b from 9011
+4808: got d819 from 9011
+3005: got c016 from 9011
+2804: got b815 from 9011
+1802: got a813 from 9011
+9812: got 11821 from 800f
+8810: got 1081f from 800f
+780e: got f81d from 800f
+800f: sending d819 to 580a
+800f: sending c817 to 4808
+800f: sending b014 to 3005
+800f: sending a813 to 2804
+800f: sending 9811 to 1802
+a814: got 11821 from 700d
+700d: sending f81d to 8810
+700d: sending e81b to 780e
+700d: sending d819 to 680c
+b816: got 11821 from 600b
+600b: sending f81d to 9812
+5009: sending f81d to a814
+680c: got e81b from 800f
+580a: got d819 from 800f
+4808: got c817 from 800f
+3005: got b014 from 800f
+2804: got a813 from 800f
+9812: got 1081f from 700d
+8810: got f81d from 700d
+780e: got e81b from 700d
+700d: sending c817 to 580a
+700d: sending b815 to 4808
+a814: got 1081f from 600b
+600b: sending e81b to 8810
+b816: got 1081f from 5009
+5009: sending e81b to 9812
+4007: sending e81b to a814
+1802: got 9811 from 800f
+680c: got d819 from 700d
+580a: got c817 from 700d
+4808: got b815 from 700d
+700d: sending a012 to 3005
+700d: sending 9811 to 2804
+700d: sending 880f to 1802
+9812: got f81d from 600b
+600b: sending d819 to 780e
+600b: sending c817 to 680c
+600b: sending b815 to 580a
+600b: sending a813 to 4808
+600b: sending 9010 to 3005
+a814: got f81d from 5009
+5009: sending d819 to 8810
+b816: got f81d from 4007
+4007: sending d819 to 9812
+3806: sending e01a to a814
+3005: got a012 from 700d
+2804: got 9811 from 700d
+1802: got 880f from 700d
+8810: got e81b from 600b
+780e: got d819 from 600b
+680c: got c817 from 600b
+580a: got b815 from 600b
+4808: got a813 from 600b
+600b: sending 880f to 2804
+600b: sending 780d to 1802
+9812: got e81b from 5009
+5009: sending c817 to 780e
+5009: sending b815 to 680c
+5009: sending a813 to 580a
+5009: sending 9811 to 4808
+5009: sending 800e to 3005
+a814: got e81b from 4007
+4007: sending c817 to 8810
+b816: got f01c from 3806
+3806: sending d018 to 9812
+2003: sending c817 to a814
+3005: got 9010 from 600b
+2804: got 880f from 600b
+1802: got 780d from 600b
+8810: got d819 from 5009
+780e: got c817 from 5009
+680c: got b815 from 5009
+580a: got a813 from 5009
+4808: got 9811 from 5009
+5009: sending 780d to 2804
+5009: sending 680b to 1802
+9812: got d819 from 4007
+4007: sending b815 to 780e
+a814: got e01a from 3806
+3806: sending c016 to 8810
+b816: got d819 from 2003
+2003: sending b815 to 9812
+1001: sending b815 to a814
+2804: got 780d from 5009
+1802: got 680b from 5009
+8810: got c817 from 4007
+780e: got b815 from 4007
+4007: sending a813 to 680c
+9812: got d018 from 3806
+3806: sending b014 to 780e
+3806: sending a012 to 680c
+a814: got c817 from 2003
+2003: sending a813 to 8810
+b816: got c817 from 1001
+1001: sending a813 to 9812
+3005: got 800e from 5009
+680c: got a813 from 4007
+4007: sending 9811 to 580a
+8810: got c016 from 3806
+780e: got b014 from 3806
+3806: sending 9010 to 580a
+9812: got b815 from 2003
+2003: sending 9811 to 780e
+2003: sending 880f to 680c
+a814: got b815 from 1001
+1001: sending 9811 to 8810
+580a: got 9811 from 4007
+4007: sending 880f to 4808
+4007: sending 700c to 3005
+4007: sending 680b to 2804
+4007: sending 5809 to 1802
+680c: got a012 from 3806
+3806: sending 800e to 4808
+8810: got a813 from 2003
+780e: got 9811 from 2003
+2003: sending 780d to 580a
+9812: got a813 from 1001
+1001: sending 880f to 780e
+1001: sending 780d to 680c
+4808: got 880f from 4007
+3005: got 700c from 4007
+2804: got 680b from 4007
+1802: got 5809 from 4007
+580a: got 9010 from 3806
+3806: sending 680b to 3005
+3806: sending 600a to 2804
+3806: sending 5008 to 1802
+680c: got 880f from 2003
+2003: sending 680b to 4808
+8810: got 9811 from 1001
+780e: got 880f from 1001
+1001: sending 680b to 580a
+4808: got 800e from 3806
+3005: got 680b from 3806
+2804: got 600a from 3806
+1802: got 5008 from 3806
+580a: got 780d from 2003
+680c: got 780d from 1001
+1001: sending 5809 to 4808
+4808: got 680b from 2003
+2003: sending 5008 to 3005
+2003: sending 4807 to 2804
+2003: sending 3805 to 1802
+580a: got 680b from 1001
+2804: got 4807 from 2003
+1802: got 3805 from 2003
+1001: sending 4006 to 3005
+3005: got 5008 from 2003
+4808: got 5809 from 1001
+1001: sending 3805 to 2804
+1001: sending 2803 to 1802
+3005: got 4006 from 1001
+2804: got 3805 from 1001
+1802: got 2803 from 1001
+[0000a814] destroying 0000a814
+[0000a814] free env 0000a814
+i am killed ... 
+b015: got 22041 from b816
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+a013: got 2103f from b816
+9011: got 2003d from b816
+[00009812] destroying 00009812
+[00009812] free env 00009812
+i am killed ... 
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+b015: got 22041 from b816
+[00008810] destroying 00008810
+[00008810] free env 00008810
+i am killed ... 
+b015: got 22041 from b816
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+[0000780e] destroying 0000780e
+[0000780e] free env 0000780e
+i am killed ... 
+b015: got 22041 from b816
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+b015: got 22041 from b816
+a013: got 2103f from b816
+[0000680c] destroying 0000680c
+[0000680c] free env 0000680c
+i am killed ... 
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+[0000580a] destroying 0000580a
+[0000580a] free env 0000580a
+i am killed ... 
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+b015: got 22041 from b816
+[00004808] destroying 00004808
+[00004808] free env 00004808
+i am killed ... 
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+b015: got 22041 from b816
+[00003005] destroying 00003005
+[00003005] free env 00003005
+i am killed ... 
+b015: got 22041 from b816
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+b015: got 22041 from b816
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+[00002804] destroying 00002804
+[00002804] free env 00002804
+i am killed ... 
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+[00001802] destroying 00001802
+[00001802] free env 00001802
+i am killed ... 
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+3806: got 1a832 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+b015: got 22041 from b816
+a013: got 2103f from b816
+9011: got 2003d from b816
+800f: got 1f03b from b816
+700d: got 1e039 from b816
+600b: got 1d037 from b816
+5009: got 1c035 from b816
+4007: got 1b033 from b816
+2003: got 1902f from b816
+1001: got 1802d from b816
+b015: got 22041 from b816
+3806: got 1a832 from b816
+[0000b015] destroying 0000b015
+[0000b015] free env 0000b015
+i am killed ... 
+1001: got 1702b from b015
+[0000a013] destroying 0000a013
+[0000a013] free env 0000a013
+i am killed ... 
+1001: got 15027 from a013
+[00009011] destroying 00009011
+[00009011] free env 00009011
+i am killed ... 
+1001: got 13023 from 9011
+[0000800f] destroying 0000800f
+[0000800f] free env 0000800f
+i am killed ... 
+1001: got 1101f from 800f
+[0000700d] destroying 0000700d
+[0000700d] free env 0000700d
+i am killed ... 
+1001: got f01b from 700d
+[0000600b] destroying 0000600b
+[0000600b] free env 0000600b
+i am killed ... 
+1001: got d017 from 600b
+[00005009] destroying 00005009
+[00005009] free env 00005009
+i am killed ... 
+1001: got b013 from 5009
+[00004007] destroying 00004007
+[00004007] free env 00004007
+i am killed ... 
+1001: got 900f from 4007
+[00003806] destroying 00003806
+[00003806] free env 00003806
+i am killed ... 
+1001: got 800d from 3806
+[00002003] destroying 00002003
+[00002003] free env 00002003
+i am killed ... 
+1001: got 5007 from 2003
+halt at ppa.h:10: OSTEST_OK
+panic at syscall_all.c:360 (sys_panic): user halt
+ra:    800176f0  sp:  803ffeb0  Status: 0008100c
+Cause: 00001020  EPC: 00401934  BadVA:  004007b0
+curenv:    8003d0dc (id = 0x1001, off = 1)
+cur_pgdir: 83ff0000

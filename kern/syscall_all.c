@@ -368,6 +368,81 @@ void sys_panic(char *msg) {
  *   Return 0 on success.
  *   Return -E_INVAL: 'dstva' is neither 0 nor a legal address.
  */
+
+
+
+int sys_set_gid(u_int gid) {
+	curenv->env_ipc_gid = gid;
+	return 0;
+}
+
+
+int sys_ipc_try_group_send (u_int whom, u_int val, u_int srcva, u_int perm) {
+	struct Env *e;
+	struct Page *p;
+	Pte * ppte;
+	int ret = 0;
+	/* Step 1: Check if 'srcva' is either zero or a legal address. */
+	/* Exercise 4.8: Your code here. (4/8) */
+	if ( srcva != 0 && is_illegal_va(srcva) )
+	{
+		return -E_INVAL;
+	}
+	/* Step 2: Convert 'envid' to 'struct Env *e'. */
+	/* This is the only syscall where the 'envid2env' should be used with 'checkperm' UNSET,
+	 * because the target env is not restricted to 'curenv''s children. */
+	/* Exercise 4.8: Your code here. (5/8) */
+	if ( (ret = envid2env(whom,&e,0)) < 0 )
+	{
+		return ret; 
+	}
+	/* Step 3: Check if the target is waiting for a message. */
+	/* Exercise 4.8: Your code here. (6/8) */
+	if ( e->env_ipc_recving == 0 )
+	{
+		return -E_IPC_NOT_RECV;
+	}
+	if (e->env_ipc_gid != curenv->env_ipc_gid)
+	{
+		return -E_IPC_NOT_GROUP;
+	}
+	/* Step 4: Set the target's ipc fields. */
+	e->env_ipc_value = val;
+	e->env_ipc_from = curenv->env_id;
+	e->env_ipc_perm = PTE_V | perm;
+	e->env_ipc_recving = 0;
+
+	/* Step 5: Set the target's status to 'ENV_RUNNABLE' again and insert it to the tail of
+	 * 'env_sched_list'. */
+	/* Exercise 4.8: Your code here. (7/8) */
+	e->env_status = ENV_RUNNABLE;
+	TAILQ_INSERT_TAIL(&env_sched_list,e,env_sched_link);
+	/* Step 6: If 'srcva' is not zero, map the page at 'srcva' in 'curenv' to 'e->env_ipc_dstva'
+	 * in 'e'. */
+	/* Return -E_INVAL if 'srcva' is not zero and not mapped in 'curenv'. */
+	if (srcva != 0) {
+		/* Exercise 4.8: Your code here. (8/8) */
+		//p = page_lookup(curenv->pgdir,srcva,&ppte);
+		if ( (p = page_lookup(curenv->env_pgdir,srcva,&ppte)) == NULL )
+		{
+			return -E_INVAL;
+		}
+		if ( (ret = page_insert(e->env_pgdir,e->env_asid,p,e->env_ipc_dstva,e->env_ipc_perm)) < 0)
+		{
+			return ret;
+		}	
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
 int sys_ipc_recv(u_int dstva) {
 	/* Step 1: Check if 'dstva' is either zero or a legal address. */
 	if (dstva != 0 && is_illegal_va(dstva)) {
@@ -406,7 +481,7 @@ int sys_ipc_recv(u_int dstva) {
  *   'sys_ipc_recv'.
  *   Return the original error when underlying calls fail.
  */
-int sys_ipc_try_send(u_int envid, u_int value, u_int srcva, u_int perm) {
+int sys_ipc_try_send (u_int envid, u_int value, u_int srcva, u_int perm) {
 	struct Env *e;
 	struct Page *p;
 	Pte * ppte;
@@ -536,6 +611,8 @@ void *syscall_table[MAX_SYSNO] = {
     [SYS_cgetc] = sys_cgetc,
     [SYS_write_dev] = sys_write_dev,
     [SYS_read_dev] = sys_read_dev,
+    [SYS_set_gid] = sys_set_gid,
+    [SYS_ipc_try_group_send] = sys_ipc_try_group_send,
 };
 
 /* Overview:

@@ -267,6 +267,7 @@ int env_alloc(struct Env **new, u_int parent_id) {
 	 *   Use 'mkenvid' to allocate a free envid.
 	 */
 	e->env_user_tlb_mod_entry = 0; // for lab4
+	e->env_ipc_gid = 0;
 	e->env_runs = 0;	       // for lab6
 	/* Exercise 3.4: Your code here. (3/4) */
 	e->env_id = mkenvid(e);
