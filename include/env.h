@@ -54,6 +54,7 @@ int envid2env(u_int envid, struct Env **penv, int checkperm);
 void env_run(struct Env *e) __attribute__((noreturn));
 void enable_irq(void);
 
+struct Env * get_envs();
 void env_check(void);
 void envid2env_check(void);
 

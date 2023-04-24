@@ -74,3 +74,8 @@ int syscall_read_dev(void *va, u_int dev, u_int len) {
 	/* Exercise 5.2: Your code here. (2/2) */
 
 }
+
+int syscall_ipc_try_send_father(u_int value, const void *srcva, u_int perm) {
+	return msyscall(SYS_ipc_try_send_father,value,srcva,perm);
+}
+

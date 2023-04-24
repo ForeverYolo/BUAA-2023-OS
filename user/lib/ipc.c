@@ -4,6 +4,19 @@
 #include <lib.h>
 #include <mmu.h>
 
+
+
+
+
+void ipc_broadcast(u_int val, void * srcva, u_int perm)
+{
+	int r;
+	while ((r = syscall_ipc_try_send_father(val, srcva, perm)) == -E_IPC_NOT_RECV) {
+		syscall_yield();
+	}
+	user_assert(r == 0);
+}
+
 // Send val to whom.  This function keeps trying until
 // it succeeds.  It should panic() on any error other than
 // -E_IPC_NOT_RECV.

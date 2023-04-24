@@ -287,6 +287,9 @@ int env_alloc(struct Env **new, u_int parent_id) {
 	return 0;
 }
 
+struct Env * get_envs() {
+	return envs;
+}
 /* Overview:
  *   Load a page into the user address space of an env with permission 'perm'.
  *   If 'src' is not NULL, copy the 'len' bytes from 'src' into 'offset' at this page.
