@@ -496,8 +496,16 @@ int sys_cgetc(void) {
  */
 int sys_write_dev(u_int va, u_int pa, u_int len) {
 	/* Exercise 5.1: Your code here. (1/2) */
-
-	return 0;
+	if ( is_illegal_va_range(va,len) ) {
+		return -E_INVAL;
+	}
+	if ( (pa >= 0x10000000 && pa + len <= 0x10000020) ||
+	     (pa >= 0x13000000 && pa + len <= 0x13004200) ||
+	     (pa >= 0x15000000 && pa + len <= 0x15000200) ) {
+		memcpy( (void *)(pa + 0xA0000000) ,(void *)va , len );
+		return 0;
+	}
+	return -E_INVAL;
 }
 
 /* Overview:
@@ -513,8 +521,16 @@ int sys_write_dev(u_int va, u_int pa, u_int len) {
  */
 int sys_read_dev(u_int va, u_int pa, u_int len) {
 	/* Exercise 5.1: Your code here. (2/2) */
-
-	return 0;
+	if ( is_illegal_va_range(va,len) ) {
+		return -E_INVAL;
+	}
+	if ( (pa >= 0x10000000 && pa + len <= 0x10000020) ||
+	     (pa >= 0x13000000 && pa + len <= 0x13004200) ||
+	     (pa >= 0x15000000 && pa + len <= 0x15000200) ) {
+		memcpy( (void *)va , (void *)(pa + 0xA0000000) , len );
+		return 0;
+	}
+	return -E_INVAL;
 }
 
 void *syscall_table[MAX_SYSNO] = {
