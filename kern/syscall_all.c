@@ -29,7 +29,7 @@ void sys_putchar(int c) {
 }
 
 int sys_sem_init(const char* name,int init_value,int checkperm) {
-	if (sem_count >= 20 ) {
+	if (sem_count >= 10 ) {
 		return -E_NO_SEM;
 	}	
 	int count = 0;
@@ -37,7 +37,7 @@ int sys_sem_init(const char* name,int init_value,int checkperm) {
 		sem_name[sem_count][count] = *(name+count);
 		count++;
 		//printk("%c",sem_name[sem_count][count]);
-	}
+	
 	sem_now_value[sem_count] = init_value;
 	if (checkperm != 0) {
 		sem_perm[sem_count] = curenv->env_id;
