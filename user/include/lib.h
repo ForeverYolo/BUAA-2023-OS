@@ -46,6 +46,20 @@ int fork(void);
 /// syscalls
 extern int msyscall(int, ...);
 
+
+int syscall_sem_init(const char* name,int init_value,int checkperm);
+int syscall_sem_wait(int sem_id);
+int syscall_sem_post(int sem_id);
+int syscall_sem_getvalue(int sem_id);
+int syscall_sem_getid(const char *name);
+
+int sem_init(const char * name, int init_value, int checkperm);
+int sem_wait(int sem_id);
+int sem_post(int sem_id);
+int sem_getvalue(int sem_id);
+int sem_getid(const char *name);
+
+
 void syscall_putchar(int ch);
 int syscall_print_cons(const void *str, u_int num);
 u_int syscall_getenvid(void);

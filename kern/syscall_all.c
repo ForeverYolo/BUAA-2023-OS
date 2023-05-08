@@ -7,7 +7,16 @@
 #include <syscall.h>
 
 extern struct Env *curenv;
+extern struct Env *envs;
 
+char sem_name[50][50];
+int sem_now_value[10];
+int sem_perm[10];
+int sem_count = 0;
+int sem_vaild[10];
+
+int sem_queue[10][64];
+int sem_point[10];
 /* Overview:
  * 	This function is used to print a character on screen.
  *
@@ -17,6 +26,115 @@ extern struct Env *curenv;
 void sys_putchar(int c) {
 	printcharc((char)c);
 	return;
+}
+
+int sys_sem_init(const char* name,int init_value,int checkperm) {
+	if (sem_count >= 10 ) {
+		return -E_NO_SEM;
+	}	
+	int count = 0;
+	while(*(name+count) != 0) {
+		sem_name[sem_count][count] = *(name+count);
+		count++;
+		//printk("%c",sem_name[sem_count][count]);
+	}
+	sem_now_value[sem_count] = init_value;
+	if (checkperm != 0) {
+		sem_perm[sem_count] = curenv->env_id;
+	} else {
+		sem_perm[sem_count] = 0;
+	}
+	sem_vaild[sem_count] = 1;
+	sem_count++;
+	printk("\nsys_sem return\n");
+	return sem_count-1;
+}	
+
+int dfs(struct Env *e, int envid) {
+	//struct Env * envs = get_envs();
+	if (e->env_parent_id == envid || e->env_parent_id == 0) {
+		return e->env_parent_id;
+	}
+	dfs(&envs[ENVX(e->env_parent_id)],envid);
+}
+
+	
+int sys_sem_wait(int sem_id)  {
+	struct Env *e;
+	int ans = 0;
+	if (sem_perm[sem_id] != 0) {
+		ans = dfs(curenv,sem_perm[sem_id]);
+		if (ans != sem_perm[sem_id]) {
+			return -E_NO_SEM;
+		}
+	}
+	
+	if (sem_vaild[sem_id] != 1) {
+		return -E_NO_SEM;
+	}
+
+	if (sem_now_value[sem_id] > 0) {
+		sem_now_value[sem_id]--;
+	} else if (sem_now_value[sem_id] == 0) {
+		int point = sem_point[sem_id];
+		sem_queue[sem_id][point] = curenv->env_id;
+		sem_point[sem_id]++;
+		curenv->env_status = ENV_NOT_RUNNABLE;
+		TAILQ_REMOVE(&env_sched_list,curenv,env_sched_link);
+		schedule(1);
+	}
+	return 0;
+}
+
+int sys_sem_post(int sem_id) {
+	struct Env *e;
+	int ans = 0;
+	if (sem_perm[sem_id] != 0) {
+		ans = dfs(curenv,sem_perm[sem_id]);
+		if (ans != sem_perm[sem_id]) {
+			return -E_NO_SEM;
+		}
+	}
+	
+	if (sem_vaild[sem_id] != 1) {
+		return -E_NO_SEM;
+	}
+
+	if (sem_now_value[sem_id] > 0) {
+		sem_now_value[sem_id]++;
+	} else if (sem_now_value[sem_id] == 0) {
+		int point = sem_point[sem_id];
+		if (point != 0) {
+			point--;
+			int envid = sem_queue[sem_id][point];
+			envid2env(envid,&e,0);
+			e->env_status = ENV_RUNNABLE;
+			TAILQ_INSERT_TAIL(&env_sched_list,e,env_sched_link);
+		} else {
+			sem_now_value[sem_id]++;
+		}
+	}
+
+	return 0;
+}
+
+
+int sys_sem_getvalue(int sem_id) {
+	if (sem_vaild[sem_id] != 1) {
+		return -E_NO_SEM;
+	}
+	return sem_now_value[sem_id];
+}
+
+int sys_sem_getid(const char *name) {
+	int sem_id = -1;
+	for(int i = 0;i < sem_count;i++) {
+		if (strcmp(sem_name[i],name) == 0) {
+			sem_id = i;
+			return sem_id;
+		}
+	}
+	return -E_NO_SEM;
 }
 
 /* Overview:
@@ -536,6 +654,11 @@ void *syscall_table[MAX_SYSNO] = {
     [SYS_cgetc] = sys_cgetc,
     [SYS_write_dev] = sys_write_dev,
     [SYS_read_dev] = sys_read_dev,
+    [SYS_sem_init] = sys_sem_init,
+    [SYS_sem_wait] = sys_sem_wait,
+    [SYS_sem_post] = sys_sem_post,
+    [SYS_sem_getvalue] = sys_sem_getvalue,
+    [SYS_sem_getid] = sys_sem_getid,
 };
 
 /* Overview:

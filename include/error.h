@@ -12,6 +12,7 @@
 // Invalid parameter
 #define E_INVAL 3
 
+#define E_NO_SEM 14
 // Request failed due to memory shortage
 #define E_NO_MEM 4
 

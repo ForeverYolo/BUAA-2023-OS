@@ -17,6 +17,27 @@ void ipc_send(u_int whom, u_int val, const void *srcva, u_int perm) {
 	user_assert(r == 0);
 }
 
+
+int sem_init(const char *name, int init_value, int checkperm) {
+	return syscall_sem_init(name,init_value,checkperm);
+}
+
+int sem_wait(int sem_id) {
+	return syscall_sem_wait(sem_id);
+}
+
+int sem_post(int sem_id) {
+	return syscall_sem_post(sem_id);
+}
+
+int sem_getvalue(int sem_id) {
+	return syscall_sem_getvalue(sem_id);
+}
+
+int sem_getid(const char *name) {
+	return syscall_sem_getid(name);
+}
+
 // Receive a value.  Return the value and store the caller's envid
 // in *whom.
 //
