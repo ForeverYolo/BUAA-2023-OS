@@ -63,9 +63,12 @@ int sys_sem_wait(int sem_id)  {
 	struct Env *e;
 	int ans = 0;
 	if (sem_perm[sem_id] != 0) {
-		ans = dfs(curenv,sem_perm[sem_id]);
+		ans = curenv->env_id;
 		if (ans != sem_perm[sem_id]) {
-			return -E_NO_SEM;
+			ans = dfs(curenv,sem_perm[sem_id]);
+			if (ans != sem_perm[sem_id]) {
+				return -E_NO_SEM;
+			}
 		}
 	}
 	
@@ -90,12 +93,15 @@ int sys_sem_post(int sem_id) {
 	struct Env *e;
 	int ans = 0;
 	if (sem_perm[sem_id] != 0) {
-		ans = dfs(curenv,sem_perm[sem_id]);
+		ans = curenv->env_id;
 		if (ans != sem_perm[sem_id]) {
-			return -E_NO_SEM;
+			ans = dfs(curenv,sem_perm[sem_id]);
+			if (ans != sem_perm[sem_id]) {
+				return -E_NO_SEM;
+			}
 		}
 	}
-	
+
 	if (sem_vaild[sem_id] != 1) {
 		return -E_NO_SEM;
 	}
