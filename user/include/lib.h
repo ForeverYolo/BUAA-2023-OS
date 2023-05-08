@@ -46,6 +46,13 @@ int fork(void);
 /// syscalls
 extern int msyscall(int, ...);
 
+
+void barrier_alloc(int n);
+void barrier_wait();
+void syscall_barrier_alloc(int n);
+void syscall_barrier_wait();
+
+
 void syscall_putchar(int ch);
 int syscall_print_cons(const void *str, u_int num);
 u_int syscall_getenvid(void);

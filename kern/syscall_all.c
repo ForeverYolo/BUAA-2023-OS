@@ -7,7 +7,10 @@
 #include <syscall.h>
 
 extern struct Env *curenv;
-
+int barrier = -1;
+int barrier_mem[100];
+int barrier_father = -1;
+int barrier_point = 0;
 /* Overview:
  * 	This function is used to print a character on screen.
  *
@@ -17,6 +20,37 @@ extern struct Env *curenv;
 void sys_putchar(int c) {
 	printcharc((char)c);
 	return;
+}
+
+void sys_barrier_alloc(int n) {
+	barrier = n;
+	//printk("~~~barrier:%d",barrier);
+	return;
+}
+
+void sys_barrier_wait() {
+	if (barrier == 0) {
+		return;
+	}
+	barrier_mem[barrier_point] = curenv->env_id;
+	//printk("~~~env_id blocked: %d",curenv->env_id);
+	barrier_point++;
+	curenv->env_status = ENV_NOT_RUNNABLE;
+	TAILQ_REMOVE(&env_sched_list,curenv,env_sched_link);
+	barrier--;
+	if (barrier == 0) {
+		for (int i = 0; i< barrier_point;i++) {
+			int envid = barrier_mem[i];
+			struct Env *e;
+			envid2env(envid,&e,0);
+			e->env_status = ENV_RUNNABLE;
+			TAILQ_INSERT_TAIL(&env_sched_list,e,env_sched_link);
+		}
+		return;
+	} else {
+		schedule(1);
+		return;
+	}
 }
 
 /* Overview:
@@ -536,6 +570,8 @@ void *syscall_table[MAX_SYSNO] = {
     [SYS_cgetc] = sys_cgetc,
     [SYS_write_dev] = sys_write_dev,
     [SYS_read_dev] = sys_read_dev,
+    [SYS_barrier_alloc] = sys_barrier_alloc,
+    [SYS_barrier_wait] = sys_barrier_wait,
 };
 
 /* Overview:
