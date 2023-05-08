@@ -1,0 +1,46 @@
+
+user/bare/put_b.b：     文件格式 elf32-tradlittlemips
+user/bare/put_b.b
+
+
+Disassembly of section .text:
+
+00400000 <_start>:
+_start():
+/home/git/21373271/21373271/user/bare/put_b.c:1
+void _start() {
+  400000:	27bdfff0 	addiu	sp,sp,-16
+  400004:	afbe000c 	sw	s8,12(sp)
+  400008:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/user/bare/put_b.c:2
+	for (unsigned i = 0;; ++i) {
+  40000c:	afc00000 	sw	zero,0(s8)
+/home/git/21373271/21373271/user/bare/put_b.c:3
+		if ((i & ((1 << 16) - 1)) == 0) {
+  400010:	8fc20000 	lw	v0,0(s8)
+  400014:	00000000 	nop
+  400018:	3042ffff 	andi	v0,v0,0xffff
+  40001c:	14400007 	bnez	v0,40003c <_start+0x3c>
+  400020:	00000000 	nop
+/home/git/21373271/21373271/user/bare/put_b.c:5
+			// Requires `e->env_tf.cp0_status &= ~STATUS_KUp;` in kernel to work
+			*(volatile char *)0xb0000000 = 'b';
+  400024:	3c02b000 	lui	v0,0xb000
+  400028:	24030062 	li	v1,98
+  40002c:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/user/bare/put_b.c:6
+			*(volatile char *)0xb0000000 = ' ';
+  400030:	3c02b000 	lui	v0,0xb000
+  400034:	24030020 	li	v1,32
+  400038:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/user/bare/put_b.c:2
+	for (unsigned i = 0;; ++i) {
+  40003c:	8fc20000 	lw	v0,0(s8)
+  400040:	00000000 	nop
+  400044:	24420001 	addiu	v0,v0,1
+  400048:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/user/bare/put_b.c:3
+		if ((i & ((1 << 16) - 1)) == 0) {
+  40004c:	1000fff0 	b	400010 <_start+0x10>
+  400050:	00000000 	nop
+	...

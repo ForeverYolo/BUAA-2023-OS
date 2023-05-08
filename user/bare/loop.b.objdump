@@ -1,0 +1,19 @@
+
+user/bare/loop.b：     文件格式 elf32-tradlittlemips
+user/bare/loop.b
+
+
+Disassembly of section .text:
+
+00400000 <_start>:
+_start():
+/home/git/21373271/21373271/user/bare/loop.S:13
+# - Then build the kernel with `CFLAGS=-DMOS_SCHED_MAX_TICKS=100 make`
+
+.text
+.globl _start
+_start:
+	j       _start
+  400000:	08100000 	j	400000 <_start>
+  400004:	00000000 	nop
+	...

@@ -1,0 +1,21 @@
+
+user/bare/overflow.b：     文件格式 elf32-tradlittlemips
+user/bare/overflow.b
+
+
+Disassembly of section .text:
+
+00400000 <_start>:
+_start():
+/home/git/21373271/21373271/user/bare/overflow.S:11
+# - Then build the kernel with `make`
+
+.text
+.globl _start
+_start:
+	li      $2, 0x80000000
+  400000:	3c028000 	lui	v0,0x8000
+/home/git/21373271/21373271/user/bare/overflow.S:12
+	addi    $3, $2, 0xffff  # overflow
+  400004:	2043ffff 	addi	v1,v0,-1
+	...

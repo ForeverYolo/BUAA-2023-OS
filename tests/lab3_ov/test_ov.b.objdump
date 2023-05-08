@@ -1,0 +1,111 @@
+
+tests/lab3_ov/test_ov.b：     文件格式 elf32-tradlittlemips
+tests/lab3_ov/test_ov.b
+
+
+Disassembly of section .text:
+
+00400000 <_start>:
+_start():
+/home/git/21373271/21373271/tests/lab3_ov/entry.S:6
+  400000:	0c100064 	jal	400190 <main>
+  400004:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_ov/entry.S:7
+  400008:	08100060 	j	400180 <finish>
+  40000c:	00000000 	nop
+	...
+
+00400180 <finish>:
+finish():
+/home/git/21373271/21373271/tests/lab3_ov/entry.S:10
+  400180:	08100060 	j	400180 <finish>
+  400184:	00000000 	nop
+	...
+
+00400190 <main>:
+main():
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:1
+  400190:	27bdffe8 	addiu	sp,sp,-24
+  400194:	afbe0014 	sw	s8,20(sp)
+  400198:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:7
+  40019c:	3c028000 	lui	v0,0x8000
+  4001a0:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:8
+  4001a4:	3c028000 	lui	v0,0x8000
+  4001a8:	afc20004 	sw	v0,4(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:9
+  4001ac:	8fc20000 	lw	v0,0(s8)
+  4001b0:	8fc30004 	lw	v1,4(s8)
+  4001b4:	00000000 	nop
+  4001b8:	00431020 	add	v0,v0,v1
+  4001bc:	afc20008 	sw	v0,8(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:14
+  4001c0:	8fc30000 	lw	v1,0(s8)
+  4001c4:	8fc20004 	lw	v0,4(s8)
+  4001c8:	00000000 	nop
+  4001cc:	00621021 	addu	v0,v1,v0
+  4001d0:	8fc30008 	lw	v1,8(s8)
+  4001d4:	00000000 	nop
+  4001d8:	10620004 	beq	v1,v0,4001ec <main+0x5c>
+  4001dc:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:15
+  4001e0:	2402ffff 	li	v0,-1
+  4001e4:	10000028 	b	400288 <main+0xf8>
+  4001e8:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:21
+  4001ec:	3c028000 	lui	v0,0x8000
+  4001f0:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:22
+  4001f4:	3c027000 	lui	v0,0x7000
+  4001f8:	afc20004 	sw	v0,4(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:23
+  4001fc:	8fc20000 	lw	v0,0(s8)
+  400200:	8fc30004 	lw	v1,4(s8)
+  400204:	00000000 	nop
+  400208:	00431022 	sub	v0,v0,v1
+  40020c:	afc20008 	sw	v0,8(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:24
+  400210:	8fc30000 	lw	v1,0(s8)
+  400214:	8fc20004 	lw	v0,4(s8)
+  400218:	00000000 	nop
+  40021c:	00621023 	subu	v0,v1,v0
+  400220:	8fc30008 	lw	v1,8(s8)
+  400224:	00000000 	nop
+  400228:	10620004 	beq	v1,v0,40023c <main+0xac>
+  40022c:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:25
+  400230:	2402ffff 	li	v0,-1
+  400234:	10000014 	b	400288 <main+0xf8>
+  400238:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:31
+  40023c:	3c027fff 	lui	v0,0x7fff
+  400240:	3442fff0 	ori	v0,v0,0xfff0
+  400244:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:32
+  400248:	8fc20000 	lw	v0,0(s8)
+  40024c:	00000000 	nop
+  400250:	20420014 	addi	v0,v0,20
+  400254:	afc20008 	sw	v0,8(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:33
+  400258:	8fc20000 	lw	v0,0(s8)
+  40025c:	00000000 	nop
+  400260:	00021042 	srl	v0,v0,0x1
+  400264:	2442000a 	addiu	v0,v0,10
+  400268:	8fc30008 	lw	v1,8(s8)
+  40026c:	00000000 	nop
+  400270:	10620004 	beq	v1,v0,400284 <main+0xf4>
+  400274:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:34
+  400278:	2402ffff 	li	v0,-1
+  40027c:	10000002 	b	400288 <main+0xf8>
+  400280:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:36
+  400284:	8fc20008 	lw	v0,8(s8)
+/home/git/21373271/21373271/tests/lab3_ov/test_ov.c:37
+  400288:	03c0e825 	move	sp,s8
+  40028c:	8fbe0014 	lw	s8,20(sp)
+  400290:	27bd0018 	addiu	sp,sp,24
+  400294:	03e00008 	jr	ra
+  400298:	00000000 	nop
+  40029c:	00000000 	nop

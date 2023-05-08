@@ -1,0 +1,194 @@
+Inline Assembly(C语言内联汇编)
+What is C program Inline Assembly(C语言内联汇编)
+C语言内联汇编是在高级语言内部嵌入汇编代码的成分，再实现某些功能的时候，C语言是一门高级语言，虽然它与其它语言相比，有着比较高的底层相容性，但是针对某些情形的境况还是不太够，而内联汇编正是解决了这个问题，让C语言可以利用汇编语言的硬件亲和性来亲近底层开发，这也是原来用C语言来开发操作系统的重要原因之一
+
+Inline Assembly‘s General Fomart (内敛汇编的基本格式)
+在C语言中，如果要使用内联汇编，他需要以asm或__asm__开头，asm和__asm__的区别为，在GitHub搜到的一个解释为
+
+# The asm keyword used to identify the inline assembly code section 
+# may be altered if necessary. The ANSI C specifications use the asm keyword 
+# for something else, preventing you from using it for your inline assembly
+# statements. If you are writing code using the ANSI C conventions, 
+# you must use the __asm__ keyword instead of the normal asm keyword.
+1
+2
+3
+4
+5
+意思即为asm关键字被用于定义内联汇编，但是如果必要，可以更改，在ANSI C语法规范下面，他是为了防止你使用内敛汇编定义集,如果你遵循ANSI C规范，那么必须用__asm__来定义内敛汇编
+
+通俗的来说就是用__asm__就是了
+
+其格式为
+
+__asm__ (__volatile__) ("assemble code"
+                        :output location
+                        :input operands
+                        :changed registers);
+// 更细致一点就是
+__asm__ (__volatile__) ("assemble code"
+                        :[name]"modifier+tag"(variable),.....
+                        :[name]"tag"(variable),.....
+                        :"tag",....);
+1
+2
+3
+4
+5
+6
+7
+8
+9
+__volatile__的作用是，如果加了这个声明，说明这个部分在编译的时候不要优化
+
+output location 表明你程序处理完毕之后结果的输出位置
+
+input operands表明你的输入操作数
+
+changed registers定义了可以被内敛汇编语句使用到的寄存器列表
+
+Up Hand Inline Assembly(上手内联汇编)
+Example1
+有一个栗子，计算两数之和并将它存放到另外一个数中
+
+// mian.c 文件
+#include<stdio.h>
+int main(){
+    int data1 = 10;
+	int data2 = 20;
+	int result;
+	asm ("addl %%edx, %%ecx\n\t"
+     	"movl %%ecx, %%eax"
+     	: "=a"(result)
+     	: "d"(data1), "c"(data2));
+	printf("%d\n",result);
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+用gcc命令编译成可执行文件, 并执行，可以看到输出30
+
+$>gcc main.c -o test
+$>.\test
+30
+1
+2
+3
+从上面的例子可以看到，程序将data1的值和data2的值相加并存放到了result中，这其中的过程即为输入操作数data1和data2分别存放到了寄存器edx，ecx中，这个就涉及到数据存放的问题，这个数据具体存放到哪，看的是前边的"a","d","c"这些标号，这些标号对这些输入输出数据进行规定，其分别代表的意思是
+
+标号	含义
+a	使用eax or ax oral寄存器存放数据
+b	使用ebx or bx orbl寄存器存放数据
+c	使用ecx or cx orcl寄存器存放数据
+d	使用edx or dx ordl寄存器存放数据
+S	使用esi or si 寄存器存放数据,(esi寄存器是栈指针寄存器，也是一个通用寄存器)
+D	使用edi or di 寄存器存放数据
+r	使用任何闲暇的通用寄存器存放数据
+q	使用eax,ebx,ecx,edx其中之一存放数据
+A	使用eax 和 edx存放64位数据
+f	使用浮点数指针寄存器存放数据
+t	使用第一个浮点数指针寄存器存放数据
+u	使用第二个浮点数指针寄存器存放数据
+m	使用变量的内存地址
+o	使用偏移内存位置
+V	只使用直接内存的位置
+i	使用一个直接整数值
+n	使用一个已知的直接整数值
+g	使用任何空闲的寄存器或内存地址
+修饰符	描述
++	操作数既可读也可写
+=	操作数只可以写
+%	如果需要，操作数可以与下一个操作数进行切换
+&	操作数可以在内联函数之前删除和重用
+在这个需要注意的是，如果在内联汇编中需要用到寄存器的话，与AT&T语法中加%不同的是，要用两个%
+
+Example2
+int data1 = 10;
+int data2 = 20;
+int result;
+asm ("addl %[i1], %[i2]\n\t"
+         "movl %[i2], %[ret]"
+    	: [ret]"=a"(result)
+  		: [i1]"d"(data1), [i2]"c"(data2));
+printf("%d\n",result);
+return 0;
+1
+2
+3
+4
+5
+6
+7
+8
+9
+$> gcc main.c -o test
+$>.\test
+30
+1
+2
+3
+可以用，可以用一些标号来代替，如上所示
+
+Example3
+#include<stdio.h>
+int main(){
+
+    int data1 = 10;
+    int data2 = 20;
+    int result;
+    asm ("imull %1, %2\n\t"
+         "movl %2, %0"
+    : "=r"(result)
+    : "r"(data1), "r"(data2));
+    printf("%d\n",result);
+    return 0;
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+在这里0代表result，1代表data1，2代表data2
+
+Example4（定义宏函数）
+比如将上面的加法封装成宏函数，也可以直接调用的
+
+#include<stdio.h>
+
+#define SUM(a, b, res){ \
+__asm__("addl %%ebx, %%ecx\n\t"\
+"movl %%ecx, %%eax"\
+:"=a"(res):"b"(a),"c"(b));                 \
+}
+
+int main(){
+
+    int data1 = 10;
+    int data2 = 20;
+    int result;
+    SUM(data1, data2, result);
+    printf("%d\n",result);
+    return 0;
+}
+————————————————
+版权声明：本文为CSDN博主「问号小朋友」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_48201696/article/details/121609672

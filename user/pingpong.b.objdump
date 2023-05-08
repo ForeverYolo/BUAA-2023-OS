@@ -1,0 +1,4230 @@
+
+user/pingpong.b：     文件格式 elf32-tradlittlemips
+user/pingpong.b
+
+
+Disassembly of section .text:
+
+00400000 <main>:
+main():
+/home/git/21373271/21373271/user/pingpong.c:5
+// Ping-pong a counter between two processes.
+
+#include <lib.h>
+
+int main() {
+  400000:	27bdffe0 	addiu	sp,sp,-32
+  400004:	afbf001c 	sw	ra,28(sp)
+  400008:	afbe0018 	sw	s8,24(sp)
+  40000c:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/user/pingpong.c:8
+	u_int who, i;
+
+	if ((who = fork()) != 0) {
+  400010:	0c10021c 	jal	400870 <fork>
+  400014:	00000000 	nop
+  400018:	afc20014 	sw	v0,20(s8)
+  40001c:	8fc20014 	lw	v0,20(s8)
+  400020:	00000000 	nop
+  400024:	10400013 	beqz	v0,400074 <main+0x74>
+  400028:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:10
+		// get the ball rolling
+		debugf("\n@@@@@send 0 from %x to %x\n", syscall_getenvid(), who);
+  40002c:	0c1002ad 	jal	400ab4 <syscall_getenvid>
+  400030:	00000000 	nop
+  400034:	00401825 	move	v1,v0
+  400038:	8fc20014 	lw	v0,20(s8)
+  40003c:	00000000 	nop
+  400040:	00403025 	move	a2,v0
+  400044:	00602825 	move	a1,v1
+  400048:	3c020040 	lui	v0,0x40
+  40004c:	24442960 	addiu	a0,v0,10592
+  400050:	0c100104 	jal	400410 <debugf>
+  400054:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:11
+		ipc_send(who, 0, 0, 0);
+  400058:	8fc20014 	lw	v0,20(s8)
+  40005c:	00003825 	move	a3,zero
+  400060:	00003025 	move	a2,zero
+  400064:	00002825 	move	a1,zero
+  400068:	00402025 	move	a0,v0
+  40006c:	0c1003e1 	jal	400f84 <ipc_send>
+  400070:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:15
+	}
+
+	for (;;) {
+		debugf("%x am waiting.....\n", syscall_getenvid());
+  400074:	0c1002ad 	jal	400ab4 <syscall_getenvid>
+  400078:	00000000 	nop
+  40007c:	00402825 	move	a1,v0
+  400080:	3c020040 	lui	v0,0x40
+  400084:	2444297c 	addiu	a0,v0,10620
+  400088:	0c100104 	jal	400410 <debugf>
+  40008c:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:16
+		i = ipc_recv(&who, 0, 0);
+  400090:	27c20014 	addiu	v0,s8,20
+  400094:	00003025 	move	a2,zero
+  400098:	00002825 	move	a1,zero
+  40009c:	00402025 	move	a0,v0
+  4000a0:	0c10040c 	jal	401030 <ipc_recv>
+  4000a4:	00000000 	nop
+  4000a8:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/pingpong.c:18
+
+		debugf("%x got %d from %x\n", syscall_getenvid(), i, who);
+  4000ac:	0c1002ad 	jal	400ab4 <syscall_getenvid>
+  4000b0:	00000000 	nop
+  4000b4:	00401825 	move	v1,v0
+  4000b8:	8fc20014 	lw	v0,20(s8)
+  4000bc:	00000000 	nop
+  4000c0:	00403825 	move	a3,v0
+  4000c4:	8fc60010 	lw	a2,16(s8)
+  4000c8:	00602825 	move	a1,v1
+  4000cc:	3c020040 	lui	v0,0x40
+  4000d0:	24442990 	addiu	a0,v0,10640
+  4000d4:	0c100104 	jal	400410 <debugf>
+  4000d8:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:20
+
+		if (i == 10) {
+  4000dc:	8fc30010 	lw	v1,16(s8)
+  4000e0:	2402000a 	li	v0,10
+  4000e4:	14620004 	bne	v1,v0,4000f8 <main+0xf8>
+  4000e8:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:21
+			return 0;
+  4000ec:	00001025 	move	v0,zero
+  4000f0:	1000001d 	b	400168 <main+0x168>
+  4000f4:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:24
+		}
+
+		i++;
+  4000f8:	8fc20010 	lw	v0,16(s8)
+  4000fc:	00000000 	nop
+  400100:	24420001 	addiu	v0,v0,1
+  400104:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/pingpong.c:25
+		debugf("\n@@@@@send %d from %x to %x\n", i, syscall_getenvid(), who);
+  400108:	0c1002ad 	jal	400ab4 <syscall_getenvid>
+  40010c:	00000000 	nop
+  400110:	00401825 	move	v1,v0
+  400114:	8fc20014 	lw	v0,20(s8)
+  400118:	00000000 	nop
+  40011c:	00403825 	move	a3,v0
+  400120:	00603025 	move	a2,v1
+  400124:	8fc50010 	lw	a1,16(s8)
+  400128:	3c020040 	lui	v0,0x40
+  40012c:	244429a4 	addiu	a0,v0,10660
+  400130:	0c100104 	jal	400410 <debugf>
+  400134:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:26
+		ipc_send(who, i, 0, 0);
+  400138:	8fc20014 	lw	v0,20(s8)
+  40013c:	00003825 	move	a3,zero
+  400140:	00003025 	move	a2,zero
+  400144:	8fc50010 	lw	a1,16(s8)
+  400148:	00402025 	move	a0,v0
+  40014c:	0c1003e1 	jal	400f84 <ipc_send>
+  400150:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:28
+
+		if (i == 10) {
+  400154:	8fc30010 	lw	v1,16(s8)
+  400158:	2402000a 	li	v0,10
+  40015c:	1462ffc5 	bne	v1,v0,400074 <main+0x74>
+  400160:	00000000 	nop
+/home/git/21373271/21373271/user/pingpong.c:29
+			return 0;
+  400164:	00001025 	move	v0,zero
+/home/git/21373271/21373271/user/pingpong.c:33 (discriminator 1)
+		}
+	}
+	return 0;
+}
+  400168:	03c0e825 	move	sp,s8
+  40016c:	8fbf001c 	lw	ra,28(sp)
+  400170:	8fbe0018 	lw	s8,24(sp)
+  400174:	27bd0020 	addiu	sp,sp,32
+  400178:	03e00008 	jr	ra
+  40017c:	00000000 	nop
+
+00400180 <_start>:
+_start():
+/home/git/21373271/21373271/user/lib/entry.S:5
+#include <asm/asm.h>
+
+.text
+EXPORT(_start)
+	lw      a0, 0(sp)
+  400180:	8fa40000 	lw	a0,0(sp)
+/home/git/21373271/21373271/user/lib/entry.S:6
+	lw      a1, 4(sp)
+  400184:	8fa50004 	lw	a1,4(sp)
+/home/git/21373271/21373271/user/lib/entry.S:7
+	jal     libmain
+  400188:	0c100166 	jal	400598 <libmain>
+  40018c:	00000000 	nop
+
+00400190 <msyscall>:
+msyscall():
+/home/git/21373271/21373271/user/lib/syscall_wrap.S:5
+#include <asm/asm.h>
+
+LEAF(msyscall)
+	// Just use 'syscall' instruction and return.
+	nop
+  400190:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_wrap.S:6
+	syscall
+  400194:	0000000c 	syscall
+/home/git/21373271/21373271/user/lib/syscall_wrap.S:7
+	nop
+  400198:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_wrap.S:8
+	jr ra
+  40019c:	03e00008 	jr	ra
+  4001a0:	00000000 	nop
+	...
+
+004001b0 <debug_flush>:
+debug_flush():
+/home/git/21373271/21373271/user/lib/debugf.c:11
+struct debug_ctx {
+	char buf[BUF_LEN];
+	size_t pos;
+};
+
+static void debug_flush(struct debug_ctx *ctx) {
+  4001b0:	27bdffe0 	addiu	sp,sp,-32
+  4001b4:	afbf001c 	sw	ra,28(sp)
+  4001b8:	afbe0018 	sw	s8,24(sp)
+  4001bc:	03a0f025 	move	s8,sp
+  4001c0:	afc40020 	sw	a0,32(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:12
+	if (ctx->pos == 0) {
+  4001c4:	8fc20020 	lw	v0,32(s8)
+  4001c8:	00000000 	nop
+  4001cc:	8c420400 	lw	v0,1024(v0)
+  4001d0:	00000000 	nop
+  4001d4:	1040001c 	beqz	v0,400248 <debug_flush+0x98>
+  4001d8:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:16
+		return;
+	}
+	int r;
+	if ((r = syscall_print_cons(ctx->buf, ctx->pos)) != 0) {
+  4001dc:	8fc30020 	lw	v1,32(s8)
+  4001e0:	8fc20020 	lw	v0,32(s8)
+  4001e4:	00000000 	nop
+  4001e8:	8c420400 	lw	v0,1024(v0)
+  4001ec:	00000000 	nop
+  4001f0:	00402825 	move	a1,v0
+  4001f4:	00602025 	move	a0,v1
+  4001f8:	0c10029c 	jal	400a70 <syscall_print_cons>
+  4001fc:	00000000 	nop
+  400200:	afc20010 	sw	v0,16(s8)
+  400204:	8fc20010 	lw	v0,16(s8)
+  400208:	00000000 	nop
+  40020c:	10400009 	beqz	v0,400234 <debug_flush+0x84>
+  400210:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:17
+		user_panic("syscall_print_cons: %d", r);
+  400214:	8fc70010 	lw	a3,16(s8)
+  400218:	3c020040 	lui	v0,0x40
+  40021c:	244629d0 	addiu	a2,v0,10704
+  400220:	24050011 	li	a1,17
+  400224:	3c020040 	lui	v0,0x40
+  400228:	244429e8 	addiu	a0,v0,10728
+  40022c:	0c10011b 	jal	40046c <_user_panic>
+  400230:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:19
+	}
+	ctx->pos = 0;
+  400234:	8fc20020 	lw	v0,32(s8)
+  400238:	00000000 	nop
+  40023c:	ac400400 	sw	zero,1024(v0)
+  400240:	10000002 	b	40024c <debug_flush+0x9c>
+  400244:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:13
+		return;
+  400248:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:20
+}
+  40024c:	03c0e825 	move	sp,s8
+  400250:	8fbf001c 	lw	ra,28(sp)
+  400254:	8fbe0018 	lw	s8,24(sp)
+  400258:	27bd0020 	addiu	sp,sp,32
+  40025c:	03e00008 	jr	ra
+  400260:	00000000 	nop
+
+00400264 <debug_output>:
+debug_output():
+/home/git/21373271/21373271/user/lib/debugf.c:22
+
+static void debug_output(void *data, const char *s, size_t l) {
+  400264:	27bdffe0 	addiu	sp,sp,-32
+  400268:	afbf001c 	sw	ra,28(sp)
+  40026c:	afbe0018 	sw	s8,24(sp)
+  400270:	03a0f025 	move	s8,sp
+  400274:	afc40020 	sw	a0,32(s8)
+  400278:	afc50024 	sw	a1,36(s8)
+  40027c:	afc60028 	sw	a2,40(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:23
+	struct debug_ctx *ctx = (struct debug_ctx *)data;
+  400280:	8fc20020 	lw	v0,32(s8)
+  400284:	00000000 	nop
+  400288:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:25
+
+	while (ctx->pos + l > BUF_LEN) {
+  40028c:	10000022 	b	400318 <debug_output+0xb4>
+  400290:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:26
+		size_t n = BUF_LEN - ctx->pos;
+  400294:	8fc20010 	lw	v0,16(s8)
+  400298:	00000000 	nop
+  40029c:	8c420400 	lw	v0,1024(v0)
+  4002a0:	24030400 	li	v1,1024
+  4002a4:	00621023 	subu	v0,v1,v0
+  4002a8:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:27
+		memcpy(ctx->buf + ctx->pos, s, n);
+  4002ac:	8fc30010 	lw	v1,16(s8)
+  4002b0:	8fc20010 	lw	v0,16(s8)
+  4002b4:	00000000 	nop
+  4002b8:	8c420400 	lw	v0,1024(v0)
+  4002bc:	00000000 	nop
+  4002c0:	00621021 	addu	v0,v1,v0
+  4002c4:	8fc60014 	lw	a2,20(s8)
+  4002c8:	8fc50024 	lw	a1,36(s8)
+  4002cc:	00402025 	move	a0,v0
+  4002d0:	0c1008ec 	jal	4023b0 <memcpy>
+  4002d4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:28
+		s += n;
+  4002d8:	8fc30024 	lw	v1,36(s8)
+  4002dc:	8fc20014 	lw	v0,20(s8)
+  4002e0:	00000000 	nop
+  4002e4:	00621021 	addu	v0,v1,v0
+  4002e8:	afc20024 	sw	v0,36(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:29
+		l -= n;
+  4002ec:	8fc30028 	lw	v1,40(s8)
+  4002f0:	8fc20014 	lw	v0,20(s8)
+  4002f4:	00000000 	nop
+  4002f8:	00621023 	subu	v0,v1,v0
+  4002fc:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:30
+		ctx->pos = BUF_LEN;
+  400300:	8fc20010 	lw	v0,16(s8)
+  400304:	24030400 	li	v1,1024
+  400308:	ac430400 	sw	v1,1024(v0)
+/home/git/21373271/21373271/user/lib/debugf.c:31
+		debug_flush(ctx);
+  40030c:	8fc40010 	lw	a0,16(s8)
+  400310:	0c10006c 	jal	4001b0 <debug_flush>
+  400314:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:25
+	while (ctx->pos + l > BUF_LEN) {
+  400318:	8fc20010 	lw	v0,16(s8)
+  40031c:	00000000 	nop
+  400320:	8c430400 	lw	v1,1024(v0)
+  400324:	8fc20028 	lw	v0,40(s8)
+  400328:	00000000 	nop
+  40032c:	00621021 	addu	v0,v1,v0
+  400330:	2c420401 	sltiu	v0,v0,1025
+  400334:	1040ffd7 	beqz	v0,400294 <debug_output+0x30>
+  400338:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:33
+	}
+	memcpy(ctx->buf + ctx->pos, s, l);
+  40033c:	8fc30010 	lw	v1,16(s8)
+  400340:	8fc20010 	lw	v0,16(s8)
+  400344:	00000000 	nop
+  400348:	8c420400 	lw	v0,1024(v0)
+  40034c:	00000000 	nop
+  400350:	00621021 	addu	v0,v1,v0
+  400354:	8fc60028 	lw	a2,40(s8)
+  400358:	8fc50024 	lw	a1,36(s8)
+  40035c:	00402025 	move	a0,v0
+  400360:	0c1008ec 	jal	4023b0 <memcpy>
+  400364:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:34
+	ctx->pos += l;
+  400368:	8fc20010 	lw	v0,16(s8)
+  40036c:	00000000 	nop
+  400370:	8c430400 	lw	v1,1024(v0)
+  400374:	8fc20028 	lw	v0,40(s8)
+  400378:	00000000 	nop
+  40037c:	00621821 	addu	v1,v1,v0
+  400380:	8fc20010 	lw	v0,16(s8)
+  400384:	00000000 	nop
+  400388:	ac430400 	sw	v1,1024(v0)
+/home/git/21373271/21373271/user/lib/debugf.c:35
+}
+  40038c:	00000000 	nop
+  400390:	03c0e825 	move	sp,s8
+  400394:	8fbf001c 	lw	ra,28(sp)
+  400398:	8fbe0018 	lw	s8,24(sp)
+  40039c:	27bd0020 	addiu	sp,sp,32
+  4003a0:	03e00008 	jr	ra
+  4003a4:	00000000 	nop
+
+004003a8 <vdebugf>:
+vdebugf():
+/home/git/21373271/21373271/user/lib/debugf.c:37
+
+static void vdebugf(const char *fmt, va_list ap) {
+  4003a8:	27bdfbe0 	addiu	sp,sp,-1056
+  4003ac:	afbf041c 	sw	ra,1052(sp)
+  4003b0:	afbe0418 	sw	s8,1048(sp)
+  4003b4:	03a0f025 	move	s8,sp
+  4003b8:	afc40420 	sw	a0,1056(s8)
+  4003bc:	afc50424 	sw	a1,1060(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:39
+	struct debug_ctx ctx;
+	ctx.pos = 0;
+  4003c0:	afc00410 	sw	zero,1040(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:40
+	vprintfmt(debug_output, &ctx, fmt, ap);
+  4003c4:	8fc70424 	lw	a3,1060(s8)
+  4003c8:	8fc60420 	lw	a2,1056(s8)
+  4003cc:	27c20010 	addiu	v0,s8,16
+  4003d0:	00402825 	move	a1,v0
+  4003d4:	3c020040 	lui	v0,0x40
+  4003d8:	24440264 	addiu	a0,v0,612
+  4003dc:	0c100548 	jal	401520 <vprintfmt>
+  4003e0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:41
+	debug_flush(&ctx);
+  4003e4:	27c20010 	addiu	v0,s8,16
+  4003e8:	00402025 	move	a0,v0
+  4003ec:	0c10006c 	jal	4001b0 <debug_flush>
+  4003f0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:42
+}
+  4003f4:	00000000 	nop
+  4003f8:	03c0e825 	move	sp,s8
+  4003fc:	8fbf041c 	lw	ra,1052(sp)
+  400400:	8fbe0418 	lw	s8,1048(sp)
+  400404:	27bd0420 	addiu	sp,sp,1056
+  400408:	03e00008 	jr	ra
+  40040c:	00000000 	nop
+
+00400410 <debugf>:
+debugf():
+/home/git/21373271/21373271/user/lib/debugf.c:44
+
+void debugf(const char *fmt, ...) {
+  400410:	27bdffe0 	addiu	sp,sp,-32
+  400414:	afbf001c 	sw	ra,28(sp)
+  400418:	afbe0018 	sw	s8,24(sp)
+  40041c:	03a0f025 	move	s8,sp
+  400420:	afc40020 	sw	a0,32(s8)
+  400424:	afc50024 	sw	a1,36(s8)
+  400428:	afc60028 	sw	a2,40(s8)
+  40042c:	afc7002c 	sw	a3,44(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:46
+	va_list ap;
+	va_start(ap, fmt);
+  400430:	27c20024 	addiu	v0,s8,36
+  400434:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:47
+	vdebugf(fmt, ap);
+  400438:	8fc20010 	lw	v0,16(s8)
+  40043c:	00000000 	nop
+  400440:	00402825 	move	a1,v0
+  400444:	8fc40020 	lw	a0,32(s8)
+  400448:	0c1000ea 	jal	4003a8 <vdebugf>
+  40044c:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:49
+	va_end(ap);
+}
+  400450:	00000000 	nop
+  400454:	03c0e825 	move	sp,s8
+  400458:	8fbf001c 	lw	ra,28(sp)
+  40045c:	8fbe0018 	lw	s8,24(sp)
+  400460:	27bd0020 	addiu	sp,sp,32
+  400464:	03e00008 	jr	ra
+  400468:	00000000 	nop
+
+0040046c <_user_panic>:
+_user_panic():
+/home/git/21373271/21373271/user/lib/debugf.c:51
+
+void _user_panic(const char *file, int line, const char *fmt, ...) {
+  40046c:	27bdffe0 	addiu	sp,sp,-32
+  400470:	afbf001c 	sw	ra,28(sp)
+  400474:	afbe0018 	sw	s8,24(sp)
+  400478:	03a0f025 	move	s8,sp
+  40047c:	afc40020 	sw	a0,32(s8)
+  400480:	afc50024 	sw	a1,36(s8)
+  400484:	afc60028 	sw	a2,40(s8)
+  400488:	afc7002c 	sw	a3,44(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:52
+	debugf("panic at %s:%d: ", file, line);
+  40048c:	8fc60024 	lw	a2,36(s8)
+  400490:	8fc50020 	lw	a1,32(s8)
+  400494:	3c020040 	lui	v0,0x40
+  400498:	244429f8 	addiu	a0,v0,10744
+  40049c:	0c100104 	jal	400410 <debugf>
+  4004a0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:54
+	va_list ap;
+	va_start(ap, fmt);
+  4004a4:	27c2002c 	addiu	v0,s8,44
+  4004a8:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:55
+	vdebugf(fmt, ap);
+  4004ac:	8fc20010 	lw	v0,16(s8)
+  4004b0:	00000000 	nop
+  4004b4:	00402825 	move	a1,v0
+  4004b8:	8fc40028 	lw	a0,40(s8)
+  4004bc:	0c1000ea 	jal	4003a8 <vdebugf>
+  4004c0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:57
+	va_end(ap);
+	debugf("\n");
+  4004c4:	3c020040 	lui	v0,0x40
+  4004c8:	24442a0c 	addiu	a0,v0,10764
+  4004cc:	0c100104 	jal	400410 <debugf>
+  4004d0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:58
+	exit();
+  4004d4:	0c100158 	jal	400560 <exit>
+  4004d8:	00000000 	nop
+
+004004dc <_user_halt>:
+_user_halt():
+/home/git/21373271/21373271/user/lib/debugf.c:61
+}
+
+void _user_halt(const char *file, int line, const char *fmt, ...) {
+  4004dc:	27bdffe0 	addiu	sp,sp,-32
+  4004e0:	afbf001c 	sw	ra,28(sp)
+  4004e4:	afbe0018 	sw	s8,24(sp)
+  4004e8:	03a0f025 	move	s8,sp
+  4004ec:	afc40020 	sw	a0,32(s8)
+  4004f0:	afc50024 	sw	a1,36(s8)
+  4004f4:	afc60028 	sw	a2,40(s8)
+  4004f8:	afc7002c 	sw	a3,44(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:62
+	debugf("halt at %s:%d: ", file, line);
+  4004fc:	8fc60024 	lw	a2,36(s8)
+  400500:	8fc50020 	lw	a1,32(s8)
+  400504:	3c020040 	lui	v0,0x40
+  400508:	24442a10 	addiu	a0,v0,10768
+  40050c:	0c100104 	jal	400410 <debugf>
+  400510:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:64
+	va_list ap;
+	va_start(ap, fmt);
+  400514:	27c2002c 	addiu	v0,s8,44
+  400518:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/lib/debugf.c:65
+	vdebugf(fmt, ap);
+  40051c:	8fc20010 	lw	v0,16(s8)
+  400520:	00000000 	nop
+  400524:	00402825 	move	a1,v0
+  400528:	8fc40028 	lw	a0,40(s8)
+  40052c:	0c1000ea 	jal	4003a8 <vdebugf>
+  400530:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:67
+	va_end(ap);
+	debugf("\n");
+  400534:	3c020040 	lui	v0,0x40
+  400538:	24442a0c 	addiu	a0,v0,10764
+  40053c:	0c100104 	jal	400410 <debugf>
+  400540:	00000000 	nop
+/home/git/21373271/21373271/user/lib/debugf.c:68
+	syscall_panic("user halt");
+  400544:	3c020040 	lui	v0,0x40
+  400548:	24442a20 	addiu	a0,v0,10784
+  40054c:	0c100348 	jal	400d20 <syscall_panic>
+  400550:	00000000 	nop
+	...
+
+00400560 <exit>:
+exit():
+/home/git/21373271/21373271/user/lib/libos.c:5
+#include <env.h>
+#include <lib.h>
+#include <mmu.h>
+
+void exit(void) {
+  400560:	27bdffe8 	addiu	sp,sp,-24
+  400564:	afbf0014 	sw	ra,20(sp)
+  400568:	afbe0010 	sw	s8,16(sp)
+  40056c:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/user/lib/libos.c:11
+	// After fs is ready (lab5), all our open files should be closed before dying.
+#if !defined(LAB) || LAB >= 5
+	close_all();
+#endif
+
+	syscall_env_destroy(0);
+  400570:	00002025 	move	a0,zero
+  400574:	0c1002c8 	jal	400b20 <syscall_env_destroy>
+  400578:	00000000 	nop
+/home/git/21373271/21373271/user/lib/libos.c:12
+	user_panic("unreachable code");
+  40057c:	3c020040 	lui	v0,0x40
+  400580:	24462a30 	addiu	a2,v0,10800
+  400584:	2405000c 	li	a1,12
+  400588:	3c020040 	lui	v0,0x40
+  40058c:	24442a44 	addiu	a0,v0,10820
+  400590:	0c10011b 	jal	40046c <_user_panic>
+  400594:	00000000 	nop
+
+00400598 <libmain>:
+libmain():
+/home/git/21373271/21373271/user/lib/libos.c:18
+}
+
+volatile struct Env *env;
+extern int main(int, char **);
+
+void libmain(int argc, char **argv) {
+  400598:	27bdffe8 	addiu	sp,sp,-24
+  40059c:	afbf0014 	sw	ra,20(sp)
+  4005a0:	afbe0010 	sw	s8,16(sp)
+  4005a4:	03a0f025 	move	s8,sp
+  4005a8:	afc40018 	sw	a0,24(s8)
+  4005ac:	afc5001c 	sw	a1,28(s8)
+/home/git/21373271/21373271/user/lib/libos.c:20
+	// set env to point at our env structure in envs[].
+	env = &envs[ENVX(syscall_getenvid())];
+  4005b0:	0c1002ad 	jal	400ab4 <syscall_getenvid>
+  4005b4:	00000000 	nop
+  4005b8:	304303ff 	andi	v1,v0,0x3ff
+  4005bc:	00601025 	move	v0,v1
+  4005c0:	000210c0 	sll	v0,v0,0x3
+  4005c4:	00431023 	subu	v0,v0,v1
+  4005c8:	000210c0 	sll	v0,v0,0x3
+  4005cc:	00431023 	subu	v0,v0,v1
+  4005d0:	00021080 	sll	v0,v0,0x2
+  4005d4:	00401825 	move	v1,v0
+  4005d8:	3c027f40 	lui	v0,0x7f40
+  4005dc:	00621821 	addu	v1,v1,v0
+  4005e0:	3c020040 	lui	v0,0x40
+  4005e4:	ac433000 	sw	v1,12288(v0)
+/home/git/21373271/21373271/user/lib/libos.c:23
+
+	// call user main routine
+	main(argc, argv);
+  4005e8:	8fc5001c 	lw	a1,28(s8)
+  4005ec:	8fc40018 	lw	a0,24(s8)
+  4005f0:	0c100000 	jal	400000 <main>
+  4005f4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/libos.c:26
+
+	// exit gracefully
+	exit();
+  4005f8:	0c100158 	jal	400560 <exit>
+  4005fc:	00000000 	nop
+
+00400600 <cow_entry>:
+cow_entry():
+/home/git/21373271/21373271/user/lib/fork.c:16
+ * Post-Condition:
+ *  - Launch a 'user_panic' if 'va' is not a copy-on-write page.
+ *  - Otherwise, this handler should map a private writable copy of
+ *    the faulting page at the same address.
+ */
+static void __attribute__((noreturn)) cow_entry(struct Trapframe *tf) {
+  400600:	27bdffd0 	addiu	sp,sp,-48
+  400604:	afbf002c 	sw	ra,44(sp)
+  400608:	afbe0028 	sw	s8,40(sp)
+  40060c:	03a0f025 	move	s8,sp
+  400610:	afc40030 	sw	a0,48(s8)
+/home/git/21373271/21373271/user/lib/fork.c:17
+	u_int va = tf->cp0_badvaddr;
+  400614:	8fc20030 	lw	v0,48(s8)
+  400618:	00000000 	nop
+  40061c:	8c42008c 	lw	v0,140(v0)
+  400620:	00000000 	nop
+  400624:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/user/lib/fork.c:24
+
+	/* Step 1: Find the 'perm' in which the faulting address 'va' is mapped. */
+	/* Hint: Use 'vpt' and 'VPN' to find the page table entry. If the 'perm' doesn't have
+	 * 'PTE_COW', launch a 'user_panic'. */
+	/* Exercise 4.13: Your code here. (1/6) */
+	perm = *(vpt+VPN(va)) & 0xfff;
+  400628:	8fc20018 	lw	v0,24(s8)
+  40062c:	00000000 	nop
+  400630:	00021302 	srl	v0,v0,0xc
+  400634:	00021880 	sll	v1,v0,0x2
+  400638:	3c027fc0 	lui	v0,0x7fc0
+  40063c:	00621021 	addu	v0,v1,v0
+  400640:	8c420000 	lw	v0,0(v0)
+  400644:	00000000 	nop
+  400648:	30420fff 	andi	v0,v0,0xfff
+  40064c:	afc2001c 	sw	v0,28(s8)
+/home/git/21373271/21373271/user/lib/fork.c:26
+	//debugf("perm:%d",perm);
+	if ( (perm & PTE_COW) == 0) 
+  400650:	8fc2001c 	lw	v0,28(s8)
+  400654:	00000000 	nop
+  400658:	30420001 	andi	v0,v0,0x1
+  40065c:	14400008 	bnez	v0,400680 <cow_entry+0x80>
+  400660:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:28
+	{
+		user_panic("pgfault err: COW not found");
+  400664:	3c020040 	lui	v0,0x40
+  400668:	24462a50 	addiu	a2,v0,10832
+  40066c:	2405001c 	li	a1,28
+  400670:	3c020040 	lui	v0,0x40
+  400674:	24442a6c 	addiu	a0,v0,10860
+  400678:	0c10011b 	jal	40046c <_user_panic>
+  40067c:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:33
+	}
+	/* Step 2: Remove 'PTE_COW' from the 'perm', and add 'PTE_D' to it. */
+	/* Exercise 4.13: Your code here. (2/6) */
+	//debugf("perm赋值\n");
+	perm = (perm & ~PTE_COW) | PTE_D;
+  400680:	8fc3001c 	lw	v1,28(s8)
+  400684:	2402fbfe 	li	v0,-1026
+  400688:	00621024 	and	v0,v1,v0
+  40068c:	34420400 	ori	v0,v0,0x400
+  400690:	afc2001c 	sw	v0,28(s8)
+/home/git/21373271/21373271/user/lib/fork.c:37
+	/* Step 3: Allocate a new page at 'UCOW'. */
+	/* Exercise 4.13: Your code here. (3/6) */
+	//debugf("syscall_mem_alloc\n");
+	syscall_mem_alloc(0,(void*)UCOW,perm);
+  400694:	8fc6001c 	lw	a2,28(s8)
+  400698:	3c02003f 	lui	v0,0x3f
+  40069c:	3445f000 	ori	a1,v0,0xf000
+  4006a0:	00002025 	move	a0,zero
+  4006a4:	0c1002e8 	jal	400ba0 <syscall_mem_alloc>
+  4006a8:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:42
+	/* Step 4: Copy the content of the faulting page at 'va' to 'UCOW'. */
+	/* Hint: 'va' may not be aligned to a page! */
+	/* Exercise 4.13: Your code here. (4/6) */
+	//debugf("memcpy\n");
+	memcpy((void*)UCOW,(void*)ROUNDDOWN(va,BY2PG),BY2PG);
+  4006ac:	8fc30018 	lw	v1,24(s8)
+  4006b0:	2402f000 	li	v0,-4096
+  4006b4:	00621024 	and	v0,v1,v0
+  4006b8:	24061000 	li	a2,4096
+  4006bc:	00402825 	move	a1,v0
+  4006c0:	3c02003f 	lui	v0,0x3f
+  4006c4:	3444f000 	ori	a0,v0,0xf000
+  4006c8:	0c1008ec 	jal	4023b0 <memcpy>
+  4006cc:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:46
+	// Step 5: Map the page at 'UCOW' to 'va' with the new 'perm'.
+	/* Exercise 4.13: Your code here. (5/6) */
+	//debugf("syscall_mem_map\n");
+	syscall_mem_map(0,(void*)UCOW,0,(void*)va,perm);
+  4006d0:	8fc30018 	lw	v1,24(s8)
+  4006d4:	8fc2001c 	lw	v0,28(s8)
+  4006d8:	00000000 	nop
+  4006dc:	afa20010 	sw	v0,16(sp)
+  4006e0:	00603825 	move	a3,v1
+  4006e4:	00003025 	move	a2,zero
+  4006e8:	3c02003f 	lui	v0,0x3f
+  4006ec:	3445f000 	ori	a1,v0,0xf000
+  4006f0:	00002025 	move	a0,zero
+  4006f4:	0c1002fb 	jal	400bec <syscall_mem_map>
+  4006f8:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:50
+	// Step 6: Unmap the page at 'UCOW'.
+	/* Exercise 4.13: Your code here. (6/6) */
+	//debugf("syscall_mem_unmap\n");
+	syscall_mem_unmap(0,(void*)UCOW);
+  4006fc:	3c02003f 	lui	v0,0x3f
+  400700:	3445f000 	ori	a1,v0,0xf000
+  400704:	00002025 	move	a0,zero
+  400708:	0c100315 	jal	400c54 <syscall_mem_unmap>
+  40070c:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:52
+	// Step 7: Return to the faulting routine.
+	int r = syscall_set_trapframe(0, tf);
+  400710:	8fc50030 	lw	a1,48(s8)
+  400714:	00002025 	move	a0,zero
+  400718:	0c100337 	jal	400cdc <syscall_set_trapframe>
+  40071c:	00000000 	nop
+  400720:	afc20020 	sw	v0,32(s8)
+/home/git/21373271/21373271/user/lib/fork.c:53
+	user_panic("syscall_set_trapframe returned %d", r);
+  400724:	8fc70020 	lw	a3,32(s8)
+  400728:	3c020040 	lui	v0,0x40
+  40072c:	24462a78 	addiu	a2,v0,10872
+  400730:	24050035 	li	a1,53
+  400734:	3c020040 	lui	v0,0x40
+  400738:	24442a6c 	addiu	a0,v0,10860
+  40073c:	0c10011b 	jal	40046c <_user_panic>
+  400740:	00000000 	nop
+
+00400744 <duppage>:
+duppage():
+/home/git/21373271/21373271/user/lib/fork.c:78
+ *   - You can pass '0' as an 'envid' in arguments of 'syscall_*' to indicate current env because
+ *     kernel 'envid2env' converts '0' to 'curenv').
+ *   - You should use 'syscall_mem_map', the user space wrapper around 'msyscall' to invoke
+ *     'sys_mem_map' in kernel.
+ */
+static void duppage(u_int envid, u_int vpn) {
+  400744:	27bdffd0 	addiu	sp,sp,-48
+  400748:	afbf002c 	sw	ra,44(sp)
+  40074c:	afbe0028 	sw	s8,40(sp)
+  400750:	03a0f025 	move	s8,sp
+  400754:	afc40030 	sw	a0,48(s8)
+  400758:	afc50034 	sw	a1,52(s8)
+/home/git/21373271/21373271/user/lib/fork.c:85
+	u_int perm;
+
+	/* Step 1: Get the permission of the page. */
+	/* Hint: Use 'vpt' to find the page table entry. */
+	/* Exercise 4.10: Your code here. (1/2) */
+	addr = vpn << PGSHIFT;
+  40075c:	8fc20034 	lw	v0,52(s8)
+  400760:	00000000 	nop
+  400764:	00021300 	sll	v0,v0,0xc
+  400768:	afc20020 	sw	v0,32(s8)
+/home/git/21373271/21373271/user/lib/fork.c:86
+	perm = *(vpt + vpn) & 0xfff;
+  40076c:	8fc20034 	lw	v0,52(s8)
+  400770:	00000000 	nop
+  400774:	00021880 	sll	v1,v0,0x2
+  400778:	3c027fc0 	lui	v0,0x7fc0
+  40077c:	00621021 	addu	v0,v1,v0
+  400780:	8c420000 	lw	v0,0(v0)
+  400784:	00000000 	nop
+  400788:	30420fff 	andi	v0,v0,0xfff
+  40078c:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/user/lib/fork.c:92
+	/* Step 2: If the page is writable, and not shared with children, and not marked as COW yet,
+	 * then map it as copy-on-write, both in the parent (0) and the child (envid). */
+	/* Hint: The page should be first mapped to the child before remapped in the parent. (Why?)
+	 */
+	/* Exercise 4.10: Your code here. (2/2) */
+	int flag = 0;
+  400790:	afc0001c 	sw	zero,28(s8)
+/home/git/21373271/21373271/user/lib/fork.c:93
+	if ( (perm & PTE_D) && !(perm & PTE_LIBRARY) && !(perm & PTE_COW) )
+  400794:	8fc20018 	lw	v0,24(s8)
+  400798:	00000000 	nop
+  40079c:	30420400 	andi	v0,v0,0x400
+  4007a0:	10400012 	beqz	v0,4007ec <duppage+0xa8>
+  4007a4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:93 (discriminator 1)
+  4007a8:	8fc20018 	lw	v0,24(s8)
+  4007ac:	00000000 	nop
+  4007b0:	30420004 	andi	v0,v0,0x4
+  4007b4:	1440000d 	bnez	v0,4007ec <duppage+0xa8>
+  4007b8:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:93 (discriminator 2)
+  4007bc:	8fc20018 	lw	v0,24(s8)
+  4007c0:	00000000 	nop
+  4007c4:	30420001 	andi	v0,v0,0x1
+  4007c8:	14400008 	bnez	v0,4007ec <duppage+0xa8>
+  4007cc:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:95
+	{
+		perm = (perm | PTE_COW) & ~PTE_D;
+  4007d0:	8fc30018 	lw	v1,24(s8)
+  4007d4:	2402fbfe 	li	v0,-1026
+  4007d8:	00621024 	and	v0,v1,v0
+  4007dc:	34420001 	ori	v0,v0,0x1
+  4007e0:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/user/lib/fork.c:96
+		flag = 1;
+  4007e4:	24020001 	li	v0,1
+  4007e8:	afc2001c 	sw	v0,28(s8)
+/home/git/21373271/21373271/user/lib/fork.c:98
+	}
+	syscall_mem_map(0,(void*)addr,envid,(void*)addr,perm);
+  4007ec:	8fc30020 	lw	v1,32(s8)
+  4007f0:	8fc40020 	lw	a0,32(s8)
+  4007f4:	8fc20018 	lw	v0,24(s8)
+  4007f8:	00000000 	nop
+  4007fc:	afa20010 	sw	v0,16(sp)
+  400800:	00803825 	move	a3,a0
+  400804:	8fc60030 	lw	a2,48(s8)
+  400808:	00602825 	move	a1,v1
+  40080c:	00002025 	move	a0,zero
+  400810:	0c1002fb 	jal	400bec <syscall_mem_map>
+  400814:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:99
+	if (flag)
+  400818:	8fc2001c 	lw	v0,28(s8)
+  40081c:	00000000 	nop
+  400820:	1040000c 	beqz	v0,400854 <duppage+0x110>
+  400824:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:101
+	{
+		syscall_mem_map(0,(void*)addr,0,(void*)addr,perm);
+  400828:	8fc30020 	lw	v1,32(s8)
+  40082c:	8fc40020 	lw	a0,32(s8)
+  400830:	8fc20018 	lw	v0,24(s8)
+  400834:	00000000 	nop
+  400838:	afa20010 	sw	v0,16(sp)
+  40083c:	00803825 	move	a3,a0
+  400840:	00003025 	move	a2,zero
+  400844:	00602825 	move	a1,v1
+  400848:	00002025 	move	a0,zero
+  40084c:	0c1002fb 	jal	400bec <syscall_mem_map>
+  400850:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:103
+	}
+}
+  400854:	00000000 	nop
+  400858:	03c0e825 	move	sp,s8
+  40085c:	8fbf002c 	lw	ra,44(sp)
+  400860:	8fbe0028 	lw	s8,40(sp)
+  400864:	27bd0030 	addiu	sp,sp,48
+  400868:	03e00008 	jr	ra
+  40086c:	00000000 	nop
+
+00400870 <fork>:
+fork():
+/home/git/21373271/21373271/user/lib/fork.c:116
+ *
+ * Hint:
+ *   Use global symbols 'env', 'vpt' and 'vpd'.
+ *   Use 'syscall_set_tlb_mod_entry', 'syscall_getenvid', 'syscall_exofork',  and 'duppage'.
+ */
+int fork(void) {
+  400870:	27bdffd0 	addiu	sp,sp,-48
+  400874:	afbf002c 	sw	ra,44(sp)
+  400878:	afbe0028 	sw	s8,40(sp)
+  40087c:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/user/lib/fork.c:122
+	u_int child;
+	u_int i;
+	extern volatile struct Env *env;
+	//debugf("我进来了！\n");
+	/* step 1: Set our TLB Mod user exception entry to 'cow_entry' if not done yet. */
+	if (env->env_user_tlb_mod_entry != (u_int)cow_entry) 
+  400880:	3c020040 	lui	v0,0x40
+  400884:	8c423000 	lw	v0,12288(v0)
+  400888:	00000000 	nop
+  40088c:	8c4300d4 	lw	v1,212(v0)
+  400890:	3c020040 	lui	v0,0x40
+  400894:	24420600 	addiu	v0,v0,1536
+  400898:	1062000e 	beq	v1,v0,4008d4 <fork+0x64>
+  40089c:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:125
+	{	
+		//debugf("我尝试了\n");
+		try(syscall_set_tlb_mod_entry(0, cow_entry));
+  4008a0:	3c020040 	lui	v0,0x40
+  4008a4:	24450600 	addiu	a1,v0,1536
+  4008a8:	00002025 	move	a0,zero
+  4008ac:	0c1002d7 	jal	400b5c <syscall_set_tlb_mod_entry>
+  4008b0:	00000000 	nop
+  4008b4:	afc2001c 	sw	v0,28(s8)
+  4008b8:	8fc2001c 	lw	v0,28(s8)
+  4008bc:	00000000 	nop
+  4008c0:	10400004 	beqz	v0,4008d4 <fork+0x64>
+  4008c4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:125 (discriminator 1)
+  4008c8:	8fc2001c 	lw	v0,28(s8)
+  4008cc:	10000050 	b	400a10 <fork+0x1a0>
+  4008d0:	00000000 	nop
+syscall_exofork():
+/home/git/21373271/21373271/user/include/lib.h:62
+int syscall_mem_alloc(u_int envid, void *va, u_int perm);
+int syscall_mem_map(u_int srcid, void *srcva, u_int dstid, void *dstva, u_int perm);
+int syscall_mem_unmap(u_int envid, void *va);
+
+__attribute__((always_inline)) inline static int syscall_exofork(void) {
+	return msyscall(SYS_exofork, 0, 0, 0, 0, 0);
+  4008d4:	afa00014 	sw	zero,20(sp)
+  4008d8:	afa00010 	sw	zero,16(sp)
+  4008dc:	00003825 	move	a3,zero
+  4008e0:	00003025 	move	a2,zero
+  4008e4:	00002825 	move	a1,zero
+  4008e8:	24040009 	li	a0,9
+  4008ec:	0c100064 	jal	400190 <msyscall>
+  4008f0:	00000000 	nop
+fork():
+/home/git/21373271/21373271/user/lib/fork.c:132
+
+	/* Step 2: Create a child env that's not ready to be scheduled. */
+	// Hint: 'env' should always point to the current env itself, so we should fix it to the
+	// correct value.
+	//debugf("%d\n",child);
+	child = syscall_exofork();
+  4008f4:	afc20020 	sw	v0,32(s8)
+/home/git/21373271/21373271/user/lib/fork.c:134
+	//debugf("%d\n",child);
+	if (child == 0) {
+  4008f8:	8fc20020 	lw	v0,32(s8)
+  4008fc:	00000000 	nop
+  400900:	14400012 	bnez	v0,40094c <fork+0xdc>
+  400904:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:135
+		env = envs + ENVX(syscall_getenvid());
+  400908:	0c1002ad 	jal	400ab4 <syscall_getenvid>
+  40090c:	00000000 	nop
+  400910:	304303ff 	andi	v1,v0,0x3ff
+  400914:	00601025 	move	v0,v1
+  400918:	000210c0 	sll	v0,v0,0x3
+  40091c:	00431023 	subu	v0,v0,v1
+  400920:	000210c0 	sll	v0,v0,0x3
+  400924:	00431023 	subu	v0,v0,v1
+  400928:	00021080 	sll	v0,v0,0x2
+  40092c:	00401825 	move	v1,v0
+  400930:	3c027f40 	lui	v0,0x7f40
+  400934:	00621821 	addu	v1,v1,v0
+  400938:	3c020040 	lui	v0,0x40
+  40093c:	ac433000 	sw	v1,12288(v0)
+/home/git/21373271/21373271/user/lib/fork.c:136
+		return 0;
+  400940:	00001025 	move	v0,zero
+  400944:	10000032 	b	400a10 <fork+0x1a0>
+  400948:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:142
+	}
+
+	/* Step 3: Map all mapped pages below 'USTACKTOP' into the child's address space. */
+	// Hint: You should use 'duppage'.
+	/* Exercise 4.15: Your code here. (1/2) */
+	for (i = 0 ; i < VPN(USTACKTOP) ; i++ )
+  40094c:	afc00018 	sw	zero,24(s8)
+  400950:	1000001f 	b	4009d0 <fork+0x160>
+  400954:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:144
+	{
+		if ( (*(vpd+(i>>10)) & PTE_V) && (*(vpt+i) & PTE_V) )
+  400958:	8fc20018 	lw	v0,24(s8)
+  40095c:	00000000 	nop
+  400960:	00021282 	srl	v0,v0,0xa
+  400964:	00021880 	sll	v1,v0,0x2
+  400968:	3c027fdf 	lui	v0,0x7fdf
+  40096c:	3442f000 	ori	v0,v0,0xf000
+  400970:	00621021 	addu	v0,v1,v0
+  400974:	8c420000 	lw	v0,0(v0)
+  400978:	00000000 	nop
+  40097c:	30420200 	andi	v0,v0,0x200
+  400980:	1040000f 	beqz	v0,4009c0 <fork+0x150>
+  400984:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:144 (discriminator 1)
+  400988:	8fc20018 	lw	v0,24(s8)
+  40098c:	00000000 	nop
+  400990:	00021880 	sll	v1,v0,0x2
+  400994:	3c027fc0 	lui	v0,0x7fc0
+  400998:	00621021 	addu	v0,v1,v0
+  40099c:	8c420000 	lw	v0,0(v0)
+  4009a0:	00000000 	nop
+  4009a4:	30420200 	andi	v0,v0,0x200
+  4009a8:	10400005 	beqz	v0,4009c0 <fork+0x150>
+  4009ac:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:146
+		{
+			duppage(child,i);
+  4009b0:	8fc50018 	lw	a1,24(s8)
+  4009b4:	8fc40020 	lw	a0,32(s8)
+  4009b8:	0c1001d1 	jal	400744 <duppage>
+  4009bc:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:142 (discriminator 2)
+	for (i = 0 ; i < VPN(USTACKTOP) ; i++ )
+  4009c0:	8fc20018 	lw	v0,24(s8)
+  4009c4:	00000000 	nop
+  4009c8:	24420001 	addiu	v0,v0,1
+  4009cc:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/user/lib/fork.c:142 (discriminator 1)
+  4009d0:	8fc30018 	lw	v1,24(s8)
+  4009d4:	3c020007 	lui	v0,0x7
+  4009d8:	3442f3fe 	ori	v0,v0,0xf3fe
+  4009dc:	0062102b 	sltu	v0,v1,v0
+  4009e0:	1440ffdd 	bnez	v0,400958 <fork+0xe8>
+  4009e4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:156
+	/* Hint:
+	 *   You may use 'syscall_set_tlb_mod_entry' and 'syscall_set_env_status'
+	 *   Child's TLB Mod user exception entry should handle COW, so set it to 'cow_entry'
+	 */
+	/* Exercise 4.15: Your code here. (2/2) */
+	syscall_set_tlb_mod_entry(child,cow_entry);
+  4009e8:	3c020040 	lui	v0,0x40
+  4009ec:	24450600 	addiu	a1,v0,1536
+  4009f0:	8fc40020 	lw	a0,32(s8)
+  4009f4:	0c1002d7 	jal	400b5c <syscall_set_tlb_mod_entry>
+  4009f8:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:157
+	syscall_set_env_status(child,ENV_RUNNABLE);
+  4009fc:	24050001 	li	a1,1
+  400a00:	8fc40020 	lw	a0,32(s8)
+  400a04:	0c100326 	jal	400c98 <syscall_set_env_status>
+  400a08:	00000000 	nop
+/home/git/21373271/21373271/user/lib/fork.c:158
+	return child;
+  400a0c:	8fc20020 	lw	v0,32(s8)
+/home/git/21373271/21373271/user/lib/fork.c:159
+}
+  400a10:	03c0e825 	move	sp,s8
+  400a14:	8fbf002c 	lw	ra,44(sp)
+  400a18:	8fbe0028 	lw	s8,40(sp)
+  400a1c:	27bd0030 	addiu	sp,sp,48
+  400a20:	03e00008 	jr	ra
+  400a24:	00000000 	nop
+	...
+
+00400a30 <syscall_putchar>:
+syscall_putchar():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:7
+#include <lib.h>
+#include <mmu.h>
+#include <syscall.h>
+#include <trap.h>
+
+void syscall_putchar(int ch) {
+  400a30:	27bdffe8 	addiu	sp,sp,-24
+  400a34:	afbf0014 	sw	ra,20(sp)
+  400a38:	afbe0010 	sw	s8,16(sp)
+  400a3c:	03a0f025 	move	s8,sp
+  400a40:	afc40018 	sw	a0,24(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:8
+	msyscall(SYS_putchar, ch);
+  400a44:	8fc50018 	lw	a1,24(s8)
+  400a48:	00002025 	move	a0,zero
+  400a4c:	0c100064 	jal	400190 <msyscall>
+  400a50:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:9
+}
+  400a54:	00000000 	nop
+  400a58:	03c0e825 	move	sp,s8
+  400a5c:	8fbf0014 	lw	ra,20(sp)
+  400a60:	8fbe0010 	lw	s8,16(sp)
+  400a64:	27bd0018 	addiu	sp,sp,24
+  400a68:	03e00008 	jr	ra
+  400a6c:	00000000 	nop
+
+00400a70 <syscall_print_cons>:
+syscall_print_cons():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:11
+
+int syscall_print_cons(const void *str, u_int num) {
+  400a70:	27bdffe8 	addiu	sp,sp,-24
+  400a74:	afbf0014 	sw	ra,20(sp)
+  400a78:	afbe0010 	sw	s8,16(sp)
+  400a7c:	03a0f025 	move	s8,sp
+  400a80:	afc40018 	sw	a0,24(s8)
+  400a84:	afc5001c 	sw	a1,28(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:12
+	return msyscall(SYS_print_cons, str, num);
+  400a88:	8fc6001c 	lw	a2,28(s8)
+  400a8c:	8fc50018 	lw	a1,24(s8)
+  400a90:	24040001 	li	a0,1
+  400a94:	0c100064 	jal	400190 <msyscall>
+  400a98:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:13
+}
+  400a9c:	03c0e825 	move	sp,s8
+  400aa0:	8fbf0014 	lw	ra,20(sp)
+  400aa4:	8fbe0010 	lw	s8,16(sp)
+  400aa8:	27bd0018 	addiu	sp,sp,24
+  400aac:	03e00008 	jr	ra
+  400ab0:	00000000 	nop
+
+00400ab4 <syscall_getenvid>:
+syscall_getenvid():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:15
+
+u_int syscall_getenvid(void) {
+  400ab4:	27bdffe8 	addiu	sp,sp,-24
+  400ab8:	afbf0014 	sw	ra,20(sp)
+  400abc:	afbe0010 	sw	s8,16(sp)
+  400ac0:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/user/lib/syscall_lib.c:16
+	return msyscall(SYS_getenvid);
+  400ac4:	24040002 	li	a0,2
+  400ac8:	0c100064 	jal	400190 <msyscall>
+  400acc:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:17
+}
+  400ad0:	03c0e825 	move	sp,s8
+  400ad4:	8fbf0014 	lw	ra,20(sp)
+  400ad8:	8fbe0010 	lw	s8,16(sp)
+  400adc:	27bd0018 	addiu	sp,sp,24
+  400ae0:	03e00008 	jr	ra
+  400ae4:	00000000 	nop
+
+00400ae8 <syscall_yield>:
+syscall_yield():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:19
+
+void syscall_yield(void) {
+  400ae8:	27bdffe8 	addiu	sp,sp,-24
+  400aec:	afbf0014 	sw	ra,20(sp)
+  400af0:	afbe0010 	sw	s8,16(sp)
+  400af4:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/user/lib/syscall_lib.c:20
+	msyscall(SYS_yield);
+  400af8:	24040003 	li	a0,3
+  400afc:	0c100064 	jal	400190 <msyscall>
+  400b00:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:21
+}
+  400b04:	00000000 	nop
+  400b08:	03c0e825 	move	sp,s8
+  400b0c:	8fbf0014 	lw	ra,20(sp)
+  400b10:	8fbe0010 	lw	s8,16(sp)
+  400b14:	27bd0018 	addiu	sp,sp,24
+  400b18:	03e00008 	jr	ra
+  400b1c:	00000000 	nop
+
+00400b20 <syscall_env_destroy>:
+syscall_env_destroy():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:23
+
+int syscall_env_destroy(u_int envid) {
+  400b20:	27bdffe8 	addiu	sp,sp,-24
+  400b24:	afbf0014 	sw	ra,20(sp)
+  400b28:	afbe0010 	sw	s8,16(sp)
+  400b2c:	03a0f025 	move	s8,sp
+  400b30:	afc40018 	sw	a0,24(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:24
+	return msyscall(SYS_env_destroy, envid);
+  400b34:	8fc50018 	lw	a1,24(s8)
+  400b38:	24040004 	li	a0,4
+  400b3c:	0c100064 	jal	400190 <msyscall>
+  400b40:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:25
+}
+  400b44:	03c0e825 	move	sp,s8
+  400b48:	8fbf0014 	lw	ra,20(sp)
+  400b4c:	8fbe0010 	lw	s8,16(sp)
+  400b50:	27bd0018 	addiu	sp,sp,24
+  400b54:	03e00008 	jr	ra
+  400b58:	00000000 	nop
+
+00400b5c <syscall_set_tlb_mod_entry>:
+syscall_set_tlb_mod_entry():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:27
+
+int syscall_set_tlb_mod_entry(u_int envid, void (*func)(struct Trapframe *)) {
+  400b5c:	27bdffe8 	addiu	sp,sp,-24
+  400b60:	afbf0014 	sw	ra,20(sp)
+  400b64:	afbe0010 	sw	s8,16(sp)
+  400b68:	03a0f025 	move	s8,sp
+  400b6c:	afc40018 	sw	a0,24(s8)
+  400b70:	afc5001c 	sw	a1,28(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:28
+	return msyscall(SYS_set_tlb_mod_entry, envid, func);
+  400b74:	8fc6001c 	lw	a2,28(s8)
+  400b78:	8fc50018 	lw	a1,24(s8)
+  400b7c:	24040005 	li	a0,5
+  400b80:	0c100064 	jal	400190 <msyscall>
+  400b84:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:29
+}
+  400b88:	03c0e825 	move	sp,s8
+  400b8c:	8fbf0014 	lw	ra,20(sp)
+  400b90:	8fbe0010 	lw	s8,16(sp)
+  400b94:	27bd0018 	addiu	sp,sp,24
+  400b98:	03e00008 	jr	ra
+  400b9c:	00000000 	nop
+
+00400ba0 <syscall_mem_alloc>:
+syscall_mem_alloc():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:31
+
+int syscall_mem_alloc(u_int envid, void *va, u_int perm) {
+  400ba0:	27bdffe8 	addiu	sp,sp,-24
+  400ba4:	afbf0014 	sw	ra,20(sp)
+  400ba8:	afbe0010 	sw	s8,16(sp)
+  400bac:	03a0f025 	move	s8,sp
+  400bb0:	afc40018 	sw	a0,24(s8)
+  400bb4:	afc5001c 	sw	a1,28(s8)
+  400bb8:	afc60020 	sw	a2,32(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:32
+	return msyscall(SYS_mem_alloc, envid, va, perm);
+  400bbc:	8fc70020 	lw	a3,32(s8)
+  400bc0:	8fc6001c 	lw	a2,28(s8)
+  400bc4:	8fc50018 	lw	a1,24(s8)
+  400bc8:	24040006 	li	a0,6
+  400bcc:	0c100064 	jal	400190 <msyscall>
+  400bd0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:33
+}
+  400bd4:	03c0e825 	move	sp,s8
+  400bd8:	8fbf0014 	lw	ra,20(sp)
+  400bdc:	8fbe0010 	lw	s8,16(sp)
+  400be0:	27bd0018 	addiu	sp,sp,24
+  400be4:	03e00008 	jr	ra
+  400be8:	00000000 	nop
+
+00400bec <syscall_mem_map>:
+syscall_mem_map():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:35
+
+int syscall_mem_map(u_int srcid, void *srcva, u_int dstid, void *dstva, u_int perm) {
+  400bec:	27bdffe0 	addiu	sp,sp,-32
+  400bf0:	afbf001c 	sw	ra,28(sp)
+  400bf4:	afbe0018 	sw	s8,24(sp)
+  400bf8:	03a0f025 	move	s8,sp
+  400bfc:	afc40020 	sw	a0,32(s8)
+  400c00:	afc50024 	sw	a1,36(s8)
+  400c04:	afc60028 	sw	a2,40(s8)
+  400c08:	afc7002c 	sw	a3,44(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:36
+	return msyscall(SYS_mem_map, srcid, srcva, dstid, dstva, perm);
+  400c0c:	8fc20030 	lw	v0,48(s8)
+  400c10:	00000000 	nop
+  400c14:	afa20014 	sw	v0,20(sp)
+  400c18:	8fc2002c 	lw	v0,44(s8)
+  400c1c:	00000000 	nop
+  400c20:	afa20010 	sw	v0,16(sp)
+  400c24:	8fc70028 	lw	a3,40(s8)
+  400c28:	8fc60024 	lw	a2,36(s8)
+  400c2c:	8fc50020 	lw	a1,32(s8)
+  400c30:	24040007 	li	a0,7
+  400c34:	0c100064 	jal	400190 <msyscall>
+  400c38:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:37
+}
+  400c3c:	03c0e825 	move	sp,s8
+  400c40:	8fbf001c 	lw	ra,28(sp)
+  400c44:	8fbe0018 	lw	s8,24(sp)
+  400c48:	27bd0020 	addiu	sp,sp,32
+  400c4c:	03e00008 	jr	ra
+  400c50:	00000000 	nop
+
+00400c54 <syscall_mem_unmap>:
+syscall_mem_unmap():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:39
+
+int syscall_mem_unmap(u_int envid, void *va) {
+  400c54:	27bdffe8 	addiu	sp,sp,-24
+  400c58:	afbf0014 	sw	ra,20(sp)
+  400c5c:	afbe0010 	sw	s8,16(sp)
+  400c60:	03a0f025 	move	s8,sp
+  400c64:	afc40018 	sw	a0,24(s8)
+  400c68:	afc5001c 	sw	a1,28(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:40
+	return msyscall(SYS_mem_unmap, envid, va);
+  400c6c:	8fc6001c 	lw	a2,28(s8)
+  400c70:	8fc50018 	lw	a1,24(s8)
+  400c74:	24040008 	li	a0,8
+  400c78:	0c100064 	jal	400190 <msyscall>
+  400c7c:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:41
+}
+  400c80:	03c0e825 	move	sp,s8
+  400c84:	8fbf0014 	lw	ra,20(sp)
+  400c88:	8fbe0010 	lw	s8,16(sp)
+  400c8c:	27bd0018 	addiu	sp,sp,24
+  400c90:	03e00008 	jr	ra
+  400c94:	00000000 	nop
+
+00400c98 <syscall_set_env_status>:
+syscall_set_env_status():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:43
+
+int syscall_set_env_status(u_int envid, u_int status) {
+  400c98:	27bdffe8 	addiu	sp,sp,-24
+  400c9c:	afbf0014 	sw	ra,20(sp)
+  400ca0:	afbe0010 	sw	s8,16(sp)
+  400ca4:	03a0f025 	move	s8,sp
+  400ca8:	afc40018 	sw	a0,24(s8)
+  400cac:	afc5001c 	sw	a1,28(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:44
+	return msyscall(SYS_set_env_status, envid, status);
+  400cb0:	8fc6001c 	lw	a2,28(s8)
+  400cb4:	8fc50018 	lw	a1,24(s8)
+  400cb8:	2404000a 	li	a0,10
+  400cbc:	0c100064 	jal	400190 <msyscall>
+  400cc0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:45
+}
+  400cc4:	03c0e825 	move	sp,s8
+  400cc8:	8fbf0014 	lw	ra,20(sp)
+  400ccc:	8fbe0010 	lw	s8,16(sp)
+  400cd0:	27bd0018 	addiu	sp,sp,24
+  400cd4:	03e00008 	jr	ra
+  400cd8:	00000000 	nop
+
+00400cdc <syscall_set_trapframe>:
+syscall_set_trapframe():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:47
+
+int syscall_set_trapframe(u_int envid, struct Trapframe *tf) {
+  400cdc:	27bdffe8 	addiu	sp,sp,-24
+  400ce0:	afbf0014 	sw	ra,20(sp)
+  400ce4:	afbe0010 	sw	s8,16(sp)
+  400ce8:	03a0f025 	move	s8,sp
+  400cec:	afc40018 	sw	a0,24(s8)
+  400cf0:	afc5001c 	sw	a1,28(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:48
+	return msyscall(SYS_set_trapframe, envid, tf);
+  400cf4:	8fc6001c 	lw	a2,28(s8)
+  400cf8:	8fc50018 	lw	a1,24(s8)
+  400cfc:	2404000b 	li	a0,11
+  400d00:	0c100064 	jal	400190 <msyscall>
+  400d04:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:49
+}
+  400d08:	03c0e825 	move	sp,s8
+  400d0c:	8fbf0014 	lw	ra,20(sp)
+  400d10:	8fbe0010 	lw	s8,16(sp)
+  400d14:	27bd0018 	addiu	sp,sp,24
+  400d18:	03e00008 	jr	ra
+  400d1c:	00000000 	nop
+
+00400d20 <syscall_panic>:
+syscall_panic():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:51
+
+void syscall_panic(const char *msg) {
+  400d20:	27bdffe0 	addiu	sp,sp,-32
+  400d24:	afbf001c 	sw	ra,28(sp)
+  400d28:	afbe0018 	sw	s8,24(sp)
+  400d2c:	03a0f025 	move	s8,sp
+  400d30:	afc40020 	sw	a0,32(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:52
+	int r = msyscall(SYS_panic, msg);
+  400d34:	8fc50020 	lw	a1,32(s8)
+  400d38:	2404000c 	li	a0,12
+  400d3c:	0c100064 	jal	400190 <msyscall>
+  400d40:	00000000 	nop
+  400d44:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:53
+	user_panic("SYS_panic returned %d", r);
+  400d48:	8fc70010 	lw	a3,16(s8)
+  400d4c:	3c020040 	lui	v0,0x40
+  400d50:	24462aa0 	addiu	a2,v0,10912
+  400d54:	24050035 	li	a1,53
+  400d58:	3c020040 	lui	v0,0x40
+  400d5c:	24442ab8 	addiu	a0,v0,10936
+  400d60:	0c10011b 	jal	40046c <_user_panic>
+  400d64:	00000000 	nop
+
+00400d68 <syscall_ipc_try_send>:
+syscall_ipc_try_send():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:56
+}
+
+int syscall_ipc_try_send(u_int envid, u_int value, const void *srcva, u_int perm) {
+  400d68:	27bdffe0 	addiu	sp,sp,-32
+  400d6c:	afbf001c 	sw	ra,28(sp)
+  400d70:	afbe0018 	sw	s8,24(sp)
+  400d74:	03a0f025 	move	s8,sp
+  400d78:	afc40020 	sw	a0,32(s8)
+  400d7c:	afc50024 	sw	a1,36(s8)
+  400d80:	afc60028 	sw	a2,40(s8)
+  400d84:	afc7002c 	sw	a3,44(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:57
+	return msyscall(SYS_ipc_try_send, envid, value, srcva, perm);
+  400d88:	8fc2002c 	lw	v0,44(s8)
+  400d8c:	00000000 	nop
+  400d90:	afa20010 	sw	v0,16(sp)
+  400d94:	8fc70028 	lw	a3,40(s8)
+  400d98:	8fc60024 	lw	a2,36(s8)
+  400d9c:	8fc50020 	lw	a1,32(s8)
+  400da0:	2404000d 	li	a0,13
+  400da4:	0c100064 	jal	400190 <msyscall>
+  400da8:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:58
+}
+  400dac:	03c0e825 	move	sp,s8
+  400db0:	8fbf001c 	lw	ra,28(sp)
+  400db4:	8fbe0018 	lw	s8,24(sp)
+  400db8:	27bd0020 	addiu	sp,sp,32
+  400dbc:	03e00008 	jr	ra
+  400dc0:	00000000 	nop
+
+00400dc4 <syscall_ipc_recv>:
+syscall_ipc_recv():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:60
+
+int syscall_ipc_recv(void *dstva) {
+  400dc4:	27bdffe8 	addiu	sp,sp,-24
+  400dc8:	afbf0014 	sw	ra,20(sp)
+  400dcc:	afbe0010 	sw	s8,16(sp)
+  400dd0:	03a0f025 	move	s8,sp
+  400dd4:	afc40018 	sw	a0,24(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:61
+	return msyscall(SYS_ipc_recv, dstva);
+  400dd8:	8fc50018 	lw	a1,24(s8)
+  400ddc:	2404000e 	li	a0,14
+  400de0:	0c100064 	jal	400190 <msyscall>
+  400de4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:62
+}
+  400de8:	03c0e825 	move	sp,s8
+  400dec:	8fbf0014 	lw	ra,20(sp)
+  400df0:	8fbe0010 	lw	s8,16(sp)
+  400df4:	27bd0018 	addiu	sp,sp,24
+  400df8:	03e00008 	jr	ra
+  400dfc:	00000000 	nop
+
+00400e00 <syscall_cgetc>:
+syscall_cgetc():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:64
+
+int syscall_cgetc() {
+  400e00:	27bdffe8 	addiu	sp,sp,-24
+  400e04:	afbf0014 	sw	ra,20(sp)
+  400e08:	afbe0010 	sw	s8,16(sp)
+  400e0c:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/user/lib/syscall_lib.c:65
+	return msyscall(SYS_cgetc);
+  400e10:	2404000f 	li	a0,15
+  400e14:	0c100064 	jal	400190 <msyscall>
+  400e18:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:66
+}
+  400e1c:	03c0e825 	move	sp,s8
+  400e20:	8fbf0014 	lw	ra,20(sp)
+  400e24:	8fbe0010 	lw	s8,16(sp)
+  400e28:	27bd0018 	addiu	sp,sp,24
+  400e2c:	03e00008 	jr	ra
+  400e30:	00000000 	nop
+
+00400e34 <syscall_write_dev>:
+syscall_write_dev():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:68
+
+int syscall_write_dev(void *va, u_int dev, u_int len) {
+  400e34:	27bdfff8 	addiu	sp,sp,-8
+  400e38:	afbe0004 	sw	s8,4(sp)
+  400e3c:	03a0f025 	move	s8,sp
+  400e40:	afc40008 	sw	a0,8(s8)
+  400e44:	afc5000c 	sw	a1,12(s8)
+  400e48:	afc60010 	sw	a2,16(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:71
+	/* Exercise 5.2: Your code here. (1/2) */
+
+}
+  400e4c:	00000000 	nop
+  400e50:	03c0e825 	move	sp,s8
+  400e54:	8fbe0004 	lw	s8,4(sp)
+  400e58:	27bd0008 	addiu	sp,sp,8
+  400e5c:	03e00008 	jr	ra
+  400e60:	00000000 	nop
+
+00400e64 <syscall_read_dev>:
+syscall_read_dev():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:73
+
+int syscall_read_dev(void *va, u_int dev, u_int len) {
+  400e64:	27bdfff8 	addiu	sp,sp,-8
+  400e68:	afbe0004 	sw	s8,4(sp)
+  400e6c:	03a0f025 	move	s8,sp
+  400e70:	afc40008 	sw	a0,8(s8)
+  400e74:	afc5000c 	sw	a1,12(s8)
+  400e78:	afc60010 	sw	a2,16(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:76
+	/* Exercise 5.2: Your code here. (2/2) */
+
+}
+  400e7c:	00000000 	nop
+  400e80:	03c0e825 	move	sp,s8
+  400e84:	8fbe0004 	lw	s8,4(sp)
+  400e88:	27bd0008 	addiu	sp,sp,8
+  400e8c:	03e00008 	jr	ra
+  400e90:	00000000 	nop
+
+00400e94 <syscall_ipc_try_send_father>:
+syscall_ipc_try_send_father():
+/home/git/21373271/21373271/user/lib/syscall_lib.c:78
+
+int syscall_ipc_try_send_father(u_int value, const void *srcva, u_int perm) {
+  400e94:	27bdffe8 	addiu	sp,sp,-24
+  400e98:	afbf0014 	sw	ra,20(sp)
+  400e9c:	afbe0010 	sw	s8,16(sp)
+  400ea0:	03a0f025 	move	s8,sp
+  400ea4:	afc40018 	sw	a0,24(s8)
+  400ea8:	afc5001c 	sw	a1,28(s8)
+  400eac:	afc60020 	sw	a2,32(s8)
+/home/git/21373271/21373271/user/lib/syscall_lib.c:79
+	return msyscall(SYS_ipc_try_send_father,value,srcva,perm);
+  400eb0:	8fc70020 	lw	a3,32(s8)
+  400eb4:	8fc6001c 	lw	a2,28(s8)
+  400eb8:	8fc50018 	lw	a1,24(s8)
+  400ebc:	24040012 	li	a0,18
+  400ec0:	0c100064 	jal	400190 <msyscall>
+  400ec4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/syscall_lib.c:80
+}
+  400ec8:	03c0e825 	move	sp,s8
+  400ecc:	8fbf0014 	lw	ra,20(sp)
+  400ed0:	8fbe0010 	lw	s8,16(sp)
+  400ed4:	27bd0018 	addiu	sp,sp,24
+  400ed8:	03e00008 	jr	ra
+  400edc:	00000000 	nop
+
+00400ee0 <ipc_broadcast>:
+ipc_broadcast():
+/home/git/21373271/21373271/user/lib/ipc.c:12
+
+
+
+
+void ipc_broadcast(u_int val, void * srcva, u_int perm)
+{
+  400ee0:	27bdffe0 	addiu	sp,sp,-32
+  400ee4:	afbf001c 	sw	ra,28(sp)
+  400ee8:	afbe0018 	sw	s8,24(sp)
+  400eec:	03a0f025 	move	s8,sp
+  400ef0:	afc40020 	sw	a0,32(s8)
+  400ef4:	afc50024 	sw	a1,36(s8)
+  400ef8:	afc60028 	sw	a2,40(s8)
+/home/git/21373271/21373271/user/lib/ipc.c:14
+	int r;
+	while ((r = syscall_ipc_try_send_father(val, srcva, perm)) == -E_IPC_NOT_RECV) {
+  400efc:	10000003 	b	400f0c <ipc_broadcast+0x2c>
+  400f00:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:15
+		syscall_yield();
+  400f04:	0c1002ba 	jal	400ae8 <syscall_yield>
+  400f08:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:14
+	while ((r = syscall_ipc_try_send_father(val, srcva, perm)) == -E_IPC_NOT_RECV) {
+  400f0c:	8fc60028 	lw	a2,40(s8)
+  400f10:	8fc50024 	lw	a1,36(s8)
+  400f14:	8fc40020 	lw	a0,32(s8)
+  400f18:	0c1003a5 	jal	400e94 <syscall_ipc_try_send_father>
+  400f1c:	00000000 	nop
+  400f20:	afc20010 	sw	v0,16(s8)
+  400f24:	8fc30010 	lw	v1,16(s8)
+  400f28:	2402fff9 	li	v0,-7
+  400f2c:	1062fff5 	beq	v1,v0,400f04 <ipc_broadcast+0x24>
+  400f30:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:17
+	}
+	user_assert(r == 0);
+  400f34:	8fc20010 	lw	v0,16(s8)
+  400f38:	00000000 	nop
+  400f3c:	1040000a 	beqz	v0,400f68 <ipc_broadcast+0x88>
+  400f40:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:17 (discriminator 1)
+  400f44:	3c020040 	lui	v0,0x40
+  400f48:	24472ad0 	addiu	a3,v0,10960
+  400f4c:	3c020040 	lui	v0,0x40
+  400f50:	24462ad8 	addiu	a2,v0,10968
+  400f54:	24050011 	li	a1,17
+  400f58:	3c020040 	lui	v0,0x40
+  400f5c:	24442af0 	addiu	a0,v0,10992
+  400f60:	0c10011b 	jal	40046c <_user_panic>
+  400f64:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:18
+}
+  400f68:	00000000 	nop
+  400f6c:	03c0e825 	move	sp,s8
+  400f70:	8fbf001c 	lw	ra,28(sp)
+  400f74:	8fbe0018 	lw	s8,24(sp)
+  400f78:	27bd0020 	addiu	sp,sp,32
+  400f7c:	03e00008 	jr	ra
+  400f80:	00000000 	nop
+
+00400f84 <ipc_send>:
+ipc_send():
+/home/git/21373271/21373271/user/lib/ipc.c:25
+// Send val to whom.  This function keeps trying until
+// it succeeds.  It should panic() on any error other than
+// -E_IPC_NOT_RECV.
+//
+// Hint: use syscall_yield() to be CPU-friendly.
+void ipc_send(u_int whom, u_int val, const void *srcva, u_int perm) {
+  400f84:	27bdffe0 	addiu	sp,sp,-32
+  400f88:	afbf001c 	sw	ra,28(sp)
+  400f8c:	afbe0018 	sw	s8,24(sp)
+  400f90:	03a0f025 	move	s8,sp
+  400f94:	afc40020 	sw	a0,32(s8)
+  400f98:	afc50024 	sw	a1,36(s8)
+  400f9c:	afc60028 	sw	a2,40(s8)
+  400fa0:	afc7002c 	sw	a3,44(s8)
+/home/git/21373271/21373271/user/lib/ipc.c:27
+	int r;
+	while ((r = syscall_ipc_try_send(whom, val, srcva, perm)) == -E_IPC_NOT_RECV) {
+  400fa4:	10000003 	b	400fb4 <ipc_send+0x30>
+  400fa8:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:28
+		syscall_yield();
+  400fac:	0c1002ba 	jal	400ae8 <syscall_yield>
+  400fb0:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:27
+	while ((r = syscall_ipc_try_send(whom, val, srcva, perm)) == -E_IPC_NOT_RECV) {
+  400fb4:	8fc7002c 	lw	a3,44(s8)
+  400fb8:	8fc60028 	lw	a2,40(s8)
+  400fbc:	8fc50024 	lw	a1,36(s8)
+  400fc0:	8fc40020 	lw	a0,32(s8)
+  400fc4:	0c10035a 	jal	400d68 <syscall_ipc_try_send>
+  400fc8:	00000000 	nop
+  400fcc:	afc20010 	sw	v0,16(s8)
+  400fd0:	8fc30010 	lw	v1,16(s8)
+  400fd4:	2402fff9 	li	v0,-7
+  400fd8:	1062fff4 	beq	v1,v0,400fac <ipc_send+0x28>
+  400fdc:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:30
+	}
+	user_assert(r == 0);
+  400fe0:	8fc20010 	lw	v0,16(s8)
+  400fe4:	00000000 	nop
+  400fe8:	1040000a 	beqz	v0,401014 <ipc_send+0x90>
+  400fec:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:30 (discriminator 1)
+  400ff0:	3c020040 	lui	v0,0x40
+  400ff4:	24472ad0 	addiu	a3,v0,10960
+  400ff8:	3c020040 	lui	v0,0x40
+  400ffc:	24462ad8 	addiu	a2,v0,10968
+  401000:	2405001e 	li	a1,30
+  401004:	3c020040 	lui	v0,0x40
+  401008:	24442af0 	addiu	a0,v0,10992
+  40100c:	0c10011b 	jal	40046c <_user_panic>
+  401010:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:31
+}
+  401014:	00000000 	nop
+  401018:	03c0e825 	move	sp,s8
+  40101c:	8fbf001c 	lw	ra,28(sp)
+  401020:	8fbe0018 	lw	s8,24(sp)
+  401024:	27bd0020 	addiu	sp,sp,32
+  401028:	03e00008 	jr	ra
+  40102c:	00000000 	nop
+
+00401030 <ipc_recv>:
+ipc_recv():
+/home/git/21373271/21373271/user/lib/ipc.c:37
+
+// Receive a value.  Return the value and store the caller's envid
+// in *whom.
+//
+// Hint: use env to discover the value and who sent it.
+u_int ipc_recv(u_int *whom, void *dstva, u_int *perm) {
+  401030:	27bdffe0 	addiu	sp,sp,-32
+  401034:	afbf001c 	sw	ra,28(sp)
+  401038:	afbe0018 	sw	s8,24(sp)
+  40103c:	03a0f025 	move	s8,sp
+  401040:	afc40020 	sw	a0,32(s8)
+  401044:	afc50024 	sw	a1,36(s8)
+  401048:	afc60028 	sw	a2,40(s8)
+/home/git/21373271/21373271/user/lib/ipc.c:38
+	int r = syscall_ipc_recv(dstva);
+  40104c:	8fc40024 	lw	a0,36(s8)
+  401050:	0c100371 	jal	400dc4 <syscall_ipc_recv>
+  401054:	00000000 	nop
+  401058:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/user/lib/ipc.c:39
+	if (r != 0) {
+  40105c:	8fc20010 	lw	v0,16(s8)
+  401060:	00000000 	nop
+  401064:	10400009 	beqz	v0,40108c <ipc_recv+0x5c>
+  401068:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:40
+		user_panic("syscall_ipc_recv err: %d", r);
+  40106c:	8fc70010 	lw	a3,16(s8)
+  401070:	3c020040 	lui	v0,0x40
+  401074:	24462afc 	addiu	a2,v0,11004
+  401078:	24050028 	li	a1,40
+  40107c:	3c020040 	lui	v0,0x40
+  401080:	24442af0 	addiu	a0,v0,10992
+  401084:	0c10011b 	jal	40046c <_user_panic>
+  401088:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:43
+	}
+
+	if (whom) {
+  40108c:	8fc20020 	lw	v0,32(s8)
+  401090:	00000000 	nop
+  401094:	10400008 	beqz	v0,4010b8 <ipc_recv+0x88>
+  401098:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:44
+		*whom = env->env_ipc_from;
+  40109c:	3c020040 	lui	v0,0x40
+  4010a0:	8c423000 	lw	v0,12288(v0)
+  4010a4:	00000000 	nop
+  4010a8:	8c4300c4 	lw	v1,196(v0)
+  4010ac:	8fc20020 	lw	v0,32(s8)
+  4010b0:	00000000 	nop
+  4010b4:	ac430000 	sw	v1,0(v0)
+/home/git/21373271/21373271/user/lib/ipc.c:47
+	}
+
+	if (perm) {
+  4010b8:	8fc20028 	lw	v0,40(s8)
+  4010bc:	00000000 	nop
+  4010c0:	10400008 	beqz	v0,4010e4 <ipc_recv+0xb4>
+  4010c4:	00000000 	nop
+/home/git/21373271/21373271/user/lib/ipc.c:48
+		*perm = env->env_ipc_perm;
+  4010c8:	3c020040 	lui	v0,0x40
+  4010cc:	8c423000 	lw	v0,12288(v0)
+  4010d0:	00000000 	nop
+  4010d4:	8c4300d0 	lw	v1,208(v0)
+  4010d8:	8fc20028 	lw	v0,40(s8)
+  4010dc:	00000000 	nop
+  4010e0:	ac430000 	sw	v1,0(v0)
+/home/git/21373271/21373271/user/lib/ipc.c:51
+	}
+
+	return env->env_ipc_value;
+  4010e4:	3c020040 	lui	v0,0x40
+  4010e8:	8c423000 	lw	v0,12288(v0)
+  4010ec:	00000000 	nop
+  4010f0:	8c4200c0 	lw	v0,192(v0)
+/home/git/21373271/21373271/user/lib/ipc.c:52
+}
+  4010f4:	03c0e825 	move	sp,s8
+  4010f8:	8fbf001c 	lw	ra,28(sp)
+  4010fc:	8fbe0018 	lw	s8,24(sp)
+  401100:	27bd0020 	addiu	sp,sp,32
+  401104:	03e00008 	jr	ra
+  401108:	00000000 	nop
+  40110c:	00000000 	nop
+
+00401110 <elf_from>:
+elf_from():
+/home/git/21373271/21373271/lib/elfloader.c:4
+#include <elf.h>
+#include <pmap.h>
+
+const Elf32_Ehdr *elf_from(const void *binary, size_t size) {
+  401110:	27bdfff0 	addiu	sp,sp,-16
+  401114:	afbe000c 	sw	s8,12(sp)
+  401118:	03a0f025 	move	s8,sp
+  40111c:	afc40010 	sw	a0,16(s8)
+  401120:	afc50014 	sw	a1,20(s8)
+/home/git/21373271/21373271/lib/elfloader.c:5
+	const Elf32_Ehdr *ehdr = (const Elf32_Ehdr *)binary;
+  401124:	8fc20010 	lw	v0,16(s8)
+  401128:	00000000 	nop
+  40112c:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/lib/elfloader.c:6
+	if (size >= sizeof(Elf32_Ehdr) && ehdr->e_ident[EI_MAG0] == ELFMAG0 &&
+  401130:	8fc20014 	lw	v0,20(s8)
+  401134:	00000000 	nop
+  401138:	2c420034 	sltiu	v0,v0,52
+  40113c:	14400022 	bnez	v0,4011c8 <elf_from+0xb8>
+  401140:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:6 (discriminator 1)
+  401144:	8fc20000 	lw	v0,0(s8)
+  401148:	00000000 	nop
+  40114c:	90430000 	lbu	v1,0(v0)
+  401150:	2402007f 	li	v0,127
+  401154:	1462001c 	bne	v1,v0,4011c8 <elf_from+0xb8>
+  401158:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:7 (discriminator 2)
+	    ehdr->e_ident[EI_MAG1] == ELFMAG1 && ehdr->e_ident[EI_MAG2] == ELFMAG2 &&
+  40115c:	8fc20000 	lw	v0,0(s8)
+  401160:	00000000 	nop
+  401164:	90430001 	lbu	v1,1(v0)
+/home/git/21373271/21373271/lib/elfloader.c:6 (discriminator 2)
+	if (size >= sizeof(Elf32_Ehdr) && ehdr->e_ident[EI_MAG0] == ELFMAG0 &&
+  401168:	24020045 	li	v0,69
+  40116c:	14620016 	bne	v1,v0,4011c8 <elf_from+0xb8>
+  401170:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:7
+	    ehdr->e_ident[EI_MAG1] == ELFMAG1 && ehdr->e_ident[EI_MAG2] == ELFMAG2 &&
+  401174:	8fc20000 	lw	v0,0(s8)
+  401178:	00000000 	nop
+  40117c:	90430002 	lbu	v1,2(v0)
+  401180:	2402004c 	li	v0,76
+  401184:	14620010 	bne	v1,v0,4011c8 <elf_from+0xb8>
+  401188:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:8 (discriminator 1)
+	    ehdr->e_ident[EI_MAG3] == ELFMAG3 && ehdr->e_type == 2) {
+  40118c:	8fc20000 	lw	v0,0(s8)
+  401190:	00000000 	nop
+  401194:	90430003 	lbu	v1,3(v0)
+/home/git/21373271/21373271/lib/elfloader.c:7 (discriminator 1)
+	    ehdr->e_ident[EI_MAG1] == ELFMAG1 && ehdr->e_ident[EI_MAG2] == ELFMAG2 &&
+  401198:	24020046 	li	v0,70
+  40119c:	1462000a 	bne	v1,v0,4011c8 <elf_from+0xb8>
+  4011a0:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:8
+	    ehdr->e_ident[EI_MAG3] == ELFMAG3 && ehdr->e_type == 2) {
+  4011a4:	8fc20000 	lw	v0,0(s8)
+  4011a8:	00000000 	nop
+  4011ac:	94430010 	lhu	v1,16(v0)
+  4011b0:	24020002 	li	v0,2
+  4011b4:	14620004 	bne	v1,v0,4011c8 <elf_from+0xb8>
+  4011b8:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:9
+		return ehdr;
+  4011bc:	8fc20000 	lw	v0,0(s8)
+  4011c0:	10000002 	b	4011cc <elf_from+0xbc>
+  4011c4:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:11
+	}
+	return NULL;
+  4011c8:	00001025 	move	v0,zero
+/home/git/21373271/21373271/lib/elfloader.c:12
+}
+  4011cc:	03c0e825 	move	sp,s8
+  4011d0:	8fbe000c 	lw	s8,12(sp)
+  4011d4:	27bd0010 	addiu	sp,sp,16
+  4011d8:	03e00008 	jr	ra
+  4011dc:	00000000 	nop
+
+004011e0 <elf_load_seg>:
+elf_load_seg():
+/home/git/21373271/21373271/lib/elfloader.c:25
+ *
+ * Post-Condition:
+ *   Return 0 if success. Otherwise return < 0.
+ *   If success, the entry point of `binary` will be stored in `start`
+ */
+int elf_load_seg(Elf32_Phdr *ph, const void *bin, elf_mapper_t map_page, void *data) {
+  4011e0:	27bdffa0 	addiu	sp,sp,-96
+  4011e4:	afbf005c 	sw	ra,92(sp)
+  4011e8:	afbe0058 	sw	s8,88(sp)
+  4011ec:	03a0f025 	move	s8,sp
+  4011f0:	afc40060 	sw	a0,96(s8)
+  4011f4:	afc50064 	sw	a1,100(s8)
+  4011f8:	afc60068 	sw	a2,104(s8)
+  4011fc:	afc7006c 	sw	a3,108(s8)
+/home/git/21373271/21373271/lib/elfloader.c:26
+	u_long va = ph->p_vaddr;
+  401200:	8fc20060 	lw	v0,96(s8)
+  401204:	00000000 	nop
+  401208:	8c420008 	lw	v0,8(v0)
+  40120c:	00000000 	nop
+  401210:	afc20020 	sw	v0,32(s8)
+/home/git/21373271/21373271/lib/elfloader.c:27
+	size_t bin_size = ph->p_filesz;
+  401214:	8fc20060 	lw	v0,96(s8)
+  401218:	00000000 	nop
+  40121c:	8c420010 	lw	v0,16(v0)
+  401220:	00000000 	nop
+  401224:	afc20024 	sw	v0,36(s8)
+/home/git/21373271/21373271/lib/elfloader.c:28
+	size_t sgsize = ph->p_memsz;
+  401228:	8fc20060 	lw	v0,96(s8)
+  40122c:	00000000 	nop
+  401230:	8c420014 	lw	v0,20(v0)
+  401234:	00000000 	nop
+  401238:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/elfloader.c:29
+	u_int perm = PTE_V;
+  40123c:	24020200 	li	v0,512
+  401240:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/lib/elfloader.c:30
+	if (ph->p_flags & PF_W) {
+  401244:	8fc20060 	lw	v0,96(s8)
+  401248:	00000000 	nop
+  40124c:	8c420018 	lw	v0,24(v0)
+  401250:	00000000 	nop
+  401254:	30420002 	andi	v0,v0,0x2
+  401258:	10400005 	beqz	v0,401270 <elf_load_seg+0x90>
+  40125c:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:31
+		perm |= PTE_D;
+  401260:	8fc20018 	lw	v0,24(s8)
+  401264:	00000000 	nop
+  401268:	34420400 	ori	v0,v0,0x400
+  40126c:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/lib/elfloader.c:36
+	}
+
+	int r;
+	size_t i;
+	u_long offset = va - ROUNDDOWN(va, BY2PG);
+  401270:	8fc20020 	lw	v0,32(s8)
+  401274:	00000000 	nop
+  401278:	30420fff 	andi	v0,v0,0xfff
+  40127c:	afc2002c 	sw	v0,44(s8)
+/home/git/21373271/21373271/lib/elfloader.c:37
+	if (offset != 0) {
+  401280:	8fc2002c 	lw	v0,44(s8)
+  401284:	00000000 	nop
+  401288:	10400023 	beqz	v0,401318 <elf_load_seg+0x138>
+  40128c:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:38
+		if ((r = map_page(data, va, offset, perm, bin, MIN(bin_size, BY2PG - offset))) !=
+  401290:	8fc20024 	lw	v0,36(s8)
+  401294:	00000000 	nop
+  401298:	afc20030 	sw	v0,48(s8)
+  40129c:	24031000 	li	v1,4096
+  4012a0:	8fc2002c 	lw	v0,44(s8)
+  4012a4:	00000000 	nop
+  4012a8:	00621023 	subu	v0,v1,v0
+  4012ac:	afc20034 	sw	v0,52(s8)
+  4012b0:	8fc30034 	lw	v1,52(s8)
+  4012b4:	8fc20030 	lw	v0,48(s8)
+  4012b8:	00000000 	nop
+  4012bc:	0062202b 	sltu	a0,v1,v0
+  4012c0:	10800002 	beqz	a0,4012cc <elf_load_seg+0xec>
+  4012c4:	00000000 	nop
+  4012c8:	00601025 	move	v0,v1
+  4012cc:	afa20014 	sw	v0,20(sp)
+  4012d0:	8fc20064 	lw	v0,100(s8)
+  4012d4:	00000000 	nop
+  4012d8:	afa20010 	sw	v0,16(sp)
+  4012dc:	8fc20068 	lw	v0,104(s8)
+  4012e0:	8fc70018 	lw	a3,24(s8)
+  4012e4:	8fc6002c 	lw	a2,44(s8)
+  4012e8:	8fc50020 	lw	a1,32(s8)
+  4012ec:	8fc4006c 	lw	a0,108(s8)
+  4012f0:	0040f809 	jalr	v0
+  4012f4:	00000000 	nop
+  4012f8:	afc20038 	sw	v0,56(s8)
+  4012fc:	8fc20038 	lw	v0,56(s8)
+  401300:	00000000 	nop
+  401304:	10400004 	beqz	v0,401318 <elf_load_seg+0x138>
+  401308:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:40
+		    0) {
+			return r;
+  40130c:	8fc20038 	lw	v0,56(s8)
+  401310:	1000007a 	b	4014fc <elf_load_seg+0x31c>
+  401314:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:45
+		}
+	}
+
+	/* Step 1: load all content of bin into memory. */
+	for (i = offset ? MIN(bin_size, BY2PG - offset) : 0; i < bin_size; i += BY2PG) {
+  401318:	8fc2002c 	lw	v0,44(s8)
+  40131c:	00000000 	nop
+  401320:	10400012 	beqz	v0,40136c <elf_load_seg+0x18c>
+  401324:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:45 (discriminator 1)
+  401328:	8fc20024 	lw	v0,36(s8)
+  40132c:	00000000 	nop
+  401330:	afc2003c 	sw	v0,60(s8)
+  401334:	24031000 	li	v1,4096
+  401338:	8fc2002c 	lw	v0,44(s8)
+  40133c:	00000000 	nop
+  401340:	00621023 	subu	v0,v1,v0
+  401344:	afc20040 	sw	v0,64(s8)
+  401348:	8fc30040 	lw	v1,64(s8)
+  40134c:	8fc2003c 	lw	v0,60(s8)
+  401350:	00000000 	nop
+  401354:	0062202b 	sltu	a0,v1,v0
+  401358:	10800005 	beqz	a0,401370 <elf_load_seg+0x190>
+  40135c:	00000000 	nop
+  401360:	00601025 	move	v0,v1
+  401364:	10000002 	b	401370 <elf_load_seg+0x190>
+  401368:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:45 (discriminator 2)
+  40136c:	00001025 	move	v0,zero
+/home/git/21373271/21373271/lib/elfloader.c:45 (discriminator 4)
+  401370:	afc2001c 	sw	v0,28(s8)
+  401374:	1000002c 	b	401428 <elf_load_seg+0x248>
+  401378:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:46
+		if ((r = map_page(data, va + i, 0, perm, bin + i, MIN(bin_size - i, BY2PG))) != 0) {
+  40137c:	8fc30020 	lw	v1,32(s8)
+  401380:	8fc2001c 	lw	v0,28(s8)
+  401384:	00000000 	nop
+  401388:	00624021 	addu	t0,v1,v0
+  40138c:	8fc30064 	lw	v1,100(s8)
+  401390:	8fc2001c 	lw	v0,28(s8)
+  401394:	00000000 	nop
+  401398:	00622021 	addu	a0,v1,v0
+  40139c:	8fc30024 	lw	v1,36(s8)
+  4013a0:	8fc2001c 	lw	v0,28(s8)
+  4013a4:	00000000 	nop
+  4013a8:	00621023 	subu	v0,v1,v0
+  4013ac:	afc2004c 	sw	v0,76(s8)
+  4013b0:	24021000 	li	v0,4096
+  4013b4:	afc20050 	sw	v0,80(s8)
+  4013b8:	8fc30050 	lw	v1,80(s8)
+  4013bc:	8fc2004c 	lw	v0,76(s8)
+  4013c0:	00000000 	nop
+  4013c4:	0062282b 	sltu	a1,v1,v0
+  4013c8:	10a00002 	beqz	a1,4013d4 <elf_load_seg+0x1f4>
+  4013cc:	00000000 	nop
+  4013d0:	00601025 	move	v0,v1
+  4013d4:	afa20014 	sw	v0,20(sp)
+  4013d8:	afa40010 	sw	a0,16(sp)
+  4013dc:	8fc20068 	lw	v0,104(s8)
+  4013e0:	8fc70018 	lw	a3,24(s8)
+  4013e4:	00003025 	move	a2,zero
+  4013e8:	01002825 	move	a1,t0
+  4013ec:	8fc4006c 	lw	a0,108(s8)
+  4013f0:	0040f809 	jalr	v0
+  4013f4:	00000000 	nop
+  4013f8:	afc20038 	sw	v0,56(s8)
+  4013fc:	8fc20038 	lw	v0,56(s8)
+  401400:	00000000 	nop
+  401404:	10400004 	beqz	v0,401418 <elf_load_seg+0x238>
+  401408:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:47
+			return r;
+  40140c:	8fc20038 	lw	v0,56(s8)
+  401410:	1000003a 	b	4014fc <elf_load_seg+0x31c>
+  401414:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:45 (discriminator 6)
+	for (i = offset ? MIN(bin_size, BY2PG - offset) : 0; i < bin_size; i += BY2PG) {
+  401418:	8fc2001c 	lw	v0,28(s8)
+  40141c:	00000000 	nop
+  401420:	24421000 	addiu	v0,v0,4096
+  401424:	afc2001c 	sw	v0,28(s8)
+/home/git/21373271/21373271/lib/elfloader.c:45 (discriminator 5)
+  401428:	8fc3001c 	lw	v1,28(s8)
+  40142c:	8fc20024 	lw	v0,36(s8)
+  401430:	00000000 	nop
+  401434:	0062102b 	sltu	v0,v1,v0
+  401438:	1440ffd0 	bnez	v0,40137c <elf_load_seg+0x19c>
+  40143c:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:52
+		}
+	}
+
+	/* Step 2: alloc pages to reach `sgsize` when `bin_size` < `sgsize`. */
+	while (i < sgsize) {
+  401440:	10000027 	b	4014e0 <elf_load_seg+0x300>
+  401444:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:53
+		if ((r = map_page(data, va + i, 0, perm, NULL, MIN(bin_size - i, BY2PG))) != 0) {
+  401448:	8fc30020 	lw	v1,32(s8)
+  40144c:	8fc2001c 	lw	v0,28(s8)
+  401450:	00000000 	nop
+  401454:	00622821 	addu	a1,v1,v0
+  401458:	8fc30024 	lw	v1,36(s8)
+  40145c:	8fc2001c 	lw	v0,28(s8)
+  401460:	00000000 	nop
+  401464:	00621023 	subu	v0,v1,v0
+  401468:	afc20044 	sw	v0,68(s8)
+  40146c:	24021000 	li	v0,4096
+  401470:	afc20048 	sw	v0,72(s8)
+  401474:	8fc30048 	lw	v1,72(s8)
+  401478:	8fc20044 	lw	v0,68(s8)
+  40147c:	00000000 	nop
+  401480:	0062202b 	sltu	a0,v1,v0
+  401484:	10800002 	beqz	a0,401490 <elf_load_seg+0x2b0>
+  401488:	00000000 	nop
+  40148c:	00601025 	move	v0,v1
+  401490:	afa20014 	sw	v0,20(sp)
+  401494:	afa00010 	sw	zero,16(sp)
+  401498:	8fc20068 	lw	v0,104(s8)
+  40149c:	8fc70018 	lw	a3,24(s8)
+  4014a0:	00003025 	move	a2,zero
+  4014a4:	8fc4006c 	lw	a0,108(s8)
+  4014a8:	0040f809 	jalr	v0
+  4014ac:	00000000 	nop
+  4014b0:	afc20038 	sw	v0,56(s8)
+  4014b4:	8fc20038 	lw	v0,56(s8)
+  4014b8:	00000000 	nop
+  4014bc:	10400004 	beqz	v0,4014d0 <elf_load_seg+0x2f0>
+  4014c0:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:54
+			return r;
+  4014c4:	8fc20038 	lw	v0,56(s8)
+  4014c8:	1000000c 	b	4014fc <elf_load_seg+0x31c>
+  4014cc:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:56
+		}
+		i += BY2PG;
+  4014d0:	8fc2001c 	lw	v0,28(s8)
+  4014d4:	00000000 	nop
+  4014d8:	24421000 	addiu	v0,v0,4096
+  4014dc:	afc2001c 	sw	v0,28(s8)
+/home/git/21373271/21373271/lib/elfloader.c:52
+	while (i < sgsize) {
+  4014e0:	8fc3001c 	lw	v1,28(s8)
+  4014e4:	8fc20028 	lw	v0,40(s8)
+  4014e8:	00000000 	nop
+  4014ec:	0062102b 	sltu	v0,v1,v0
+  4014f0:	1440ffd5 	bnez	v0,401448 <elf_load_seg+0x268>
+  4014f4:	00000000 	nop
+/home/git/21373271/21373271/lib/elfloader.c:58
+	}
+	return 0;
+  4014f8:	00001025 	move	v0,zero
+/home/git/21373271/21373271/lib/elfloader.c:59
+}
+  4014fc:	03c0e825 	move	sp,s8
+  401500:	8fbf005c 	lw	ra,92(sp)
+  401504:	8fbe0058 	lw	s8,88(sp)
+  401508:	27bd0060 	addiu	sp,sp,96
+  40150c:	03e00008 	jr	ra
+  401510:	00000000 	nop
+	...
+
+00401520 <vprintfmt>:
+vprintfmt():
+/home/git/21373271/21373271/lib/print.c:8
+/* forward declaration */
+static void print_char(fmt_callback_t, void *, char, int, int);
+static void print_str(fmt_callback_t, void *, const char *, int, int);
+static void print_num(fmt_callback_t, void *, unsigned long, int, int, int, int, char, int);
+
+void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
+  401520:	27bdffb0 	addiu	sp,sp,-80
+  401524:	afbf004c 	sw	ra,76(sp)
+  401528:	afbe0048 	sw	s8,72(sp)
+  40152c:	03a0f025 	move	s8,sp
+  401530:	afc40050 	sw	a0,80(s8)
+  401534:	afc50054 	sw	a1,84(s8)
+  401538:	afc60058 	sw	a2,88(s8)
+  40153c:	afc7005c 	sw	a3,92(s8)
+/home/git/21373271/21373271/lib/print.c:20
+	int neg_flag;  // output is negative
+	int ladjust;   // output is left-aligned
+	char padc;     // padding char
+
+	for (;;) {
+		if ( *fmt != '%' )	
+  401540:	8fc20058 	lw	v0,88(s8)
+  401544:	00000000 	nop
+  401548:	80430000 	lb	v1,0(v0)
+  40154c:	24020025 	li	v0,37
+  401550:	10620013 	beq	v1,v0,4015a0 <vprintfmt+0x80>
+  401554:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:22
+		{	
+			out( data , fmt , 1 );
+  401558:	8fc20050 	lw	v0,80(s8)
+  40155c:	24060001 	li	a2,1
+  401560:	8fc50058 	lw	a1,88(s8)
+  401564:	8fc40054 	lw	a0,84(s8)
+  401568:	0040f809 	jalr	v0
+  40156c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:23
+			fmt++;
+  401570:	8fc20058 	lw	v0,88(s8)
+  401574:	00000000 	nop
+  401578:	24420001 	addiu	v0,v0,1
+  40157c:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:24
+			if ( *fmt != 0 ) {
+  401580:	8fc20058 	lw	v0,88(s8)
+  401584:	00000000 	nop
+  401588:	80420000 	lb	v0,0(v0)
+  40158c:	00000000 	nop
+  401590:	104001a1 	beqz	v0,401c18 <vprintfmt+0x6f8>
+  401594:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:25
+				continue;
+  401598:	1000019d 	b	401c10 <vprintfmt+0x6f0>
+  40159c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:32
+			else {
+				break;
+			}	
+		}
+		
+		width = 0;
+  4015a0:	afc0002c 	sw	zero,44(s8)
+/home/git/21373271/21373271/lib/print.c:33
+		long_flag = 0;
+  4015a4:	afc00030 	sw	zero,48(s8)
+/home/git/21373271/21373271/lib/print.c:34
+		ladjust = 0;
+  4015a8:	afc00038 	sw	zero,56(s8)
+/home/git/21373271/21373271/lib/print.c:35
+		padc = ' ';
+  4015ac:	24020020 	li	v0,32
+  4015b0:	a3c2003c 	sb	v0,60(s8)
+/home/git/21373271/21373271/lib/print.c:36
+		fmt++;
+  4015b4:	8fc20058 	lw	v0,88(s8)
+  4015b8:	00000000 	nop
+  4015bc:	24420001 	addiu	v0,v0,1
+  4015c0:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:38
+
+		if (*fmt == '-') 
+  4015c4:	8fc20058 	lw	v0,88(s8)
+  4015c8:	00000000 	nop
+  4015cc:	80430000 	lb	v1,0(v0)
+  4015d0:	2402002d 	li	v0,45
+  4015d4:	14620007 	bne	v1,v0,4015f4 <vprintfmt+0xd4>
+  4015d8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:40
+		{
+			ladjust = 1;
+  4015dc:	24020001 	li	v0,1
+  4015e0:	afc20038 	sw	v0,56(s8)
+/home/git/21373271/21373271/lib/print.c:41
+			fmt++;
+  4015e4:	8fc20058 	lw	v0,88(s8)
+  4015e8:	00000000 	nop
+  4015ec:	24420001 	addiu	v0,v0,1
+  4015f0:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:43
+		}
+		if (*fmt == '0')
+  4015f4:	8fc20058 	lw	v0,88(s8)
+  4015f8:	00000000 	nop
+  4015fc:	80430000 	lb	v1,0(v0)
+  401600:	24020030 	li	v0,48
+  401604:	1462001b 	bne	v1,v0,401674 <vprintfmt+0x154>
+  401608:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:45
+		{
+			padc = '0';
+  40160c:	24020030 	li	v0,48
+  401610:	a3c2003c 	sb	v0,60(s8)
+/home/git/21373271/21373271/lib/print.c:46
+			fmt++;
+  401614:	8fc20058 	lw	v0,88(s8)
+  401618:	00000000 	nop
+  40161c:	24420001 	addiu	v0,v0,1
+  401620:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:49
+		}
+
+		while ( (*fmt) >= '0' && (*fmt) <= '9')
+  401624:	10000013 	b	401674 <vprintfmt+0x154>
+  401628:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:51
+		{
+			width = width * 10 + (*fmt) - '0';
+  40162c:	8fc3002c 	lw	v1,44(s8)
+  401630:	00000000 	nop
+  401634:	00601025 	move	v0,v1
+  401638:	00021080 	sll	v0,v0,0x2
+  40163c:	00431021 	addu	v0,v0,v1
+  401640:	00021040 	sll	v0,v0,0x1
+  401644:	00401825 	move	v1,v0
+  401648:	8fc20058 	lw	v0,88(s8)
+  40164c:	00000000 	nop
+  401650:	80420000 	lb	v0,0(v0)
+  401654:	00000000 	nop
+  401658:	00621021 	addu	v0,v1,v0
+  40165c:	2442ffd0 	addiu	v0,v0,-48
+  401660:	afc2002c 	sw	v0,44(s8)
+/home/git/21373271/21373271/lib/print.c:52
+			fmt++;
+  401664:	8fc20058 	lw	v0,88(s8)
+  401668:	00000000 	nop
+  40166c:	24420001 	addiu	v0,v0,1
+  401670:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:49
+		while ( (*fmt) >= '0' && (*fmt) <= '9')
+  401674:	8fc20058 	lw	v0,88(s8)
+  401678:	00000000 	nop
+  40167c:	80420000 	lb	v0,0(v0)
+  401680:	00000000 	nop
+  401684:	28420030 	slti	v0,v0,48
+  401688:	14400008 	bnez	v0,4016ac <vprintfmt+0x18c>
+  40168c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:49 (discriminator 1)
+  401690:	8fc20058 	lw	v0,88(s8)
+  401694:	00000000 	nop
+  401698:	80420000 	lb	v0,0(v0)
+  40169c:	00000000 	nop
+  4016a0:	2842003a 	slti	v0,v0,58
+  4016a4:	1440ffe1 	bnez	v0,40162c <vprintfmt+0x10c>
+  4016a8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:55
+		}
+
+		if (*fmt == 'l') 
+  4016ac:	8fc20058 	lw	v0,88(s8)
+  4016b0:	00000000 	nop
+  4016b4:	80430000 	lb	v1,0(v0)
+  4016b8:	2402006c 	li	v0,108
+  4016bc:	14620007 	bne	v1,v0,4016dc <vprintfmt+0x1bc>
+  4016c0:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:57
+		{
+			long_flag = 1;
+  4016c4:	24020001 	li	v0,1
+  4016c8:	afc20030 	sw	v0,48(s8)
+/home/git/21373271/21373271/lib/print.c:58
+			fmt++;
+  4016cc:	8fc20058 	lw	v0,88(s8)
+  4016d0:	00000000 	nop
+  4016d4:	24420001 	addiu	v0,v0,1
+  4016d8:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:61
+		}
+
+		neg_flag = 0;
+  4016dc:	afc00034 	sw	zero,52(s8)
+/home/git/21373271/21373271/lib/print.c:62
+		switch (*fmt) {
+  4016e0:	8fc20058 	lw	v0,88(s8)
+  4016e4:	00000000 	nop
+  4016e8:	80420000 	lb	v0,0(v0)
+  4016ec:	00000000 	nop
+  4016f0:	10400137 	beqz	v0,401bd0 <vprintfmt+0x6b0>
+  4016f4:	00000000 	nop
+  4016f8:	0440013b 	bltz	v0,401be8 <vprintfmt+0x6c8>
+  4016fc:	00000000 	nop
+  401700:	28430079 	slti	v1,v0,121
+  401704:	10600138 	beqz	v1,401be8 <vprintfmt+0x6c8>
+  401708:	00000000 	nop
+  40170c:	28430044 	slti	v1,v0,68
+  401710:	14600135 	bnez	v1,401be8 <vprintfmt+0x6c8>
+  401714:	00000000 	nop
+  401718:	2442ffbc 	addiu	v0,v0,-68
+  40171c:	2c430035 	sltiu	v1,v0,53
+  401720:	10600131 	beqz	v1,401be8 <vprintfmt+0x6c8>
+  401724:	00000000 	nop
+  401728:	00021880 	sll	v1,v0,0x2
+  40172c:	3c020040 	lui	v0,0x40
+  401730:	24422b20 	addiu	v0,v0,11040
+  401734:	00621021 	addu	v0,v1,v0
+  401738:	8c420000 	lw	v0,0(v0)
+  40173c:	00000000 	nop
+  401740:	00400008 	jr	v0
+  401744:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:64
+		case 'b':
+			if (long_flag) {
+  401748:	8fc20030 	lw	v0,48(s8)
+  40174c:	00000000 	nop
+  401750:	1040000a 	beqz	v0,40177c <vprintfmt+0x25c>
+  401754:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:65
+				num = va_arg(ap, long int);
+  401758:	8fc2005c 	lw	v0,92(s8)
+  40175c:	00000000 	nop
+  401760:	24430004 	addiu	v1,v0,4
+  401764:	afc3005c 	sw	v1,92(s8)
+  401768:	8c420000 	lw	v0,0(v0)
+  40176c:	00000000 	nop
+  401770:	afc20028 	sw	v0,40(s8)
+  401774:	10000008 	b	401798 <vprintfmt+0x278>
+  401778:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:67
+			} else {
+				num = va_arg(ap, int);
+  40177c:	8fc2005c 	lw	v0,92(s8)
+  401780:	00000000 	nop
+  401784:	24430004 	addiu	v1,v0,4
+  401788:	afc3005c 	sw	v1,92(s8)
+  40178c:	8c420000 	lw	v0,0(v0)
+  401790:	00000000 	nop
+  401794:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:69
+			}
+			print_num(out, data, num, 2, 0, width, ladjust, padc, 0);
+  401798:	8fc30028 	lw	v1,40(s8)
+  40179c:	afa00020 	sw	zero,32(sp)
+  4017a0:	83c2003c 	lb	v0,60(s8)
+  4017a4:	00000000 	nop
+  4017a8:	afa2001c 	sw	v0,28(sp)
+  4017ac:	8fc20038 	lw	v0,56(s8)
+  4017b0:	00000000 	nop
+  4017b4:	afa20018 	sw	v0,24(sp)
+  4017b8:	8fc2002c 	lw	v0,44(s8)
+  4017bc:	00000000 	nop
+  4017c0:	afa20014 	sw	v0,20(sp)
+  4017c4:	afa00010 	sw	zero,16(sp)
+  4017c8:	24070002 	li	a3,2
+  4017cc:	00603025 	move	a2,v1
+  4017d0:	8fc50054 	lw	a1,84(s8)
+  4017d4:	8fc40050 	lw	a0,80(s8)
+  4017d8:	0c1007d0 	jal	401f40 <print_num>
+  4017dc:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:70
+			break;
+  4017e0:	10000107 	b	401c00 <vprintfmt+0x6e0>
+  4017e4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:74
+
+		case 'd':
+		case 'D':
+			if (long_flag) {
+  4017e8:	8fc20030 	lw	v0,48(s8)
+  4017ec:	00000000 	nop
+  4017f0:	1040000a 	beqz	v0,40181c <vprintfmt+0x2fc>
+  4017f4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:75
+				num = va_arg(ap, long int);
+  4017f8:	8fc2005c 	lw	v0,92(s8)
+  4017fc:	00000000 	nop
+  401800:	24430004 	addiu	v1,v0,4
+  401804:	afc3005c 	sw	v1,92(s8)
+  401808:	8c420000 	lw	v0,0(v0)
+  40180c:	00000000 	nop
+  401810:	afc20028 	sw	v0,40(s8)
+  401814:	10000008 	b	401838 <vprintfmt+0x318>
+  401818:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:77
+			} else {
+				num = va_arg(ap, int);
+  40181c:	8fc2005c 	lw	v0,92(s8)
+  401820:	00000000 	nop
+  401824:	24430004 	addiu	v1,v0,4
+  401828:	afc3005c 	sw	v1,92(s8)
+  40182c:	8c420000 	lw	v0,0(v0)
+  401830:	00000000 	nop
+  401834:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:80
+			}
+			
+			if(num < 0)
+  401838:	8fc20028 	lw	v0,40(s8)
+  40183c:	00000000 	nop
+  401840:	04410007 	bgez	v0,401860 <vprintfmt+0x340>
+  401844:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:82
+			{
+				neg_flag = 1;
+  401848:	24020001 	li	v0,1
+  40184c:	afc20034 	sw	v0,52(s8)
+/home/git/21373271/21373271/lib/print.c:83
+				num = -num;
+  401850:	8fc20028 	lw	v0,40(s8)
+  401854:	00000000 	nop
+  401858:	00021023 	negu	v0,v0
+  40185c:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:85
+			}
+			print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
+  401860:	8fc30028 	lw	v1,40(s8)
+  401864:	afa00020 	sw	zero,32(sp)
+  401868:	83c2003c 	lb	v0,60(s8)
+  40186c:	00000000 	nop
+  401870:	afa2001c 	sw	v0,28(sp)
+  401874:	8fc20038 	lw	v0,56(s8)
+  401878:	00000000 	nop
+  40187c:	afa20018 	sw	v0,24(sp)
+  401880:	8fc2002c 	lw	v0,44(s8)
+  401884:	00000000 	nop
+  401888:	afa20014 	sw	v0,20(sp)
+  40188c:	8fc20034 	lw	v0,52(s8)
+  401890:	00000000 	nop
+  401894:	afa20010 	sw	v0,16(sp)
+  401898:	2407000a 	li	a3,10
+  40189c:	00603025 	move	a2,v1
+  4018a0:	8fc50054 	lw	a1,84(s8)
+  4018a4:	8fc40050 	lw	a0,80(s8)
+  4018a8:	0c1007d0 	jal	401f40 <print_num>
+  4018ac:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:93
+			 * complete this part. Think the differences between case 'd' and the
+			 * others. (hint: 'neg_flag').
+			 */
+			/* Exercise 1.4: Your code here. (8/8) */
+
+			break;
+  4018b0:	100000d3 	b	401c00 <vprintfmt+0x6e0>
+  4018b4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:97
+
+		case 'o':
+		case 'O':
+			if (long_flag) {
+  4018b8:	8fc20030 	lw	v0,48(s8)
+  4018bc:	00000000 	nop
+  4018c0:	1040000a 	beqz	v0,4018ec <vprintfmt+0x3cc>
+  4018c4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:98
+				num = va_arg(ap, long int);
+  4018c8:	8fc2005c 	lw	v0,92(s8)
+  4018cc:	00000000 	nop
+  4018d0:	24430004 	addiu	v1,v0,4
+  4018d4:	afc3005c 	sw	v1,92(s8)
+  4018d8:	8c420000 	lw	v0,0(v0)
+  4018dc:	00000000 	nop
+  4018e0:	afc20028 	sw	v0,40(s8)
+  4018e4:	10000008 	b	401908 <vprintfmt+0x3e8>
+  4018e8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:100
+			} else {
+				num = va_arg(ap, int);
+  4018ec:	8fc2005c 	lw	v0,92(s8)
+  4018f0:	00000000 	nop
+  4018f4:	24430004 	addiu	v1,v0,4
+  4018f8:	afc3005c 	sw	v1,92(s8)
+  4018fc:	8c420000 	lw	v0,0(v0)
+  401900:	00000000 	nop
+  401904:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:102
+			}
+			print_num(out, data, num, 8, 0, width, ladjust, padc, 0);
+  401908:	8fc30028 	lw	v1,40(s8)
+  40190c:	afa00020 	sw	zero,32(sp)
+  401910:	83c2003c 	lb	v0,60(s8)
+  401914:	00000000 	nop
+  401918:	afa2001c 	sw	v0,28(sp)
+  40191c:	8fc20038 	lw	v0,56(s8)
+  401920:	00000000 	nop
+  401924:	afa20018 	sw	v0,24(sp)
+  401928:	8fc2002c 	lw	v0,44(s8)
+  40192c:	00000000 	nop
+  401930:	afa20014 	sw	v0,20(sp)
+  401934:	afa00010 	sw	zero,16(sp)
+  401938:	24070008 	li	a3,8
+  40193c:	00603025 	move	a2,v1
+  401940:	8fc50054 	lw	a1,84(s8)
+  401944:	8fc40050 	lw	a0,80(s8)
+  401948:	0c1007d0 	jal	401f40 <print_num>
+  40194c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:103
+			break;
+  401950:	100000ab 	b	401c00 <vprintfmt+0x6e0>
+  401954:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:107
+
+		case 'u':
+		case 'U':
+			if (long_flag) {
+  401958:	8fc20030 	lw	v0,48(s8)
+  40195c:	00000000 	nop
+  401960:	1040000a 	beqz	v0,40198c <vprintfmt+0x46c>
+  401964:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:108
+				num = va_arg(ap, long int);
+  401968:	8fc2005c 	lw	v0,92(s8)
+  40196c:	00000000 	nop
+  401970:	24430004 	addiu	v1,v0,4
+  401974:	afc3005c 	sw	v1,92(s8)
+  401978:	8c420000 	lw	v0,0(v0)
+  40197c:	00000000 	nop
+  401980:	afc20028 	sw	v0,40(s8)
+  401984:	10000008 	b	4019a8 <vprintfmt+0x488>
+  401988:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:110
+			} else {
+				num = va_arg(ap, int);
+  40198c:	8fc2005c 	lw	v0,92(s8)
+  401990:	00000000 	nop
+  401994:	24430004 	addiu	v1,v0,4
+  401998:	afc3005c 	sw	v1,92(s8)
+  40199c:	8c420000 	lw	v0,0(v0)
+  4019a0:	00000000 	nop
+  4019a4:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:112
+			}
+			print_num(out, data, num, 10, 0, width, ladjust, padc, 0);
+  4019a8:	8fc30028 	lw	v1,40(s8)
+  4019ac:	afa00020 	sw	zero,32(sp)
+  4019b0:	83c2003c 	lb	v0,60(s8)
+  4019b4:	00000000 	nop
+  4019b8:	afa2001c 	sw	v0,28(sp)
+  4019bc:	8fc20038 	lw	v0,56(s8)
+  4019c0:	00000000 	nop
+  4019c4:	afa20018 	sw	v0,24(sp)
+  4019c8:	8fc2002c 	lw	v0,44(s8)
+  4019cc:	00000000 	nop
+  4019d0:	afa20014 	sw	v0,20(sp)
+  4019d4:	afa00010 	sw	zero,16(sp)
+  4019d8:	2407000a 	li	a3,10
+  4019dc:	00603025 	move	a2,v1
+  4019e0:	8fc50054 	lw	a1,84(s8)
+  4019e4:	8fc40050 	lw	a0,80(s8)
+  4019e8:	0c1007d0 	jal	401f40 <print_num>
+  4019ec:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:113
+			break;
+  4019f0:	10000083 	b	401c00 <vprintfmt+0x6e0>
+  4019f4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:116
+
+		case 'x':
+			if (long_flag) {
+  4019f8:	8fc20030 	lw	v0,48(s8)
+  4019fc:	00000000 	nop
+  401a00:	1040000a 	beqz	v0,401a2c <vprintfmt+0x50c>
+  401a04:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:117
+				num = va_arg(ap, long int);
+  401a08:	8fc2005c 	lw	v0,92(s8)
+  401a0c:	00000000 	nop
+  401a10:	24430004 	addiu	v1,v0,4
+  401a14:	afc3005c 	sw	v1,92(s8)
+  401a18:	8c420000 	lw	v0,0(v0)
+  401a1c:	00000000 	nop
+  401a20:	afc20028 	sw	v0,40(s8)
+  401a24:	10000008 	b	401a48 <vprintfmt+0x528>
+  401a28:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:119
+			} else {
+				num = va_arg(ap, int);
+  401a2c:	8fc2005c 	lw	v0,92(s8)
+  401a30:	00000000 	nop
+  401a34:	24430004 	addiu	v1,v0,4
+  401a38:	afc3005c 	sw	v1,92(s8)
+  401a3c:	8c420000 	lw	v0,0(v0)
+  401a40:	00000000 	nop
+  401a44:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:121
+			}
+			print_num(out, data, num, 16, 0, width, ladjust, padc, 0);
+  401a48:	8fc30028 	lw	v1,40(s8)
+  401a4c:	afa00020 	sw	zero,32(sp)
+  401a50:	83c2003c 	lb	v0,60(s8)
+  401a54:	00000000 	nop
+  401a58:	afa2001c 	sw	v0,28(sp)
+  401a5c:	8fc20038 	lw	v0,56(s8)
+  401a60:	00000000 	nop
+  401a64:	afa20018 	sw	v0,24(sp)
+  401a68:	8fc2002c 	lw	v0,44(s8)
+  401a6c:	00000000 	nop
+  401a70:	afa20014 	sw	v0,20(sp)
+  401a74:	afa00010 	sw	zero,16(sp)
+  401a78:	24070010 	li	a3,16
+  401a7c:	00603025 	move	a2,v1
+  401a80:	8fc50054 	lw	a1,84(s8)
+  401a84:	8fc40050 	lw	a0,80(s8)
+  401a88:	0c1007d0 	jal	401f40 <print_num>
+  401a8c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:122
+			break;
+  401a90:	1000005b 	b	401c00 <vprintfmt+0x6e0>
+  401a94:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:125
+
+		case 'X':
+			if (long_flag) {
+  401a98:	8fc20030 	lw	v0,48(s8)
+  401a9c:	00000000 	nop
+  401aa0:	1040000a 	beqz	v0,401acc <vprintfmt+0x5ac>
+  401aa4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:126
+				num = va_arg(ap, long int);
+  401aa8:	8fc2005c 	lw	v0,92(s8)
+  401aac:	00000000 	nop
+  401ab0:	24430004 	addiu	v1,v0,4
+  401ab4:	afc3005c 	sw	v1,92(s8)
+  401ab8:	8c420000 	lw	v0,0(v0)
+  401abc:	00000000 	nop
+  401ac0:	afc20028 	sw	v0,40(s8)
+  401ac4:	10000008 	b	401ae8 <vprintfmt+0x5c8>
+  401ac8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:128
+			} else {
+				num = va_arg(ap, int);
+  401acc:	8fc2005c 	lw	v0,92(s8)
+  401ad0:	00000000 	nop
+  401ad4:	24430004 	addiu	v1,v0,4
+  401ad8:	afc3005c 	sw	v1,92(s8)
+  401adc:	8c420000 	lw	v0,0(v0)
+  401ae0:	00000000 	nop
+  401ae4:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:130
+			}
+			print_num(out, data, num, 16, 0, width, ladjust, padc, 1);
+  401ae8:	8fc30028 	lw	v1,40(s8)
+  401aec:	24020001 	li	v0,1
+  401af0:	afa20020 	sw	v0,32(sp)
+  401af4:	83c2003c 	lb	v0,60(s8)
+  401af8:	00000000 	nop
+  401afc:	afa2001c 	sw	v0,28(sp)
+  401b00:	8fc20038 	lw	v0,56(s8)
+  401b04:	00000000 	nop
+  401b08:	afa20018 	sw	v0,24(sp)
+  401b0c:	8fc2002c 	lw	v0,44(s8)
+  401b10:	00000000 	nop
+  401b14:	afa20014 	sw	v0,20(sp)
+  401b18:	afa00010 	sw	zero,16(sp)
+  401b1c:	24070010 	li	a3,16
+  401b20:	00603025 	move	a2,v1
+  401b24:	8fc50054 	lw	a1,84(s8)
+  401b28:	8fc40050 	lw	a0,80(s8)
+  401b2c:	0c1007d0 	jal	401f40 <print_num>
+  401b30:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:131
+			break;
+  401b34:	10000032 	b	401c00 <vprintfmt+0x6e0>
+  401b38:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:134
+
+		case 'c':
+			c = (char)va_arg(ap, int);
+  401b3c:	8fc2005c 	lw	v0,92(s8)
+  401b40:	00000000 	nop
+  401b44:	24430004 	addiu	v1,v0,4
+  401b48:	afc3005c 	sw	v1,92(s8)
+  401b4c:	8c420000 	lw	v0,0(v0)
+  401b50:	00000000 	nop
+  401b54:	a3c20044 	sb	v0,68(s8)
+/home/git/21373271/21373271/lib/print.c:135
+			print_char(out, data, c, width, ladjust);
+  401b58:	83c30044 	lb	v1,68(s8)
+  401b5c:	8fc20038 	lw	v0,56(s8)
+  401b60:	00000000 	nop
+  401b64:	afa20010 	sw	v0,16(sp)
+  401b68:	8fc7002c 	lw	a3,44(s8)
+  401b6c:	00603025 	move	a2,v1
+  401b70:	8fc50054 	lw	a1,84(s8)
+  401b74:	8fc40050 	lw	a0,80(s8)
+  401b78:	0c10070e 	jal	401c38 <print_char>
+  401b7c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:136
+			break;
+  401b80:	1000001f 	b	401c00 <vprintfmt+0x6e0>
+  401b84:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:139
+
+		case 's':
+			s = (char *)va_arg(ap, char *);
+  401b88:	8fc2005c 	lw	v0,92(s8)
+  401b8c:	00000000 	nop
+  401b90:	24430004 	addiu	v1,v0,4
+  401b94:	afc3005c 	sw	v1,92(s8)
+  401b98:	8c420000 	lw	v0,0(v0)
+  401b9c:	00000000 	nop
+  401ba0:	afc20040 	sw	v0,64(s8)
+/home/git/21373271/21373271/lib/print.c:140
+			print_str(out, data, s, width, ladjust);
+  401ba4:	8fc20038 	lw	v0,56(s8)
+  401ba8:	00000000 	nop
+  401bac:	afa20010 	sw	v0,16(sp)
+  401bb0:	8fc7002c 	lw	a3,44(s8)
+  401bb4:	8fc60040 	lw	a2,64(s8)
+  401bb8:	8fc50054 	lw	a1,84(s8)
+  401bbc:	8fc40050 	lw	a0,80(s8)
+  401bc0:	0c100765 	jal	401d94 <print_str>
+  401bc4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:141
+			break;
+  401bc8:	1000000d 	b	401c00 <vprintfmt+0x6e0>
+  401bcc:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:144
+
+		case '\0':
+			fmt--;
+  401bd0:	8fc20058 	lw	v0,88(s8)
+  401bd4:	00000000 	nop
+  401bd8:	2442ffff 	addiu	v0,v0,-1
+  401bdc:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:145
+			break;
+  401be0:	10000007 	b	401c00 <vprintfmt+0x6e0>
+  401be4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:149
+
+		default:
+			/* output this char as it is */
+			out(data, fmt, 1);
+  401be8:	8fc20050 	lw	v0,80(s8)
+  401bec:	24060001 	li	a2,1
+  401bf0:	8fc50058 	lw	a1,88(s8)
+  401bf4:	8fc40054 	lw	a0,84(s8)
+  401bf8:	0040f809 	jalr	v0
+  401bfc:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:151
+		}
+		fmt++;
+  401c00:	8fc20058 	lw	v0,88(s8)
+  401c04:	00000000 	nop
+  401c08:	24420001 	addiu	v0,v0,1
+  401c0c:	afc20058 	sw	v0,88(s8)
+/home/git/21373271/21373271/lib/print.c:20
+		if ( *fmt != '%' )	
+  401c10:	1000fe4b 	b	401540 <vprintfmt+0x20>
+  401c14:	00000000 	nop
+	...
+/home/git/21373271/21373271/lib/print.c:153
+	}
+}
+  401c20:	03c0e825 	move	sp,s8
+  401c24:	8fbf004c 	lw	ra,76(sp)
+  401c28:	8fbe0048 	lw	s8,72(sp)
+  401c2c:	27bd0050 	addiu	sp,sp,80
+  401c30:	03e00008 	jr	ra
+  401c34:	00000000 	nop
+
+00401c38 <print_char>:
+print_char():
+/home/git/21373271/21373271/lib/print.c:156
+
+/* --------------- local help functions --------------------- */
+void print_char(fmt_callback_t out, void *data, char c, int length, int ladjust) {
+  401c38:	27bdffe0 	addiu	sp,sp,-32
+  401c3c:	afbf001c 	sw	ra,28(sp)
+  401c40:	afbe0018 	sw	s8,24(sp)
+  401c44:	03a0f025 	move	s8,sp
+  401c48:	afc40020 	sw	a0,32(s8)
+  401c4c:	afc50024 	sw	a1,36(s8)
+  401c50:	00c01025 	move	v0,a2
+  401c54:	afc7002c 	sw	a3,44(s8)
+  401c58:	a3c20028 	sb	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:159
+	int i;
+
+	if (length < 1) {
+  401c5c:	8fc2002c 	lw	v0,44(s8)
+  401c60:	00000000 	nop
+  401c64:	1c400003 	bgtz	v0,401c74 <print_char+0x3c>
+  401c68:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:160
+		length = 1;
+  401c6c:	24020001 	li	v0,1
+  401c70:	afc2002c 	sw	v0,44(s8)
+/home/git/21373271/21373271/lib/print.c:162
+	}
+	const char space = ' ';
+  401c74:	24020020 	li	v0,32
+  401c78:	a3c20014 	sb	v0,20(s8)
+/home/git/21373271/21373271/lib/print.c:163
+	if (ladjust) {
+  401c7c:	8fc20030 	lw	v0,48(s8)
+  401c80:	00000000 	nop
+  401c84:	1040001f 	beqz	v0,401d04 <print_char+0xcc>
+  401c88:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:164
+		out(data, &c, 1);
+  401c8c:	27c30028 	addiu	v1,s8,40
+  401c90:	8fc20020 	lw	v0,32(s8)
+  401c94:	24060001 	li	a2,1
+  401c98:	00602825 	move	a1,v1
+  401c9c:	8fc40024 	lw	a0,36(s8)
+  401ca0:	0040f809 	jalr	v0
+  401ca4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:165
+		for (i = 1; i < length; i++) {
+  401ca8:	24020001 	li	v0,1
+  401cac:	afc20010 	sw	v0,16(s8)
+  401cb0:	1000000c 	b	401ce4 <print_char+0xac>
+  401cb4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:166 (discriminator 3)
+			out(data, &space, 1);
+  401cb8:	27c30014 	addiu	v1,s8,20
+  401cbc:	8fc20020 	lw	v0,32(s8)
+  401cc0:	24060001 	li	a2,1
+  401cc4:	00602825 	move	a1,v1
+  401cc8:	8fc40024 	lw	a0,36(s8)
+  401ccc:	0040f809 	jalr	v0
+  401cd0:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:165 (discriminator 3)
+		for (i = 1; i < length; i++) {
+  401cd4:	8fc20010 	lw	v0,16(s8)
+  401cd8:	00000000 	nop
+  401cdc:	24420001 	addiu	v0,v0,1
+  401ce0:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/lib/print.c:165 (discriminator 1)
+  401ce4:	8fc30010 	lw	v1,16(s8)
+  401ce8:	8fc2002c 	lw	v0,44(s8)
+  401cec:	00000000 	nop
+  401cf0:	0062102a 	slt	v0,v1,v0
+  401cf4:	1440fff0 	bnez	v0,401cb8 <print_char+0x80>
+  401cf8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:174
+		for (i = 0; i < length - 1; i++) {
+			out(data, &space, 1);
+		}
+		out(data, &c, 1);
+	}
+}
+  401cfc:	1000001e 	b	401d78 <print_char+0x140>
+  401d00:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:169
+		for (i = 0; i < length - 1; i++) {
+  401d04:	afc00010 	sw	zero,16(s8)
+  401d08:	1000000c 	b	401d3c <print_char+0x104>
+  401d0c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:170 (discriminator 3)
+			out(data, &space, 1);
+  401d10:	27c30014 	addiu	v1,s8,20
+  401d14:	8fc20020 	lw	v0,32(s8)
+  401d18:	24060001 	li	a2,1
+  401d1c:	00602825 	move	a1,v1
+  401d20:	8fc40024 	lw	a0,36(s8)
+  401d24:	0040f809 	jalr	v0
+  401d28:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:169 (discriminator 3)
+		for (i = 0; i < length - 1; i++) {
+  401d2c:	8fc20010 	lw	v0,16(s8)
+  401d30:	00000000 	nop
+  401d34:	24420001 	addiu	v0,v0,1
+  401d38:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/lib/print.c:169 (discriminator 1)
+  401d3c:	8fc2002c 	lw	v0,44(s8)
+  401d40:	00000000 	nop
+  401d44:	2442ffff 	addiu	v0,v0,-1
+  401d48:	8fc30010 	lw	v1,16(s8)
+  401d4c:	00000000 	nop
+  401d50:	0062102a 	slt	v0,v1,v0
+  401d54:	1440ffee 	bnez	v0,401d10 <print_char+0xd8>
+  401d58:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:172
+		out(data, &c, 1);
+  401d5c:	27c30028 	addiu	v1,s8,40
+  401d60:	8fc20020 	lw	v0,32(s8)
+  401d64:	24060001 	li	a2,1
+  401d68:	00602825 	move	a1,v1
+  401d6c:	8fc40024 	lw	a0,36(s8)
+  401d70:	0040f809 	jalr	v0
+  401d74:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:174
+}
+  401d78:	00000000 	nop
+  401d7c:	03c0e825 	move	sp,s8
+  401d80:	8fbf001c 	lw	ra,28(sp)
+  401d84:	8fbe0018 	lw	s8,24(sp)
+  401d88:	27bd0020 	addiu	sp,sp,32
+  401d8c:	03e00008 	jr	ra
+  401d90:	00000000 	nop
+
+00401d94 <print_str>:
+print_str():
+/home/git/21373271/21373271/lib/print.c:176
+
+void print_str(fmt_callback_t out, void *data, const char *s, int length, int ladjust) {
+  401d94:	27bdffd8 	addiu	sp,sp,-40
+  401d98:	afbf0024 	sw	ra,36(sp)
+  401d9c:	afbe0020 	sw	s8,32(sp)
+  401da0:	03a0f025 	move	s8,sp
+  401da4:	afc40028 	sw	a0,40(s8)
+  401da8:	afc5002c 	sw	a1,44(s8)
+  401dac:	afc60030 	sw	a2,48(s8)
+  401db0:	afc70034 	sw	a3,52(s8)
+/home/git/21373271/21373271/lib/print.c:178
+	int i;
+	int len = 0;
+  401db4:	afc00014 	sw	zero,20(s8)
+/home/git/21373271/21373271/lib/print.c:179
+	const char *s1 = s;
+  401db8:	8fc20030 	lw	v0,48(s8)
+  401dbc:	00000000 	nop
+  401dc0:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/lib/print.c:180
+	while (*s1++) {
+  401dc4:	10000005 	b	401ddc <print_str+0x48>
+  401dc8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:181
+		len++;
+  401dcc:	8fc20014 	lw	v0,20(s8)
+  401dd0:	00000000 	nop
+  401dd4:	24420001 	addiu	v0,v0,1
+  401dd8:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/lib/print.c:180
+	while (*s1++) {
+  401ddc:	8fc20018 	lw	v0,24(s8)
+  401de0:	00000000 	nop
+  401de4:	24430001 	addiu	v1,v0,1
+  401de8:	afc30018 	sw	v1,24(s8)
+  401dec:	80420000 	lb	v0,0(v0)
+  401df0:	00000000 	nop
+  401df4:	1440fff5 	bnez	v0,401dcc <print_str+0x38>
+  401df8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:183
+	}
+	if (length < len) {
+  401dfc:	8fc30034 	lw	v1,52(s8)
+  401e00:	8fc20014 	lw	v0,20(s8)
+  401e04:	00000000 	nop
+  401e08:	0062102a 	slt	v0,v1,v0
+  401e0c:	10400004 	beqz	v0,401e20 <print_str+0x8c>
+  401e10:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:184
+		length = len;
+  401e14:	8fc20014 	lw	v0,20(s8)
+  401e18:	00000000 	nop
+  401e1c:	afc20034 	sw	v0,52(s8)
+/home/git/21373271/21373271/lib/print.c:187
+	}
+
+	if (ladjust) {
+  401e20:	8fc20038 	lw	v0,56(s8)
+  401e24:	00000000 	nop
+  401e28:	10400020 	beqz	v0,401eac <print_str+0x118>
+  401e2c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:188
+		out(data, s, len);
+  401e30:	8fc30014 	lw	v1,20(s8)
+  401e34:	8fc20028 	lw	v0,40(s8)
+  401e38:	00603025 	move	a2,v1
+  401e3c:	8fc50030 	lw	a1,48(s8)
+  401e40:	8fc4002c 	lw	a0,44(s8)
+  401e44:	0040f809 	jalr	v0
+  401e48:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:189
+		for (i = len; i < length; i++) {
+  401e4c:	8fc20014 	lw	v0,20(s8)
+  401e50:	00000000 	nop
+  401e54:	afc20010 	sw	v0,16(s8)
+  401e58:	1000000c 	b	401e8c <print_str+0xf8>
+  401e5c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:190 (discriminator 3)
+			out(data, " ", 1);
+  401e60:	8fc20028 	lw	v0,40(s8)
+  401e64:	24060001 	li	a2,1
+  401e68:	3c030040 	lui	v1,0x40
+  401e6c:	24652bf4 	addiu	a1,v1,11252
+  401e70:	8fc4002c 	lw	a0,44(s8)
+  401e74:	0040f809 	jalr	v0
+  401e78:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:189 (discriminator 3)
+		for (i = len; i < length; i++) {
+  401e7c:	8fc20010 	lw	v0,16(s8)
+  401e80:	00000000 	nop
+  401e84:	24420001 	addiu	v0,v0,1
+  401e88:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/lib/print.c:189 (discriminator 1)
+  401e8c:	8fc30010 	lw	v1,16(s8)
+  401e90:	8fc20034 	lw	v0,52(s8)
+  401e94:	00000000 	nop
+  401e98:	0062102a 	slt	v0,v1,v0
+  401e9c:	1440fff0 	bnez	v0,401e60 <print_str+0xcc>
+  401ea0:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:198
+		for (i = 0; i < length - len; i++) {
+			out(data, " ", 1);
+		}
+		out(data, s, len);
+	}
+}
+  401ea4:	1000001f 	b	401f24 <print_str+0x190>
+  401ea8:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:193
+		for (i = 0; i < length - len; i++) {
+  401eac:	afc00010 	sw	zero,16(s8)
+  401eb0:	1000000c 	b	401ee4 <print_str+0x150>
+  401eb4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:194 (discriminator 3)
+			out(data, " ", 1);
+  401eb8:	8fc20028 	lw	v0,40(s8)
+  401ebc:	24060001 	li	a2,1
+  401ec0:	3c030040 	lui	v1,0x40
+  401ec4:	24652bf4 	addiu	a1,v1,11252
+  401ec8:	8fc4002c 	lw	a0,44(s8)
+  401ecc:	0040f809 	jalr	v0
+  401ed0:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:193 (discriminator 3)
+		for (i = 0; i < length - len; i++) {
+  401ed4:	8fc20010 	lw	v0,16(s8)
+  401ed8:	00000000 	nop
+  401edc:	24420001 	addiu	v0,v0,1
+  401ee0:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/lib/print.c:193 (discriminator 1)
+  401ee4:	8fc30034 	lw	v1,52(s8)
+  401ee8:	8fc20014 	lw	v0,20(s8)
+  401eec:	00000000 	nop
+  401ef0:	00621023 	subu	v0,v1,v0
+  401ef4:	8fc30010 	lw	v1,16(s8)
+  401ef8:	00000000 	nop
+  401efc:	0062102a 	slt	v0,v1,v0
+  401f00:	1440ffed 	bnez	v0,401eb8 <print_str+0x124>
+  401f04:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:196
+		out(data, s, len);
+  401f08:	8fc30014 	lw	v1,20(s8)
+  401f0c:	8fc20028 	lw	v0,40(s8)
+  401f10:	00603025 	move	a2,v1
+  401f14:	8fc50030 	lw	a1,48(s8)
+  401f18:	8fc4002c 	lw	a0,44(s8)
+  401f1c:	0040f809 	jalr	v0
+  401f20:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:198
+}
+  401f24:	00000000 	nop
+  401f28:	03c0e825 	move	sp,s8
+  401f2c:	8fbf0024 	lw	ra,36(sp)
+  401f30:	8fbe0020 	lw	s8,32(sp)
+  401f34:	27bd0028 	addiu	sp,sp,40
+  401f38:	03e00008 	jr	ra
+  401f3c:	00000000 	nop
+
+00401f40 <print_num>:
+print_num():
+/home/git/21373271/21373271/lib/print.c:201
+
+void print_num(fmt_callback_t out, void *data, unsigned long u, int base, int neg_flag, int length,
+	       int ladjust, char padc, int upcase) {
+  401f40:	27bdffb8 	addiu	sp,sp,-72
+  401f44:	afbf0044 	sw	ra,68(sp)
+  401f48:	afbe0040 	sw	s8,64(sp)
+  401f4c:	afb0003c 	sw	s0,60(sp)
+  401f50:	03a0f025 	move	s8,sp
+  401f54:	afc40048 	sw	a0,72(s8)
+  401f58:	afc5004c 	sw	a1,76(s8)
+  401f5c:	afc60050 	sw	a2,80(s8)
+  401f60:	afc70054 	sw	a3,84(s8)
+  401f64:	03a02025 	move	a0,sp
+  401f68:	00808025 	move	s0,a0
+/home/git/21373271/21373271/lib/print.c:212
+	 *		    if negtive, insert  "0" padding between "0" and number.
+	 *  3. if (!ladjust) we reverse the whole string including paddings
+	 *  4. otherwise we only reverse the actual string representing the num.
+	 */
+
+	int actualLength = 0;
+  401f6c:	afc00020 	sw	zero,32(s8)
+/home/git/21373271/21373271/lib/print.c:213
+	char buf[length + 70];
+  401f70:	8fc4005c 	lw	a0,92(s8)
+  401f74:	00000000 	nop
+  401f78:	24840046 	addiu	a0,a0,70
+  401f7c:	2485ffff 	addiu	a1,a0,-1
+  401f80:	afc50024 	sw	a1,36(s8)
+  401f84:	00802825 	move	a1,a0
+  401f88:	00a06025 	move	t4,a1
+  401f8c:	00006825 	move	t5,zero
+  401f90:	000c2f42 	srl	a1,t4,0x1d
+  401f94:	000d48c0 	sll	t1,t5,0x3
+  401f98:	00a94825 	or	t1,a1,t1
+  401f9c:	000c40c0 	sll	t0,t4,0x3
+  401fa0:	00802825 	move	a1,a0
+  401fa4:	00a05025 	move	t2,a1
+  401fa8:	00005825 	move	t3,zero
+  401fac:	000a2f42 	srl	a1,t2,0x1d
+  401fb0:	000b18c0 	sll	v1,t3,0x3
+  401fb4:	00a31825 	or	v1,a1,v1
+  401fb8:	000a10c0 	sll	v0,t2,0x3
+  401fbc:	00801025 	move	v0,a0
+  401fc0:	24420007 	addiu	v0,v0,7
+  401fc4:	000210c2 	srl	v0,v0,0x3
+  401fc8:	000210c0 	sll	v0,v0,0x3
+  401fcc:	03a2e823 	subu	sp,sp,v0
+  401fd0:	27a20010 	addiu	v0,sp,16
+  401fd4:	24420000 	addiu	v0,v0,0
+  401fd8:	afc20028 	sw	v0,40(s8)
+/home/git/21373271/21373271/lib/print.c:214
+	char *p = buf;
+  401fdc:	8fc20028 	lw	v0,40(s8)
+  401fe0:	00000000 	nop
+  401fe4:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/lib/print.c:218
+	int i;
+
+	do {
+		int tmp = u % base;
+  401fe8:	8fc20054 	lw	v0,84(s8)
+  401fec:	8fc30050 	lw	v1,80(s8)
+  401ff0:	00000000 	nop
+  401ff4:	0062001b 	divu	zero,v1,v0
+  401ff8:	14400002 	bnez	v0,402004 <print_num+0xc4>
+  401ffc:	00000000 	nop
+  402000:	0007000d 	break	0x7
+  402004:	00001010 	mfhi	v0
+  402008:	afc2002c 	sw	v0,44(s8)
+/home/git/21373271/21373271/lib/print.c:219
+		if (tmp <= 9) {
+  40200c:	8fc2002c 	lw	v0,44(s8)
+  402010:	00000000 	nop
+  402014:	2842000a 	slti	v0,v0,10
+  402018:	1040000f 	beqz	v0,402058 <print_num+0x118>
+  40201c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:220
+			*p++ = '0' + tmp;
+  402020:	8fc2002c 	lw	v0,44(s8)
+  402024:	00000000 	nop
+  402028:	304200ff 	andi	v0,v0,0xff
+  40202c:	24420030 	addiu	v0,v0,48
+  402030:	304400ff 	andi	a0,v0,0xff
+  402034:	8fc20010 	lw	v0,16(s8)
+  402038:	00000000 	nop
+  40203c:	24430001 	addiu	v1,v0,1
+  402040:	afc30010 	sw	v1,16(s8)
+  402044:	00041e00 	sll	v1,a0,0x18
+  402048:	00031e03 	sra	v1,v1,0x18
+  40204c:	a0430000 	sb	v1,0(v0)
+  402050:	1000001f 	b	4020d0 <print_num+0x190>
+  402054:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:221
+		} else if (upcase) {
+  402058:	8fc20068 	lw	v0,104(s8)
+  40205c:	00000000 	nop
+  402060:	1040000f 	beqz	v0,4020a0 <print_num+0x160>
+  402064:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:222
+			*p++ = 'A' + tmp - 10;
+  402068:	8fc2002c 	lw	v0,44(s8)
+  40206c:	00000000 	nop
+  402070:	304200ff 	andi	v0,v0,0xff
+  402074:	24420037 	addiu	v0,v0,55
+  402078:	304400ff 	andi	a0,v0,0xff
+  40207c:	8fc20010 	lw	v0,16(s8)
+  402080:	00000000 	nop
+  402084:	24430001 	addiu	v1,v0,1
+  402088:	afc30010 	sw	v1,16(s8)
+  40208c:	00041e00 	sll	v1,a0,0x18
+  402090:	00031e03 	sra	v1,v1,0x18
+  402094:	a0430000 	sb	v1,0(v0)
+  402098:	1000000d 	b	4020d0 <print_num+0x190>
+  40209c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:224
+		} else {
+			*p++ = 'a' + tmp - 10;
+  4020a0:	8fc2002c 	lw	v0,44(s8)
+  4020a4:	00000000 	nop
+  4020a8:	304200ff 	andi	v0,v0,0xff
+  4020ac:	24420057 	addiu	v0,v0,87
+  4020b0:	304400ff 	andi	a0,v0,0xff
+  4020b4:	8fc20010 	lw	v0,16(s8)
+  4020b8:	00000000 	nop
+  4020bc:	24430001 	addiu	v1,v0,1
+  4020c0:	afc30010 	sw	v1,16(s8)
+  4020c4:	00041e00 	sll	v1,a0,0x18
+  4020c8:	00031e03 	sra	v1,v1,0x18
+  4020cc:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/print.c:226
+		}
+		u /= base;
+  4020d0:	8fc20054 	lw	v0,84(s8)
+  4020d4:	8fc30050 	lw	v1,80(s8)
+  4020d8:	00000000 	nop
+  4020dc:	0062001b 	divu	zero,v1,v0
+  4020e0:	14400002 	bnez	v0,4020ec <print_num+0x1ac>
+  4020e4:	00000000 	nop
+  4020e8:	0007000d 	break	0x7
+  4020ec:	00001010 	mfhi	v0
+  4020f0:	00001012 	mflo	v0
+  4020f4:	afc20050 	sw	v0,80(s8)
+/home/git/21373271/21373271/lib/print.c:227
+	} while (u != 0);
+  4020f8:	8fc20050 	lw	v0,80(s8)
+  4020fc:	00000000 	nop
+  402100:	1440ffb9 	bnez	v0,401fe8 <print_num+0xa8>
+  402104:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:229
+
+	if (neg_flag) {
+  402108:	8fc20058 	lw	v0,88(s8)
+  40210c:	00000000 	nop
+  402110:	10400007 	beqz	v0,402130 <print_num+0x1f0>
+  402114:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:230
+		*p++ = '-';
+  402118:	8fc20010 	lw	v0,16(s8)
+  40211c:	00000000 	nop
+  402120:	24430001 	addiu	v1,v0,1
+  402124:	afc30010 	sw	v1,16(s8)
+  402128:	2403002d 	li	v1,45
+  40212c:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/print.c:234
+	}
+
+	/* figure out actual length and adjust the maximum length */
+	actualLength = p - buf;
+  402130:	8fc30010 	lw	v1,16(s8)
+  402134:	8fc20028 	lw	v0,40(s8)
+  402138:	00000000 	nop
+  40213c:	00621023 	subu	v0,v1,v0
+  402140:	afc20020 	sw	v0,32(s8)
+/home/git/21373271/21373271/lib/print.c:235
+	if (length < actualLength) {
+  402144:	8fc3005c 	lw	v1,92(s8)
+  402148:	8fc20020 	lw	v0,32(s8)
+  40214c:	00000000 	nop
+  402150:	0062102a 	slt	v0,v1,v0
+  402154:	10400004 	beqz	v0,402168 <print_num+0x228>
+  402158:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:236
+		length = actualLength;
+  40215c:	8fc20020 	lw	v0,32(s8)
+  402160:	00000000 	nop
+  402164:	afc2005c 	sw	v0,92(s8)
+/home/git/21373271/21373271/lib/print.c:240
+	}
+
+	/* add padding */
+	if (ladjust) {
+  402168:	8fc20060 	lw	v0,96(s8)
+  40216c:	00000000 	nop
+  402170:	10400003 	beqz	v0,402180 <print_num+0x240>
+  402174:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:241
+		padc = ' ';
+  402178:	24020020 	li	v0,32
+  40217c:	a3c20064 	sb	v0,100(s8)
+/home/git/21373271/21373271/lib/print.c:243
+	}
+	if (neg_flag && !ladjust && (padc == '0')) {
+  402180:	8fc20058 	lw	v0,88(s8)
+  402184:	00000000 	nop
+  402188:	1040002c 	beqz	v0,40223c <print_num+0x2fc>
+  40218c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:243 (discriminator 1)
+  402190:	8fc20060 	lw	v0,96(s8)
+  402194:	00000000 	nop
+  402198:	14400028 	bnez	v0,40223c <print_num+0x2fc>
+  40219c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:243 (discriminator 2)
+  4021a0:	83c30064 	lb	v1,100(s8)
+  4021a4:	24020030 	li	v0,48
+  4021a8:	14620024 	bne	v1,v0,40223c <print_num+0x2fc>
+  4021ac:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:244
+		for (i = actualLength - 1; i < length - 1; i++) {
+  4021b0:	8fc20020 	lw	v0,32(s8)
+  4021b4:	00000000 	nop
+  4021b8:	2442ffff 	addiu	v0,v0,-1
+  4021bc:	afc20014 	sw	v0,20(s8)
+  4021c0:	1000000c 	b	4021f4 <print_num+0x2b4>
+  4021c4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:245 (discriminator 3)
+			buf[i] = padc;
+  4021c8:	8fc30028 	lw	v1,40(s8)
+  4021cc:	8fc20014 	lw	v0,20(s8)
+  4021d0:	00000000 	nop
+  4021d4:	00621021 	addu	v0,v1,v0
+  4021d8:	93c30064 	lbu	v1,100(s8)
+  4021dc:	00000000 	nop
+  4021e0:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/print.c:244 (discriminator 3)
+		for (i = actualLength - 1; i < length - 1; i++) {
+  4021e4:	8fc20014 	lw	v0,20(s8)
+  4021e8:	00000000 	nop
+  4021ec:	24420001 	addiu	v0,v0,1
+  4021f0:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/lib/print.c:244 (discriminator 1)
+  4021f4:	8fc2005c 	lw	v0,92(s8)
+  4021f8:	00000000 	nop
+  4021fc:	2442ffff 	addiu	v0,v0,-1
+  402200:	8fc30014 	lw	v1,20(s8)
+  402204:	00000000 	nop
+  402208:	0062102a 	slt	v0,v1,v0
+  40220c:	1440ffee 	bnez	v0,4021c8 <print_num+0x288>
+  402210:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:247
+		}
+		buf[length - 1] = '-';
+  402214:	8fc2005c 	lw	v0,92(s8)
+  402218:	00000000 	nop
+  40221c:	2442ffff 	addiu	v0,v0,-1
+  402220:	8fc30028 	lw	v1,40(s8)
+  402224:	00000000 	nop
+  402228:	00621021 	addu	v0,v1,v0
+  40222c:	2403002d 	li	v1,45
+  402230:	a0430000 	sb	v1,0(v0)
+  402234:	10000017 	b	402294 <print_num+0x354>
+  402238:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:249
+	} else {
+		for (i = actualLength; i < length; i++) {
+  40223c:	8fc20020 	lw	v0,32(s8)
+  402240:	00000000 	nop
+  402244:	afc20014 	sw	v0,20(s8)
+  402248:	1000000c 	b	40227c <print_num+0x33c>
+  40224c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:250 (discriminator 3)
+			buf[i] = padc;
+  402250:	8fc30028 	lw	v1,40(s8)
+  402254:	8fc20014 	lw	v0,20(s8)
+  402258:	00000000 	nop
+  40225c:	00621021 	addu	v0,v1,v0
+  402260:	93c30064 	lbu	v1,100(s8)
+  402264:	00000000 	nop
+  402268:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/print.c:249 (discriminator 3)
+		for (i = actualLength; i < length; i++) {
+  40226c:	8fc20014 	lw	v0,20(s8)
+  402270:	00000000 	nop
+  402274:	24420001 	addiu	v0,v0,1
+  402278:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/lib/print.c:249 (discriminator 1)
+  40227c:	8fc30014 	lw	v1,20(s8)
+  402280:	8fc2005c 	lw	v0,92(s8)
+  402284:	00000000 	nop
+  402288:	0062102a 	slt	v0,v1,v0
+  40228c:	1440fff0 	bnez	v0,402250 <print_num+0x310>
+  402290:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:255
+		}
+	}
+
+	/* prepare to reverse the string */
+	int begin = 0;
+  402294:	afc00018 	sw	zero,24(s8)
+/home/git/21373271/21373271/lib/print.c:257
+	int end;
+	if (ladjust) {
+  402298:	8fc20060 	lw	v0,96(s8)
+  40229c:	00000000 	nop
+  4022a0:	10400007 	beqz	v0,4022c0 <print_num+0x380>
+  4022a4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:258
+		end = actualLength - 1;
+  4022a8:	8fc20020 	lw	v0,32(s8)
+  4022ac:	00000000 	nop
+  4022b0:	2442ffff 	addiu	v0,v0,-1
+  4022b4:	afc2001c 	sw	v0,28(s8)
+  4022b8:	10000027 	b	402358 <print_num+0x418>
+  4022bc:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:260
+	} else {
+		end = length - 1;
+  4022c0:	8fc2005c 	lw	v0,92(s8)
+  4022c4:	00000000 	nop
+  4022c8:	2442ffff 	addiu	v0,v0,-1
+  4022cc:	afc2001c 	sw	v0,28(s8)
+/home/git/21373271/21373271/lib/print.c:264
+	}
+
+	/* adjust the string pointer */
+	while (end > begin) {
+  4022d0:	10000021 	b	402358 <print_num+0x418>
+  4022d4:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:265
+		char tmp = buf[begin];
+  4022d8:	8fc30028 	lw	v1,40(s8)
+  4022dc:	8fc20018 	lw	v0,24(s8)
+  4022e0:	00000000 	nop
+  4022e4:	00621021 	addu	v0,v1,v0
+  4022e8:	90420000 	lbu	v0,0(v0)
+  4022ec:	00000000 	nop
+  4022f0:	a3c20030 	sb	v0,48(s8)
+/home/git/21373271/21373271/lib/print.c:266
+		buf[begin] = buf[end];
+  4022f4:	8fc30028 	lw	v1,40(s8)
+  4022f8:	8fc2001c 	lw	v0,28(s8)
+  4022fc:	00000000 	nop
+  402300:	00621021 	addu	v0,v1,v0
+  402304:	80430000 	lb	v1,0(v0)
+  402308:	8fc40028 	lw	a0,40(s8)
+  40230c:	8fc20018 	lw	v0,24(s8)
+  402310:	00000000 	nop
+  402314:	00821021 	addu	v0,a0,v0
+  402318:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/print.c:267
+		buf[end] = tmp;
+  40231c:	8fc30028 	lw	v1,40(s8)
+  402320:	8fc2001c 	lw	v0,28(s8)
+  402324:	00000000 	nop
+  402328:	00621021 	addu	v0,v1,v0
+  40232c:	93c30030 	lbu	v1,48(s8)
+  402330:	00000000 	nop
+  402334:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/print.c:268
+		begin++;
+  402338:	8fc20018 	lw	v0,24(s8)
+  40233c:	00000000 	nop
+  402340:	24420001 	addiu	v0,v0,1
+  402344:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/lib/print.c:269
+		end--;
+  402348:	8fc2001c 	lw	v0,28(s8)
+  40234c:	00000000 	nop
+  402350:	2442ffff 	addiu	v0,v0,-1
+  402354:	afc2001c 	sw	v0,28(s8)
+/home/git/21373271/21373271/lib/print.c:264
+	while (end > begin) {
+  402358:	8fc3001c 	lw	v1,28(s8)
+  40235c:	8fc20018 	lw	v0,24(s8)
+  402360:	00000000 	nop
+  402364:	0043102a 	slt	v0,v0,v1
+  402368:	1440ffdb 	bnez	v0,4022d8 <print_num+0x398>
+  40236c:	00000000 	nop
+/home/git/21373271/21373271/lib/print.c:272
+	}
+
+	out(data, buf, length);
+  402370:	8fc3005c 	lw	v1,92(s8)
+  402374:	8fc20048 	lw	v0,72(s8)
+  402378:	00603025 	move	a2,v1
+  40237c:	8fc50028 	lw	a1,40(s8)
+  402380:	8fc4004c 	lw	a0,76(s8)
+  402384:	0040f809 	jalr	v0
+  402388:	00000000 	nop
+  40238c:	0200e825 	move	sp,s0
+/home/git/21373271/21373271/lib/print.c:273
+}
+  402390:	00000000 	nop
+  402394:	03c0e825 	move	sp,s8
+  402398:	8fbf0044 	lw	ra,68(sp)
+  40239c:	8fbe0040 	lw	s8,64(sp)
+  4023a0:	8fb0003c 	lw	s0,60(sp)
+  4023a4:	27bd0048 	addiu	sp,sp,72
+  4023a8:	03e00008 	jr	ra
+  4023ac:	00000000 	nop
+
+004023b0 <memcpy>:
+memcpy():
+/home/git/21373271/21373271/lib/string.c:3
+#include <types.h>
+
+void *memcpy(void *dst, const void *src, size_t n) {
+  4023b0:	27bdfff0 	addiu	sp,sp,-16
+  4023b4:	afbe000c 	sw	s8,12(sp)
+  4023b8:	03a0f025 	move	s8,sp
+  4023bc:	afc40010 	sw	a0,16(s8)
+  4023c0:	afc50014 	sw	a1,20(s8)
+  4023c4:	afc60018 	sw	a2,24(s8)
+/home/git/21373271/21373271/lib/string.c:4
+	void *dstaddr = dst;
+  4023c8:	8fc20010 	lw	v0,16(s8)
+  4023cc:	00000000 	nop
+  4023d0:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:5
+	void *max = dst + n;
+  4023d4:	8fc30010 	lw	v1,16(s8)
+  4023d8:	8fc20018 	lw	v0,24(s8)
+  4023dc:	00000000 	nop
+  4023e0:	00621021 	addu	v0,v1,v0
+  4023e4:	afc20004 	sw	v0,4(s8)
+/home/git/21373271/21373271/lib/string.c:7
+
+	if (((u_long)src & 3) != ((u_long)dst & 3)) {
+  4023e8:	8fc30014 	lw	v1,20(s8)
+  4023ec:	8fc20010 	lw	v0,16(s8)
+  4023f0:	00000000 	nop
+  4023f4:	00621026 	xor	v0,v1,v0
+  4023f8:	30420003 	andi	v0,v0,0x3
+  4023fc:	10400022 	beqz	v0,402488 <memcpy+0xd8>
+  402400:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:8
+		while (dst < max) {
+  402404:	1000000c 	b	402438 <memcpy+0x88>
+  402408:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:9
+			*(char *)dst++ = *(char *)src++;
+  40240c:	8fc30014 	lw	v1,20(s8)
+  402410:	00000000 	nop
+  402414:	24620001 	addiu	v0,v1,1
+  402418:	afc20014 	sw	v0,20(s8)
+  40241c:	8fc20010 	lw	v0,16(s8)
+  402420:	00000000 	nop
+  402424:	24440001 	addiu	a0,v0,1
+  402428:	afc40010 	sw	a0,16(s8)
+  40242c:	80630000 	lb	v1,0(v1)
+  402430:	00000000 	nop
+  402434:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/string.c:8
+		while (dst < max) {
+  402438:	8fc30010 	lw	v1,16(s8)
+  40243c:	8fc20004 	lw	v0,4(s8)
+  402440:	00000000 	nop
+  402444:	0062102b 	sltu	v0,v1,v0
+  402448:	1440fff0 	bnez	v0,40240c <memcpy+0x5c>
+  40244c:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:11
+		}
+		return dstaddr;
+  402450:	8fc20000 	lw	v0,0(s8)
+  402454:	10000043 	b	402564 <memcpy+0x1b4>
+  402458:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:15
+	}
+
+	while (((u_long)dst & 3) && dst < max) {
+		*(char *)dst++ = *(char *)src++;
+  40245c:	8fc30014 	lw	v1,20(s8)
+  402460:	00000000 	nop
+  402464:	24620001 	addiu	v0,v1,1
+  402468:	afc20014 	sw	v0,20(s8)
+  40246c:	8fc20010 	lw	v0,16(s8)
+  402470:	00000000 	nop
+  402474:	24440001 	addiu	a0,v0,1
+  402478:	afc40010 	sw	a0,16(s8)
+  40247c:	80630000 	lb	v1,0(v1)
+  402480:	00000000 	nop
+  402484:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/string.c:14
+	while (((u_long)dst & 3) && dst < max) {
+  402488:	8fc20010 	lw	v0,16(s8)
+  40248c:	00000000 	nop
+  402490:	30420003 	andi	v0,v0,0x3
+  402494:	10400017 	beqz	v0,4024f4 <memcpy+0x144>
+  402498:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:14 (discriminator 1)
+  40249c:	8fc30010 	lw	v1,16(s8)
+  4024a0:	8fc20004 	lw	v0,4(s8)
+  4024a4:	00000000 	nop
+  4024a8:	0062102b 	sltu	v0,v1,v0
+  4024ac:	1440ffeb 	bnez	v0,40245c <memcpy+0xac>
+  4024b0:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:19
+	}
+
+	// copy machine words while possible
+	while (dst + 4 <= max) {
+  4024b4:	1000000f 	b	4024f4 <memcpy+0x144>
+  4024b8:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:20
+		*(uint32_t *)dst = *(uint32_t *)src;
+  4024bc:	8fc20014 	lw	v0,20(s8)
+  4024c0:	00000000 	nop
+  4024c4:	8c430000 	lw	v1,0(v0)
+  4024c8:	8fc20010 	lw	v0,16(s8)
+  4024cc:	00000000 	nop
+  4024d0:	ac430000 	sw	v1,0(v0)
+/home/git/21373271/21373271/lib/string.c:21
+		dst += 4;
+  4024d4:	8fc20010 	lw	v0,16(s8)
+  4024d8:	00000000 	nop
+  4024dc:	24420004 	addiu	v0,v0,4
+  4024e0:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/lib/string.c:22
+		src += 4;
+  4024e4:	8fc20014 	lw	v0,20(s8)
+  4024e8:	00000000 	nop
+  4024ec:	24420004 	addiu	v0,v0,4
+  4024f0:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/lib/string.c:19
+	while (dst + 4 <= max) {
+  4024f4:	8fc20010 	lw	v0,16(s8)
+  4024f8:	00000000 	nop
+  4024fc:	24420004 	addiu	v0,v0,4
+  402500:	8fc30004 	lw	v1,4(s8)
+  402504:	00000000 	nop
+  402508:	0062102b 	sltu	v0,v1,v0
+  40250c:	1040ffeb 	beqz	v0,4024bc <memcpy+0x10c>
+  402510:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:26
+	}
+
+	// finish the remaining 0-3 bytes
+	while (dst < max) {
+  402514:	1000000c 	b	402548 <memcpy+0x198>
+  402518:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:27
+		*(char *)dst++ = *(char *)src++;
+  40251c:	8fc30014 	lw	v1,20(s8)
+  402520:	00000000 	nop
+  402524:	24620001 	addiu	v0,v1,1
+  402528:	afc20014 	sw	v0,20(s8)
+  40252c:	8fc20010 	lw	v0,16(s8)
+  402530:	00000000 	nop
+  402534:	24440001 	addiu	a0,v0,1
+  402538:	afc40010 	sw	a0,16(s8)
+  40253c:	80630000 	lb	v1,0(v1)
+  402540:	00000000 	nop
+  402544:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/string.c:26
+	while (dst < max) {
+  402548:	8fc30010 	lw	v1,16(s8)
+  40254c:	8fc20004 	lw	v0,4(s8)
+  402550:	00000000 	nop
+  402554:	0062102b 	sltu	v0,v1,v0
+  402558:	1440fff0 	bnez	v0,40251c <memcpy+0x16c>
+  40255c:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:29
+	}
+	return dstaddr;
+  402560:	8fc20000 	lw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:30
+}
+  402564:	03c0e825 	move	sp,s8
+  402568:	8fbe000c 	lw	s8,12(sp)
+  40256c:	27bd0010 	addiu	sp,sp,16
+  402570:	03e00008 	jr	ra
+  402574:	00000000 	nop
+
+00402578 <memset>:
+memset():
+/home/git/21373271/21373271/lib/string.c:32
+
+void *memset(void *dst, int c, size_t n) {
+  402578:	27bdffe8 	addiu	sp,sp,-24
+  40257c:	afbe0014 	sw	s8,20(sp)
+  402580:	03a0f025 	move	s8,sp
+  402584:	afc40018 	sw	a0,24(s8)
+  402588:	afc5001c 	sw	a1,28(s8)
+  40258c:	afc60020 	sw	a2,32(s8)
+/home/git/21373271/21373271/lib/string.c:33
+	void *dstaddr = dst;
+  402590:	8fc20018 	lw	v0,24(s8)
+  402594:	00000000 	nop
+  402598:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:34
+	void *max = dst + n;
+  40259c:	8fc30018 	lw	v1,24(s8)
+  4025a0:	8fc20020 	lw	v0,32(s8)
+  4025a4:	00000000 	nop
+  4025a8:	00621021 	addu	v0,v1,v0
+  4025ac:	afc20004 	sw	v0,4(s8)
+/home/git/21373271/21373271/lib/string.c:35
+	u_char byte = c & 0xff;
+  4025b0:	8fc2001c 	lw	v0,28(s8)
+  4025b4:	00000000 	nop
+  4025b8:	a3c20008 	sb	v0,8(s8)
+/home/git/21373271/21373271/lib/string.c:36
+	uint32_t word = byte | byte << 8 | byte << 16 | byte << 24;
+  4025bc:	93c30008 	lbu	v1,8(s8)
+  4025c0:	93c20008 	lbu	v0,8(s8)
+  4025c4:	00000000 	nop
+  4025c8:	00021200 	sll	v0,v0,0x8
+  4025cc:	00621825 	or	v1,v1,v0
+  4025d0:	93c20008 	lbu	v0,8(s8)
+  4025d4:	00000000 	nop
+  4025d8:	00021400 	sll	v0,v0,0x10
+  4025dc:	00621825 	or	v1,v1,v0
+  4025e0:	93c20008 	lbu	v0,8(s8)
+  4025e4:	00000000 	nop
+  4025e8:	00021600 	sll	v0,v0,0x18
+  4025ec:	00621025 	or	v0,v1,v0
+  4025f0:	afc2000c 	sw	v0,12(s8)
+/home/git/21373271/21373271/lib/string.c:38
+
+	while (((u_long)dst & 3) && dst < max) {
+  4025f4:	10000008 	b	402618 <memset+0xa0>
+  4025f8:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:39
+		*(u_char *)dst++ = byte;
+  4025fc:	8fc20018 	lw	v0,24(s8)
+  402600:	00000000 	nop
+  402604:	24430001 	addiu	v1,v0,1
+  402608:	afc30018 	sw	v1,24(s8)
+  40260c:	93c30008 	lbu	v1,8(s8)
+  402610:	00000000 	nop
+  402614:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/string.c:38
+	while (((u_long)dst & 3) && dst < max) {
+  402618:	8fc20018 	lw	v0,24(s8)
+  40261c:	00000000 	nop
+  402620:	30420003 	andi	v0,v0,0x3
+  402624:	10400011 	beqz	v0,40266c <memset+0xf4>
+  402628:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:38 (discriminator 1)
+  40262c:	8fc30018 	lw	v1,24(s8)
+  402630:	8fc20004 	lw	v0,4(s8)
+  402634:	00000000 	nop
+  402638:	0062102b 	sltu	v0,v1,v0
+  40263c:	1440ffef 	bnez	v0,4025fc <memset+0x84>
+  402640:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:43
+	}
+
+	// fill machine words while possible
+	while (dst + 4 <= max) {
+  402644:	10000009 	b	40266c <memset+0xf4>
+  402648:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:44
+		*(uint32_t *)dst = word;
+  40264c:	8fc20018 	lw	v0,24(s8)
+  402650:	8fc3000c 	lw	v1,12(s8)
+  402654:	00000000 	nop
+  402658:	ac430000 	sw	v1,0(v0)
+/home/git/21373271/21373271/lib/string.c:45
+		dst += 4;
+  40265c:	8fc20018 	lw	v0,24(s8)
+  402660:	00000000 	nop
+  402664:	24420004 	addiu	v0,v0,4
+  402668:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/lib/string.c:43
+	while (dst + 4 <= max) {
+  40266c:	8fc20018 	lw	v0,24(s8)
+  402670:	00000000 	nop
+  402674:	24420004 	addiu	v0,v0,4
+  402678:	8fc30004 	lw	v1,4(s8)
+  40267c:	00000000 	nop
+  402680:	0062102b 	sltu	v0,v1,v0
+  402684:	1040fff1 	beqz	v0,40264c <memset+0xd4>
+  402688:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:49
+	}
+
+	// finish the remaining 0-3 bytes
+	while (dst < max) {
+  40268c:	10000008 	b	4026b0 <memset+0x138>
+  402690:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:50
+		*(u_char *)dst++ = byte;
+  402694:	8fc20018 	lw	v0,24(s8)
+  402698:	00000000 	nop
+  40269c:	24430001 	addiu	v1,v0,1
+  4026a0:	afc30018 	sw	v1,24(s8)
+  4026a4:	93c30008 	lbu	v1,8(s8)
+  4026a8:	00000000 	nop
+  4026ac:	a0430000 	sb	v1,0(v0)
+/home/git/21373271/21373271/lib/string.c:49
+	while (dst < max) {
+  4026b0:	8fc30018 	lw	v1,24(s8)
+  4026b4:	8fc20004 	lw	v0,4(s8)
+  4026b8:	00000000 	nop
+  4026bc:	0062102b 	sltu	v0,v1,v0
+  4026c0:	1440fff4 	bnez	v0,402694 <memset+0x11c>
+  4026c4:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:52
+	}
+	return dstaddr;
+  4026c8:	8fc20000 	lw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:53
+}
+  4026cc:	03c0e825 	move	sp,s8
+  4026d0:	8fbe0014 	lw	s8,20(sp)
+  4026d4:	27bd0018 	addiu	sp,sp,24
+  4026d8:	03e00008 	jr	ra
+  4026dc:	00000000 	nop
+
+004026e0 <strlen>:
+strlen():
+/home/git/21373271/21373271/lib/string.c:55
+
+size_t strlen(const char *s) {
+  4026e0:	27bdfff0 	addiu	sp,sp,-16
+  4026e4:	afbe000c 	sw	s8,12(sp)
+  4026e8:	03a0f025 	move	s8,sp
+  4026ec:	afc40010 	sw	a0,16(s8)
+/home/git/21373271/21373271/lib/string.c:58
+	int n;
+
+	for (n = 0; *s; s++) {
+  4026f0:	afc00000 	sw	zero,0(s8)
+  4026f4:	10000009 	b	40271c <strlen+0x3c>
+  4026f8:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:59 (discriminator 3)
+		n++;
+  4026fc:	8fc20000 	lw	v0,0(s8)
+  402700:	00000000 	nop
+  402704:	24420001 	addiu	v0,v0,1
+  402708:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:58 (discriminator 3)
+	for (n = 0; *s; s++) {
+  40270c:	8fc20010 	lw	v0,16(s8)
+  402710:	00000000 	nop
+  402714:	24420001 	addiu	v0,v0,1
+  402718:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/lib/string.c:58 (discriminator 1)
+  40271c:	8fc20010 	lw	v0,16(s8)
+  402720:	00000000 	nop
+  402724:	80420000 	lb	v0,0(v0)
+  402728:	00000000 	nop
+  40272c:	1440fff3 	bnez	v0,4026fc <strlen+0x1c>
+  402730:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:62
+	}
+
+	return n;
+  402734:	8fc20000 	lw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:63
+}
+  402738:	03c0e825 	move	sp,s8
+  40273c:	8fbe000c 	lw	s8,12(sp)
+  402740:	27bd0010 	addiu	sp,sp,16
+  402744:	03e00008 	jr	ra
+  402748:	00000000 	nop
+
+0040274c <strcpy>:
+strcpy():
+/home/git/21373271/21373271/lib/string.c:65
+
+char *strcpy(char *dst, const char *src) {
+  40274c:	27bdfff0 	addiu	sp,sp,-16
+  402750:	afbe000c 	sw	s8,12(sp)
+  402754:	03a0f025 	move	s8,sp
+  402758:	afc40010 	sw	a0,16(s8)
+  40275c:	afc50014 	sw	a1,20(s8)
+/home/git/21373271/21373271/lib/string.c:66
+	char *ret = dst;
+  402760:	8fc20010 	lw	v0,16(s8)
+  402764:	00000000 	nop
+  402768:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:68
+
+	while ((*dst++ = *src++) != 0) {
+  40276c:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:68 (discriminator 1)
+  402770:	8fc30014 	lw	v1,20(s8)
+  402774:	00000000 	nop
+  402778:	24620001 	addiu	v0,v1,1
+  40277c:	afc20014 	sw	v0,20(s8)
+  402780:	8fc20010 	lw	v0,16(s8)
+  402784:	00000000 	nop
+  402788:	24440001 	addiu	a0,v0,1
+  40278c:	afc40010 	sw	a0,16(s8)
+  402790:	80630000 	lb	v1,0(v1)
+  402794:	00000000 	nop
+  402798:	a0430000 	sb	v1,0(v0)
+  40279c:	80420000 	lb	v0,0(v0)
+  4027a0:	00000000 	nop
+  4027a4:	1440fff2 	bnez	v0,402770 <strcpy+0x24>
+  4027a8:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:71
+	}
+
+	return ret;
+  4027ac:	8fc20000 	lw	v0,0(s8)
+/home/git/21373271/21373271/lib/string.c:72
+}
+  4027b0:	03c0e825 	move	sp,s8
+  4027b4:	8fbe000c 	lw	s8,12(sp)
+  4027b8:	27bd0010 	addiu	sp,sp,16
+  4027bc:	03e00008 	jr	ra
+  4027c0:	00000000 	nop
+
+004027c4 <strchr>:
+strchr():
+/home/git/21373271/21373271/lib/string.c:74
+
+const char *strchr(const char *s, int c) {
+  4027c4:	27bdfff8 	addiu	sp,sp,-8
+  4027c8:	afbe0004 	sw	s8,4(sp)
+  4027cc:	03a0f025 	move	s8,sp
+  4027d0:	afc40008 	sw	a0,8(s8)
+  4027d4:	afc5000c 	sw	a1,12(s8)
+/home/git/21373271/21373271/lib/string.c:75
+	for (; *s; s++) {
+  4027d8:	10000011 	b	402820 <strchr+0x5c>
+  4027dc:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:76
+		if (*s == c) {
+  4027e0:	8fc20008 	lw	v0,8(s8)
+  4027e4:	00000000 	nop
+  4027e8:	80420000 	lb	v0,0(v0)
+  4027ec:	00000000 	nop
+  4027f0:	00401825 	move	v1,v0
+  4027f4:	8fc2000c 	lw	v0,12(s8)
+  4027f8:	00000000 	nop
+  4027fc:	14430004 	bne	v0,v1,402810 <strchr+0x4c>
+  402800:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:77
+			return s;
+  402804:	8fc20008 	lw	v0,8(s8)
+  402808:	1000000c 	b	40283c <strchr+0x78>
+  40280c:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:75
+	for (; *s; s++) {
+  402810:	8fc20008 	lw	v0,8(s8)
+  402814:	00000000 	nop
+  402818:	24420001 	addiu	v0,v0,1
+  40281c:	afc20008 	sw	v0,8(s8)
+/home/git/21373271/21373271/lib/string.c:75 (discriminator 1)
+  402820:	8fc20008 	lw	v0,8(s8)
+  402824:	00000000 	nop
+  402828:	80420000 	lb	v0,0(v0)
+  40282c:	00000000 	nop
+  402830:	1440ffeb 	bnez	v0,4027e0 <strchr+0x1c>
+  402834:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:80
+		}
+	}
+	return 0;
+  402838:	00001025 	move	v0,zero
+/home/git/21373271/21373271/lib/string.c:81
+}
+  40283c:	03c0e825 	move	sp,s8
+  402840:	8fbe0004 	lw	s8,4(sp)
+  402844:	27bd0008 	addiu	sp,sp,8
+  402848:	03e00008 	jr	ra
+  40284c:	00000000 	nop
+
+00402850 <strcmp>:
+strcmp():
+/home/git/21373271/21373271/lib/string.c:83
+
+int strcmp(const char *p, const char *q) {
+  402850:	27bdfff8 	addiu	sp,sp,-8
+  402854:	afbe0004 	sw	s8,4(sp)
+  402858:	03a0f025 	move	s8,sp
+  40285c:	afc40008 	sw	a0,8(s8)
+  402860:	afc5000c 	sw	a1,12(s8)
+/home/git/21373271/21373271/lib/string.c:84
+	while (*p && *p == *q) {
+  402864:	10000009 	b	40288c <strcmp+0x3c>
+  402868:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:85
+		p++, q++;
+  40286c:	8fc20008 	lw	v0,8(s8)
+  402870:	00000000 	nop
+  402874:	24420001 	addiu	v0,v0,1
+  402878:	afc20008 	sw	v0,8(s8)
+  40287c:	8fc2000c 	lw	v0,12(s8)
+  402880:	00000000 	nop
+  402884:	24420001 	addiu	v0,v0,1
+  402888:	afc2000c 	sw	v0,12(s8)
+/home/git/21373271/21373271/lib/string.c:84
+	while (*p && *p == *q) {
+  40288c:	8fc20008 	lw	v0,8(s8)
+  402890:	00000000 	nop
+  402894:	80420000 	lb	v0,0(v0)
+  402898:	00000000 	nop
+  40289c:	1040000a 	beqz	v0,4028c8 <strcmp+0x78>
+  4028a0:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:84 (discriminator 1)
+  4028a4:	8fc20008 	lw	v0,8(s8)
+  4028a8:	00000000 	nop
+  4028ac:	80430000 	lb	v1,0(v0)
+  4028b0:	8fc2000c 	lw	v0,12(s8)
+  4028b4:	00000000 	nop
+  4028b8:	80420000 	lb	v0,0(v0)
+  4028bc:	00000000 	nop
+  4028c0:	1062ffea 	beq	v1,v0,40286c <strcmp+0x1c>
+  4028c4:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:88
+	}
+
+	if ((u_int)*p < (u_int)*q) {
+  4028c8:	8fc20008 	lw	v0,8(s8)
+  4028cc:	00000000 	nop
+  4028d0:	80420000 	lb	v0,0(v0)
+  4028d4:	00000000 	nop
+  4028d8:	304300ff 	andi	v1,v0,0xff
+  4028dc:	8fc2000c 	lw	v0,12(s8)
+  4028e0:	00000000 	nop
+  4028e4:	80420000 	lb	v0,0(v0)
+  4028e8:	00000000 	nop
+  4028ec:	304200ff 	andi	v0,v0,0xff
+  4028f0:	0062102b 	sltu	v0,v1,v0
+  4028f4:	10400004 	beqz	v0,402908 <strcmp+0xb8>
+  4028f8:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:89
+		return -1;
+  4028fc:	2402ffff 	li	v0,-1
+  402900:	10000012 	b	40294c <strcmp+0xfc>
+  402904:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:92
+	}
+
+	if ((u_int)*p > (u_int)*q) {
+  402908:	8fc20008 	lw	v0,8(s8)
+  40290c:	00000000 	nop
+  402910:	80420000 	lb	v0,0(v0)
+  402914:	00000000 	nop
+  402918:	304300ff 	andi	v1,v0,0xff
+  40291c:	8fc2000c 	lw	v0,12(s8)
+  402920:	00000000 	nop
+  402924:	80420000 	lb	v0,0(v0)
+  402928:	00000000 	nop
+  40292c:	304200ff 	andi	v0,v0,0xff
+  402930:	0043102b 	sltu	v0,v0,v1
+  402934:	10400004 	beqz	v0,402948 <strcmp+0xf8>
+  402938:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:93
+		return 1;
+  40293c:	24020001 	li	v0,1
+  402940:	10000002 	b	40294c <strcmp+0xfc>
+  402944:	00000000 	nop
+/home/git/21373271/21373271/lib/string.c:96
+	}
+
+	return 0;
+  402948:	00001025 	move	v0,zero
+/home/git/21373271/21373271/lib/string.c:97
+}
+  40294c:	03c0e825 	move	sp,s8
+  402950:	8fbe0004 	lw	s8,4(sp)
+  402954:	27bd0008 	addiu	sp,sp,8
+  402958:	03e00008 	jr	ra
+  40295c:	00000000 	nop
+  402960:	4040400a 	0x4040400a
+  402964:	65734040 	0x65734040
+  402968:	3020646e 	andi	zero,at,0x646e
+  40296c:	6f726620 	0x6f726620
+  402970:	7825206d 	0x7825206d
+  402974:	206f7420 	addi	t7,v1,29728
+  402978:	000a7825 	or	t7,zero,t2
+  40297c:	61207825 	0x61207825
+  402980:	6177206d 	0x6177206d
+  402984:	6e697469 	0x6e697469
+  402988:	2e2e2e67 	sltiu	t6,s1,11879
+  40298c:	000a2e2e 	0xa2e2e
+  402990:	67207825 	0x67207825
+  402994:	2520746f 	addiu	zero,t1,29807
+  402998:	72662064 	0x72662064
+  40299c:	25206d6f 	addiu	zero,t1,28015
+  4029a0:	00000a78 	0xa78
+  4029a4:	4040400a 	0x4040400a
+  4029a8:	65734040 	0x65734040
+  4029ac:	2520646e 	addiu	zero,t1,25710
+  4029b0:	72662064 	0x72662064
+  4029b4:	25206d6f 	addiu	zero,t1,28015
+  4029b8:	6f742078 	0x6f742078
+  4029bc:	0a782520 	j	9e09480 <end+0x9a06470>
+  4029c0:	00000000 	nop
+	...
+  4029d0:	63737973 	0x63737973
+  4029d4:	5f6c6c61 	0x5f6c6c61
+  4029d8:	6e697270 	0x6e697270
+  4029dc:	6f635f74 	0x6f635f74
+  4029e0:	203a736e 	addi	k0,at,29550
+  4029e4:	00006425 	0x6425
+  4029e8:	2f62696c 	sltiu	v0,k1,26988
+  4029ec:	75626564 	jalx	5899590 <end+0x5496580>
+  4029f0:	632e6667 	0x632e6667
+  4029f4:	00000000 	nop
+  4029f8:	696e6170 	0x696e6170
+  4029fc:	74612063 	jalx	184818c <end+0x144517c>
+  402a00:	3a732520 	xori	s3,s3,0x2520
+  402a04:	203a6425 	addi	k0,at,25637
+  402a08:	00000000 	nop
+  402a0c:	0000000a 	0xa
+  402a10:	746c6168 	jalx	1b185a0 <end+0x1715590>
+  402a14:	20746120 	addi	s4,v1,24864
+  402a18:	253a7325 	addiu	k0,t1,29477
+  402a1c:	00203a64 	0x203a64
+  402a20:	72657375 	0x72657375
+  402a24:	6c616820 	0x6c616820
+  402a28:	00000074 	0x74
+  402a2c:	00000000 	nop
+  402a30:	65726e75 	0x65726e75
+  402a34:	61686361 	0x61686361
+  402a38:	20656c62 	addi	a1,v1,27746
+  402a3c:	65646f63 	0x65646f63
+  402a40:	00000000 	nop
+  402a44:	2f62696c 	sltiu	v0,k1,26988
+  402a48:	6f62696c 	0x6f62696c
+  402a4c:	00632e73 	0x632e73
+  402a50:	61666770 	0x61666770
+  402a54:	20746c75 	addi	s4,v1,27765
+  402a58:	3a727265 	xori	s2,s3,0x7265
+  402a5c:	574f4320 	0x574f4320
+  402a60:	746f6e20 	jalx	1bdb880 <end+0x17d8870>
+  402a64:	756f6620 	jalx	5bd9880 <end+0x57d6870>
+  402a68:	0000646e 	0x646e
+  402a6c:	2f62696c 	sltiu	v0,k1,26988
+  402a70:	6b726f66 	0x6b726f66
+  402a74:	0000632e 	0x632e
+  402a78:	63737973 	0x63737973
+  402a7c:	5f6c6c61 	0x5f6c6c61
+  402a80:	5f746573 	0x5f746573
+  402a84:	70617274 	0x70617274
+  402a88:	6d617266 	0x6d617266
+  402a8c:	65722065 	0x65722065
+  402a90:	6e727574 	0x6e727574
+  402a94:	25206465 	addiu	zero,t1,25701
+  402a98:	00000064 	0x64
+  402a9c:	00000000 	nop
+  402aa0:	5f535953 	0x5f535953
+  402aa4:	696e6170 	0x696e6170
+  402aa8:	65722063 	0x65722063
+  402aac:	6e727574 	0x6e727574
+  402ab0:	25206465 	addiu	zero,t1,25701
+  402ab4:	00000064 	0x64
+  402ab8:	2f62696c 	sltiu	v0,k1,26988
+  402abc:	63737973 	0x63737973
+  402ac0:	5f6c6c61 	0x5f6c6c61
+  402ac4:	2e62696c 	sltiu	v0,s3,26988
+  402ac8:	00000063 	0x63
+  402acc:	00000000 	nop
+  402ad0:	3d3d2072 	0x3d3d2072
+  402ad4:	00003020 	add	a2,zero,zero
+  402ad8:	65737361 	0x65737361
+  402adc:	6f697472 	0x6f697472
+  402ae0:	6166206e 	0x6166206e
+  402ae4:	64656c69 	0x64656c69
+  402ae8:	7325203a 	0x7325203a
+  402aec:	00000000 	nop
+  402af0:	2f62696c 	sltiu	v0,k1,26988
+  402af4:	2e637069 	sltiu	v1,s3,28777
+  402af8:	00000063 	0x63
+  402afc:	63737973 	0x63737973
+  402b00:	5f6c6c61 	0x5f6c6c61
+  402b04:	5f637069 	0x5f637069
+  402b08:	76636572 	jalx	98d95c8 <end+0x94d65b8>
+  402b0c:	72726520 	0x72726520
+  402b10:	6425203a 	0x6425203a
+	...
+  402b20:	004017e8 	0x4017e8
+  402b24:	00401be8 	0x401be8
+  402b28:	00401be8 	0x401be8
+  402b2c:	00401be8 	0x401be8
+  402b30:	00401be8 	0x401be8
+  402b34:	00401be8 	0x401be8
+  402b38:	00401be8 	0x401be8
+  402b3c:	00401be8 	0x401be8
+  402b40:	00401be8 	0x401be8
+  402b44:	00401be8 	0x401be8
+  402b48:	00401be8 	0x401be8
+  402b4c:	004018b8 	0x4018b8
+  402b50:	00401be8 	0x401be8
+  402b54:	00401be8 	0x401be8
+  402b58:	00401be8 	0x401be8
+  402b5c:	00401be8 	0x401be8
+  402b60:	00401be8 	0x401be8
+  402b64:	00401958 	0x401958
+  402b68:	00401be8 	0x401be8
+  402b6c:	00401be8 	0x401be8
+  402b70:	00401a98 	0x401a98
+  402b74:	00401be8 	0x401be8
+  402b78:	00401be8 	0x401be8
+  402b7c:	00401be8 	0x401be8
+  402b80:	00401be8 	0x401be8
+  402b84:	00401be8 	0x401be8
+  402b88:	00401be8 	0x401be8
+  402b8c:	00401be8 	0x401be8
+  402b90:	00401be8 	0x401be8
+  402b94:	00401be8 	0x401be8
+  402b98:	00401748 	0x401748
+  402b9c:	00401b3c 	0x401b3c
+  402ba0:	004017e8 	0x4017e8
+  402ba4:	00401be8 	0x401be8
+  402ba8:	00401be8 	0x401be8
+  402bac:	00401be8 	0x401be8
+  402bb0:	00401be8 	0x401be8
+  402bb4:	00401be8 	0x401be8
+  402bb8:	00401be8 	0x401be8
+  402bbc:	00401be8 	0x401be8
+  402bc0:	00401be8 	0x401be8
+  402bc4:	00401be8 	0x401be8
+  402bc8:	00401be8 	0x401be8
+  402bcc:	004018b8 	0x4018b8
+  402bd0:	00401be8 	0x401be8
+  402bd4:	00401be8 	0x401be8
+  402bd8:	00401be8 	0x401be8
+  402bdc:	00401b88 	0x401b88
+  402be0:	00401be8 	0x401be8
+  402be4:	00401958 	0x401958
+  402be8:	00401be8 	0x401be8
+  402bec:	00401be8 	0x401be8
+  402bf0:	004019f8 	0x4019f8
+  402bf4:	00000020 	add	zero,zero,zero
+	...

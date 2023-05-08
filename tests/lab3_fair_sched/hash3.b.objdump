@@ -1,0 +1,145 @@
+
+tests/lab3_fair_sched/hash3.b：     文件格式 elf32-tradlittlemips
+tests/lab3_fair_sched/hash3.b
+
+
+Disassembly of section .text:
+
+00400000 <_start>:
+_start():
+/home/git/21373271/21373271/tests/lab3_fair_sched/entry.S:6
+  400000:	0c10007d 	jal	4001f4 <main>
+  400004:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_fair_sched/entry.S:7
+  400008:	08100060 	j	400180 <finish>
+  40000c:	00000000 	nop
+	...
+
+00400180 <finish>:
+finish():
+/home/git/21373271/21373271/tests/lab3_fair_sched/entry.S:10
+  400180:	08100060 	j	400180 <finish>
+  400184:	00000000 	nop
+	...
+
+00400190 <strlen>:
+strlen():
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:3
+  400190:	27bdfff0 	addiu	sp,sp,-16
+  400194:	afbe000c 	sw	s8,12(sp)
+  400198:	03a0f025 	move	s8,sp
+  40019c:	afc40010 	sw	a0,16(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:5
+  4001a0:	afc00000 	sw	zero,0(s8)
+  4001a4:	10000005 	b	4001bc <strlen+0x2c>
+  4001a8:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:5 (discriminator 3)
+  4001ac:	8fc20000 	lw	v0,0(s8)
+  4001b0:	00000000 	nop
+  4001b4:	24420001 	addiu	v0,v0,1
+  4001b8:	afc20000 	sw	v0,0(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:5 (discriminator 1)
+  4001bc:	8fc20000 	lw	v0,0(s8)
+  4001c0:	8fc30010 	lw	v1,16(s8)
+  4001c4:	00000000 	nop
+  4001c8:	00621021 	addu	v0,v1,v0
+  4001cc:	80420000 	lb	v0,0(v0)
+  4001d0:	00000000 	nop
+  4001d4:	1440fff5 	bnez	v0,4001ac <strlen+0x1c>
+  4001d8:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:8
+  4001dc:	8fc20000 	lw	v0,0(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:9
+  4001e0:	03c0e825 	move	sp,s8
+  4001e4:	8fbe000c 	lw	s8,12(sp)
+  4001e8:	27bd0010 	addiu	sp,sp,16
+  4001ec:	03e00008 	jr	ra
+  4001f0:	00000000 	nop
+
+004001f4 <main>:
+main():
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:11
+  4001f4:	27bdffd0 	addiu	sp,sp,-48
+  4001f8:	afbf002c 	sw	ra,44(sp)
+  4001fc:	afbe0028 	sw	s8,40(sp)
+  400200:	03a0f025 	move	s8,sp
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:13
+  400204:	3c020040 	lui	v0,0x40
+  400208:	8c440310 	lw	a0,784(v0)
+  40020c:	24430310 	addiu	v1,v0,784
+  400210:	8c630004 	lw	v1,4(v1)
+  400214:	24420310 	addiu	v0,v0,784
+  400218:	8c420008 	lw	v0,8(v0)
+  40021c:	afc4001c 	sw	a0,28(s8)
+  400220:	afc30020 	sw	v1,32(s8)
+  400224:	afc20024 	sw	v0,36(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:14
+  400228:	27c2001c 	addiu	v0,s8,28
+  40022c:	00402025 	move	a0,v0
+  400230:	0c100064 	jal	400190 <strlen>
+  400234:	00000000 	nop
+  400238:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:15
+  40023c:	afc00014 	sw	zero,20(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:16
+  400240:	afc00010 	sw	zero,16(s8)
+  400244:	10000023 	b	4002d4 <main+0xe0>
+  400248:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:17 (discriminator 3)
+  40024c:	8fc30014 	lw	v1,20(s8)
+  400250:	00000000 	nop
+  400254:	00601025 	move	v0,v1
+  400258:	00021080 	sll	v0,v0,0x2
+  40025c:	00431021 	addu	v0,v0,v1
+  400260:	00021040 	sll	v0,v0,0x1
+  400264:	00402025 	move	a0,v0
+  400268:	8fc30010 	lw	v1,16(s8)
+  40026c:	8fc20018 	lw	v0,24(s8)
+  400270:	00000000 	nop
+  400274:	0062001a 	div	zero,v1,v0
+  400278:	14400002 	bnez	v0,400284 <main+0x90>
+  40027c:	00000000 	nop
+  400280:	0007000d 	break	0x7
+  400284:	00001010 	mfhi	v0
+  400288:	27c30010 	addiu	v1,s8,16
+  40028c:	00621021 	addu	v0,v1,v0
+  400290:	8042000c 	lb	v0,12(v0)
+  400294:	00000000 	nop
+  400298:	00821021 	addu	v0,a0,v0
+  40029c:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:18 (discriminator 3)
+  4002a0:	8fc30014 	lw	v1,20(s8)
+  4002a4:	3c0205f5 	lui	v0,0x5f5
+  4002a8:	3442e0f9 	ori	v0,v0,0xe0f9
+  4002ac:	0062001a 	div	zero,v1,v0
+  4002b0:	14400002 	bnez	v0,4002bc <main+0xc8>
+  4002b4:	00000000 	nop
+  4002b8:	0007000d 	break	0x7
+  4002bc:	00001010 	mfhi	v0
+  4002c0:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:16 (discriminator 3)
+  4002c4:	8fc20010 	lw	v0,16(s8)
+  4002c8:	00000000 	nop
+  4002cc:	24420001 	addiu	v0,v0,1
+  4002d0:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:16 (discriminator 1)
+  4002d4:	8fc30010 	lw	v1,16(s8)
+  4002d8:	3c0200b7 	lui	v0,0xb7
+  4002dc:	34421b00 	ori	v0,v0,0x1b00
+  4002e0:	0062102a 	slt	v0,v1,v0
+  4002e4:	1440ffd9 	bnez	v0,40024c <main+0x58>
+  4002e8:	00000000 	nop
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:20
+  4002ec:	8fc20014 	lw	v0,20(s8)
+/home/git/21373271/21373271/tests/lab3_fair_sched/hash3.c:21
+  4002f0:	03c0e825 	move	sp,s8
+  4002f4:	8fbf002c 	lw	ra,44(sp)
+  4002f8:	8fbe0028 	lw	s8,40(sp)
+  4002fc:	27bd0030 	addiu	sp,sp,48
+  400300:	03e00008 	jr	ra
+  400304:	00000000 	nop
+	...
+  400310:	6c6c6548 	0x6c6c6548
+  400314:	6f57206f 	0x6f57206f
+  400318:	00646c72 	0x646c72
+  40031c:	00000000 	nop
