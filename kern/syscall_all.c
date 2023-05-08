@@ -63,7 +63,7 @@ int sys_sem_wait(int sem_id)  {
 	struct Env *e;
 	int ans = 0;
 
-	if (sem_vaild[sem_id] != 1) {
+	if ( !(0 <= sem_id && sem_id < 10) ||  sem_vaild[sem_id] != 1) {
 		return -E_NO_SEM;
 	}
 
@@ -95,7 +95,7 @@ int sys_sem_post(int sem_id) {
 	struct Env *e;
 	int ans = 0;
 
-	if (sem_vaild[sem_id] != 1) {
+	if ( !(0 <= sem_id && sem_id < 10) ||  sem_vaild[sem_id] != 1) {
 		return -E_NO_SEM;
 	}
 
@@ -132,7 +132,7 @@ int sys_sem_post(int sem_id) {
 int sys_sem_getvalue(int sem_id) {
 	int ans = 0;
 
-	if (sem_vaild[sem_id] != 1) {
+	if (!(0 <= sem_id && sem_id < 10) ||sem_vaild[sem_id] != 1) {
 		return -E_NO_SEM;
 	}
 
