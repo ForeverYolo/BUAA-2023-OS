@@ -46,7 +46,7 @@ int sys_sem_init(const char* name,int init_value,int checkperm) {
 	}
 	sem_vaild[sem_count] = 1;
 	sem_count++;
-	printk("\nsys_sem return\n");
+	//printk("\nsys_sem return\n");
 	return sem_count-1;
 }	
 
@@ -62,6 +62,11 @@ int dfs(struct Env *e, int envid) {
 int sys_sem_wait(int sem_id)  {
 	struct Env *e;
 	int ans = 0;
+
+	if (sem_vaild[sem_id] != 1) {
+		return -E_NO_SEM;
+	}
+
 	if (sem_perm[sem_id] != 0) {
 		ans = curenv->env_id;
 		if (ans != sem_perm[sem_id]) {
@@ -71,10 +76,7 @@ int sys_sem_wait(int sem_id)  {
 			}
 		}
 	}
-	
-	if (sem_vaild[sem_id] != 1) {
-		return -E_NO_SEM;
-	}
+
 
 	if (sem_now_value[sem_id] > 0) {
 		sem_now_value[sem_id]--;
@@ -92,6 +94,11 @@ int sys_sem_wait(int sem_id)  {
 int sys_sem_post(int sem_id) {
 	struct Env *e;
 	int ans = 0;
+
+	if (sem_vaild[sem_id] != 1) {
+		return -E_NO_SEM;
+	}
+
 	if (sem_perm[sem_id] != 0) {
 		ans = curenv->env_id;
 		if (ans != sem_perm[sem_id]) {
@@ -102,16 +109,13 @@ int sys_sem_post(int sem_id) {
 		}
 	}
 
-	if (sem_vaild[sem_id] != 1) {
-		return -E_NO_SEM;
-	}
-
 	if (sem_now_value[sem_id] > 0) {
 		sem_now_value[sem_id]++;
 	} else if (sem_now_value[sem_id] == 0) {
 		int point = sem_point[sem_id];
 		if (point != 0) {
 			point--;
+			sem_point[sem_id] = point;
 			int envid = sem_queue[sem_id][point];
 			envid2env(envid,&e,0);
 			e->env_status = ENV_RUNNABLE;
@@ -126,8 +130,20 @@ int sys_sem_post(int sem_id) {
 
 
 int sys_sem_getvalue(int sem_id) {
+	int ans = 0;
+
 	if (sem_vaild[sem_id] != 1) {
 		return -E_NO_SEM;
+	}
+
+	if (sem_perm[sem_id] != 0) {
+		ans = curenv->env_id;
+		if (ans != sem_perm[sem_id]) {
+			ans = dfs(curenv,sem_perm[sem_id]);
+			if (ans != sem_perm[sem_id]) {
+				return -E_NO_SEM;
+			}
+		}
 	}
 	return sem_now_value[sem_id];
 }
@@ -137,6 +153,19 @@ int sys_sem_getid(const char *name) {
 	for(int i = 0;i < sem_count;i++) {
 		if (strcmp(sem_name[i],name) == 0) {
 			sem_id = i;
+			int ans = 0;
+			if (sem_vaild[sem_id] != 1) {
+				return -E_NO_SEM;
+			}
+			if (sem_perm[sem_id] != 0) {
+				ans = curenv->env_id;
+				if (ans != sem_perm[sem_id]) {
+					ans = dfs(curenv,sem_perm[sem_id]);
+					if (ans != sem_perm[sem_id]) {
+						return -E_NO_SEM;
+					}
+				}
+			}
 			return sem_id;
 		}
 	}
