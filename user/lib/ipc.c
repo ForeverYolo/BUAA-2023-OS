@@ -37,3 +37,35 @@ u_int ipc_recv(u_int *whom, void *dstva, u_int *perm) {
 
 	return env->env_ipc_value;
 }
+
+
+u_int get_time(u_int * us) {
+	u_int Time_Address = 0x15000000;
+	u_int Trigger = 0;
+	u_int Now_Time = 0;
+	panic_on(syscall_write_dev( (void *)&Trigger , Time_Address , 4 ));
+	panic_on(syscall_read_dev( (void *)&Now_Time , Time_Address + 16 , 4 ));
+	panic_on(syscall_read_dev( (void *)us, Time_Address + 0x20, 4));
+	return Now_Time;
+}
+
+
+void usleep(u_int us) {
+	u_int now_us = 0;
+	u_int * now_us_pointer = &now_us;
+	u_int enter_time = get_time(now_us_pointer);
+	double enter_time_d = (double) enter_time;
+	double us_d = (double) us;
+	while(1) {
+		u_int now_time = get_time(now_us_pointer);
+		double now_time_d = (double)now_time;
+		double now_us_d = (double)now_us;
+		if (now_time_d + now_us_d / 1000000 >= enter_time_d + us_d / 1000000 ) {
+			return;
+		} else {
+			syscall_yield();
+		}
+	}
+}
+
+
