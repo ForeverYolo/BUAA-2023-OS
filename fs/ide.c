@@ -85,7 +85,11 @@ int time_read() {
 	u_int Time_Address = 0x15000000;
 	u_int Trigger = 0;
 	u_int Now_Time = 0;
-	panic_on(syscall_write_dev( (void *)&Trigger , Time_Address , 4 ));
-	panic_on(syscall_read_dev( (void *)&Now_Time , Time_Address + 10 , 4 ));
+	panic_on(syscall_read_dev( (void *)&Trigger , Time_Address , 4 ));
+	panic_on(syscall_read_dev( (void *)&Now_Time , Time_Address + 16 , 4 ));
 	return Now_Time;
+	int time = 0;
+    	syscall_read_dev( (void *)&time, 0x15000000, 4);
+    	syscall_read_dev( (void *)&time, 0x15000010, 4);
+    	return time;
 }

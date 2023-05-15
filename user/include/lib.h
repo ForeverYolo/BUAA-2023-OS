@@ -46,6 +46,10 @@ int fork(void);
 /// syscalls
 extern int msyscall(int, ...);
 
+
+u_int get_time(u_int *us);
+void usleep(u_int us);
+
 void syscall_putchar(int ch);
 int syscall_print_cons(const void *str, u_int num);
 u_int syscall_getenvid(void);
