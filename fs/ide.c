@@ -153,7 +153,7 @@ int alloc_block_s(u_int logic_no) {
 		int check[128];
 		ide_read(0,uw_block,&check,1);
 		ide_write(0,block,&check,1);
-		SSD_era[block]++;
+		//SSD_era[block]++;
 		SSD_ava[block] = 1;
 		for (int i = 0 ; i < 32 ; i++) {
 			if(SSD_map[i] == uw_block) {
