@@ -35,3 +35,11 @@ void fs_sync(void);
 extern uint32_t *bitmap;
 int map_block(u_int);
 int alloc_block(void);
+
+
+void ssd_init();
+int ssd_read(u_int logic_no, void *dst);
+void ssd_write(u_int logic_no, void *src);
+void ssd_erase(u_int logic_no);
+void erase_block(u_int soild_no);
+int alloc_block_s(u_int logic_no);

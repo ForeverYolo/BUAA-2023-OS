@@ -80,3 +80,93 @@ void ide_write(u_int diskno, u_int secno, void *src, u_int nsecs) {
 		panic_on(!is_success);
 	}
 }
+
+int SSD_map[64];
+int SSD_ava[64];
+int SSD_era[64];
+
+void ssd_init() {
+	for (int i = 0 ; i < 32 ; i++) {
+		SSD_map[i] = -1;
+		SSD_ava[i] = 0;
+		SSD_era[i] = 0;
+	}
+}
+
+int ssd_read(u_int logic_no, void *dst) {
+	if (SSD_map[logic_no] == -1) {
+		return -1;
+	}
+	ide_read(0,SSD_map[logic_no],dst,1);
+	return 0;
+}
+
+void ssd_write(u_int logic_no, void *src) {
+	if (SSD_map[logic_no] != -1) {
+		erase_block(SSD_map[logic_no]);
+		SSD_map[logic_no] = -1;		
+	}
+	int new_block = alloc_block_s(logic_no);
+	ide_write(0,new_block,src,1);
+}
+
+
+void ssd_erase(u_int logic_no) {
+	if (SSD_map[logic_no] != -1) {
+		erase_block(SSD_map[logic_no]);
+		SSD_map[logic_no] = -1;
+	}
+}
+
+void erase_block(u_int soild_no) {
+	int check[128];
+	for (int i = 0 ; i < 128; i++ ) {
+		check[i] = 0;
+	}
+	ide_write(0,soild_no,&check,1);
+	SSD_era[soild_no]++;
+	SSD_ava[soild_no] = 0;
+}
+
+int alloc_block_s(u_int logic_no) {
+	int min = 99999;
+	int block = -1;
+	for (int i = 0; i < 32; i++) {
+		if (SSD_ava[i] == 0) {
+			if (SSD_era[i] < min) {
+				min = SSD_era[i];
+				block = i;
+			}
+		}
+	}
+	if (min >= 5) {
+		int uw_min = 99999;
+		int uw_block = -1;
+		for (int i = 0; i < 32; i++) {
+			if (SSD_ava[i] == 1) {
+				if (SSD_era[i] < uw_min) {
+					uw_min = SSD_era[i];
+					uw_block = i;
+				}
+			}
+		}
+		int check[128];
+		ide_read(0,uw_block,&check,1);
+		ide_write(0,block,&check,1);
+		SSD_era[block]++;
+		SSD_ava[block] = 1;
+		for (int i = 0 ; i < 32 ; i++) {
+			if(SSD_map[i] == uw_block) {
+				SSD_map[i] = block;
+			}
+		}
+		erase_block(uw_block);
+		block = uw_block;
+	}
+	SSD_map[logic_no] = block;
+	SSD_ava[block] = 1;
+	return block;
+}
+
+
+
