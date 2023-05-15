@@ -80,3 +80,12 @@ void ide_write(u_int diskno, u_int secno, void *src, u_int nsecs) {
 		panic_on(!is_success);
 	}
 }
+
+int time_read() {
+	u_int Time_Address = 0x15000000;
+	u_int Trigger = 0;
+	u_int Now_Time = 0;
+	panic_on(syscall_write_dev( (void *)&Trigger , Time_Address , 4 ));
+	panic_on(syscall_read_dev( (void *)&Now_Time , Time_Address + 10 , 4 ));
+	return Now_Time;
+}

@@ -15,6 +15,7 @@ void test_ide() {
 		}
 	}
 	debugf("TEST IDE read/write test passed!\n");
+	debugf("Time: %d\n",time_read());
 }
 
 int main() {
