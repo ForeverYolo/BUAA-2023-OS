@@ -51,16 +51,14 @@ u_int get_time(u_int * us) {
 
 
 void usleep(u_int us) {
-	u_int now_us = 0;
-	u_int * now_us_pointer = &now_us;
-	u_int enter_time = get_time(now_us_pointer);
-	double enter_time_d = (double) enter_time;
-	double us_d = (double) us;
+	u_int enter_us = 0;
+	u_int * enter_us_pointer = &enter_us;
+	u_int enter_time = get_time(enter_us_pointer);
 	while(1) {
+		u_int now_us = 0;
+		u_int * now_us_pointer = &now_us;
 		u_int now_time = get_time(now_us_pointer);
-		double now_time_d = (double)now_time;
-		double now_us_d = (double)now_us;
-		int gap = ((int)now_time -(int)enter_time) * 1000000;
+		int gap = ((int)now_time -(int)enter_time) * 1000000 + (int)now_us - (int)enter_us;
 		if (gap >= (int)us ) {
 			return;
 		} else {
