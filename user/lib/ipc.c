@@ -60,7 +60,8 @@ void usleep(u_int us) {
 		u_int now_time = get_time(now_us_pointer);
 		double now_time_d = (double)now_time;
 		double now_us_d = (double)now_us;
-		if (now_time_d + now_us_d / 1000000 >= enter_time_d + us_d / 1000000 ) {
+		int gap = ((int)now_time -(int)enter_time) * 1000000;
+		if (gap >= (int)us ) {
 			return;
 		} else {
 			syscall_yield();
