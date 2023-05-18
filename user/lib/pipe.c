@@ -187,7 +187,7 @@ static int pipe_write(struct Fd *fd, const void *vbuf, u_int n, u_int offset) {
 	/* Exercise 6.1: Your code here. (3/3) */
 
 	p = (struct Pipe *) fd2data(fd);
-	wbuf = vbuf;
+	wbuf = (char *)vbuf;
 
 	for ( i = 0 ; i < n ; i++ ) {
 		while ( p->p_wpos - p->p_rpos == BY2PIPE ) {
@@ -242,8 +242,8 @@ int pipe_is_closed(int fdnum) {
  */
 static int pipe_close(struct Fd *fd) {
 	// Unmap 'fd' and the referred Pipe.
-	syscall_mem_unmap(0, (void *)fd2data(fd));
 	syscall_mem_unmap(0, fd);
+	syscall_mem_unmap(0, (void *)fd2data(fd));
 	return 0;
 }
 
