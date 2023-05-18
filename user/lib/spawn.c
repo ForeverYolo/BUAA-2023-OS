@@ -163,7 +163,7 @@ int spawn(char *prog, char **argv) {
 			// using 'read_map()'.
 			// 'goto err1' if that fails.
 			/* Exercise 6.4: Your code here. (5/6) */
-			if ( (r = read_map(fd, ph_off, &bin)) < 0 ) {
+			if ( (r = read_map(fd, ph->p_offset, &bin)) < 0 ) {
 				goto err1;
 			}
 			// Load the segment 'ph' into the child's memory using 'elf_load_seg()'.
