@@ -102,6 +102,7 @@ static int spawn_mapper(void *data, u_long va, size_t offset, u_int perm, const 
 }
 
 int spawn(char *prog, char **argv) {
+	debugf("[ spawn %x ]\n", env->env_id);
 	// Step 1: Open the file 'prog' (the path of the program).
 	// Return the error if 'open' fails.
 	int fd;
