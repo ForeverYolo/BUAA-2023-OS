@@ -190,7 +190,7 @@ void page_free(struct Page *pp) {
 static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 	Pde *pgdir_entryp;
 	struct Page *pp;
-
+	//printk("pgdir : %08x\n",pgdir);
 	/* Step 1: Get the corresponding page directory entry. */
 	/* Exercise 2.6: Your code here. (1/3) */
 	pgdir_entryp = pgdir + PDX(va);
