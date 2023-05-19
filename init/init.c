@@ -12,6 +12,7 @@
 #else
 
 void mips_init() {
+
 	printk("init.c:\tmips_init() is called\n");
 	printk("u_int32 *: %d",sizeof(uint32_t *));
 	printk("u_int32 : %d",sizeof(uint32_t));
