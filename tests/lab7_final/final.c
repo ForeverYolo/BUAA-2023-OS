@@ -27,14 +27,25 @@ void generateB(int brr[NUM][NUM]) {
 
 
 void calcute(int arr[NUM][NUM],int brr[NUM][NUM],int crr[NUM][NUM]) {
+	int count = 0;
 	for (int i = 0; i < NUM ; i++) {
+		debugf("  ===========================================================\n");
 		for (int j = 0; j < NUM ; j++) {
 			for (int k = 0; k < NUM ; k++) {
 				crr[i][j] += arr[i][k] * brr[k][j];
 			}
-			debugf("%05d ",crr[i][j]);
+			if ( j == 0 ) {
+				debugf(" || ");
+			}
+			debugf("%06x ",crr[i][j]);
+			count++;
+			if (count % 8 == 0 && j != NUM - 1) {
+				debugf("|| \n || ");
+			} else if ( count % 8 == 0 ) {
+				debugf("|| \n");
+			}
 		}
-		debugf("\n");
+		debugf("  ===========================================================\n\n\n\n\n\n");
 	}
 	return;
 }
@@ -53,8 +64,8 @@ int main() {
 	//debugf("%d:%d\n", s, us);
 	int gap = ((int)now_time -(int)enter_time) * 1000000 + (int)now_us - (int)enter_us;
 	gap = gap / 1000;
-	debugf("======Test End======\n");
-	debugf("Time Passed：%d ms\n",gap);
-	debugf("======Test End======\n");
+	debugf("================================Test End===============================\n");
+	debugf("||                          Time Passed：%d ms                       ||\n",gap);
+	debugf("================================Test End===============================\n");
 	return 0;
 }
