@@ -1,6 +1,8 @@
 #include <env.h>
 #include <pmap.h>
 
+#define mpt ((volatile Pte *)MVPT)
+#define vpt ((volatile Pte *)UVPT)
 static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
 	struct Page *p = NULL;
 
@@ -40,15 +42,54 @@ Pte _do_tlb_refill(u_long va, u_int asid) {
 	 *  **While** 'page_lookup' returns 'NULL', indicating that the 'pte' could not be found,
 	 *  allocate a new page using 'passive_alloc' until 'page_lookup' succeeds.
 	 */
-	//int context = -1;
-	//asm("mfc0 %0, $4" : "=r"(context) :);
+	/*int context = -1;
+	asm("mfc0 %0, $4" : "=r"(context) :);
+	int badVaddr = -1;
+	asm("mfc0 %0, $8" : "=r"(badVaddr) :);
 	//printk("Context : %08x\n",context);
+	int TableNum = (context >> 2) & 0x7ffff;
+	printk("=============================\n");
+	printk("va : %08x\n", va);
+	printk("badVaddr : %08x\n",badVaddr);
+	printk("Context : %08x\n",context);
+	printk("TableNum : %08x\n",TableNum);
+	printk("mpt[TableNum] : %08x\n",&(mpt[TableNum]));
+	//printk("mpt[0] : %08x\n",&(mpt[0]));
+	//printk("mpt[1] : %08x\n",&(mpt[1]));
+	while ( ((mpt[TableNum]) & PTE_V) == 0 )
+       	{
+		passive_alloc(va,cur_pgdir,asid);
+	}
+	return mpt[TableNum];*/ 	
 	/* Exercise 2.9: Your code here. */
 	while (page_lookup(cur_pgdir,va,&pte) == NULL)
 	{	
 		passive_alloc(va,cur_pgdir,asid);
 	}
 	return *pte;
+}
+
+Pte fast_tlb_refill(u_long va, u_int asid) {
+	int context = -1;
+	asm("mfc0 %0, $4" : "=r"(context) :);
+	int badVaddr = -1;
+	asm("mfc0 %0, $8" : "=r"(badVaddr) :);
+	//printk("Context : %08x\n",context);
+	//int TableNum = (context >> 2) & 0x7ffff;
+	printk("=============================\n");
+	printk("va : %08x\n", va);
+	printk("badVaddr : %08x\n",badVaddr);
+	printk("Context : %08x\n",context);
+	//printk("TableNum : %08x\n",TableNum);
+	//printk("mpt[TableNum] : %08x\n",&(mpt[TableNum]));
+	//printk("mpt[0] : %08x\n",&(mpt[0]));
+	//printk("mpt[1] : %08x\n",&(mpt[1]));
+	Pte* pte = (Pte *)context;
+	while ( ((*pte) & PTE_V) == 0 )
+       	{
+		passive_alloc(va,cur_pgdir,asid);
+	}
+	return *pte; 
 }
 
 #if !defined(LAB) || LAB >= 4

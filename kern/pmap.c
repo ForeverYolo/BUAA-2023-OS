@@ -212,6 +212,7 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 		}
 		else 
 		{
+			printk("[ pgdir_walk : find free!!! ]\n");
 			*ppte = NULL;
 			return 0;
 		}
@@ -221,6 +222,7 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 	/* Step 3: Assign the kernel virtual address of the page table entry to '*ppte'. */
 	/* Exercise 2.6: Your code here. (3/3) */
 	//*ppte =(Pte *)KADDR(*pgdir_entryp & (~0xfff)) + PTX(va);
+	printk("[ pgdir_walk : find page table!!! ]\n"); 
 	*ppte = (Pte*)KADDR(PTE_ADDR(*pgdir_entryp)) + PTX(va);
 	return 0;
 }
@@ -269,7 +271,33 @@ int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va, u_int perm) 
 	*pte = page2pa(pp) | perm | PTE_V;
 	pp->pp_ref++;
 	/* Exercise 2.7: Your code here. (3/3) */
-
+	//lab2-challenge
+	//printk("~~NowVa : %08x\n",va);
+	if ( UVPT <= va && va <= ULIM ) {
+		int offset = va - UVPT;
+		u_int kseg2va = MVPT + offset;
+		Pte * tmpPte;
+		pgdir_walk(pgdir, kseg2va, 0, &tmpPte);
+		 if (tmpPte && (*tmpPte & PTE_V)) {
+			if (pa2page(*tmpPte) == pp) {
+				return 0;
+			}
+		 }
+		printk("Map UserVa To Kseg2Va!!!");
+		page_insert(pgdir,asid,pp,kseg2va,perm); 
+	} else if ( MVPT <= va && va <= MLIM ) {
+		int offset = va - MVPT;
+		u_int userva = UVPT + offset;
+		Pte * tmpPte;
+		pgdir_walk(pgdir, userva, 0, &tmpPte);
+		 if (tmpPte && (*tmpPte & PTE_V)) {
+			if (pa2page(*tmpPte) == pp) {
+				return 0;
+			}
+		 }
+		printk("Map Kseg2Va To UserVa!!!");
+		page_insert(pgdir,asid,pp,userva,perm); 
+	}
 	return 0;
 }
 
@@ -289,7 +317,7 @@ struct Page *page_lookup(Pde *pgdir, u_long va, Pte **ppte) {
 	if (pte == NULL || (*pte & PTE_V) == 0) {
 		return NULL;
 	}
-
+	printk("[ page_lookup : pte not free!!! ]\n");
 	/* Step 2: Get the corresponding Page struct. */
 	/* Hint: Use function `pa2page`, defined in include/pmap.h . */
 	pp = pa2page(*pte);
