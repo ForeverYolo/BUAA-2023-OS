@@ -3,7 +3,6 @@
 
 .section .text.tlb_miss_entry
 tlb_miss_entry:
-	bgtz    sp, fast_tlb
 	nop
 	j 	exc_gen_entry
 	nop

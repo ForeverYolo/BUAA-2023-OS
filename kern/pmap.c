@@ -283,6 +283,9 @@ int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va, u_int perm) 
 				return 0;
 			}
 		 }
+		//while (1) {
+		//	printk("Map UserVa To Kseg2Va!!!");
+		//}
 		printk("Map UserVa To Kseg2Va!!!");
 		page_insert(pgdir,asid,pp,kseg2va,perm); 
 	} else if ( MVPT <= va && va <= MLIM ) {

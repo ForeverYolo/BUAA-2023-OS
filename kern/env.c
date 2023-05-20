@@ -201,6 +201,7 @@ void env_init(void) {
  *   Initialize the user address space for 'e'.
  */
 static int env_setup_vm(struct Env *e) {
+	printk("<enter env_setup_vm>\n");
 	/* Step 1:
 	 *   Allocate a page for the page directory with 'page_alloc'.
 	 *   Increase its 'pp_ref' and assign its kernel address to 'e->env_pgdir'.
@@ -226,6 +227,7 @@ static int env_setup_vm(struct Env *e) {
 	e->env_pgdir[PDX(UVPT)] = PADDR(e->env_pgdir) | PTE_V;
 
 	//lab2-challenge
+	printk("[ env_setup_vm : map is created!!! ]\n");
 	e->env_pgdir[PDX(MVPT)] = PADDR(e->env_pgdir) | PTE_V;
 	return 0;
 }
