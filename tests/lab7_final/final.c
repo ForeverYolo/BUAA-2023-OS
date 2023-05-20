@@ -1,6 +1,7 @@
 #include <lib.h>
-#define NUM 256
+#define NUM 16
 #define MOD 16
+#define ENUM 100
 int arr[NUM][NUM];
 int brr[NUM][NUM];
 int crr[NUM][NUM];
@@ -76,7 +77,7 @@ int main() {
 	
 	
 	int gap1 = get_gap(enter_time,enter_us,now_time,now_us);
-	for (int j = 0 ; j < 10 ; j++) {
+	for (int j = 0 ; j < ENUM ; j++) {
 		for (int i = 0; string[i] !=0; i++) {
 			debugf("%c",string[i]);
 		}
