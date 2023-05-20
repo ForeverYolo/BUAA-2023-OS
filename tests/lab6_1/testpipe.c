@@ -3,6 +3,7 @@
 char *msg = "Now is the time for all good men to come to the aid of their party.";
 
 int main() {
+
 	char buf[100];
 	int i, pid, p[2];
 
