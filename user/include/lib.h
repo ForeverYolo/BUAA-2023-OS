@@ -8,6 +8,9 @@
 #include <syscall.h>
 #include <trap.h>
 
+
+#define mpt ((volatile Pte *)MVPT)
+#define mpd ((volatile Pde *)(MVPT + (PDX(MVPT) << PGSHIFT))
 #define vpt ((volatile Pte *)UVPT)
 #define vpd ((volatile Pde *)(UVPT + (PDX(UVPT) << PGSHIFT)))
 #define envs ((volatile struct Env *)UENVS)

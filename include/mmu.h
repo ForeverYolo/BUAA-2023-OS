@@ -101,6 +101,9 @@
 #define UPAGES (UVPT - PDMAP)
 #define UENVS (UPAGES - PDMAP)
 
+#define MVPT KSEG2
+#define MLIM (MVPT + PDMAP)
+
 #define UTOP UENVS
 #define UXSTACKTOP UTOP
 
