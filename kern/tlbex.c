@@ -22,7 +22,7 @@ static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
 		panic("pages zone");
 	}
 
-	if (va >= ULIM) {
+	if (va >= ULIM && va < KSEG2) {
 		panic("kernel address");
 	}
 
@@ -78,19 +78,19 @@ Pte fast_tlb_refill(u_long va, u_int asid) {
 	asm("mfc0 %0, $8" : "=r"(badVaddr) :);
 	//printk("Context : %08x\n",context);
 	//int TableNum = (context >> 2) & 0x7ffff;
-	printk("=============================\n");
+	//printk("=============================\n");
 	//printk("va : %08x\n", va);
-	printk("badVaddr : %08x\n",badVaddr);
-	printk("Context : %08x\n",context);
+	//printk("badVaddr : %08x\n",badVaddr);
+	//printk("Context : %08x\n",context);
 	//printk("TableNum : %08x\n",TableNum);
 	//printk("mpt[TableNum] : %08x\n",&(mpt[TableNum]));
 	//printk("mpt[0] : %08x\n",&(mpt[0]));
 	//printk("mpt[1] : %08x\n",&(mpt[1]));
 	Pte* pte = (Pte *)context;
 	//printk("pte : %08x\n",*pte);
-	u_int* inst = (u_int *)(KADDR((*pte) & 0xffff000) + (va & 0xfff));
+	//u_int* inst = (u_int *)(KADDR((*pte) & 0xffff000) + (va & 0xfff));
 	//printk("inst : %08x\n",inst);
-	printk("inst : %08x\n",*inst);
+	//printk("inst : %08x\n",*inst);
 	while ( ((*pte) & PTE_V) == 0 )
        	{
 		//printk("Alloc ?????????????????????????????????????????????????????????????????????\n");

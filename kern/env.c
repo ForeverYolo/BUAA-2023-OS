@@ -225,10 +225,12 @@ static int env_setup_vm(struct Env *e) {
 	/* Step 3: Map its own page table at 'UVPT' with readonly permission.
 	 * As a result, user programs can read its page table through 'UVPT' */
 	e->env_pgdir[PDX(UVPT)] = PADDR(e->env_pgdir) | PTE_V;
-
+	//printk("PADDR(e->env_pgdir) : %08x\n",PADDR(e->env_pgdir));
+	//printk("PADDR(e->env_pgdir[PDX(UVPT)] : %08x\n",PADDR(e->env_pgdir + PDX(UVPT)));
 	//lab2-challenge
 	//printk("[ env_setup_vm : map is created!!! ]\n");
 	e->env_pgdir[PDX(MVPT)] = PADDR(e->env_pgdir) | PTE_V;
+	//printk("PADDR(e->env_pgdir[PDX(MVPT)] : %08x\n",PADDR(e->env_pgdir + PDX(MVPT)));
 	return 0;
 }
 

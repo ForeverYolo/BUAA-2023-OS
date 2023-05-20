@@ -194,6 +194,15 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 	/* Step 1: Get the corresponding page directory entry. */
 	/* Exercise 2.6: Your code here. (1/3) */
 	pgdir_entryp = pgdir + PDX(va);
+	/*if ( UVPT <= va && va <= ULIM ) {
+		printk("pgdir : %08x\n",PADDR(pgdir));
+		printk("userVa pgdir_entryp : %08x\n",pgdir_entryp);
+		printk("Table Value : %08x\n",*pgdir_entryp);
+	} else if ( MVPT <= va && va <= MLIM ) {
+		printk("pgdir : %08x\n",PADDR(pgdir));
+		printk("kseg2Va pgdir_entryp : %08x\n",pgdir_entryp);
+		printk("Table Value : %08x\n",*pgdir_entryp);
+	}*/
 	/* Step 2: If the corresponding page table is not existent (valid) and parameter `create`
 	 * is set, create one. Set the permission bits 'PTE_D | PTE_V' for this new page in the
 	 * page directory.
@@ -241,7 +250,12 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
  */
 int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va, u_int perm) {
 	Pte *pte;
-
+	
+	/*if ( (UVPT <= va && va <= ULIM) || (MVPT <= va && va <= MLIM) ) {
+		printk("***********************************************\n");
+		printk("va : %08x\n" , va);
+		printk("***********************************************\n");
+	}*/
 	/* Step 1: Get corresponding page table entry. */
 	pgdir_walk(pgdir, va, 0, &pte);
 
@@ -250,7 +264,7 @@ int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va, u_int perm) 
 			page_remove(pgdir, asid, va);
 		} else {
 			tlb_invalidate(asid, va);
-			*pte = page2pa(pp) | perm | PTE_V;
+			*pte = page2pa(pp) | perm | PTE_V;	
 			return 0;
 		}
 	}
@@ -273,11 +287,14 @@ int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va, u_int perm) 
 	/* Exercise 2.7: Your code here. (3/3) */
 	//lab2-challenge
 	//printk("~~NowVa : %08x\n",va);
-	if ( UVPT <= va && va <= ULIM ) {
+	/*if ( UVPT <= va && va <= ULIM ) {
+		printk("Map UserVa To Kseg2Va!!!\n");
 		int offset = va - UVPT;
 		u_int kseg2va = MVPT + offset;
 		Pte * tmpPte;
 		pgdir_walk(pgdir, kseg2va, 0, &tmpPte);
+		printk("userva : %08x\n", va);
+		printk("kseg2va : %08x\n",kseg2va);
 		 if (tmpPte && (*tmpPte & PTE_V)) {
 			if (pa2page(*tmpPte) == pp) {
 				return 0;
@@ -289,10 +306,13 @@ int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va, u_int perm) 
 		printk("Map UserVa To Kseg2Va!!!");
 		page_insert(pgdir,asid,pp,kseg2va,perm); 
 	} else if ( MVPT <= va && va <= MLIM ) {
+		printk("Map Kseg2Va To UserVa!!!\n");
 		int offset = va - MVPT;
 		u_int userva = UVPT + offset;
 		Pte * tmpPte;
 		pgdir_walk(pgdir, userva, 0, &tmpPte);
+		printk("userva : %08x\n", userva);
+		printk("kseg2va : %08x\n",va);
 		 if (tmpPte && (*tmpPte & PTE_V)) {
 			if (pa2page(*tmpPte) == pp) {
 				return 0;
@@ -300,7 +320,7 @@ int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va, u_int perm) 
 		 }
 		printk("Map Kseg2Va To UserVa!!!");
 		page_insert(pgdir,asid,pp,userva,perm); 
-	}
+	}*/
 	return 0;
 }
 
