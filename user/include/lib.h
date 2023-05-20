@@ -20,6 +20,8 @@ extern volatile struct Env *env;
 
 #define USED(x) (void)(x)
 
+u_int get_time(u_int *us);
+
 // debugf
 void debugf(const char *fmt, ...);
 
