@@ -15,15 +15,15 @@ machine:
         IDE DISK id 0, read/write, 4 MB (9072 512-byte blocks)
     file: loading target/mos
         ELF32 LSB (LE), entry point 0x80011930
-        chunk 0 (0x70000003) @ 0x19878, vaddr 0x80018878 len=0x18
-        chunk 1 (0x70000000) @ 0x19860, vaddr 0x80018860 len=0x18
+        chunk 0 (0x70000003) @ 0x198d8, vaddr 0x800188d8 len=0x18
+        chunk 1 (0x70000000) @ 0x198c0, vaddr 0x800188c0 len=0x18
         chunk 2 (load) @ 0x1000, vaddr 0x80000000 len=0x17f050
-        240 symbol entries at 0x1540a0
-        2755 bytes of symbol strings at 0x154fa0
+        240 symbol entries at 0x1541b8
+        2755 bytes of symbol strings at 0x1550b8
     cpu0: starting at 0x80011930 <_start>
 -------------------------------------------------------------------------------
 
-GXemul> trace
+GXemul> w trace
 show_trace_tree = ON  (was: OFF)
 GXemul> c
 <printk("init.c:\tmips_init() is called\n",0,0,0,..)>
@@ -256,153 +256,153 @@ s      <outputk(0,".\n",1,16,..)>
         <printcharc(10,"\n",1,16,..)>
 
   <printk("pmap.c:\t mips vm init success\n","\n",1,16,..)>
-    <vprintfmt(&outputk,0,"pmap.c:\t mips vm init success\n",0x803fffd4,..)>
-      <outputk(0,"pmap.c:\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(112,"pmap.c:\t mips vm init success\n",1,0x803fffd4,..)>
-p      <outputk(0,"map.c:\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(109,"map.c:\t mips vm init success\n",1,0x803fffd4,..)>
-m      <outputk(0,"ap.c:\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(97,"ap.c:\t mips vm init success\n",1,0x803fffd4,..)>
-a      <outputk(0,"p.c:\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(112,"p.c:\t mips vm init success\n",1,0x803fffd4,..)>
-p      <outputk(0,".c:\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(46,".c:\t mips vm init success\n",1,0x803fffd4,..)>
-.      <outputk(0,"c:\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(99,"c:\t mips vm init success\n",1,0x803fffd4,..)>
-c      <outputk(0,":\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(58,":\t mips vm init success\n",1,0x803fffd4,..)>
-:      <outputk(0,"\t mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(9,"\t mips vm init success\n",1,0x803fffd4,..)>
-	      <outputk(0," mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(32," mips vm init success\n",1,0x803fffd4,..)>
-       <outputk(0,"mips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(109,"mips vm init success\n",1,0x803fffd4,..)>
-m      <outputk(0,"ips vm init success\n",1,0x803fffd4,..)>
-        <printcharc(105,"ips vm init success\n",1,0x803fffd4,..)>
-i      <outputk(0,"ps vm init success\n",1,0x803fffd4,..)>
-        <printcharc(112,"ps vm init success\n",1,0x803fffd4,..)>
-p      <outputk(0,"s vm init success\n",1,0x803fffd4,..)>
-        <printcharc(115,"s vm init success\n",1,0x803fffd4,..)>
-s      <outputk(0," vm init success\n",1,0x803fffd4,..)>
-        <printcharc(32," vm init success\n",1,0x803fffd4,..)>
-       <outputk(0,"vm init success\n",1,0x803fffd4,..)>
-        <printcharc(118,"vm init success\n",1,0x803fffd4,..)>
-v      <outputk(0,"m init success\n",1,0x803fffd4,..)>
-        <printcharc(109,"m init success\n",1,0x803fffd4,..)>
-m      <outputk(0," init success\n",1,0x803fffd4,..)>
-        <printcharc(32," init success\n",1,0x803fffd4,..)>
-       <outputk(0,"init success\n",1,0x803fffd4,..)>
-        <printcharc(105,"init success\n",1,0x803fffd4,..)>
-i      <outputk(0,"nit success\n",1,0x803fffd4,..)>
-        <printcharc(110,"nit success\n",1,0x803fffd4,..)>
-n      <outputk(0,"it success\n",1,0x803fffd4,..)>
-        <printcharc(105,"it success\n",1,0x803fffd4,..)>
-i      <outputk(0,"t success\n",1,0x803fffd4,..)>
-        <printcharc(116,"t success\n",1,0x803fffd4,..)>
-t      <outputk(0," success\n",1,0x803fffd4,..)>
-        <printcharc(32," success\n",1,0x803fffd4,..)>
-       <outputk(0,"success\n",1,0x803fffd4,..)>
-        <printcharc(115,"success\n",1,0x803fffd4,..)>
-s      <outputk(0,"uccess\n",1,0x803fffd4,..)>
-        <printcharc(117,"uccess\n",1,0x803fffd4,..)>
-u      <outputk(0,"ccess\n",1,0x803fffd4,..)>
-        <printcharc(99,"ccess\n",1,0x803fffd4,..)>
-c      <outputk(0,"cess\n",1,0x803fffd4,..)>
-        <printcharc(99,"cess\n",1,0x803fffd4,..)>
-c      <outputk(0,"ess\n",1,0x803fffd4,..)>
-        <printcharc(101,"ess\n",1,0x803fffd4,..)>
-e      <outputk(0,"ss\n",1,0x803fffd4,..)>
-        <printcharc(115,"ss\n",1,0x803fffd4,..)>
-s      <outputk(0,"s\n",1,0x803fffd4,..)>
-        <printcharc(115,"s\n",1,0x803fffd4,..)>
-s      <outputk(0,"\n",1,0x803fffd4,..)>
-        <printcharc(10,"\n",1,0x803fffd4,..)>
+    <vprintfmt(&outputk,0,"pmap.c:\t mips vm init success\n","*",..)>
+      <outputk(0,"pmap.c:\t mips vm init success\n",1,"*",..)>
+        <printcharc(112,"pmap.c:\t mips vm init success\n",1,"*",..)>
+p      <outputk(0,"map.c:\t mips vm init success\n",1,"*",..)>
+        <printcharc(109,"map.c:\t mips vm init success\n",1,"*",..)>
+m      <outputk(0,"ap.c:\t mips vm init success\n",1,"*",..)>
+        <printcharc(97,"ap.c:\t mips vm init success\n",1,"*",..)>
+a      <outputk(0,"p.c:\t mips vm init success\n",1,"*",..)>
+        <printcharc(112,"p.c:\t mips vm init success\n",1,"*",..)>
+p      <outputk(0,".c:\t mips vm init success\n",1,"*",..)>
+        <printcharc(46,".c:\t mips vm init success\n",1,"*",..)>
+.      <outputk(0,"c:\t mips vm init success\n",1,"*",..)>
+        <printcharc(99,"c:\t mips vm init success\n",1,"*",..)>
+c      <outputk(0,":\t mips vm init success\n",1,"*",..)>
+        <printcharc(58,":\t mips vm init success\n",1,"*",..)>
+:      <outputk(0,"\t mips vm init success\n",1,"*",..)>
+        <printcharc(9,"\t mips vm init success\n",1,"*",..)>
+	      <outputk(0," mips vm init success\n",1,"*",..)>
+        <printcharc(32," mips vm init success\n",1,"*",..)>
+       <outputk(0,"mips vm init success\n",1,"*",..)>
+        <printcharc(109,"mips vm init success\n",1,"*",..)>
+m      <outputk(0,"ips vm init success\n",1,"*",..)>
+        <printcharc(105,"ips vm init success\n",1,"*",..)>
+i      <outputk(0,"ps vm init success\n",1,"*",..)>
+        <printcharc(112,"ps vm init success\n",1,"*",..)>
+p      <outputk(0,"s vm init success\n",1,"*",..)>
+        <printcharc(115,"s vm init success\n",1,"*",..)>
+s      <outputk(0," vm init success\n",1,"*",..)>
+        <printcharc(32," vm init success\n",1,"*",..)>
+       <outputk(0,"vm init success\n",1,"*",..)>
+        <printcharc(118,"vm init success\n",1,"*",..)>
+v      <outputk(0,"m init success\n",1,"*",..)>
+        <printcharc(109,"m init success\n",1,"*",..)>
+m      <outputk(0," init success\n",1,"*",..)>
+        <printcharc(32," init success\n",1,"*",..)>
+       <outputk(0,"init success\n",1,"*",..)>
+        <printcharc(105,"init success\n",1,"*",..)>
+i      <outputk(0,"nit success\n",1,"*",..)>
+        <printcharc(110,"nit success\n",1,"*",..)>
+n      <outputk(0,"it success\n",1,"*",..)>
+        <printcharc(105,"it success\n",1,"*",..)>
+i      <outputk(0,"t success\n",1,"*",..)>
+        <printcharc(116,"t success\n",1,"*",..)>
+t      <outputk(0," success\n",1,"*",..)>
+        <printcharc(32," success\n",1,"*",..)>
+       <outputk(0,"success\n",1,"*",..)>
+        <printcharc(115,"success\n",1,"*",..)>
+s      <outputk(0,"uccess\n",1,"*",..)>
+        <printcharc(117,"uccess\n",1,"*",..)>
+u      <outputk(0,"ccess\n",1,"*",..)>
+        <printcharc(99,"ccess\n",1,"*",..)>
+c      <outputk(0,"cess\n",1,"*",..)>
+        <printcharc(99,"cess\n",1,"*",..)>
+c      <outputk(0,"ess\n",1,"*",..)>
+        <printcharc(101,"ess\n",1,"*",..)>
+e      <outputk(0,"ss\n",1,"*",..)>
+        <printcharc(115,"ss\n",1,"*",..)>
+s      <outputk(0,"s\n",1,"*",..)>
+        <printcharc(115,"s\n",1,"*",..)>
+s      <outputk(0,"\n",1,"*",..)>
+        <printcharc(10,"\n",1,"*",..)>
 
-<page_init(10,"\n",1,0x803fffd4,..)>
+<page_init(10,"\n",1,"*",..)>
 <env_init(&end,"\n",1,0x803fffd4,..)>
-  <printk(0x80018a40,"\n",1,0x803fffd4,..)>
-    <vprintfmt(&outputk,0,0x80018a40,0x803fffac,..)>
-      <outputk(0,0x80018a40,1,0x803fffac,..)>
-        <printcharc(0xffffffe5,0x80018a40,1,0x803fffac,..)>
-Â      <outputk(0,0x80018a41,1,0x803fffac,..)>
-        <printcharc(0xffffff86,0x80018a41,1,0x803fffac,..)>
-Ü      <outputk(0,0x80018a42,1,0x803fffac,..)>
-        <printcharc(0xffffff99,0x80018a42,1,0x803fffac,..)>
-ô      <outputk(0,0x80018a43,1,0x803fffac,..)>
-        <printcharc(0xffffffe5,0x80018a43,1,0x803fffac,..)>
-Â      <outputk(0,0x80018a44,1,0x803fffac,..)>
-        <printcharc(0xffffff85,0x80018a44,1,0x803fffac,..)>
-Ö      <outputk(0,0x80018a45,1,0x803fffac,..)>
-        <printcharc(0xffffffa5,0x80018a45,1,0x803fffac,..)>
-•      <outputk(0,0x80018a46,1,0x803fffac,..)>
-        <printcharc(0xffffffe5,0x80018a46,1,0x803fffac,..)>
-Â      <outputk(0,0x80018a47,1,0x803fffac,..)>
-        <printcharc(0xffffffae,0x80018a47,1,0x803fffac,..)>
-Æ      <outputk(0,0x80018a48,1,0x803fffac,..)>
-        <printcharc(0xffffff8c,0x80018a48,1,0x803fffac,..)>
-å      <outputk(0,0x80018a49,1,0x803fffac,..)>
-        <printcharc(0xffffffe6,0x80018a49,1,0x803fffac,..)>
-Ê      <outputk(0,0x80018a4a,1,0x803fffac,..)>
-        <printcharc(0xffffffaf,0x80018a4a,1,0x803fffac,..)>
-Ø      <outputk(0,0x80018a4b,1,0x803fffac,..)>
-        <printcharc(0xffffff95,0x80018a4b,1,0x803fffac,..)>
-ï      <outputk(0,0x80018a4c,1,0x803fffac,..)>
-        <printcharc(0xffffffef,0x80018a4c,1,0x803fffac,..)>
-Ô      <outputk(0,0x80018a4d,1,0x803fffac,..)>
-        <printcharc(0xffffffbc,0x80018a4d,1,0x803fffac,..)>
-º      <outputk(0,0x80018a4e,1,0x803fffac,..)>
-        <printcharc(0xffffff81,0x80018a4e,1,0x803fffac,..)>
-Å      <outputk(0,0x80018a4f,1,0x803fffac,..)>
-        <printcharc(0xffffffef,0x80018a4f,1,0x803fffac,..)>
-Ô      <outputk(0,0x80018a50,1,0x803fffac,..)>
-        <printcharc(0xffffffbc,0x80018a50,1,0x803fffac,..)>
-º      <outputk(0,0x80018a51,1,0x803fffac,..)>
-        <printcharc(0xffffff81,0x80018a51,1,0x803fffac,..)>
-Å      <outputk(0,0x80018a52,1,0x803fffac,..)>
-        <printcharc(0xffffffef,0x80018a52,1,0x803fffac,..)>
-Ô      <outputk(0,0x80018a53,1,0x803fffac,..)>
-        <printcharc(0xffffffbc,0x80018a53,1,0x803fffac,..)>
-º      <outputk(0,0x80018a54,1,0x803fffac,..)>
-        <printcharc(0xffffff81,0x80018a54,1,0x803fffac,..)>
-Å      <outputk(0,0x80018a55,1,0x803fffac,..)>
-        <printcharc(0xffffffef,0x80018a55,1,0x803fffac,..)>
-Ô      <outputk(0,0x80018a56,1,0x803fffac,..)>
-        <printcharc(0xffffffbc,0x80018a56,1,0x803fffac,..)>
-º      <outputk(0,0x80018a57,1,0x803fffac,..)>
-        <printcharc(0xffffff81,0x80018a57,1,0x803fffac,..)>
-Å      <outputk(0,0x80018a58,1,0x803fffac,..)>
-        <printcharc(0xffffffef,0x80018a58,1,0x803fffac,..)>
-Ô      <outputk(0,0x80018a59,1,0x803fffac,..)>
-        <printcharc(0xffffffbc,0x80018a59,1,0x803fffac,..)>
-º      <outputk(0,0x80018a5a,1,0x803fffac,..)>
-        <printcharc(0xffffff81,0x80018a5a,1,0x803fffac,..)>
-Å      <outputk(0,0x80018a5b,1,0x803fffac,..)>
-        <printcharc(0xffffffef,0x80018a5b,1,0x803fffac,..)>
-Ô      <outputk(0,0x80018a5c,1,0x803fffac,..)>
-        <printcharc(0xffffffbc,0x80018a5c,1,0x803fffac,..)>
-º      <outputk(0,0x80018a5d,1,0x803fffac,..)>
-        <printcharc(0xffffff81,0x80018a5d,1,0x803fffac,..)>
-Å      <outputk(0,0x80018a5e,1,0x803fffac,..)>
-        <printcharc(0xffffffef,0x80018a5e,1,0x803fffac,..)>
-Ô      <outputk(0,0x80018a5f,1,0x803fffac,..)>
-        <printcharc(0xffffffbc,0x80018a5f,1,0x803fffac,..)>
-º      <outputk(0,0x80018a60,1,0x803fffac,..)>
-        <printcharc(0xffffff81,0x80018a60,1,0x803fffac,..)>
-Å      <outputk(0,"\n",1,0x803fffac,..)>
-        <printcharc(10,"\n",1,0x803fffac,..)>
+  <printk(0x80018aa0,"\n",1,0x803fffd4,..)>
+    <vprintfmt(&outputk,0,0x80018aa0,"I",..)>
+      <outputk(0,0x80018aa0,1,"I",..)>
+        <printcharc(0xffffffe5,0x80018aa0,1,"I",..)>
+Â      <outputk(0,0x80018aa1,1,"I",..)>
+        <printcharc(0xffffff86,0x80018aa1,1,"I",..)>
+Ü      <outputk(0,0x80018aa2,1,"I",..)>
+        <printcharc(0xffffff99,0x80018aa2,1,"I",..)>
+ô      <outputk(0,0x80018aa3,1,"I",..)>
+        <printcharc(0xffffffe5,0x80018aa3,1,"I",..)>
+Â      <outputk(0,0x80018aa4,1,"I",..)>
+        <printcharc(0xffffff85,0x80018aa4,1,"I",..)>
+Ö      <outputk(0,0x80018aa5,1,"I",..)>
+        <printcharc(0xffffffa5,0x80018aa5,1,"I",..)>
+•      <outputk(0,0x80018aa6,1,"I",..)>
+        <printcharc(0xffffffe5,0x80018aa6,1,"I",..)>
+Â      <outputk(0,0x80018aa7,1,"I",..)>
+        <printcharc(0xffffffae,0x80018aa7,1,"I",..)>
+Æ      <outputk(0,0x80018aa8,1,"I",..)>
+        <printcharc(0xffffff8c,0x80018aa8,1,"I",..)>
+å      <outputk(0,0x80018aa9,1,"I",..)>
+        <printcharc(0xffffffe6,0x80018aa9,1,"I",..)>
+Ê      <outputk(0,0x80018aaa,1,"I",..)>
+        <printcharc(0xffffffaf,0x80018aaa,1,"I",..)>
+Ø      <outputk(0,0x80018aab,1,"I",..)>
+        <printcharc(0xffffff95,0x80018aab,1,"I",..)>
+ï      <outputk(0,0x80018aac,1,"I",..)>
+        <printcharc(0xffffffef,0x80018aac,1,"I",..)>
+Ô      <outputk(0,0x80018aad,1,"I",..)>
+        <printcharc(0xffffffbc,0x80018aad,1,"I",..)>
+º      <outputk(0,0x80018aae,1,"I",..)>
+        <printcharc(0xffffff81,0x80018aae,1,"I",..)>
+Å      <outputk(0,0x80018aaf,1,"I",..)>
+        <printcharc(0xffffffef,0x80018aaf,1,"I",..)>
+Ô      <outputk(0,0x80018ab0,1,"I",..)>
+        <printcharc(0xffffffbc,0x80018ab0,1,"I",..)>
+º      <outputk(0,0x80018ab1,1,"I",..)>
+        <printcharc(0xffffff81,0x80018ab1,1,"I",..)>
+Å      <outputk(0,0x80018ab2,1,"I",..)>
+        <printcharc(0xffffffef,0x80018ab2,1,"I",..)>
+Ô      <outputk(0,0x80018ab3,1,"I",..)>
+        <printcharc(0xffffffbc,0x80018ab3,1,"I",..)>
+º      <outputk(0,0x80018ab4,1,"I",..)>
+        <printcharc(0xffffff81,0x80018ab4,1,"I",..)>
+Å      <outputk(0,0x80018ab5,1,"I",..)>
+        <printcharc(0xffffffef,0x80018ab5,1,"I",..)>
+Ô      <outputk(0,0x80018ab6,1,"I",..)>
+        <printcharc(0xffffffbc,0x80018ab6,1,"I",..)>
+º      <outputk(0,0x80018ab7,1,"I",..)>
+        <printcharc(0xffffff81,0x80018ab7,1,"I",..)>
+Å      <outputk(0,0x80018ab8,1,"I",..)>
+        <printcharc(0xffffffef,0x80018ab8,1,"I",..)>
+Ô      <outputk(0,0x80018ab9,1,"I",..)>
+        <printcharc(0xffffffbc,0x80018ab9,1,"I",..)>
+º      <outputk(0,0x80018aba,1,"I",..)>
+        <printcharc(0xffffff81,0x80018aba,1,"I",..)>
+Å      <outputk(0,0x80018abb,1,"I",..)>
+        <printcharc(0xffffffef,0x80018abb,1,"I",..)>
+Ô      <outputk(0,0x80018abc,1,"I",..)>
+        <printcharc(0xffffffbc,0x80018abc,1,"I",..)>
+º      <outputk(0,0x80018abd,1,"I",..)>
+        <printcharc(0xffffff81,0x80018abd,1,"I",..)>
+Å      <outputk(0,0x80018abe,1,"I",..)>
+        <printcharc(0xffffffef,0x80018abe,1,"I",..)>
+Ô      <outputk(0,0x80018abf,1,"I",..)>
+        <printcharc(0xffffffbc,0x80018abf,1,"I",..)>
+º      <outputk(0,0x80018ac0,1,"I",..)>
+        <printcharc(0xffffff81,0x80018ac0,1,"I",..)>
+Å      <outputk(0,"\n",1,"I",..)>
+        <printcharc(10,"\n",1,"I",..)>
 
-  <page_alloc(0x803fffd4,0x80150000,1,0x803fffac,..)>
-    <page2kva(0x8042fff4,0x80150000,1,0x803fffac,..)>
-      <page2pa(0x8042fff4,0x80150000,1,0x803fffac,..)>
-        <page2ppn(0x8042fff4,0x80150000,1,0x803fffac,..)>
-      <page2pa(0x8042fff4,0x80150000,1,0x803fffac,..)>
-        <page2ppn(0x8042fff4,0x80150000,1,0x803fffac,..)>
+  <page_alloc(0x803fffd4,0x80150000,1,"I",..)>
+    <page2kva(0x8042fff4,0x80150000,1,"I",..)>
+      <page2pa(0x8042fff4,0x80150000,1,"I",..)>
+        <page2ppn(0x8042fff4,0x80150000,1,"I",..)>
+      <page2pa(0x8042fff4,0x80150000,1,"I",..)>
+        <page2ppn(0x8042fff4,0x80150000,1,"I",..)>
     <memset(0x83fff000,0,0x1000)>
-  <page2kva(0x8042fff4,0,0x1000,0x803fffac,..)>
-    <page2pa(0x8042fff4,0,0x1000,0x803fffac,..)>
-      <page2ppn(0x8042fff4,0,0x1000,0x803fffac,..)>
-    <page2pa(0x8042fff4,0,0x1000,0x803fffac,..)>
-      <page2ppn(0x8042fff4,0,0x1000,0x803fffac,..)>
+  <page2kva(0x8042fff4,0,0x1000,"I",..)>
+    <page2pa(0x8042fff4,0,0x1000,"I",..)>
+      <page2ppn(0x8042fff4,0,0x1000,"I",..)>
+    <page2pa(0x8042fff4,0,0x1000,"I",..)>
+      <page2ppn(0x8042fff4,0,0x1000,"I",..)>
   <map_segment(0x83fff000,0,0x400000,0x7f800000,..)>
     <pa2page(0x400000,0,0x400000,0x7f800000,..)>
     <page_insert(0x83fff000,0,0x80403000,0x7f800000,..)>
@@ -16676,24 +16676,146 @@ e            <outputk(0,"!!! ]\n",1,0x803fff0c,..)>
 <env_create(&binary_test_testptelibrary_start,0x18124,1,0x803fff0c,..)>
   <env_alloc("0",0,1,0x803fff0c,..)>
     <env_setup_vm(&envs,0,1,0x803fff0c,..)>
-      <page_alloc(" ",0,1,0x803fff0c,..)>
-        <page2kva(0x8042ffd0,0,1,0x803fff0c,..)>
-          <page2pa(0x8042ffd0,0,1,0x803fff0c,..)>
-            <page2ppn(0x8042ffd0,0,1,0x803fff0c,..)>
-          <page2pa(0x8042ffd0,0,1,0x803fff0c,..)>
-            <page2ppn(0x8042ffd0,0,1,0x803fff0c,..)>
+      <printk("<enter env_setup_vm>\n",0,1,0x803fff0c,..)>
+        <vprintfmt(&outputk,0,"<enter env_setup_vm>\n",0x803fff7c,..)>
+          <outputk(0,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(60,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+<          <outputk(0,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"er env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"er env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"r env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(114,"r env_setup_vm>\n",1,0x803fff7c,..)>
+r          <outputk(0," env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm>\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm>\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm>\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm>\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm>\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm>\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"m>\n",1,0x803fff7c,..)>
+            <printcharc(109,"m>\n",1,0x803fff7c,..)>
+m          <outputk(0,">\n",1,0x803fff7c,..)>
+            <printcharc(62,">\n",1,0x803fff7c,..)>
+>          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+      <page_alloc(" ","\n",1,0x803fff7c,..)>
+        <page2kva(0x8042ffd0,"\n",1,0x803fff7c,..)>
+          <page2pa(0x8042ffd0,"\n",1,0x803fff7c,..)>
+            <page2ppn(0x8042ffd0,"\n",1,0x803fff7c,..)>
+          <page2pa(0x8042ffd0,"\n",1,0x803fff7c,..)>
+            <page2ppn(0x8042ffd0,"\n",1,0x803fff7c,..)>
         <memset(0x83ffc000,0,0x1000)>
-      <page2kva(0x8042ffd0,0,0x1000,0x803fff0c,..)>
-        <page2pa(0x8042ffd0,0,0x1000,0x803fff0c,..)>
-          <page2ppn(0x8042ffd0,0,0x1000,0x803fff0c,..)>
-        <page2pa(0x8042ffd0,0,0x1000,0x803fff0c,..)>
-          <page2ppn(0x8042ffd0,0,0x1000,0x803fff0c,..)>
+      <page2kva(0x8042ffd0,0,0x1000,0x803fff7c,..)>
+        <page2pa(0x8042ffd0,0,0x1000,0x803fff7c,..)>
+          <page2ppn(0x8042ffd0,0,0x1000,0x803fff7c,..)>
+        <page2pa(0x8042ffd0,0,0x1000,0x803fff7c,..)>
+          <page2ppn(0x8042ffd0,0,0x1000,0x803fff7c,..)>
       <memcpy(0x83ffc7f4,0x83fff7f4,8)>
-    <mkenvid(&envs,0x83fff7f4,8,0x803fff0c,..)>
-    <asid_alloc(0x801480a4,0x83fff7f4,8,0x803fff0c,..)>
-  <load_icode(&envs,&binary_test_testptelibrary_start,0x18124,0x803fff0c,..)>
-    <elf_from(&binary_test_testptelibrary_start,0x18124,0x18124,0x803fff0c,..)>
-    <elf_load_seg(0x8012fbf8,0x8012fc44,&load_icode_mapper,&envs,..)>
+      <printk("[ env_setup_vm : map is created!!! ]\n",0x83fff7f4,8,0x803fff7c,..)>
+        <vprintfmt(&outputk,0,"[ env_setup_vm : map is created!!! ]\n",0x803fff7c,..)>
+          <outputk(0,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(91,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+[          <outputk(0," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0," : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,": map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(58,": map is created!!! ]\n",1,0x803fff7c,..)>
+:          <outputk(0," map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0,"ap is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ap is created!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"p is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0," is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(105,"is created!!! ]\n",1,0x803fff7c,..)>
+i          <outputk(0,"s created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"s created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0," created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(99,"created!!! ]\n",1,0x803fff7c,..)>
+c          <outputk(0,"reated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(114,"reated!!! ]\n",1,0x803fff7c,..)>
+r          <outputk(0,"eated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"eated!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"ated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ated!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"ted!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"ted!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"ed!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"ed!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"d!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(100,"d!!! ]\n",1,0x803fff7c,..)>
+d          <outputk(0,"!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"! ]\n",1,0x803fff7c,..)>
+!          <outputk(0," ]\n",1,0x803fff7c,..)>
+            <printcharc(32," ]\n",1,0x803fff7c,..)>
+           <outputk(0,"]\n",1,0x803fff7c,..)>
+            <printcharc(93,"]\n",1,0x803fff7c,..)>
+]          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+    <mkenvid(&envs,"\n",1,0x803fff7c,..)>
+    <asid_alloc(0x801480a4,"\n",1,0x803fff7c,..)>
+  <load_icode(&envs,&binary_test_testptelibrary_start,0x18124,0x803fff7c,..)>
+    <elf_from(&binary_test_testptelibrary_start,0x18124,0x18124,0x803fff7c,..)>
+    <elf_load_seg(0x8012fcf8,0x8012fd44,&load_icode_mapper,&envs,..)>
       <load_icode_mapper(&envs,0x400000,0,0x200,..)>
         <page_alloc(0x803fff20,0x400000,0,0x200,..)>
           <page2kva(0x8042ffc4,0x400000,0,0x200,..)>
@@ -16707,7 +16829,7 @@ e            <outputk(0,"!!! ]\n",1,0x803fff0c,..)>
             <page2ppn(0x8042ffc4,0,0x1000,0x200,..)>
           <page2pa(0x8042ffc4,0,0x1000,0x200,..)>
             <page2ppn(0x8042ffc4,0,0x1000,0x200,..)>
-        <memcpy(0x83ffb000,0x8012fc44,0x1000)>
+        <memcpy(0x83ffb000,0x8012fd44,0x1000)>
         <page_insert(0x83ffc000,0,0x8042ffc4,0x400000,..)>
           <pgdir_walk(0x83ffc000,0x400000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find free!!! ]\n",0x400000,0,0x803ffee8,..)>
@@ -16875,7 +16997,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042ffac,0,0x1000,0x200,..)>
           <page2pa(0x8042ffac,0,0x1000,0x200,..)>
             <page2ppn(0x8042ffac,0,0x1000,0x200,..)>
-        <memcpy(0x83ff9000,0x80130c44,0x1000)>
+        <memcpy(0x83ff9000,0x80130d44,0x1000)>
         <page_insert(0x83ffc000,0,0x8042ffac,0x401000,..)>
           <pgdir_walk(0x83ffc000,0x401000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x401000,0,0x803ffee8,..)>
@@ -17046,7 +17168,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042ffa0,0,0x1000,0x200,..)>
           <page2pa(0x8042ffa0,0,0x1000,0x200,..)>
             <page2ppn(0x8042ffa0,0,0x1000,0x200,..)>
-        <memcpy(0x83ff8000,0x80131c44,0x1000)>
+        <memcpy(0x83ff8000,0x80131d44,0x1000)>
         <page_insert(0x83ffc000,0,0x8042ffa0,0x402000,..)>
           <pgdir_walk(0x83ffc000,0x402000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x402000,0,0x803ffee8,..)>
@@ -17217,7 +17339,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042ff94,0,0x1000,0x200,..)>
           <page2pa(0x8042ff94,0,0x1000,0x200,..)>
             <page2ppn(0x8042ff94,0,0x1000,0x200,..)>
-        <memcpy(0x83ff7000,0x80132c44,0x1000)>
+        <memcpy(0x83ff7000,0x80132d44,0x1000)>
         <page_insert(0x83ffc000,0,0x8042ff94,0x403000,..)>
           <pgdir_walk(0x83ffc000,0x403000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x403000,0,0x803ffee8,..)>
@@ -17388,7 +17510,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("|",0,0x1000,0x200,..)>
           <page2pa("|",0,0x1000,0x200,..)>
             <page2ppn("|",0,0x1000,0x200,..)>
-        <memcpy(0x83ff6000,0x80133c44,0x1000)>
+        <memcpy(0x83ff6000,0x80133d44,0x1000)>
         <page_insert(0x83ffc000,0,"|",0x404000,..)>
           <pgdir_walk(0x83ffc000,0x404000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x404000,0,0x803ffee8,..)>
@@ -17559,7 +17681,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("p",0,0x1000,0x200,..)>
           <page2pa("p",0,0x1000,0x200,..)>
             <page2ppn("p",0,0x1000,0x200,..)>
-        <memcpy(0x83ff5000,0x80134c44,0x1000)>
+        <memcpy(0x83ff5000,0x80134d44,0x1000)>
         <page_insert(0x83ffc000,0,"p",0x405000,..)>
           <pgdir_walk(0x83ffc000,0x405000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x405000,0,0x803ffee8,..)>
@@ -17730,7 +17852,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("d",0,0x1000,0x200,..)>
           <page2pa("d",0,0x1000,0x200,..)>
             <page2ppn("d",0,0x1000,0x200,..)>
-        <memcpy(0x83ff4000,0x80135c44,0x1000)>
+        <memcpy(0x83ff4000,0x80135d44,0x1000)>
         <page_insert(0x83ffc000,0,"d",0x406000,..)>
           <pgdir_walk(0x83ffc000,0x406000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x406000,0,0x803ffee8,..)>
@@ -18072,7 +18194,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("L",0,0x1000,0x200,..)>
           <page2pa("L",0,0x1000,0x200,..)>
             <page2ppn("L",0,0x1000,0x200,..)>
-        <memcpy(0x83ff2000,0x80137c44,0xd00)>
+        <memcpy(0x83ff2000,0x80137d44,0xd00)>
         <page_insert(0x83ffc000,0,"L",0x408000,..)>
           <pgdir_walk(0x83ffc000,0x408000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x408000,0,0x803ffee8,..)>
@@ -18230,7 +18352,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
 
           <page2pa("L","\n",1,0x803ffe8c,..)>
             <page2ppn("L","\n",1,0x803ffe8c,..)>
-    <elf_load_seg(0x8012fc18,"@",&load_icode_mapper,&envs,..)>
+    <elf_load_seg(0x8012fd18,"@",&load_icode_mapper,&envs,..)>
       <load_icode_mapper(&envs,0x409000,0,0x600,..)>
         <page_alloc("X",0x409000,0,0x600,..)>
           <page2kva("@",0x409000,0,0x600,..)>
@@ -18735,24 +18857,146 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
 <env_create(&binary_fs_serv_start,0x1df44,1,0x803ffe8c,..)>
   <env_alloc(0x803fffd8,0,1,0x803ffe8c,..)>
     <env_setup_vm(0x801480dc,0,1,0x803ffe8c,..)>
-      <page_alloc(0x803fff9c,0,1,0x803ffe8c,..)>
-        <page2kva(0x8042ff28,0,1,0x803ffe8c,..)>
-          <page2pa(0x8042ff28,0,1,0x803ffe8c,..)>
-            <page2ppn(0x8042ff28,0,1,0x803ffe8c,..)>
-          <page2pa(0x8042ff28,0,1,0x803ffe8c,..)>
-            <page2ppn(0x8042ff28,0,1,0x803ffe8c,..)>
+      <printk("<enter env_setup_vm>\n",0,1,0x803ffe8c,..)>
+        <vprintfmt(&outputk,0,"<enter env_setup_vm>\n",0x803fff7c,..)>
+          <outputk(0,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(60,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+<          <outputk(0,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"er env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"er env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"r env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(114,"r env_setup_vm>\n",1,0x803fff7c,..)>
+r          <outputk(0," env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm>\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm>\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm>\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm>\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm>\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm>\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"m>\n",1,0x803fff7c,..)>
+            <printcharc(109,"m>\n",1,0x803fff7c,..)>
+m          <outputk(0,">\n",1,0x803fff7c,..)>
+            <printcharc(62,">\n",1,0x803fff7c,..)>
+>          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+      <page_alloc(0x803fff9c,"\n",1,0x803fff7c,..)>
+        <page2kva(0x8042ff28,"\n",1,0x803fff7c,..)>
+          <page2pa(0x8042ff28,"\n",1,0x803fff7c,..)>
+            <page2ppn(0x8042ff28,"\n",1,0x803fff7c,..)>
+          <page2pa(0x8042ff28,"\n",1,0x803fff7c,..)>
+            <page2ppn(0x8042ff28,"\n",1,0x803fff7c,..)>
         <memset(0x83fee000,0,0x1000)>
-      <page2kva(0x8042ff28,0,0x1000,0x803ffe8c,..)>
-        <page2pa(0x8042ff28,0,0x1000,0x803ffe8c,..)>
-          <page2ppn(0x8042ff28,0,0x1000,0x803ffe8c,..)>
-        <page2pa(0x8042ff28,0,0x1000,0x803ffe8c,..)>
-          <page2ppn(0x8042ff28,0,0x1000,0x803ffe8c,..)>
+      <page2kva(0x8042ff28,0,0x1000,0x803fff7c,..)>
+        <page2pa(0x8042ff28,0,0x1000,0x803fff7c,..)>
+          <page2ppn(0x8042ff28,0,0x1000,0x803fff7c,..)>
+        <page2pa(0x8042ff28,0,0x1000,0x803fff7c,..)>
+          <page2ppn(0x8042ff28,0,0x1000,0x803fff7c,..)>
       <memcpy(0x83fee7f4,0x83fff7f4,8)>
-    <mkenvid(0x801480dc,0x83fff7f4,8,0x803ffe8c,..)>
-    <asid_alloc(0x80148180,0x83fff7f4,8,0x803ffe8c,..)>
-  <load_icode(0x801480dc,&binary_fs_serv_start,0x1df44,0x803ffe8c,..)>
-    <elf_from(&binary_fs_serv_start,0x1df44,0x1df44,0x803ffe8c,..)>
-    <elf_load_seg(0x800e1598,0x800e15e4,&load_icode_mapper,0x801480dc,..)>
+      <printk("[ env_setup_vm : map is created!!! ]\n",0x83fff7f4,8,0x803fff7c,..)>
+        <vprintfmt(&outputk,0,"[ env_setup_vm : map is created!!! ]\n",0x803fff7c,..)>
+          <outputk(0,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(91,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+[          <outputk(0," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0," : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,": map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(58,": map is created!!! ]\n",1,0x803fff7c,..)>
+:          <outputk(0," map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0,"ap is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ap is created!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"p is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0," is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(105,"is created!!! ]\n",1,0x803fff7c,..)>
+i          <outputk(0,"s created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"s created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0," created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(99,"created!!! ]\n",1,0x803fff7c,..)>
+c          <outputk(0,"reated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(114,"reated!!! ]\n",1,0x803fff7c,..)>
+r          <outputk(0,"eated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"eated!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"ated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ated!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"ted!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"ted!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"ed!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"ed!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"d!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(100,"d!!! ]\n",1,0x803fff7c,..)>
+d          <outputk(0,"!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"! ]\n",1,0x803fff7c,..)>
+!          <outputk(0," ]\n",1,0x803fff7c,..)>
+            <printcharc(32," ]\n",1,0x803fff7c,..)>
+           <outputk(0,"]\n",1,0x803fff7c,..)>
+            <printcharc(93,"]\n",1,0x803fff7c,..)>
+]          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+    <mkenvid(0x801480dc,"\n",1,0x803fff7c,..)>
+    <asid_alloc(0x80148180,"\n",1,0x803fff7c,..)>
+  <load_icode(0x801480dc,&binary_fs_serv_start,0x1df44,0x803fff7c,..)>
+    <elf_from(&binary_fs_serv_start,0x1df44,0x1df44,0x803fff7c,..)>
+    <elf_load_seg(0x800e1698,0x800e16e4,&load_icode_mapper,0x801480dc,..)>
       <load_icode_mapper(0x801480dc,0x400000,0,0x200,..)>
         <page_alloc("4",0x400000,0,0x200,..)>
           <page2kva(0x8042ff1c,0x400000,0,0x200,..)>
@@ -18766,7 +19010,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042ff1c,0,0x1000,0x200,..)>
           <page2pa(0x8042ff1c,0,0x1000,0x200,..)>
             <page2ppn(0x8042ff1c,0,0x1000,0x200,..)>
-        <memcpy(0x83fed000,0x800e15e4,0x1000)>
+        <memcpy(0x83fed000,0x800e16e4,0x1000)>
         <page_insert(0x83fee000,1,0x8042ff1c,0x400000,..)>
           <pgdir_walk(0x83fee000,0x400000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find free!!! ]\n",0x400000,0,0x803ffee8,..)>
@@ -19105,7 +19349,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fef8,0,0x1000,0x200,..)>
           <page2pa(0x8042fef8,0,0x1000,0x200,..)>
             <page2ppn(0x8042fef8,0,0x1000,0x200,..)>
-        <memcpy(0x83fea000,0x800e35e4,0x1000)>
+        <memcpy(0x83fea000,0x800e36e4,0x1000)>
         <page_insert(0x83fee000,1,0x8042fef8,0x402000,..)>
           <pgdir_walk(0x83fee000,0x402000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x402000,0,0x803ffee8,..)>
@@ -19276,7 +19520,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042feec,0,0x1000,0x200,..)>
           <page2pa(0x8042feec,0,0x1000,0x200,..)>
             <page2ppn(0x8042feec,0,0x1000,0x200,..)>
-        <memcpy(0x83fe9000,0x800e45e4,0x1000)>
+        <memcpy(0x83fe9000,0x800e46e4,0x1000)>
         <page_insert(0x83fee000,1,0x8042feec,0x403000,..)>
           <pgdir_walk(0x83fee000,0x403000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x403000,0,0x803ffee8,..)>
@@ -19618,7 +19862,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fed4,0,0x1000,0x200,..)>
           <page2pa(0x8042fed4,0,0x1000,0x200,..)>
             <page2ppn(0x8042fed4,0,0x1000,0x200,..)>
-        <memcpy(0x83fe7000,0x800e65e4,0x1000)>
+        <memcpy(0x83fe7000,0x800e66e4,0x1000)>
         <page_insert(0x83fee000,1,0x8042fed4,0x405000,..)>
           <pgdir_walk(0x83fee000,0x405000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x405000,0,0x803ffee8,..)>
@@ -19960,7 +20204,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042febc,0,0x1000,0x200,..)>
           <page2pa(0x8042febc,0,0x1000,0x200,..)>
             <page2ppn(0x8042febc,0,0x1000,0x200,..)>
-        <memcpy(0x83fe5000,0x800e85e4,0x1000)>
+        <memcpy(0x83fe5000,0x800e86e4,0x1000)>
         <page_insert(0x83fee000,1,0x8042febc,0x407000,..)>
           <pgdir_walk(0x83fee000,0x407000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x407000,0,0x803ffee8,..)>
@@ -20131,7 +20375,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042feb0,0,0x1000,0x200,..)>
           <page2pa(0x8042feb0,0,0x1000,0x200,..)>
             <page2ppn(0x8042feb0,0,0x1000,0x200,..)>
-        <memcpy(0x83fe4000,0x800e95e4,0x1000)>
+        <memcpy(0x83fe4000,0x800e96e4,0x1000)>
         <page_insert(0x83fee000,1,0x8042feb0,0x408000,..)>
           <pgdir_walk(0x83fee000,0x408000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x408000,0,0x803ffee8,..)>
@@ -20302,7 +20546,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fea4,0,0x1000,0x200,..)>
           <page2pa(0x8042fea4,0,0x1000,0x200,..)>
             <page2ppn(0x8042fea4,0,0x1000,0x200,..)>
-        <memcpy(0x83fe3000,0x800ea5e4,0x500)>
+        <memcpy(0x83fe3000,0x800ea6e4,0x500)>
         <page_insert(0x83fee000,1,0x8042fea4,0x409000,..)>
           <pgdir_walk(0x83fee000,0x409000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x409000,0,0x803ffee8,..)>
@@ -20460,7 +20704,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
 
           <page2pa(0x8042fea4,"\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fea4,"\n",1,0x803ffe8c,..)>
-    <elf_load_seg(0x800e15b8,0x800eb524,&load_icode_mapper,0x801480dc,..)>
+    <elf_load_seg(0x800e16b8,0x800eb624,&load_icode_mapper,0x801480dc,..)>
       <load_icode_mapper(0x801480dc,0x40a000,0,0x600,..)>
         <page_alloc(0x803fff20,0x40a000,0,0x600,..)>
           <page2kva(0x8042fe98,0x40a000,0,0x600,..)>
@@ -20474,7 +20718,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fe98,0,0x1000,0x600,..)>
           <page2pa(0x8042fe98,0,0x1000,0x600,..)>
             <page2ppn(0x8042fe98,0,0x1000,0x600,..)>
-        <memcpy(0x83fe2000,0x800eb524,0x1000)>
+        <memcpy(0x83fe2000,0x800eb624,0x1000)>
         <page_insert(0x83fee000,1,0x8042fe98,0x40a000,..)>
           <pgdir_walk(0x83fee000,0x40a000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x40a000,0,0x803ffee8,..)>
@@ -20645,7 +20889,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fe8c,0,0x1000,0x600,..)>
           <page2pa(0x8042fe8c,0,0x1000,0x600,..)>
             <page2ppn(0x8042fe8c,0,0x1000,0x600,..)>
-        <memcpy(0x83fe1000,0x800ec524,0x1000)>
+        <memcpy(0x83fe1000,0x800ec624,0x1000)>
         <page_insert(0x83fee000,1,0x8042fe8c,0x40b000,..)>
           <pgdir_walk(0x83fee000,0x40b000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x40b000,0,0x803ffee8,..)>
@@ -20816,7 +21060,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("t",0,0x1000,0x600,..)>
           <page2pa("t",0,0x1000,0x600,..)>
             <page2ppn("t",0,0x1000,0x600,..)>
-        <memcpy(0x83fe0000,0x800ed524,0x1000)>
+        <memcpy(0x83fe0000,0x800ed624,0x1000)>
         <page_insert(0x83fee000,1,"t",0x40c000,..)>
           <pgdir_walk(0x83fee000,0x40c000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x40c000,0,0x803ffee8,..)>
@@ -20987,7 +21231,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("h",0,0x1000,0x600,..)>
           <page2pa("h",0,0x1000,0x600,..)>
             <page2ppn("h",0,0x1000,0x600,..)>
-        <memcpy(0x83fdf000,0x800ee524,0x1000)>
+        <memcpy(0x83fdf000,0x800ee624,0x1000)>
         <page_insert(0x83fee000,1,"h",0x40d000,..)>
           <pgdir_walk(0x83fee000,0x40d000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x40d000,0,0x803ffee8,..)>
@@ -21158,7 +21402,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("\",0,0x1000,0x600,..)>
           <page2pa("\",0,0x1000,0x600,..)>
             <page2ppn("\",0,0x1000,0x600,..)>
-        <memcpy(0x83fde000,0x800ef524,112)>
+        <memcpy(0x83fde000,0x800ef624,112)>
         <page_insert(0x83fee000,1,"\",0x40e000,..)>
           <pgdir_walk(0x83fee000,0x40e000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x40e000,0,0x803ffee8,..)>
@@ -21814,24 +22058,146 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
 <env_create(&binary_test_testpipe_start,0x18384,1,0x803ffe8c,..)>
   <env_alloc(0x803fffd8,0,1,0x803ffe8c,..)>
     <env_setup_vm(0x801481b8,0,1,0x803ffe8c,..)>
-      <page_alloc(0x803fff9c,0,1,0x803ffe8c,..)>
-        <page2kva(",",0,1,0x803ffe8c,..)>
-          <page2pa(",",0,1,0x803ffe8c,..)>
-            <page2ppn(",",0,1,0x803ffe8c,..)>
-          <page2pa(",",0,1,0x803ffe8c,..)>
-            <page2ppn(",",0,1,0x803ffe8c,..)>
+      <printk("<enter env_setup_vm>\n",0,1,0x803ffe8c,..)>
+        <vprintfmt(&outputk,0,"<enter env_setup_vm>\n",0x803fff7c,..)>
+          <outputk(0,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(60,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+<          <outputk(0,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"er env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"er env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"r env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(114,"r env_setup_vm>\n",1,0x803fff7c,..)>
+r          <outputk(0," env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm>\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm>\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm>\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm>\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm>\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm>\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"m>\n",1,0x803fff7c,..)>
+            <printcharc(109,"m>\n",1,0x803fff7c,..)>
+m          <outputk(0,">\n",1,0x803fff7c,..)>
+            <printcharc(62,">\n",1,0x803fff7c,..)>
+>          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+      <page_alloc(0x803fff9c,"\n",1,0x803fff7c,..)>
+        <page2kva(",","\n",1,0x803fff7c,..)>
+          <page2pa(",","\n",1,0x803fff7c,..)>
+            <page2ppn(",","\n",1,0x803fff7c,..)>
+          <page2pa(",","\n",1,0x803fff7c,..)>
+            <page2ppn(",","\n",1,0x803fff7c,..)>
         <memset(0x83fda000,0,0x1000)>
-      <page2kva(",",0,0x1000,0x803ffe8c,..)>
-        <page2pa(",",0,0x1000,0x803ffe8c,..)>
-          <page2ppn(",",0,0x1000,0x803ffe8c,..)>
-        <page2pa(",",0,0x1000,0x803ffe8c,..)>
-          <page2ppn(",",0,0x1000,0x803ffe8c,..)>
+      <page2kva(",",0,0x1000,0x803fff7c,..)>
+        <page2pa(",",0,0x1000,0x803fff7c,..)>
+          <page2ppn(",",0,0x1000,0x803fff7c,..)>
+        <page2pa(",",0,0x1000,0x803fff7c,..)>
+          <page2ppn(",",0,0x1000,0x803fff7c,..)>
       <memcpy(0x83fda7f4,0x83fff7f4,8)>
-    <mkenvid(0x801481b8,0x83fff7f4,8,0x803ffe8c,..)>
-    <asid_alloc(0x8014825c,0x83fff7f4,8,0x803ffe8c,..)>
-  <load_icode(0x801481b8,&binary_test_testpipe_start,0x18384,0x803ffe8c,..)>
-    <elf_from(&binary_test_testpipe_start,0x18384,0x18384,0x803ffe8c,..)>
-    <elf_load_seg(0x800ff4e8,"h",&load_icode_mapper,0x801481b8,..)>
+      <printk("[ env_setup_vm : map is created!!! ]\n",0x83fff7f4,8,0x803fff7c,..)>
+        <vprintfmt(&outputk,0,"[ env_setup_vm : map is created!!! ]\n",0x803fff7c,..)>
+          <outputk(0,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(91,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+[          <outputk(0," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0," : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,": map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(58,": map is created!!! ]\n",1,0x803fff7c,..)>
+:          <outputk(0," map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0,"ap is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ap is created!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"p is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0," is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(105,"is created!!! ]\n",1,0x803fff7c,..)>
+i          <outputk(0,"s created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"s created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0," created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(99,"created!!! ]\n",1,0x803fff7c,..)>
+c          <outputk(0,"reated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(114,"reated!!! ]\n",1,0x803fff7c,..)>
+r          <outputk(0,"eated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"eated!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"ated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ated!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"ted!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"ted!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"ed!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"ed!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"d!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(100,"d!!! ]\n",1,0x803fff7c,..)>
+d          <outputk(0,"!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"! ]\n",1,0x803fff7c,..)>
+!          <outputk(0," ]\n",1,0x803fff7c,..)>
+            <printcharc(32," ]\n",1,0x803fff7c,..)>
+           <outputk(0,"]\n",1,0x803fff7c,..)>
+            <printcharc(93,"]\n",1,0x803fff7c,..)>
+]          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+    <mkenvid(0x801481b8,"\n",1,0x803fff7c,..)>
+    <asid_alloc(0x8014825c,"\n",1,0x803fff7c,..)>
+  <load_icode(0x801481b8,&binary_test_testpipe_start,0x18384,0x803fff7c,..)>
+    <elf_from(&binary_test_testpipe_start,0x18384,0x18384,0x803fff7c,..)>
+    <elf_load_seg(0x800ff5e8,"h",&load_icode_mapper,0x801481b8,..)>
       <load_icode_mapper(0x801481b8,0x400000,0,0x200,..)>
         <page_alloc("D",0x400000,0,0x200,..)>
           <page2kva(" ",0x400000,0,0x200,..)>
@@ -22013,7 +22379,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fe14,0,0x1000,0x200,..)>
           <page2pa(0x8042fe14,0,0x1000,0x200,..)>
             <page2ppn(0x8042fe14,0,0x1000,0x200,..)>
-        <memcpy(0x83fd7000,0x80100534,0x1000)>
+        <memcpy(0x83fd7000,0x80100634,0x1000)>
         <page_insert(0x83fda000,2,0x8042fe14,0x401000,..)>
           <pgdir_walk(0x83fda000,0x401000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x401000,0,0x803ffee8,..)>
@@ -22184,7 +22550,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fe08,0,0x1000,0x200,..)>
           <page2pa(0x8042fe08,0,0x1000,0x200,..)>
             <page2ppn(0x8042fe08,0,0x1000,0x200,..)>
-        <memcpy(0x83fd6000,0x80101534,0x1000)>
+        <memcpy(0x83fd6000,0x80101634,0x1000)>
         <page_insert(0x83fda000,2,0x8042fe08,0x402000,..)>
           <pgdir_walk(0x83fda000,0x402000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x402000,0,0x803ffee8,..)>
@@ -22355,7 +22721,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fdfc,0,0x1000,0x200,..)>
           <page2pa(0x8042fdfc,0,0x1000,0x200,..)>
             <page2ppn(0x8042fdfc,0,0x1000,0x200,..)>
-        <memcpy(0x83fd5000,0x80102534,0x1000)>
+        <memcpy(0x83fd5000,0x80102634,0x1000)>
         <page_insert(0x83fda000,2,0x8042fdfc,0x403000,..)>
           <pgdir_walk(0x83fda000,0x403000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x403000,0,0x803ffee8,..)>
@@ -22526,7 +22892,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fdf0,0,0x1000,0x200,..)>
           <page2pa(0x8042fdf0,0,0x1000,0x200,..)>
             <page2ppn(0x8042fdf0,0,0x1000,0x200,..)>
-        <memcpy(0x83fd4000,0x80103534,0x1000)>
+        <memcpy(0x83fd4000,0x80103634,0x1000)>
         <page_insert(0x83fda000,2,0x8042fdf0,0x404000,..)>
           <pgdir_walk(0x83fda000,0x404000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x404000,0,0x803ffee8,..)>
@@ -22697,7 +23063,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fde4,0,0x1000,0x200,..)>
           <page2pa(0x8042fde4,0,0x1000,0x200,..)>
             <page2ppn(0x8042fde4,0,0x1000,0x200,..)>
-        <memcpy(0x83fd3000,0x80104534,0x1000)>
+        <memcpy(0x83fd3000,0x80104634,0x1000)>
         <page_insert(0x83fda000,2,0x8042fde4,0x405000,..)>
           <pgdir_walk(0x83fda000,0x405000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x405000,0,0x803ffee8,..)>
@@ -22868,7 +23234,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fdd8,0,0x1000,0x200,..)>
           <page2pa(0x8042fdd8,0,0x1000,0x200,..)>
             <page2ppn(0x8042fdd8,0,0x1000,0x200,..)>
-        <memcpy(0x83fd2000,0x80105534,0x1000)>
+        <memcpy(0x83fd2000,0x80105634,0x1000)>
         <page_insert(0x83fda000,2,0x8042fdd8,0x406000,..)>
           <pgdir_walk(0x83fda000,0x406000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x406000,0,0x803ffee8,..)>
@@ -23210,7 +23576,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fdc0,0,0x1000,0x200,..)>
           <page2pa(0x8042fdc0,0,0x1000,0x200,..)>
             <page2ppn(0x8042fdc0,0,0x1000,0x200,..)>
-        <memcpy(0x83fd0000,0x80107534,0xed0)>
+        <memcpy(0x83fd0000,0x80107634,0xed0)>
         <page_insert(0x83fda000,2,0x8042fdc0,0x408000,..)>
           <pgdir_walk(0x83fda000,0x408000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x408000,0,0x803ffee8,..)>
@@ -23368,7 +23734,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
 
           <page2pa(0x8042fdc0,"\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fdc0,"\n",1,0x803ffe8c,..)>
-    <elf_load_seg(0x800ff508," ",&load_icode_mapper,0x801481b8,..)>
+    <elf_load_seg(0x800ff608," ",&load_icode_mapper,0x801481b8,..)>
       <load_icode_mapper(0x801481b8,0x409000,0,0x600,..)>
         <page_alloc(0x803fff20,0x409000,0,0x600,..)>
           <page2kva(0x8042fdb4,0x409000,0,0x600,..)>
@@ -23873,24 +24239,146 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
 <env_create(&binary_test_testpiperace_start,0x18378,1,0x803ffe8c,..)>
   <env_alloc(0x803fffd8,0,1,0x803ffe8c,..)>
     <env_setup_vm(0x80148294,0,1,0x803ffe8c,..)>
-      <page_alloc(0x803fff9c,0,1,0x803ffe8c,..)>
-        <page2kva(0x8042fd90,0,1,0x803ffe8c,..)>
-          <page2pa(0x8042fd90,0,1,0x803ffe8c,..)>
-            <page2ppn(0x8042fd90,0,1,0x803ffe8c,..)>
-          <page2pa(0x8042fd90,0,1,0x803ffe8c,..)>
-            <page2ppn(0x8042fd90,0,1,0x803ffe8c,..)>
+      <printk("<enter env_setup_vm>\n",0,1,0x803ffe8c,..)>
+        <vprintfmt(&outputk,0,"<enter env_setup_vm>\n",0x803fff7c,..)>
+          <outputk(0,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(60,"<enter env_setup_vm>\n",1,0x803fff7c,..)>
+<          <outputk(0,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"enter env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nter env_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"ter env_setup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"er env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"er env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"r env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(114,"r env_setup_vm>\n",1,0x803fff7c,..)>
+r          <outputk(0," env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm>\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm>\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm>\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm>\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm>\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm>\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm>\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm>\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm>\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm>\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm>\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm>\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm>\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm>\n",1,0x803fff7c,..)>
+v          <outputk(0,"m>\n",1,0x803fff7c,..)>
+            <printcharc(109,"m>\n",1,0x803fff7c,..)>
+m          <outputk(0,">\n",1,0x803fff7c,..)>
+            <printcharc(62,">\n",1,0x803fff7c,..)>
+>          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+      <page_alloc(0x803fff9c,"\n",1,0x803fff7c,..)>
+        <page2kva(0x8042fd90,"\n",1,0x803fff7c,..)>
+          <page2pa(0x8042fd90,"\n",1,0x803fff7c,..)>
+            <page2ppn(0x8042fd90,"\n",1,0x803fff7c,..)>
+          <page2pa(0x8042fd90,"\n",1,0x803fff7c,..)>
+            <page2ppn(0x8042fd90,"\n",1,0x803fff7c,..)>
         <memset(0x83fcc000,0,0x1000)>
-      <page2kva(0x8042fd90,0,0x1000,0x803ffe8c,..)>
-        <page2pa(0x8042fd90,0,0x1000,0x803ffe8c,..)>
-          <page2ppn(0x8042fd90,0,0x1000,0x803ffe8c,..)>
-        <page2pa(0x8042fd90,0,0x1000,0x803ffe8c,..)>
-          <page2ppn(0x8042fd90,0,0x1000,0x803ffe8c,..)>
+      <page2kva(0x8042fd90,0,0x1000,0x803fff7c,..)>
+        <page2pa(0x8042fd90,0,0x1000,0x803fff7c,..)>
+          <page2ppn(0x8042fd90,0,0x1000,0x803fff7c,..)>
+        <page2pa(0x8042fd90,0,0x1000,0x803fff7c,..)>
+          <page2ppn(0x8042fd90,0,0x1000,0x803fff7c,..)>
       <memcpy(0x83fcc7f4,0x83fff7f4,8)>
-    <mkenvid(0x80148294,0x83fff7f4,8,0x803ffe8c,..)>
-    <asid_alloc(0x80148338,0x83fff7f4,8,0x803ffe8c,..)>
-  <load_icode(0x80148294,&binary_test_testpiperace_start,0x18378,0x803ffe8c,..)>
-    <elf_from(&binary_test_testpiperace_start,0x18378,0x18378,0x803ffe8c,..)>
-    <elf_load_seg(0x80117878,0x801178c4,&load_icode_mapper,0x80148294,..)>
+      <printk("[ env_setup_vm : map is created!!! ]\n",0x83fff7f4,8,0x803fff7c,..)>
+        <vprintfmt(&outputk,0,"[ env_setup_vm : map is created!!! ]\n",0x803fff7c,..)>
+          <outputk(0,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(91,"[ env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+[          <outputk(0," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"env_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(110,"nv_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+n          <outputk(0,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"v_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"setup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"etup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"tup_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(117,"up_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+u          <outputk(0,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(95,"_vm : map is created!!! ]\n",1,0x803fff7c,..)>
+_          <outputk(0,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(118,"vm : map is created!!! ]\n",1,0x803fff7c,..)>
+v          <outputk(0,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"m : map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0," : map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," : map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,": map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(58,": map is created!!! ]\n",1,0x803fff7c,..)>
+:          <outputk(0," map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," map is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"map is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(109,"map is created!!! ]\n",1,0x803fff7c,..)>
+m          <outputk(0,"ap is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ap is created!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"p is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(112,"p is created!!! ]\n",1,0x803fff7c,..)>
+p          <outputk(0," is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," is created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"is created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(105,"is created!!! ]\n",1,0x803fff7c,..)>
+i          <outputk(0,"s created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(115,"s created!!! ]\n",1,0x803fff7c,..)>
+s          <outputk(0," created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(32," created!!! ]\n",1,0x803fff7c,..)>
+           <outputk(0,"created!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(99,"created!!! ]\n",1,0x803fff7c,..)>
+c          <outputk(0,"reated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(114,"reated!!! ]\n",1,0x803fff7c,..)>
+r          <outputk(0,"eated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"eated!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"ated!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(97,"ated!!! ]\n",1,0x803fff7c,..)>
+a          <outputk(0,"ted!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(116,"ted!!! ]\n",1,0x803fff7c,..)>
+t          <outputk(0,"ed!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(101,"ed!!! ]\n",1,0x803fff7c,..)>
+e          <outputk(0,"d!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(100,"d!!! ]\n",1,0x803fff7c,..)>
+d          <outputk(0,"!!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"!! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"!! ]\n",1,0x803fff7c,..)>
+!          <outputk(0,"! ]\n",1,0x803fff7c,..)>
+            <printcharc(33,"! ]\n",1,0x803fff7c,..)>
+!          <outputk(0," ]\n",1,0x803fff7c,..)>
+            <printcharc(32," ]\n",1,0x803fff7c,..)>
+           <outputk(0,"]\n",1,0x803fff7c,..)>
+            <printcharc(93,"]\n",1,0x803fff7c,..)>
+]          <outputk(0,"\n",1,0x803fff7c,..)>
+            <printcharc(10,"\n",1,0x803fff7c,..)>
+
+    <mkenvid(0x80148294,"\n",1,0x803fff7c,..)>
+    <asid_alloc(0x80148338,"\n",1,0x803fff7c,..)>
+  <load_icode(0x80148294,&binary_test_testpiperace_start,0x18378,0x803fff7c,..)>
+    <elf_from(&binary_test_testpiperace_start,0x18378,0x18378,0x803fff7c,..)>
+    <elf_load_seg(0x80117978,0x801179c4,&load_icode_mapper,0x80148294,..)>
       <load_icode_mapper(0x80148294,0x400000,0,0x200,..)>
         <page_alloc(0x803fff20,0x400000,0,0x200,..)>
           <page2kva("x",0x400000,0,0x200,..)>
@@ -23904,7 +24392,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("x",0,0x1000,0x200,..)>
           <page2pa("x",0,0x1000,0x200,..)>
             <page2ppn("x",0,0x1000,0x200,..)>
-        <memcpy(0x83fcb000,0x801178c4,0x1000)>
+        <memcpy(0x83fcb000,0x801179c4,0x1000)>
         <page_insert(0x83fcc000,3,"x",0x400000,..)>
           <pgdir_walk(0x83fcc000,0x400000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find free!!! ]\n",0x400000,0,0x803ffee8,..)>
@@ -24243,7 +24731,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("T",0,0x1000,0x200,..)>
           <page2pa("T",0,0x1000,0x200,..)>
             <page2ppn("T",0,0x1000,0x200,..)>
-        <memcpy(0x83fc8000,0x801198c4,0x1000)>
+        <memcpy(0x83fc8000,0x801199c4,0x1000)>
         <page_insert(0x83fcc000,3,"T",0x402000,..)>
           <pgdir_walk(0x83fcc000,0x402000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x402000,0,0x803ffee8,..)>
@@ -24414,7 +24902,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("H",0,0x1000,0x200,..)>
           <page2pa("H",0,0x1000,0x200,..)>
             <page2ppn("H",0,0x1000,0x200,..)>
-        <memcpy(0x83fc7000,0x8011a8c4,0x1000)>
+        <memcpy(0x83fc7000,0x8011a9c4,0x1000)>
         <page_insert(0x83fcc000,3,"H",0x403000,..)>
           <pgdir_walk(0x83fcc000,0x403000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x403000,0,0x803ffee8,..)>
@@ -24585,7 +25073,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("<",0,0x1000,0x200,..)>
           <page2pa("<",0,0x1000,0x200,..)>
             <page2ppn("<",0,0x1000,0x200,..)>
-        <memcpy(0x83fc6000,0x8011b8c4,0x1000)>
+        <memcpy(0x83fc6000,0x8011b9c4,0x1000)>
         <page_insert(0x83fcc000,3,"<",0x404000,..)>
           <pgdir_walk(0x83fcc000,0x404000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x404000,0,0x803ffee8,..)>
@@ -24756,7 +25244,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("0",0,0x1000,0x200,..)>
           <page2pa("0",0,0x1000,0x200,..)>
             <page2ppn("0",0,0x1000,0x200,..)>
-        <memcpy(0x83fc5000,0x8011c8c4,0x1000)>
+        <memcpy(0x83fc5000,0x8011c9c4,0x1000)>
         <page_insert(0x83fcc000,3,"0",0x405000,..)>
           <pgdir_walk(0x83fcc000,0x405000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x405000,0,0x803ffee8,..)>
@@ -24927,7 +25415,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn("$",0,0x1000,0x200,..)>
           <page2pa("$",0,0x1000,0x200,..)>
             <page2ppn("$",0,0x1000,0x200,..)>
-        <memcpy(0x83fc4000,0x8011d8c4,0x1000)>
+        <memcpy(0x83fc4000,0x8011d9c4,0x1000)>
         <page_insert(0x83fcc000,3,"$",0x406000,..)>
           <pgdir_walk(0x83fcc000,0x406000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x406000,0,0x803ffee8,..)>
@@ -25269,7 +25757,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fd18,0,0x1000,0x200,..)>
           <page2pa(0x8042fd18,0,0x1000,0x200,..)>
             <page2ppn(0x8042fd18,0,0x1000,0x200,..)>
-        <memcpy(0x83fc2000,0x8011f8c4,0xd60)>
+        <memcpy(0x83fc2000,0x8011f9c4,0xd60)>
         <page_insert(0x83fcc000,3,0x8042fd18,0x408000,..)>
           <pgdir_walk(0x83fcc000,0x408000,0,0x803ffee8,..)>
             <printk("[ pgdir_walk : find page table!!! ]\n",0x408000,0,0x803ffee8,..)>
@@ -25427,7 +25915,7 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe8c,..)>
 
           <page2pa(0x8042fd18,"\n",1,0x803ffe8c,..)>
             <page2ppn(0x8042fd18,"\n",1,0x803ffe8c,..)>
-    <elf_load_seg(0x80117898,"c",&load_icode_mapper,0x80148294,..)>
+    <elf_load_seg(0x80117998,"c",&load_icode_mapper,0x80148294,..)>
       <load_icode_mapper(0x80148294,0x409000,0,0x600,..)>
         <page_alloc(0x803fff20,0x409000,0,0x600,..)>
           <page2kva(0x8042fd0c,0x409000,0,0x600,..)>
@@ -26060,7 +26548,7 @@ a              <printcharc(51,"00400a30",8,16,..)>
 0          <outputk(0,"\n",1,16,..)>
             <printcharc(10,"\n",1,16,..)>
 
-      <printk("Context : %08x\n",0xc0001000,1,16,..)>
+      <printk("Context : %08x\n",0x7fc01000,1,16,..)>
         <vprintfmt(&outputk,0,"Context : %08x\n",0x803fff44,..)>
           <outputk(0,"Context : %08x\n",1,0x803fff44,..)>
             <printcharc(67,"Context : %08x\n",1,0x803fff44,..)>
@@ -26082,24 +26570,24 @@ t          <outputk(0," : %08x\n",1,0x803fff44,..)>
             <printcharc(58,": %08x\n",1,0x803fff44,..)>
 :          <outputk(0," %08x\n",1,0x803fff44,..)>
             <printcharc(32," %08x\n",1,0x803fff44,..)>
-           <print_num(&outputk,0,0xc0001000,16,..)>
-            <outputk(0,"c0001000",8,16,..)>
-              <printcharc(99,"c0001000",8,16,..)>
-c              <printcharc(48,"c0001000",8,16,..)>
-0              <printcharc(48,"c0001000",8,16,..)>
-0              <printcharc(48,"c0001000",8,16,..)>
-0              <printcharc(49,"c0001000",8,16,..)>
-1              <printcharc(48,"c0001000",8,16,..)>
-0              <printcharc(48,"c0001000",8,16,..)>
-0              <printcharc(48,"c0001000",8,16,..)>
+           <print_num(&outputk,0,0x7fc01000,16,..)>
+            <outputk(0,"7fc01000",8,16,..)>
+              <printcharc(55,"7fc01000",8,16,..)>
+7              <printcharc(102,"7fc01000",8,16,..)>
+f              <printcharc(99,"7fc01000",8,16,..)>
+c              <printcharc(48,"7fc01000",8,16,..)>
+0              <printcharc(49,"7fc01000",8,16,..)>
+1              <printcharc(48,"7fc01000",8,16,..)>
+0              <printcharc(48,"7fc01000",8,16,..)>
+0              <printcharc(48,"7fc01000",8,16,..)>
 0          <outputk(0,"\n",1,16,..)>
             <printcharc(10,"\n",1,16,..)>
 
       <do_tlb_refill(0x803ffea8,"\n",1,16,..)>
-        <_do_tlb_refill(0xc0001000,3,1,16,..)>
-          <page_lookup(0x83fcc000,0xc0001000,0x803ffe90,16,..)>
-            <pgdir_walk(0x83fcc000,0xc0001000,0,0x803ffe74,..)>
-              <printk("[ pgdir_walk : find page table!!! ]\n",0xc0001000,0,0x803ffe74,..)>
+        <_do_tlb_refill(0x7fc01000,3,1,16,..)>
+          <page_lookup(0x83fcc000,0x7fc01000,0x803ffe90,16,..)>
+            <pgdir_walk(0x83fcc000,0x7fc01000,0,0x803ffe74,..)>
+              <printk("[ pgdir_walk : find page table!!! ]\n",0x7fc01000,0,0x803ffe74,..)>
                 <vprintfmt(&outputk,0,"[ pgdir_walk : find page table!!! ]\n",0x803ffe2c,..)>
                   <outputk(0,"[ pgdir_walk : find page table!!! ]\n",1,0x803ffe2c,..)>
                     <printcharc(91,"[ pgdir_walk : find page table!!! ]\n",1,0x803ffe2c,..)>
@@ -26246,6 +26734,66 @@ e                <outputk(0,"!!! ]\n",1,0x803ffe64,..)>
                   <printcharc(10,"\n",1,0x803ffe64,..)>
 
             <pa2page(0x3fca200,"\n",1,0x803ffe64,..)>
+      <printk("pte : %08x\n",0x3fcb200,1,16,..)>
+        <vprintfmt(&outputk,0,"pte : %08x\n",0x803fff44,..)>
+          <outputk(0,"pte : %08x\n",1,0x803fff44,..)>
+            <printcharc(112,"pte : %08x\n",1,0x803fff44,..)>
+p          <outputk(0,"te : %08x\n",1,0x803fff44,..)>
+            <printcharc(116,"te : %08x\n",1,0x803fff44,..)>
+t          <outputk(0,"e : %08x\n",1,0x803fff44,..)>
+            <printcharc(101,"e : %08x\n",1,0x803fff44,..)>
+e          <outputk(0," : %08x\n",1,0x803fff44,..)>
+            <printcharc(32," : %08x\n",1,0x803fff44,..)>
+           <outputk(0,": %08x\n",1,0x803fff44,..)>
+            <printcharc(58,": %08x\n",1,0x803fff44,..)>
+:          <outputk(0," %08x\n",1,0x803fff44,..)>
+            <printcharc(32," %08x\n",1,0x803fff44,..)>
+           <print_num(&outputk,0,0x3fcb200,16,..)>
+            <outputk(0,"03fcb200d",8,16,..)>
+              <printcharc(48,"03fcb200d",8,16,..)>
+0              <printcharc(51,"03fcb200d",8,16,..)>
+3              <printcharc(102,"03fcb200d",8,16,..)>
+f              <printcharc(99,"03fcb200d",8,16,..)>
+c              <printcharc(98,"03fcb200d",8,16,..)>
+b              <printcharc(50,"03fcb200d",8,16,..)>
+2              <printcharc(48,"03fcb200d",8,16,..)>
+0              <printcharc(48,"03fcb200d",8,16,..)>
+0          <outputk(0,"\n",1,16,..)>
+            <printcharc(10,"\n",1,16,..)>
+
+      <printk("fast_tlb Done!\n","\n",1,16,..)>
+        <vprintfmt(&outputk,0,"fast_tlb Done!\n","z",..)>
+          <outputk(0,"fast_tlb Done!\n",1,"z",..)>
+            <printcharc(102,"fast_tlb Done!\n",1,"z",..)>
+f          <outputk(0,"ast_tlb Done!\n",1,"z",..)>
+            <printcharc(97,"ast_tlb Done!\n",1,"z",..)>
+a          <outputk(0,"st_tlb Done!\n",1,"z",..)>
+            <printcharc(115,"st_tlb Done!\n",1,"z",..)>
+s          <outputk(0,"t_tlb Done!\n",1,"z",..)>
+            <printcharc(116,"t_tlb Done!\n",1,"z",..)>
+t          <outputk(0,"_tlb Done!\n",1,"z",..)>
+            <printcharc(95,"_tlb Done!\n",1,"z",..)>
+_          <outputk(0,"tlb Done!\n",1,"z",..)>
+            <printcharc(116,"tlb Done!\n",1,"z",..)>
+t          <outputk(0,"lb Done!\n",1,"z",..)>
+            <printcharc(108,"lb Done!\n",1,"z",..)>
+l          <outputk(0,"b Done!\n",1,"z",..)>
+            <printcharc(98,"b Done!\n",1,"z",..)>
+b          <outputk(0," Done!\n",1,"z",..)>
+            <printcharc(32," Done!\n",1,"z",..)>
+           <outputk(0,"Done!\n",1,"z",..)>
+            <printcharc(68,"Done!\n",1,"z",..)>
+D          <outputk(0,"one!\n",1,"z",..)>
+            <printcharc(111,"one!\n",1,"z",..)>
+o          <outputk(0,"ne!\n",1,"z",..)>
+            <printcharc(110,"ne!\n",1,"z",..)>
+n          <outputk(0,"e!\n",1,"z",..)>
+            <printcharc(101,"e!\n",1,"z",..)>
+e          <outputk(0,"!\n",1,"z",..)>
+            <printcharc(33,"!\n",1,"z",..)>
+!          <outputk(0,"\n",1,"z",..)>
+            <printcharc(10,"\n",1,"z",..)>
+
     <fast_tlb_refill(0x400a30,3,0,0,..)>
       <printk("=============================\n",3,0,0,..)>
         <vprintfmt(&outputk,0,"=============================\n",0x803fff44,..)>
@@ -26372,7 +26920,7 @@ a              <printcharc(51,"00400a30d",8,16,..)>
 0          <outputk(0,"\n",1,16,..)>
             <printcharc(10,"\n",1,16,..)>
 
-      <printk("Context : %08x\n",0xc0001000,1,16,..)>
+      <printk("Context : %08x\n",0x7fc01000,1,16,..)>
         <vprintfmt(&outputk,0,"Context : %08x\n",0x803fff44,..)>
           <outputk(0,"Context : %08x\n",1,0x803fff44,..)>
             <printcharc(67,"Context : %08x\n",1,0x803fff44,..)>
@@ -26394,29 +26942,83 @@ t          <outputk(0," : %08x\n",1,0x803fff44,..)>
             <printcharc(58,": %08x\n",1,0x803fff44,..)>
 :          <outputk(0," %08x\n",1,0x803fff44,..)>
             <printcharc(32," %08x\n",1,0x803fff44,..)>
-           <print_num(&outputk,0,0xc0001000,16,..)>
-            <outputk(0,"c0001000d",8,16,..)>
-              <printcharc(99,"c0001000d",8,16,..)>
-c              <printcharc(48,"c0001000d",8,16,..)>
-0              <printcharc(48,"c0001000d",8,16,..)>
-0              <printcharc(48,"c0001000d",8,16,..)>
-0              <printcharc(49,"c0001000d",8,16,..)>
-1              <printcharc(48,"c0001000d",8,16,..)>
-0              <printcharc(48,"c0001000d",8,16,..)>
-0              <printcharc(48,"c0001000d",8,16,..)>
+           <print_num(&outputk,0,0x7fc01000,16,..)>
+            <outputk(0,"7fc01000d",8,16,..)>
+              <printcharc(55,"7fc01000d",8,16,..)>
+7              <printcharc(102,"7fc01000d",8,16,..)>
+f              <printcharc(99,"7fc01000d",8,16,..)>
+c              <printcharc(48,"7fc01000d",8,16,..)>
+0              <printcharc(49,"7fc01000d",8,16,..)>
+1              <printcharc(48,"7fc01000d",8,16,..)>
+0              <printcharc(48,"7fc01000d",8,16,..)>
+0              <printcharc(48,"7fc01000d",8,16,..)>
 0          <outputk(0,"\n",1,16,..)>
             <printcharc(10,"\n",1,16,..)>
+
+      <printk("pte : %08x\n",0x27bdffc0,1,16,..)>
+        <vprintfmt(&outputk,0,"pte : %08x\n",0x803fff44,..)>
+          <outputk(0,"pte : %08x\n",1,0x803fff44,..)>
+            <printcharc(112,"pte : %08x\n",1,0x803fff44,..)>
+p          <outputk(0,"te : %08x\n",1,0x803fff44,..)>
+            <printcharc(116,"te : %08x\n",1,0x803fff44,..)>
+t          <outputk(0,"e : %08x\n",1,0x803fff44,..)>
+            <printcharc(101,"e : %08x\n",1,0x803fff44,..)>
+e          <outputk(0," : %08x\n",1,0x803fff44,..)>
+            <printcharc(32," : %08x\n",1,0x803fff44,..)>
+           <outputk(0,": %08x\n",1,0x803fff44,..)>
+            <printcharc(58,": %08x\n",1,0x803fff44,..)>
+:          <outputk(0," %08x\n",1,0x803fff44,..)>
+            <printcharc(32," %08x\n",1,0x803fff44,..)>
+           <print_num(&outputk,0,0x27bdffc0,16,..)>
+            <outputk(0,"27bdffc0d",8,16,..)>
+              <printcharc(50,"27bdffc0d",8,16,..)>
+2              <printcharc(55,"27bdffc0d",8,16,..)>
+7              <printcharc(98,"27bdffc0d",8,16,..)>
+b              <printcharc(100,"27bdffc0d",8,16,..)>
+d              <printcharc(102,"27bdffc0d",8,16,..)>
+f              <printcharc(102,"27bdffc0d",8,16,..)>
+f              <printcharc(99,"27bdffc0d",8,16,..)>
+c              <printcharc(48,"27bdffc0d",8,16,..)>
+0          <outputk(0,"\n",1,16,..)>
+            <printcharc(10,"\n",1,16,..)>
+
+      <printk("fast_tlb Done!\n","\n",1,16,..)>
+        <vprintfmt(&outputk,0,"fast_tlb Done!\n","z",..)>
+          <outputk(0,"fast_tlb Done!\n",1,"z",..)>
+            <printcharc(102,"fast_tlb Done!\n",1,"z",..)>
+f          <outputk(0,"ast_tlb Done!\n",1,"z",..)>
+            <printcharc(97,"ast_tlb Done!\n",1,"z",..)>
+a          <outputk(0,"st_tlb Done!\n",1,"z",..)>
+            <printcharc(115,"st_tlb Done!\n",1,"z",..)>
+s          <outputk(0,"t_tlb Done!\n",1,"z",..)>
+            <printcharc(116,"t_tlb Done!\n",1,"z",..)>
+t          <outputk(0,"_tlb Done!\n",1,"z",..)>
+            <printcharc(95,"_tlb Done!\n",1,"z",..)>
+_          <outputk(0,"tlb Done!\n",1,"z",..)>
+            <printcharc(116,"tlb Done!\n",1,"z",..)>
+t          <outputk(0,"lb Done!\n",1,"z",..)>
+            <printcharc(108,"lb Done!\n",1,"z",..)>
+l          <outputk(0,"b Done!\n",1,"z",..)>
+            <printcharc(98,"b Done!\n",1,"z",..)>
+b          <outputk(0," Done!\n",1,"z",..)>
+            <printcharc(32," Done!\n",1,"z",..)>
+           <outputk(0,"Done!\n",1,"z",..)>
+            <printcharc(68,"Done!\n",1,"z",..)>
+D          <outputk(0,"one!\n",1,"z",..)>
+            <printcharc(111,"one!\n",1,"z",..)>
+o          <outputk(0,"ne!\n",1,"z",..)>
+            <printcharc(110,"ne!\n",1,"z",..)>
+n          <outputk(0,"e!\n",1,"z",..)>
+            <printcharc(101,"e!\n",1,"z",..)>
+e          <outputk(0,"!\n",1,"z",..)>
+            <printcharc(33,"!\n",1,"z",..)>
+!          <outputk(0,"\n",1,"z",..)>
+            <printcharc(10,"\n",1,"z",..)>
 
 [ memory READ: from non-existant paddr=0x27bdfa30 len=4 pc=0x00400a30 ]
 to_be_translated(): read failed: TODO
 cpu: UNIMPLEMENTED instruction at 0x400a30
 00400a30: 00000000        nop
 emul: All machines stopped.
-GXemul> c
-emul: All machines stopped.
 GXemul> ^C
-GXemul> ^C
-GXemul> ^C
-GXemul> ^C
-GXemul> ^C
-GXemul> 
+GXemul> quit

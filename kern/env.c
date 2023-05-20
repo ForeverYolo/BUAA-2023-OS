@@ -158,9 +158,9 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
  *   You may use these macro definitions below: 'LIST_INIT', 'TAILQ_INIT', 'LIST_INSERT_HEAD'
  */
 void env_init(void) {
-	u_int index = 0xc0000000;
+	u_int index = 0xc0000000; 
 	asm volatile("mtc0 %0, $4" : : "r"(index));
-	printk("写入完毕！！！！！！！\n");
+	printk("Write Done!!!!!!\n");
 	int i;
 	/* Step 1: Initialize 'env_free_list' with 'LIST_INIT' and 'env_sched_list' with
 	 * 'TAILQ_INIT'. */
@@ -201,7 +201,7 @@ void env_init(void) {
  *   Initialize the user address space for 'e'.
  */
 static int env_setup_vm(struct Env *e) {
-	printk("<enter env_setup_vm>\n");
+	//printk("<enter env_setup_vm>\n");
 	/* Step 1:
 	 *   Allocate a page for the page directory with 'page_alloc'.
 	 *   Increase its 'pp_ref' and assign its kernel address to 'e->env_pgdir'.
@@ -227,7 +227,7 @@ static int env_setup_vm(struct Env *e) {
 	e->env_pgdir[PDX(UVPT)] = PADDR(e->env_pgdir) | PTE_V;
 
 	//lab2-challenge
-	printk("[ env_setup_vm : map is created!!! ]\n");
+	//printk("[ env_setup_vm : map is created!!! ]\n");
 	e->env_pgdir[PDX(MVPT)] = PADDR(e->env_pgdir) | PTE_V;
 	return 0;
 }

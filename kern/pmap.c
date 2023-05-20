@@ -212,7 +212,7 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 		}
 		else 
 		{
-			printk("[ pgdir_walk : find free!!! ]\n");
+			//printk("[ pgdir_walk : find free!!! ]\n");
 			*ppte = NULL;
 			return 0;
 		}
@@ -222,7 +222,7 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 	/* Step 3: Assign the kernel virtual address of the page table entry to '*ppte'. */
 	/* Exercise 2.6: Your code here. (3/3) */
 	//*ppte =(Pte *)KADDR(*pgdir_entryp & (~0xfff)) + PTX(va);
-	printk("[ pgdir_walk : find page table!!! ]\n"); 
+	//printk("[ pgdir_walk : find page table!!! ]\n"); 
 	*ppte = (Pte*)KADDR(PTE_ADDR(*pgdir_entryp)) + PTX(va);
 	return 0;
 }
@@ -320,7 +320,7 @@ struct Page *page_lookup(Pde *pgdir, u_long va, Pte **ppte) {
 	if (pte == NULL || (*pte & PTE_V) == 0) {
 		return NULL;
 	}
-	printk("[ page_lookup : pte not free!!! ]\n");
+	//printk("[ page_lookup : pte not free!!! ]\n");
 	/* Step 2: Get the corresponding Page struct. */
 	/* Hint: Use function `pa2page`, defined in include/pmap.h . */
 	pp = pa2page(*pte);
