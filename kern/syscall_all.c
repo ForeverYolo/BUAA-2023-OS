@@ -8,6 +8,12 @@
 
 extern struct Env *curenv;
 
+extern int error_count;
+
+int sys_get_error_count(){
+	return error_count;
+}
+
 /* Overview:
  * 	This function is used to print a character on screen.
  *
@@ -18,6 +24,8 @@ void sys_putchar(int c) {
 	printcharc((char)c);
 	return;
 }
+
+
 
 /* Overview:
  * 	This function is used to print a string of bytes on screen.
@@ -552,6 +560,7 @@ void *syscall_table[MAX_SYSNO] = {
     [SYS_cgetc] = sys_cgetc,
     [SYS_write_dev] = sys_write_dev,
     [SYS_read_dev] = sys_read_dev,
+    [SYS_get_error_count] = sys_get_error_count,
 };
 
 /* Overview:

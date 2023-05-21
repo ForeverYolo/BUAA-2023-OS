@@ -1,6 +1,6 @@
 #include <env.h>
 #include <pmap.h>
-
+int error_count = 0;
 #define mpt ((volatile Pte *)MVPT)
 #define vpt ((volatile Pte *)UVPT)
 static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
@@ -34,6 +34,7 @@ static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
  *  Refill TLB.
  */
 Pte _do_tlb_refill(u_long va, u_int asid) {
+	error_count++;
 	Pte *pte;
 	/* Hints:
 	 *  Invoke 'page_lookup' repeatedly in a loop to find the page table entry 'pte' associated
@@ -70,6 +71,7 @@ Pte _do_tlb_refill(u_long va, u_int asid) {
 }
 
 Pte fast_tlb_refill(u_long va, u_int asid) {
+	error_count++;
 	int context = -1;
 	int memEntryHi = -1;
 	asm("mfc0 %0, $10" : "=r"(memEntryHi) :);
@@ -100,6 +102,7 @@ Pte fast_tlb_refill(u_long va, u_int asid) {
 	//printk("fast_tlb Done!\n");
 	return *pte; 
 }
+
 
 #if !defined(LAB) || LAB >= 4
 /* Overview:
@@ -132,4 +135,5 @@ void do_tlb_mod(struct Trapframe *tf) {
 		panic("TLB Mod but no user handler registered");
 	}
 }
+
 #endif

@@ -22,6 +22,7 @@ enum {
 	SYS_cgetc,
 	SYS_write_dev,
 	SYS_read_dev,
+	SYS_get_error_count,
 	MAX_SYSNO,
 };
 

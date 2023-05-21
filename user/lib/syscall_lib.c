@@ -44,6 +44,10 @@ int syscall_set_env_status(u_int envid, u_int status) {
 	return msyscall(SYS_set_env_status, envid, status);
 }
 
+int syscall_get_error_count() {
+	return msyscall(SYS_get_error_count);
+}
+
 int syscall_set_trapframe(u_int envid, struct Trapframe *tf) {
 	return msyscall(SYS_set_trapframe, envid, tf);
 }
