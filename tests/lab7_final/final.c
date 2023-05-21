@@ -1,8 +1,8 @@
 #include <lib.h>
 #include <env.h>
-#define NUM 256
+#define NUM 512
 #define MOD 16
-#define ENUM 100
+#define ENUM 200
 int arr[NUM][NUM];
 int brr[NUM][NUM];
 int crr[NUM][NUM];
@@ -111,12 +111,12 @@ int main() {
 	debugf("                        || || || || || ||                                                          || || || || || ||\n");
 	debugf("                     || || || || || || ||                                                          || || || || || || ||\n");
 	debugf("                  || || || || || || || ||                                                          || || || || || || || ||\n");
-	debugf("               || || || || || || || || ||             Matrix test Time Passed: %005d ms            || || || || || || || || ||\n",gap1);
-	debugf("            || || || || || || || || || ||             Matrix TLB  Miss happen: %00007d times       || || || || || || || || || ||\n",matrix_tlb_miss);
-	debugf("         || || || || || || || || || || ||             Ascii  test Time Passed: %005d ms            || || || || || || || || || || ||\n",gap2);
-	debugf("            || || || || || || || || || ||             Emoji  TLB  Miss happen: %005d times         || || || || || || || || || ||\n",emoji_tlb_miss);
-	debugf("               || || || || || || || || ||              All   test Time Passed: %005d ms            || || || || || || || || ||\n",gap3);
-	debugf("                  || || || || || || || ||              TLB  Miss Total happen: %00007d times       || || || || || || || ||\n",syscall_get_error_count());
+	debugf("               || || || || || || || || ||             Matrix test Time Passed: %-00008d ms         || || || || || || || || ||\n",gap1);
+	debugf("            || || || || || || || || || ||             Matrix TLB  Miss happen: %-00008d times      || || || || || || || || || ||\n",matrix_tlb_miss);
+	debugf("         || || || || || || || || || || ||             Ascii  test Time Passed: %-00008d ms         || || || || || || || || || || ||\n",gap2);
+	debugf("            || || || || || || || || || ||             Emoji  TLB  Miss happen: %-00008d times      || || || || || || || || || ||\n",emoji_tlb_miss);
+	debugf("               || || || || || || || || ||              All   test Time Passed: %-00008d ms         || || || || || || || || ||\n",gap3);
+	debugf("                  || || || || || || || ||              TLB  Miss Total happen: %-00008d times      || || || || || || || ||\n",syscall_get_error_count());
 	debugf("                     || || || || || || ||                                                          || || || || || || ||\n");
 	debugf("                        || || || || || ||                                                          || || || || || ||\n");
 	debugf("                           || || || || ||                                                          || || || || ||\n");
