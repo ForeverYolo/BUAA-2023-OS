@@ -1,6 +1,6 @@
 #include <env.h>
 #include <pmap.h>
-
+int error_count = 0;
 static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
 	struct Page *p = NULL;
 
@@ -32,6 +32,7 @@ static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
  *  Refill TLB.
  */
 Pte _do_tlb_refill(u_long va, u_int asid) {
+	error_count++;
 	Pte *pte;
 	/* Hints:
 	 *  Invoke 'page_lookup' repeatedly in a loop to find the page table entry 'pte' associated
