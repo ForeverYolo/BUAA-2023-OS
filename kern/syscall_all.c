@@ -6,6 +6,8 @@
 #include <sched.h>
 #include <syscall.h>
 
+extern int error_count;
+
 int sys_get_error_count(){
 	return error_count;
 }
