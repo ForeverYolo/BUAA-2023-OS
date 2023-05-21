@@ -4,6 +4,10 @@
 #include <syscall.h>
 #include <trap.h>
 
+int syscall_get_error_count() {
+	return msyscall(SYS_get_error_count);
+}
+
 void syscall_putchar(int ch) {
 	msyscall(SYS_putchar, ch);
 }
