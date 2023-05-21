@@ -1,8 +1,8 @@
 #include <lib.h>
 #include <env.h>
-#define NUM 512
+#define NUM 1024
 #define MOD 16
-#define ENUM 200
+#define ENUM 400
 int arr[NUM][NUM];
 int brr[NUM][NUM];
 int crr[NUM][NUM];
@@ -53,8 +53,7 @@ void calcute(int arr[NUM][NUM],int brr[NUM][NUM],int crr[NUM][NUM]) {
 }
 
 int get_gap(int begin_time,int begin_us,int end_time,int end_us) {
-	int gap = ((int)end_time -(int)begin_time) * 1000000 + (int)end_us - (int)begin_us;
-	gap = gap / 1000;
+	int gap = ((int)end_time -(int)begin_time) * 1000 + ((int)end_us - (int)begin_us) / 1000;
 	return gap;
 }
 
@@ -111,12 +110,12 @@ int main() {
 	debugf("                        || || || || || ||                                                          || || || || || ||\n");
 	debugf("                     || || || || || || ||                                                          || || || || || || ||\n");
 	debugf("                  || || || || || || || ||                                                          || || || || || || || ||\n");
-	debugf("               || || || || || || || || ||             Matrix test Time Passed: %-00008d ms         || || || || || || || || ||\n",gap1);
-	debugf("            || || || || || || || || || ||             Matrix TLB  Miss happen: %-00008d times      || || || || || || || || || ||\n",matrix_tlb_miss);
-	debugf("         || || || || || || || || || || ||             Ascii  test Time Passed: %-00008d ms         || || || || || || || || || || ||\n",gap2);
-	debugf("            || || || || || || || || || ||             Emoji  TLB  Miss happen: %-00008d times      || || || || || || || || || ||\n",emoji_tlb_miss);
-	debugf("               || || || || || || || || ||              All   test Time Passed: %-00008d ms         || || || || || || || || ||\n",gap3);
-	debugf("                  || || || || || || || ||              TLB  Miss Total happen: %-00008d times      || || || || || || || ||\n",syscall_get_error_count());
+	debugf("               || || || || || || || || ||          Matrix test Time Passed: %-00000010d ms         || || || || || || || || ||\n",gap1);
+	debugf("            || || || || || || || || || ||          Matrix TLB  Miss happen: %-00000010d times      || || || || || || || || || ||\n",matrix_tlb_miss);
+	debugf("         || || || || || || || || || || ||          Ascii  test Time Passed: %-00000010d ms         || || || || || || || || || || ||\n",gap2);
+	debugf("            || || || || || || || || || ||          Emoji  TLB  Miss happen: %-00000010d times      || || || || || || || || || ||\n",emoji_tlb_miss);
+	debugf("               || || || || || || || || ||           All   test Time Passed: %-00000010d ms         || || || || || || || || ||\n",gap3);
+	debugf("                  || || || || || || || ||           TLB  Miss Total happen: %-00000010d times      || || || || || || || ||\n",syscall_get_error_count());
 	debugf("                     || || || || || || ||                                                          || || || || || || ||\n");
 	debugf("                        || || || || || ||                                                          || || || || || ||\n");
 	debugf("                           || || || || ||                                                          || || || || ||\n");
