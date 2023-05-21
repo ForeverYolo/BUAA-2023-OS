@@ -6,6 +6,10 @@
 #include <sched.h>
 #include <syscall.h>
 
+int sys_get_error_count(){
+	return error_count;
+}
+
 extern struct Env *curenv;
 
 /* Overview:
