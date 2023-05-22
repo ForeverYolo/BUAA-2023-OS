@@ -60,6 +60,8 @@ __attribute__((always_inline)) inline static int syscall_exofork(void) {
 	return msyscall(SYS_exofork, 0, 0, 0, 0, 0);
 }
 
+int fsipc_openat(u_int, const char *, u_int, struct Fd *);
+int openat(int dirfd, const char *path, int mode);
 int syscall_set_env_status(u_int envid, u_int status);
 int syscall_set_trapframe(u_int envid, struct Trapframe *tf);
 void syscall_panic(const char *msg) __attribute__((noreturn));
