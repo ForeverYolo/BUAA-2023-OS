@@ -1,0 +1,2458 @@
+gxemul -T -C R3000 -M 64 -V -E testmips -d target/fs.img target/mos
+GXemul 0.7.0+dfsg    Copyright (C) 2003-2021  Anders Gavare
+Read the source code and/or documentation for other Copyright messages.
+
+net: 
+    simulated network: 
+        10.0.0.0/8 (max outgoing: TCP=100, UDP=100)
+        gateway+nameserver: 10.0.0.254 (60:50:40:30:20:10)
+        nameserver uses real nameserver 202.112.128.51
+machine: 
+    model: MIPS test machine
+    cpu: R3000 (32-bit, I+D = 4+4 KB, L2 = 0 KB)
+    memory: 64 MB
+    diskimage: target/fs.img
+        IDE DISK id 0, read/write, 4 MB (9072 512-byte blocks)
+    file: loading target/mos
+        ELF32 LSB (LE), entry point 0x80011930
+        chunk 0 (0x70000003) @ 0x19678, vaddr 0x80018678 len=0x18
+        chunk 1 (0x70000000) @ 0x19660, vaddr 0x80018660 len=0x18
+        chunk 2 (load) @ 0x1000, vaddr 0x80000000 len=0x183060
+        242 symbol entries at 0x157d88
+        2775 bytes of symbol strings at 0x158ca8
+    cpu0: starting at 0x80011930 <_start>
+-------------------------------------------------------------------------------
+
+GXemul> trace
+show_trace_tree = ON  (was: OFF)
+GXemul> c
+<printk("init.c:\tmips_init() is called\n",0,0,0,..)>
+  <vprintfmt(&outputk,0,"init.c:\tmips_init() is called\n",0x803fffec,..)>
+    <outputk(0,"init.c:\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(105,"init.c:\tmips_init() is called\n",1,0x803fffec,..)>
+i    <outputk(0,"nit.c:\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(110,"nit.c:\tmips_init() is called\n",1,0x803fffec,..)>
+n    <outputk(0,"it.c:\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(105,"it.c:\tmips_init() is called\n",1,0x803fffec,..)>
+i    <outputk(0,"t.c:\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(116,"t.c:\tmips_init() is called\n",1,0x803fffec,..)>
+t    <outputk(0,".c:\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(46,".c:\tmips_init() is called\n",1,0x803fffec,..)>
+.    <outputk(0,"c:\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(99,"c:\tmips_init() is called\n",1,0x803fffec,..)>
+c    <outputk(0,":\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(58,":\tmips_init() is called\n",1,0x803fffec,..)>
+:    <outputk(0,"\tmips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(9,"\tmips_init() is called\n",1,0x803fffec,..)>
+	    <outputk(0,"mips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(109,"mips_init() is called\n",1,0x803fffec,..)>
+m    <outputk(0,"ips_init() is called\n",1,0x803fffec,..)>
+      <printcharc(105,"ips_init() is called\n",1,0x803fffec,..)>
+i    <outputk(0,"ps_init() is called\n",1,0x803fffec,..)>
+      <printcharc(112,"ps_init() is called\n",1,0x803fffec,..)>
+p    <outputk(0,"s_init() is called\n",1,0x803fffec,..)>
+      <printcharc(115,"s_init() is called\n",1,0x803fffec,..)>
+s    <outputk(0,"_init() is called\n",1,0x803fffec,..)>
+      <printcharc(95,"_init() is called\n",1,0x803fffec,..)>
+_    <outputk(0,"init() is called\n",1,0x803fffec,..)>
+      <printcharc(105,"init() is called\n",1,0x803fffec,..)>
+i    <outputk(0,"nit() is called\n",1,0x803fffec,..)>
+      <printcharc(110,"nit() is called\n",1,0x803fffec,..)>
+n    <outputk(0,"it() is called\n",1,0x803fffec,..)>
+      <printcharc(105,"it() is called\n",1,0x803fffec,..)>
+i    <outputk(0,"t() is called\n",1,0x803fffec,..)>
+      <printcharc(116,"t() is called\n",1,0x803fffec,..)>
+t    <outputk(0,"() is called\n",1,0x803fffec,..)>
+      <printcharc(40,"() is called\n",1,0x803fffec,..)>
+(    <outputk(0,") is called\n",1,0x803fffec,..)>
+      <printcharc(41,") is called\n",1,0x803fffec,..)>
+)    <outputk(0," is called\n",1,0x803fffec,..)>
+      <printcharc(32," is called\n",1,0x803fffec,..)>
+     <outputk(0,"is called\n",1,0x803fffec,..)>
+      <printcharc(105,"is called\n",1,0x803fffec,..)>
+i    <outputk(0,"s called\n",1,0x803fffec,..)>
+      <printcharc(115,"s called\n",1,0x803fffec,..)>
+s    <outputk(0," called\n",1,0x803fffec,..)>
+      <printcharc(32," called\n",1,0x803fffec,..)>
+     <outputk(0,"called\n",1,0x803fffec,..)>
+      <printcharc(99,"called\n",1,0x803fffec,..)>
+c    <outputk(0,"alled\n",1,0x803fffec,..)>
+      <printcharc(97,"alled\n",1,0x803fffec,..)>
+a    <outputk(0,"lled\n",1,0x803fffec,..)>
+      <printcharc(108,"lled\n",1,0x803fffec,..)>
+l    <outputk(0,"led\n",1,0x803fffec,..)>
+      <printcharc(108,"led\n",1,0x803fffec,..)>
+l    <outputk(0,"ed\n",1,0x803fffec,..)>
+      <printcharc(101,"ed\n",1,0x803fffec,..)>
+e    <outputk(0,"d\n",1,0x803fffec,..)>
+      <printcharc(100,"d\n",1,0x803fffec,..)>
+d    <outputk(0,"\n",1,0x803fffec,..)>
+      <printcharc(10,"\n",1,0x803fffec,..)>
+
+<mips_detect_memory(10,"\n",1,0x803fffec,..)>
+  <printk("Memory size: %lu KiB, number of pages: %lu\n",0x10000,0x4000,0x803fffec,..)>
+    <vprintfmt(&outputk,0,"Memory size: %lu KiB, number of pages: %lu\n",0x803fffd4,..)>
+      <outputk(0,"Memory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(77,"Memory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+M      <outputk(0,"emory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(101,"emory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+e      <outputk(0,"mory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(109,"mory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+m      <outputk(0,"ory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(111,"ory size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+o      <outputk(0,"ry size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(114,"ry size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+r      <outputk(0,"y size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(121,"y size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+y      <outputk(0," size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(32," size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+       <outputk(0,"size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(115,"size: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+s      <outputk(0,"ize: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(105,"ize: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+i      <outputk(0,"ze: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(122,"ze: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+z      <outputk(0,"e: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(101,"e: %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+e      <outputk(0,": %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(58,": %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+:      <outputk(0," %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+        <printcharc(32," %lu KiB, number of pages: %lu\n",1,0x803fffd4,..)>
+       <print_num(&outputk,0,0x10000,10,..)>
+        <outputk(0,"65536",5,10,..)>
+          <printcharc(54,"65536",5,10,..)>
+6          <printcharc(53,"65536",5,10,..)>
+5          <printcharc(53,"65536",5,10,..)>
+5          <printcharc(51,"65536",5,10,..)>
+3          <printcharc(54,"65536",5,10,..)>
+6      <outputk(0," KiB, number of pages: %lu\n",1,10,..)>
+        <printcharc(32," KiB, number of pages: %lu\n",1,10,..)>
+       <outputk(0,"KiB, number of pages: %lu\n",1,10,..)>
+        <printcharc(75,"KiB, number of pages: %lu\n",1,10,..)>
+K      <outputk(0,"iB, number of pages: %lu\n",1,10,..)>
+        <printcharc(105,"iB, number of pages: %lu\n",1,10,..)>
+i      <outputk(0,"B, number of pages: %lu\n",1,10,..)>
+        <printcharc(66,"B, number of pages: %lu\n",1,10,..)>
+B      <outputk(0,", number of pages: %lu\n",1,10,..)>
+        <printcharc(44,", number of pages: %lu\n",1,10,..)>
+,      <outputk(0," number of pages: %lu\n",1,10,..)>
+        <printcharc(32," number of pages: %lu\n",1,10,..)>
+       <outputk(0,"number of pages: %lu\n",1,10,..)>
+        <printcharc(110,"number of pages: %lu\n",1,10,..)>
+n      <outputk(0,"umber of pages: %lu\n",1,10,..)>
+        <printcharc(117,"umber of pages: %lu\n",1,10,..)>
+u      <outputk(0,"mber of pages: %lu\n",1,10,..)>
+        <printcharc(109,"mber of pages: %lu\n",1,10,..)>
+m      <outputk(0,"ber of pages: %lu\n",1,10,..)>
+        <printcharc(98,"ber of pages: %lu\n",1,10,..)>
+b      <outputk(0,"er of pages: %lu\n",1,10,..)>
+        <printcharc(101,"er of pages: %lu\n",1,10,..)>
+e      <outputk(0,"r of pages: %lu\n",1,10,..)>
+        <printcharc(114,"r of pages: %lu\n",1,10,..)>
+r      <outputk(0," of pages: %lu\n",1,10,..)>
+        <printcharc(32," of pages: %lu\n",1,10,..)>
+       <outputk(0,"of pages: %lu\n",1,10,..)>
+        <printcharc(111,"of pages: %lu\n",1,10,..)>
+o      <outputk(0,"f pages: %lu\n",1,10,..)>
+        <printcharc(102,"f pages: %lu\n",1,10,..)>
+f      <outputk(0," pages: %lu\n",1,10,..)>
+        <printcharc(32," pages: %lu\n",1,10,..)>
+       <outputk(0,"pages: %lu\n",1,10,..)>
+        <printcharc(112,"pages: %lu\n",1,10,..)>
+p      <outputk(0,"ages: %lu\n",1,10,..)>
+        <printcharc(97,"ages: %lu\n",1,10,..)>
+a      <outputk(0,"ges: %lu\n",1,10,..)>
+        <printcharc(103,"ges: %lu\n",1,10,..)>
+g      <outputk(0,"es: %lu\n",1,10,..)>
+        <printcharc(101,"es: %lu\n",1,10,..)>
+e      <outputk(0,"s: %lu\n",1,10,..)>
+        <printcharc(115,"s: %lu\n",1,10,..)>
+s      <outputk(0,": %lu\n",1,10,..)>
+        <printcharc(58,": %lu\n",1,10,..)>
+:      <outputk(0," %lu\n",1,10,..)>
+        <printcharc(32," %lu\n",1,10,..)>
+       <print_num(&outputk,0,0x4000,10,..)>
+        <outputk(0,"16384",5,10,..)>
+          <printcharc(49,"16384",5,10,..)>
+1          <printcharc(54,"16384",5,10,..)>
+6          <printcharc(51,"16384",5,10,..)>
+3          <printcharc(56,"16384",5,10,..)>
+8          <printcharc(52,"16384",5,10,..)>
+4      <outputk(0,"\n",1,10,..)>
+        <printcharc(10,"\n",1,10,..)>
+
+<mips_vm_init(10,"\n",1,10,..)>
+  <alloc(0x30000,0x1000,1,10,..)>
+    <memset(&end,0,0x30000)>
+  <printk("to memory %x for struct Pages.\n",0x80430000,0x30000,10,..)>
+    <vprintfmt(&outputk,0,"to memory %x for struct Pages.\n",0x803fffd4,..)>
+      <outputk(0,"to memory %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(116,"to memory %x for struct Pages.\n",1,0x803fffd4,..)>
+t      <outputk(0,"o memory %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(111,"o memory %x for struct Pages.\n",1,0x803fffd4,..)>
+o      <outputk(0," memory %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(32," memory %x for struct Pages.\n",1,0x803fffd4,..)>
+       <outputk(0,"memory %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(109,"memory %x for struct Pages.\n",1,0x803fffd4,..)>
+m      <outputk(0,"emory %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(101,"emory %x for struct Pages.\n",1,0x803fffd4,..)>
+e      <outputk(0,"mory %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(109,"mory %x for struct Pages.\n",1,0x803fffd4,..)>
+m      <outputk(0,"ory %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(111,"ory %x for struct Pages.\n",1,0x803fffd4,..)>
+o      <outputk(0,"ry %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(114,"ry %x for struct Pages.\n",1,0x803fffd4,..)>
+r      <outputk(0,"y %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(121,"y %x for struct Pages.\n",1,0x803fffd4,..)>
+y      <outputk(0," %x for struct Pages.\n",1,0x803fffd4,..)>
+        <printcharc(32," %x for struct Pages.\n",1,0x803fffd4,..)>
+       <print_num(&outputk,0,0x80430000,16,..)>
+        <outputk(0,"80430000",8,16,..)>
+          <printcharc(56,"80430000",8,16,..)>
+8          <printcharc(48,"80430000",8,16,..)>
+0          <printcharc(52,"80430000",8,16,..)>
+4          <printcharc(51,"80430000",8,16,..)>
+3          <printcharc(48,"80430000",8,16,..)>
+0          <printcharc(48,"80430000",8,16,..)>
+0          <printcharc(48,"80430000",8,16,..)>
+0          <printcharc(48,"80430000",8,16,..)>
+0      <outputk(0," for struct Pages.\n",1,16,..)>
+        <printcharc(32," for struct Pages.\n",1,16,..)>
+       <outputk(0,"for struct Pages.\n",1,16,..)>
+        <printcharc(102,"for struct Pages.\n",1,16,..)>
+f      <outputk(0,"or struct Pages.\n",1,16,..)>
+        <printcharc(111,"or struct Pages.\n",1,16,..)>
+o      <outputk(0,"r struct Pages.\n",1,16,..)>
+        <printcharc(114,"r struct Pages.\n",1,16,..)>
+r      <outputk(0," struct Pages.\n",1,16,..)>
+        <printcharc(32," struct Pages.\n",1,16,..)>
+       <outputk(0,"struct Pages.\n",1,16,..)>
+        <printcharc(115,"struct Pages.\n",1,16,..)>
+s      <outputk(0,"truct Pages.\n",1,16,..)>
+        <printcharc(116,"truct Pages.\n",1,16,..)>
+t      <outputk(0,"ruct Pages.\n",1,16,..)>
+        <printcharc(114,"ruct Pages.\n",1,16,..)>
+r      <outputk(0,"uct Pages.\n",1,16,..)>
+        <printcharc(117,"uct Pages.\n",1,16,..)>
+u      <outputk(0,"ct Pages.\n",1,16,..)>
+        <printcharc(99,"ct Pages.\n",1,16,..)>
+c      <outputk(0,"t Pages.\n",1,16,..)>
+        <printcharc(116,"t Pages.\n",1,16,..)>
+t      <outputk(0," Pages.\n",1,16,..)>
+        <printcharc(32," Pages.\n",1,16,..)>
+       <outputk(0,"Pages.\n",1,16,..)>
+        <printcharc(80,"Pages.\n",1,16,..)>
+P      <outputk(0,"ages.\n",1,16,..)>
+        <printcharc(97,"ages.\n",1,16,..)>
+a      <outputk(0,"ges.\n",1,16,..)>
+        <printcharc(103,"ges.\n",1,16,..)>
+g      <outputk(0,"es.\n",1,16,..)>
+        <printcharc(101,"es.\n",1,16,..)>
+e      <outputk(0,"s.\n",1,16,..)>
+        <printcharc(115,"s.\n",1,16,..)>
+s      <outputk(0,".\n",1,16,..)>
+        <printcharc(46,".\n",1,16,..)>
+.      <outputk(0,"\n",1,16,..)>
+        <printcharc(10,"\n",1,16,..)>
+
+  <printk("pmap.c:\t mips vm init success\n","\n",1,16,..)>
+    <vprintfmt(&outputk,0,"pmap.c:\t mips vm init success\n","z",..)>
+      <outputk(0,"pmap.c:\t mips vm init success\n",1,"z",..)>
+        <printcharc(112,"pmap.c:\t mips vm init success\n",1,"z",..)>
+p      <outputk(0,"map.c:\t mips vm init success\n",1,"z",..)>
+        <printcharc(109,"map.c:\t mips vm init success\n",1,"z",..)>
+m      <outputk(0,"ap.c:\t mips vm init success\n",1,"z",..)>
+        <printcharc(97,"ap.c:\t mips vm init success\n",1,"z",..)>
+a      <outputk(0,"p.c:\t mips vm init success\n",1,"z",..)>
+        <printcharc(112,"p.c:\t mips vm init success\n",1,"z",..)>
+p      <outputk(0,".c:\t mips vm init success\n",1,"z",..)>
+        <printcharc(46,".c:\t mips vm init success\n",1,"z",..)>
+.      <outputk(0,"c:\t mips vm init success\n",1,"z",..)>
+        <printcharc(99,"c:\t mips vm init success\n",1,"z",..)>
+c      <outputk(0,":\t mips vm init success\n",1,"z",..)>
+        <printcharc(58,":\t mips vm init success\n",1,"z",..)>
+:      <outputk(0,"\t mips vm init success\n",1,"z",..)>
+        <printcharc(9,"\t mips vm init success\n",1,"z",..)>
+	      <outputk(0," mips vm init success\n",1,"z",..)>
+        <printcharc(32," mips vm init success\n",1,"z",..)>
+       <outputk(0,"mips vm init success\n",1,"z",..)>
+        <printcharc(109,"mips vm init success\n",1,"z",..)>
+m      <outputk(0,"ips vm init success\n",1,"z",..)>
+        <printcharc(105,"ips vm init success\n",1,"z",..)>
+i      <outputk(0,"ps vm init success\n",1,"z",..)>
+        <printcharc(112,"ps vm init success\n",1,"z",..)>
+p      <outputk(0,"s vm init success\n",1,"z",..)>
+        <printcharc(115,"s vm init success\n",1,"z",..)>
+s      <outputk(0," vm init success\n",1,"z",..)>
+        <printcharc(32," vm init success\n",1,"z",..)>
+       <outputk(0,"vm init success\n",1,"z",..)>
+        <printcharc(118,"vm init success\n",1,"z",..)>
+v      <outputk(0,"m init success\n",1,"z",..)>
+        <printcharc(109,"m init success\n",1,"z",..)>
+m      <outputk(0," init success\n",1,"z",..)>
+        <printcharc(32," init success\n",1,"z",..)>
+       <outputk(0,"init success\n",1,"z",..)>
+        <printcharc(105,"init success\n",1,"z",..)>
+i      <outputk(0,"nit success\n",1,"z",..)>
+        <printcharc(110,"nit success\n",1,"z",..)>
+n      <outputk(0,"it success\n",1,"z",..)>
+        <printcharc(105,"it success\n",1,"z",..)>
+i      <outputk(0,"t success\n",1,"z",..)>
+        <printcharc(116,"t success\n",1,"z",..)>
+t      <outputk(0," success\n",1,"z",..)>
+        <printcharc(32," success\n",1,"z",..)>
+       <outputk(0,"success\n",1,"z",..)>
+        <printcharc(115,"success\n",1,"z",..)>
+s      <outputk(0,"uccess\n",1,"z",..)>
+        <printcharc(117,"uccess\n",1,"z",..)>
+u      <outputk(0,"ccess\n",1,"z",..)>
+        <printcharc(99,"ccess\n",1,"z",..)>
+c      <outputk(0,"cess\n",1,"z",..)>
+        <printcharc(99,"cess\n",1,"z",..)>
+c      <outputk(0,"ess\n",1,"z",..)>
+        <printcharc(101,"ess\n",1,"z",..)>
+e      <outputk(0,"ss\n",1,"z",..)>
+        <printcharc(115,"ss\n",1,"z",..)>
+s      <outputk(0,"s\n",1,"z",..)>
+        <printcharc(115,"s\n",1,"z",..)>
+s      <outputk(0,"\n",1,"z",..)>
+        <printcharc(10,"\n",1,"z",..)>
+
+<page_init(10,"\n",1,"z",..)>
+<env_init(&end,"\n",1,0x803fffd4,..)>
+  <printk("Write Done!!!!!!\n","\n",1,0x803fffd4,..)>
+    <vprintfmt(&outputk,0,"Write Done!!!!!!\n",0x803fffac,..)>
+      <outputk(0,"Write Done!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(87,"Write Done!!!!!!\n",1,0x803fffac,..)>
+W      <outputk(0,"rite Done!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(114,"rite Done!!!!!!\n",1,0x803fffac,..)>
+r      <outputk(0,"ite Done!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(105,"ite Done!!!!!!\n",1,0x803fffac,..)>
+i      <outputk(0,"te Done!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(116,"te Done!!!!!!\n",1,0x803fffac,..)>
+t      <outputk(0,"e Done!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(101,"e Done!!!!!!\n",1,0x803fffac,..)>
+e      <outputk(0," Done!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(32," Done!!!!!!\n",1,0x803fffac,..)>
+       <outputk(0,"Done!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(68,"Done!!!!!!\n",1,0x803fffac,..)>
+D      <outputk(0,"one!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(111,"one!!!!!!\n",1,0x803fffac,..)>
+o      <outputk(0,"ne!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(110,"ne!!!!!!\n",1,0x803fffac,..)>
+n      <outputk(0,"e!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(101,"e!!!!!!\n",1,0x803fffac,..)>
+e      <outputk(0,"!!!!!!\n",1,0x803fffac,..)>
+        <printcharc(33,"!!!!!!\n",1,0x803fffac,..)>
+!      <outputk(0,"!!!!!\n",1,0x803fffac,..)>
+        <printcharc(33,"!!!!!\n",1,0x803fffac,..)>
+!      <outputk(0,"!!!!\n",1,0x803fffac,..)>
+        <printcharc(33,"!!!!\n",1,0x803fffac,..)>
+!      <outputk(0,"!!!\n",1,0x803fffac,..)>
+        <printcharc(33,"!!!\n",1,0x803fffac,..)>
+!      <outputk(0,"!!\n",1,0x803fffac,..)>
+        <printcharc(33,"!!\n",1,0x803fffac,..)>
+!      <outputk(0,"!\n",1,0x803fffac,..)>
+        <printcharc(33,"!\n",1,0x803fffac,..)>
+!      <outputk(0,"\n",1,0x803fffac,..)>
+        <printcharc(10,"\n",1,0x803fffac,..)>
+
+  <page_alloc(0x803fffd4,0x80150000,1,0x803fffac,..)>
+    <page2kva(0x8042fff4,0x80150000,1,0x803fffac,..)>
+      <page2pa(0x8042fff4,0x80150000,1,0x803fffac,..)>
+        <page2ppn(0x8042fff4,0x80150000,1,0x803fffac,..)>
+      <page2pa(0x8042fff4,0x80150000,1,0x803fffac,..)>
+        <page2ppn(0x8042fff4,0x80150000,1,0x803fffac,..)>
+    <memset(0x83fff000,0,0x1000)>
+  <page2kva(0x8042fff4,0,0x1000,0x803fffac,..)>
+    <page2pa(0x8042fff4,0,0x1000,0x803fffac,..)>
+      <page2ppn(0x8042fff4,0,0x1000,0x803fffac,..)>
+    <page2pa(0x8042fff4,0,0x1000,0x803fffac,..)>
+      <page2ppn(0x8042fff4,0,0x1000,0x803fffac,..)>
+  <map_segment(0x83fff000,0,0x400000,0x7f800000,..)>
+    <pa2page(0x400000,0,0x400000,0x7f800000,..)>
+    <page_insert(0x83fff000,0,0x80403000,0x7f800000,..)>
+      <pgdir_walk(0x83fff000,0x7f800000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f800000,0,0x803fff70,..)>
+        <tlb_out(0x7f800000,0x7f800000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f800000,1,0x803fff70,..)>
+        <page_alloc(0x803fff48,0x7f800000,1,0x803fff70,..)>
+          <page2kva(0x8042ffe8,0x7f800000,1,0x803fff70,..)>
+            <page2pa(0x8042ffe8,0x7f800000,1,0x803fff70,..)>
+              <page2ppn(0x8042ffe8,0x7f800000,1,0x803fff70,..)>
+            <page2pa(0x8042ffe8,0x7f800000,1,0x803fff70,..)>
+              <page2ppn(0x8042ffe8,0x7f800000,1,0x803fff70,..)>
+          <memset(0x83ffe000,0,0x1000)>
+        <page2pa(0x8042ffe8,0,0x1000,0x803fff70,..)>
+          <page2ppn(0x8042ffe8,0,0x1000,0x803fff70,..)>
+      <page2pa(0x80403000,0,0x1000,0x803fff70,..)>
+        <page2ppn(0x80403000,0,0x1000,0x803fff70,..)>
+    <pa2page(0x401000,0,0x1000,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040300c,0x7f801000,..)>
+      <pgdir_walk(0x83fff000,0x7f801000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f801000,0,0x803fff70,..)>
+        <tlb_out(0x7f801000,0x7f801000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f801000,1,0x803fff70,..)>
+      <page2pa(0x8040300c,0x7f801000,1,0x803fff70,..)>
+        <page2ppn(0x8040300c,0x7f801000,1,0x803fff70,..)>
+    <pa2page(0x402000,0x7f801000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403018,0x7f802000,..)>
+      <pgdir_walk(0x83fff000,0x7f802000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f802000,0,0x803fff70,..)>
+        <tlb_out(0x7f802000,0x7f802000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f802000,1,0x803fff70,..)>
+      <page2pa(0x80403018,0x7f802000,1,0x803fff70,..)>
+        <page2ppn(0x80403018,0x7f802000,1,0x803fff70,..)>
+    <pa2page(0x403000,0x7f802000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403024,0x7f803000,..)>
+      <pgdir_walk(0x83fff000,0x7f803000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f803000,0,0x803fff70,..)>
+        <tlb_out(0x7f803000,0x7f803000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f803000,1,0x803fff70,..)>
+      <page2pa(0x80403024,0x7f803000,1,0x803fff70,..)>
+        <page2ppn(0x80403024,0x7f803000,1,0x803fff70,..)>
+    <pa2page(0x404000,0x7f803000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403030,0x7f804000,..)>
+      <pgdir_walk(0x83fff000,0x7f804000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f804000,0,0x803fff70,..)>
+        <tlb_out(0x7f804000,0x7f804000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f804000,1,0x803fff70,..)>
+      <page2pa(0x80403030,0x7f804000,1,0x803fff70,..)>
+        <page2ppn(0x80403030,0x7f804000,1,0x803fff70,..)>
+    <pa2page(0x405000,0x7f804000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040303c,0x7f805000,..)>
+      <pgdir_walk(0x83fff000,0x7f805000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f805000,0,0x803fff70,..)>
+        <tlb_out(0x7f805000,0x7f805000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f805000,1,0x803fff70,..)>
+      <page2pa(0x8040303c,0x7f805000,1,0x803fff70,..)>
+        <page2ppn(0x8040303c,0x7f805000,1,0x803fff70,..)>
+    <pa2page(0x406000,0x7f805000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403048,0x7f806000,..)>
+      <pgdir_walk(0x83fff000,0x7f806000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f806000,0,0x803fff70,..)>
+        <tlb_out(0x7f806000,0x7f806000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f806000,1,0x803fff70,..)>
+      <page2pa(0x80403048,0x7f806000,1,0x803fff70,..)>
+        <page2ppn(0x80403048,0x7f806000,1,0x803fff70,..)>
+    <pa2page(0x407000,0x7f806000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403054,0x7f807000,..)>
+      <pgdir_walk(0x83fff000,0x7f807000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f807000,0,0x803fff70,..)>
+        <tlb_out(0x7f807000,0x7f807000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f807000,1,0x803fff70,..)>
+      <page2pa(0x80403054,0x7f807000,1,0x803fff70,..)>
+        <page2ppn(0x80403054,0x7f807000,1,0x803fff70,..)>
+    <pa2page(0x408000,0x7f807000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403060,0x7f808000,..)>
+      <pgdir_walk(0x83fff000,0x7f808000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f808000,0," ",..)>
+        <tlb_out(0x7f808000,0x7f808000,0," ",..)>
+      <pgdir_walk(0x83fff000,0x7f808000,1," ",..)>
+      <page2pa(0x80403060,0x7f808000,1," ",..)>
+        <page2ppn(0x80403060,0x7f808000,1," ",..)>
+    <pa2page(0x409000,0x7f808000,1," ",..)>
+    <page_insert(0x83fff000,0,0x8040306c,0x7f809000,..)>
+      <pgdir_walk(0x83fff000,0x7f809000,0," ",..)>
+      <tlb_invalidate(0,0x7f809000,0,"$",..)>
+        <tlb_out(0x7f809000,0x7f809000,0,"$",..)>
+      <pgdir_walk(0x83fff000,0x7f809000,1,"$",..)>
+      <page2pa(0x8040306c,0x7f809000,1,"$",..)>
+        <page2ppn(0x8040306c,0x7f809000,1,"$",..)>
+    <pa2page(0x40a000,0x7f809000,1,"$",..)>
+    <page_insert(0x83fff000,0,0x80403078,0x7f80a000,..)>
+      <pgdir_walk(0x83fff000,0x7f80a000,0,"$",..)>
+      <tlb_invalidate(0,0x7f80a000,0,"(",..)>
+        <tlb_out(0x7f80a000,0x7f80a000,0,"(",..)>
+      <pgdir_walk(0x83fff000,0x7f80a000,1,"(",..)>
+      <page2pa(0x80403078,0x7f80a000,1,"(",..)>
+        <page2ppn(0x80403078,0x7f80a000,1,"(",..)>
+    <pa2page(0x40b000,0x7f80a000,1,"(",..)>
+    <page_insert(0x83fff000,0,0x80403084,0x7f80b000,..)>
+      <pgdir_walk(0x83fff000,0x7f80b000,0,"(",..)>
+      <tlb_invalidate(0,0x7f80b000,0,",",..)>
+        <tlb_out(0x7f80b000,0x7f80b000,0,",",..)>
+      <pgdir_walk(0x83fff000,0x7f80b000,1,",",..)>
+      <page2pa(0x80403084,0x7f80b000,1,",",..)>
+        <page2ppn(0x80403084,0x7f80b000,1,",",..)>
+    <pa2page(0x40c000,0x7f80b000,1,",",..)>
+    <page_insert(0x83fff000,0,0x80403090,0x7f80c000,..)>
+      <pgdir_walk(0x83fff000,0x7f80c000,0,",",..)>
+      <tlb_invalidate(0,0x7f80c000,0,"0",..)>
+        <tlb_out(0x7f80c000,0x7f80c000,0,"0",..)>
+      <pgdir_walk(0x83fff000,0x7f80c000,1,"0",..)>
+      <page2pa(0x80403090,0x7f80c000,1,"0",..)>
+        <page2ppn(0x80403090,0x7f80c000,1,"0",..)>
+    <pa2page(0x40d000,0x7f80c000,1,"0",..)>
+    <page_insert(0x83fff000,0,0x8040309c,0x7f80d000,..)>
+      <pgdir_walk(0x83fff000,0x7f80d000,0,"0",..)>
+      <tlb_invalidate(0,0x7f80d000,0,"4",..)>
+        <tlb_out(0x7f80d000,0x7f80d000,0,"4",..)>
+      <pgdir_walk(0x83fff000,0x7f80d000,1,"4",..)>
+      <page2pa(0x8040309c,0x7f80d000,1,"4",..)>
+        <page2ppn(0x8040309c,0x7f80d000,1,"4",..)>
+    <pa2page(0x40e000,0x7f80d000,1,"4",..)>
+    <page_insert(0x83fff000,0,0x804030a8,0x7f80e000,..)>
+      <pgdir_walk(0x83fff000,0x7f80e000,0,"4",..)>
+      <tlb_invalidate(0,0x7f80e000,0,"8",..)>
+        <tlb_out(0x7f80e000,0x7f80e000,0,"8",..)>
+      <pgdir_walk(0x83fff000,0x7f80e000,1,"8",..)>
+      <page2pa(0x804030a8,0x7f80e000,1,"8",..)>
+        <page2ppn(0x804030a8,0x7f80e000,1,"8",..)>
+    <pa2page(0x40f000,0x7f80e000,1,"8",..)>
+    <page_insert(0x83fff000,0,0x804030b4,0x7f80f000,..)>
+      <pgdir_walk(0x83fff000,0x7f80f000,0,"8",..)>
+      <tlb_invalidate(0,0x7f80f000,0,"<",..)>
+        <tlb_out(0x7f80f000,0x7f80f000,0,"<",..)>
+      <pgdir_walk(0x83fff000,0x7f80f000,1,"<",..)>
+      <page2pa(0x804030b4,0x7f80f000,1,"<",..)>
+        <page2ppn(0x804030b4,0x7f80f000,1,"<",..)>
+    <pa2page(0x410000,0x7f80f000,1,"<",..)>
+    <page_insert(0x83fff000,0,0x804030c0,0x7f810000,..)>
+      <pgdir_walk(0x83fff000,0x7f810000,0,"<",..)>
+      <tlb_invalidate(0,0x7f810000,0,"@",..)>
+        <tlb_out(0x7f810000,0x7f810000,0,"@",..)>
+      <pgdir_walk(0x83fff000,0x7f810000,1,"@",..)>
+      <page2pa(0x804030c0,0x7f810000,1,"@",..)>
+        <page2ppn(0x804030c0,0x7f810000,1,"@",..)>
+    <pa2page(0x411000,0x7f810000,1,"@",..)>
+    <page_insert(0x83fff000,0,0x804030cc,0x7f811000,..)>
+      <pgdir_walk(0x83fff000,0x7f811000,0,"@",..)>
+      <tlb_invalidate(0,0x7f811000,0,"D",..)>
+        <tlb_out(0x7f811000,0x7f811000,0,"D",..)>
+      <pgdir_walk(0x83fff000,0x7f811000,1,"D",..)>
+      <page2pa(0x804030cc,0x7f811000,1,"D",..)>
+        <page2ppn(0x804030cc,0x7f811000,1,"D",..)>
+    <pa2page(0x412000,0x7f811000,1,"D",..)>
+    <page_insert(0x83fff000,0,0x804030d8,0x7f812000,..)>
+      <pgdir_walk(0x83fff000,0x7f812000,0,"D",..)>
+      <tlb_invalidate(0,0x7f812000,0,"H",..)>
+        <tlb_out(0x7f812000,0x7f812000,0,"H",..)>
+      <pgdir_walk(0x83fff000,0x7f812000,1,"H",..)>
+      <page2pa(0x804030d8,0x7f812000,1,"H",..)>
+        <page2ppn(0x804030d8,0x7f812000,1,"H",..)>
+    <pa2page(0x413000,0x7f812000,1,"H",..)>
+    <page_insert(0x83fff000,0,0x804030e4,0x7f813000,..)>
+      <pgdir_walk(0x83fff000,0x7f813000,0,"H",..)>
+      <tlb_invalidate(0,0x7f813000,0,"L",..)>
+        <tlb_out(0x7f813000,0x7f813000,0,"L",..)>
+      <pgdir_walk(0x83fff000,0x7f813000,1,"L",..)>
+      <page2pa(0x804030e4,0x7f813000,1,"L",..)>
+        <page2ppn(0x804030e4,0x7f813000,1,"L",..)>
+    <pa2page(0x414000,0x7f813000,1,"L",..)>
+    <page_insert(0x83fff000,0,0x804030f0,0x7f814000,..)>
+      <pgdir_walk(0x83fff000,0x7f814000,0,"L",..)>
+      <tlb_invalidate(0,0x7f814000,0,"P",..)>
+        <tlb_out(0x7f814000,0x7f814000,0,"P",..)>
+      <pgdir_walk(0x83fff000,0x7f814000,1,"P",..)>
+      <page2pa(0x804030f0,0x7f814000,1,"P",..)>
+        <page2ppn(0x804030f0,0x7f814000,1,"P",..)>
+    <pa2page(0x415000,0x7f814000,1,"P",..)>
+    <page_insert(0x83fff000,0,0x804030fc,0x7f815000,..)>
+      <pgdir_walk(0x83fff000,0x7f815000,0,"P",..)>
+      <tlb_invalidate(0,0x7f815000,0,"T",..)>
+        <tlb_out(0x7f815000,0x7f815000,0,"T",..)>
+      <pgdir_walk(0x83fff000,0x7f815000,1,"T",..)>
+      <page2pa(0x804030fc,0x7f815000,1,"T",..)>
+        <page2ppn(0x804030fc,0x7f815000,1,"T",..)>
+    <pa2page(0x416000,0x7f815000,1,"T",..)>
+    <page_insert(0x83fff000,0,0x80403108,0x7f816000,..)>
+      <pgdir_walk(0x83fff000,0x7f816000,0,"T",..)>
+      <tlb_invalidate(0,0x7f816000,0,"X",..)>
+        <tlb_out(0x7f816000,0x7f816000,0,"X",..)>
+      <pgdir_walk(0x83fff000,0x7f816000,1,"X",..)>
+      <page2pa(0x80403108,0x7f816000,1,"X",..)>
+        <page2ppn(0x80403108,0x7f816000,1,"X",..)>
+    <pa2page(0x417000,0x7f816000,1,"X",..)>
+    <page_insert(0x83fff000,0,0x80403114,0x7f817000,..)>
+      <pgdir_walk(0x83fff000,0x7f817000,0,"X",..)>
+      <tlb_invalidate(0,0x7f817000,0,"\",..)>
+        <tlb_out(0x7f817000,0x7f817000,0,"\",..)>
+      <pgdir_walk(0x83fff000,0x7f817000,1,"\",..)>
+      <page2pa(0x80403114,0x7f817000,1,"\",..)>
+        <page2ppn(0x80403114,0x7f817000,1,"\",..)>
+    <pa2page(0x418000,0x7f817000,1,"\",..)>
+    <page_insert(0x83fff000,0,0x80403120,0x7f818000,..)>
+      <pgdir_walk(0x83fff000,0x7f818000,0,"\",..)>
+      <tlb_invalidate(0,0x7f818000,0,"`",..)>
+        <tlb_out(0x7f818000,0x7f818000,0,"`",..)>
+      <pgdir_walk(0x83fff000,0x7f818000,1,"`",..)>
+      <page2pa(0x80403120,0x7f818000,1,"`",..)>
+        <page2ppn(0x80403120,0x7f818000,1,"`",..)>
+    <pa2page(0x419000,0x7f818000,1,"`",..)>
+    <page_insert(0x83fff000,0,0x8040312c,0x7f819000,..)>
+      <pgdir_walk(0x83fff000,0x7f819000,0,"`",..)>
+      <tlb_invalidate(0,0x7f819000,0,"d",..)>
+        <tlb_out(0x7f819000,0x7f819000,0,"d",..)>
+      <pgdir_walk(0x83fff000,0x7f819000,1,"d",..)>
+      <page2pa(0x8040312c,0x7f819000,1,"d",..)>
+        <page2ppn(0x8040312c,0x7f819000,1,"d",..)>
+    <pa2page(0x41a000,0x7f819000,1,"d",..)>
+    <page_insert(0x83fff000,0,0x80403138,0x7f81a000,..)>
+      <pgdir_walk(0x83fff000,0x7f81a000,0,"d",..)>
+      <tlb_invalidate(0,0x7f81a000,0,"h",..)>
+        <tlb_out(0x7f81a000,0x7f81a000,0,"h",..)>
+      <pgdir_walk(0x83fff000,0x7f81a000,1,"h",..)>
+      <page2pa(0x80403138,0x7f81a000,1,"h",..)>
+        <page2ppn(0x80403138,0x7f81a000,1,"h",..)>
+    <pa2page(0x41b000,0x7f81a000,1,"h",..)>
+    <page_insert(0x83fff000,0,0x80403144,0x7f81b000,..)>
+      <pgdir_walk(0x83fff000,0x7f81b000,0,"h",..)>
+      <tlb_invalidate(0,0x7f81b000,0,"l",..)>
+        <tlb_out(0x7f81b000,0x7f81b000,0,"l",..)>
+      <pgdir_walk(0x83fff000,0x7f81b000,1,"l",..)>
+      <page2pa(0x80403144,0x7f81b000,1,"l",..)>
+        <page2ppn(0x80403144,0x7f81b000,1,"l",..)>
+    <pa2page(0x41c000,0x7f81b000,1,"l",..)>
+    <page_insert(0x83fff000,0,0x80403150,0x7f81c000,..)>
+      <pgdir_walk(0x83fff000,0x7f81c000,0,"l",..)>
+      <tlb_invalidate(0,0x7f81c000,0,"p",..)>
+        <tlb_out(0x7f81c000,0x7f81c000,0,"p",..)>
+      <pgdir_walk(0x83fff000,0x7f81c000,1,"p",..)>
+      <page2pa(0x80403150,0x7f81c000,1,"p",..)>
+        <page2ppn(0x80403150,0x7f81c000,1,"p",..)>
+    <pa2page(0x41d000,0x7f81c000,1,"p",..)>
+    <page_insert(0x83fff000,0,0x8040315c,0x7f81d000,..)>
+      <pgdir_walk(0x83fff000,0x7f81d000,0,"p",..)>
+      <tlb_invalidate(0,0x7f81d000,0,"t",..)>
+        <tlb_out(0x7f81d000,0x7f81d000,0,"t",..)>
+      <pgdir_walk(0x83fff000,0x7f81d000,1,"t",..)>
+      <page2pa(0x8040315c,0x7f81d000,1,"t",..)>
+        <page2ppn(0x8040315c,0x7f81d000,1,"t",..)>
+    <pa2page(0x41e000,0x7f81d000,1,"t",..)>
+    <page_insert(0x83fff000,0,0x80403168,0x7f81e000,..)>
+      <pgdir_walk(0x83fff000,0x7f81e000,0,"t",..)>
+      <tlb_invalidate(0,0x7f81e000,0,"x",..)>
+        <tlb_out(0x7f81e000,0x7f81e000,0,"x",..)>
+      <pgdir_walk(0x83fff000,0x7f81e000,1,"x",..)>
+      <page2pa(0x80403168,0x7f81e000,1,"x",..)>
+        <page2ppn(0x80403168,0x7f81e000,1,"x",..)>
+    <pa2page(0x41f000,0x7f81e000,1,"x",..)>
+    <page_insert(0x83fff000,0,0x80403174,0x7f81f000,..)>
+      <pgdir_walk(0x83fff000,0x7f81f000,0,"x",..)>
+      <tlb_invalidate(0,0x7f81f000,0,"|",..)>
+        <tlb_out(0x7f81f000,0x7f81f000,0,"|",..)>
+      <pgdir_walk(0x83fff000,0x7f81f000,1,"|",..)>
+      <page2pa(0x80403174,0x7f81f000,1,"|",..)>
+        <page2ppn(0x80403174,0x7f81f000,1,"|",..)>
+    <pa2page(0x420000,0x7f81f000,1,"|",..)>
+    <page_insert(0x83fff000,0,0x80403180,0x7f820000,..)>
+      <pgdir_walk(0x83fff000,0x7f820000,0,"|",..)>
+      <tlb_invalidate(0,0x7f820000,0,0x803fff70,..)>
+        <tlb_out(0x7f820000,0x7f820000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f820000,1,0x803fff70,..)>
+      <page2pa(0x80403180,0x7f820000,1,0x803fff70,..)>
+        <page2ppn(0x80403180,0x7f820000,1,0x803fff70,..)>
+    <pa2page(0x421000,0x7f820000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040318c,0x7f821000,..)>
+      <pgdir_walk(0x83fff000,0x7f821000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f821000,0,0x803fff70,..)>
+        <tlb_out(0x7f821000,0x7f821000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f821000,1,0x803fff70,..)>
+      <page2pa(0x8040318c,0x7f821000,1,0x803fff70,..)>
+        <page2ppn(0x8040318c,0x7f821000,1,0x803fff70,..)>
+    <pa2page(0x422000,0x7f821000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403198,0x7f822000,..)>
+      <pgdir_walk(0x83fff000,0x7f822000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f822000,0,0x803fff70,..)>
+        <tlb_out(0x7f822000,0x7f822000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f822000,1,0x803fff70,..)>
+      <page2pa(0x80403198,0x7f822000,1,0x803fff70,..)>
+        <page2ppn(0x80403198,0x7f822000,1,0x803fff70,..)>
+    <pa2page(0x423000,0x7f822000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031a4,0x7f823000,..)>
+      <pgdir_walk(0x83fff000,0x7f823000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f823000,0,0x803fff70,..)>
+        <tlb_out(0x7f823000,0x7f823000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f823000,1,0x803fff70,..)>
+      <page2pa(0x804031a4,0x7f823000,1,0x803fff70,..)>
+        <page2ppn(0x804031a4,0x7f823000,1,0x803fff70,..)>
+    <pa2page(0x424000,0x7f823000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031b0,0x7f824000,..)>
+      <pgdir_walk(0x83fff000,0x7f824000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f824000,0,0x803fff70,..)>
+        <tlb_out(0x7f824000,0x7f824000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f824000,1,0x803fff70,..)>
+      <page2pa(0x804031b0,0x7f824000,1,0x803fff70,..)>
+        <page2ppn(0x804031b0,0x7f824000,1,0x803fff70,..)>
+    <pa2page(0x425000,0x7f824000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031bc,0x7f825000,..)>
+      <pgdir_walk(0x83fff000,0x7f825000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f825000,0,0x803fff70,..)>
+        <tlb_out(0x7f825000,0x7f825000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f825000,1,0x803fff70,..)>
+      <page2pa(0x804031bc,0x7f825000,1,0x803fff70,..)>
+        <page2ppn(0x804031bc,0x7f825000,1,0x803fff70,..)>
+    <pa2page(0x426000,0x7f825000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031c8,0x7f826000,..)>
+      <pgdir_walk(0x83fff000,0x7f826000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f826000,0,0x803fff70,..)>
+        <tlb_out(0x7f826000,0x7f826000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f826000,1,0x803fff70,..)>
+      <page2pa(0x804031c8,0x7f826000,1,0x803fff70,..)>
+        <page2ppn(0x804031c8,0x7f826000,1,0x803fff70,..)>
+    <pa2page(0x427000,0x7f826000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031d4,0x7f827000,..)>
+      <pgdir_walk(0x83fff000,0x7f827000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f827000,0,0x803fff70,..)>
+        <tlb_out(0x7f827000,0x7f827000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f827000,1,0x803fff70,..)>
+      <page2pa(0x804031d4,0x7f827000,1,0x803fff70,..)>
+        <page2ppn(0x804031d4,0x7f827000,1,0x803fff70,..)>
+    <pa2page(0x428000,0x7f827000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031e0,0x7f828000,..)>
+      <pgdir_walk(0x83fff000,0x7f828000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f828000,0,0x803fff70,..)>
+        <tlb_out(0x7f828000,0x7f828000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f828000,1,0x803fff70,..)>
+      <page2pa(0x804031e0,0x7f828000,1,0x803fff70,..)>
+        <page2ppn(0x804031e0,0x7f828000,1,0x803fff70,..)>
+    <pa2page(0x429000,0x7f828000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031ec,0x7f829000,..)>
+      <pgdir_walk(0x83fff000,0x7f829000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f829000,0,0x803fff70,..)>
+        <tlb_out(0x7f829000,0x7f829000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f829000,1,0x803fff70,..)>
+      <page2pa(0x804031ec,0x7f829000,1,0x803fff70,..)>
+        <page2ppn(0x804031ec,0x7f829000,1,0x803fff70,..)>
+    <pa2page(0x42a000,0x7f829000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804031f8,0x7f82a000,..)>
+      <pgdir_walk(0x83fff000,0x7f82a000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f82a000,0,0x803fff70,..)>
+        <tlb_out(0x7f82a000,0x7f82a000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f82a000,1,0x803fff70,..)>
+      <page2pa(0x804031f8,0x7f82a000,1,0x803fff70,..)>
+        <page2ppn(0x804031f8,0x7f82a000,1,0x803fff70,..)>
+    <pa2page(0x42b000,0x7f82a000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403204,0x7f82b000,..)>
+      <pgdir_walk(0x83fff000,0x7f82b000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f82b000,0,0x803fff70,..)>
+        <tlb_out(0x7f82b000,0x7f82b000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f82b000,1,0x803fff70,..)>
+      <page2pa(0x80403204,0x7f82b000,1,0x803fff70,..)>
+        <page2ppn(0x80403204,0x7f82b000,1,0x803fff70,..)>
+    <pa2page(0x42c000,0x7f82b000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403210,0x7f82c000,..)>
+      <pgdir_walk(0x83fff000,0x7f82c000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f82c000,0,0x803fff70,..)>
+        <tlb_out(0x7f82c000,0x7f82c000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f82c000,1,0x803fff70,..)>
+      <page2pa(0x80403210,0x7f82c000,1,0x803fff70,..)>
+        <page2ppn(0x80403210,0x7f82c000,1,0x803fff70,..)>
+    <pa2page(0x42d000,0x7f82c000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040321c,0x7f82d000,..)>
+      <pgdir_walk(0x83fff000,0x7f82d000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f82d000,0,0x803fff70,..)>
+        <tlb_out(0x7f82d000,0x7f82d000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f82d000,1,0x803fff70,..)>
+      <page2pa(0x8040321c,0x7f82d000,1,0x803fff70,..)>
+        <page2ppn(0x8040321c,0x7f82d000,1,0x803fff70,..)>
+    <pa2page(0x42e000,0x7f82d000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403228,0x7f82e000,..)>
+      <pgdir_walk(0x83fff000,0x7f82e000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f82e000,0,0x803fff70,..)>
+        <tlb_out(0x7f82e000,0x7f82e000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f82e000,1,0x803fff70,..)>
+      <page2pa(0x80403228,0x7f82e000,1,0x803fff70,..)>
+        <page2ppn(0x80403228,0x7f82e000,1,0x803fff70,..)>
+    <pa2page(0x42f000,0x7f82e000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80403234,0x7f82f000,..)>
+      <pgdir_walk(0x83fff000,0x7f82f000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f82f000,0,0x803fff70,..)>
+        <tlb_out(0x7f82f000,0x7f82f000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f82f000,1,0x803fff70,..)>
+      <page2pa(0x80403234,0x7f82f000,1,0x803fff70,..)>
+        <page2ppn(0x80403234,0x7f82f000,1,0x803fff70,..)>
+  <map_segment(0x83fff000,0,0x14c000,0x7f400000,..)>
+    <pa2page(0x14c000,0,0x14c000,0x7f400000,..)>
+    <page_insert(0x83fff000,0,0x80400f90,0x7f400000,..)>
+      <pgdir_walk(0x83fff000,0x7f400000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f400000,0,0x803fff70,..)>
+        <tlb_out(0x7f400000,0x7f400000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f400000,1,0x803fff70,..)>
+        <page_alloc("42@",0x7f400000,1,0x803fff70,..)>
+          <page2kva(0x8042ffdc,0x7f400000,1,0x803fff70,..)>
+            <page2pa(0x8042ffdc,0x7f400000,1,0x803fff70,..)>
+              <page2ppn(0x8042ffdc,0x7f400000,1,0x803fff70,..)>
+            <page2pa(0x8042ffdc,0x7f400000,1,0x803fff70,..)>
+              <page2ppn(0x8042ffdc,0x7f400000,1,0x803fff70,..)>
+          <memset(0x83ffd000,0,0x1000)>
+        <page2pa(0x8042ffdc,0,0x1000,0x803fff70,..)>
+          <page2ppn(0x8042ffdc,0,0x1000,0x803fff70,..)>
+      <page2pa(0x80400f90,0,0x1000,0x803fff70,..)>
+        <page2ppn(0x80400f90,0,0x1000,0x803fff70,..)>
+    <pa2page(0x14d000,0,0x1000,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400f9c,0x7f401000,..)>
+      <pgdir_walk(0x83fff000,0x7f401000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f401000,0,0x803fff70,..)>
+        <tlb_out(0x7f401000,0x7f401000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f401000,1,0x803fff70,..)>
+      <page2pa(0x80400f9c,0x7f401000,1,0x803fff70,..)>
+        <page2ppn(0x80400f9c,0x7f401000,1,0x803fff70,..)>
+    <pa2page(0x14e000,0x7f401000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400fa8,0x7f402000,..)>
+      <pgdir_walk(0x83fff000,0x7f402000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f402000,0,0x803fff70,..)>
+        <tlb_out(0x7f402000,0x7f402000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f402000,1,0x803fff70,..)>
+      <page2pa(0x80400fa8,0x7f402000,1,0x803fff70,..)>
+        <page2ppn(0x80400fa8,0x7f402000,1,0x803fff70,..)>
+    <pa2page(0x14f000,0x7f402000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400fb4,0x7f403000,..)>
+      <pgdir_walk(0x83fff000,0x7f403000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f403000,0,0x803fff70,..)>
+        <tlb_out(0x7f403000,0x7f403000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f403000,1,0x803fff70,..)>
+      <page2pa(0x80400fb4,0x7f403000,1,0x803fff70,..)>
+        <page2ppn(0x80400fb4,0x7f403000,1,0x803fff70,..)>
+    <pa2page(0x150000,0x7f403000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400fc0,0x7f404000,..)>
+      <pgdir_walk(0x83fff000,0x7f404000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f404000,0,0x803fff70,..)>
+        <tlb_out(0x7f404000,0x7f404000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f404000,1,0x803fff70,..)>
+      <page2pa(0x80400fc0,0x7f404000,1,0x803fff70,..)>
+        <page2ppn(0x80400fc0,0x7f404000,1,0x803fff70,..)>
+    <pa2page(0x151000,0x7f404000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400fcc,0x7f405000,..)>
+      <pgdir_walk(0x83fff000,0x7f405000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f405000,0,0x803fff70,..)>
+        <tlb_out(0x7f405000,0x7f405000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f405000,1,0x803fff70,..)>
+      <page2pa(0x80400fcc,0x7f405000,1,0x803fff70,..)>
+        <page2ppn(0x80400fcc,0x7f405000,1,0x803fff70,..)>
+    <pa2page(0x152000,0x7f405000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400fd8,0x7f406000,..)>
+      <pgdir_walk(0x83fff000,0x7f406000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f406000,0,0x803fff70,..)>
+        <tlb_out(0x7f406000,0x7f406000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f406000,1,0x803fff70,..)>
+      <page2pa(0x80400fd8,0x7f406000,1,0x803fff70,..)>
+        <page2ppn(0x80400fd8,0x7f406000,1,0x803fff70,..)>
+    <pa2page(0x153000,0x7f406000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400fe4,0x7f407000,..)>
+      <pgdir_walk(0x83fff000,0x7f407000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f407000,0,0x803fff70,..)>
+        <tlb_out(0x7f407000,0x7f407000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f407000,1,0x803fff70,..)>
+      <page2pa(0x80400fe4,0x7f407000,1,0x803fff70,..)>
+        <page2ppn(0x80400fe4,0x7f407000,1,0x803fff70,..)>
+    <pa2page(0x154000,0x7f407000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80400ff0,0x7f408000,..)>
+      <pgdir_walk(0x83fff000,0x7f408000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f408000,0," ",..)>
+        <tlb_out(0x7f408000,0x7f408000,0," ",..)>
+      <pgdir_walk(0x83fff000,0x7f408000,1," ",..)>
+      <page2pa(0x80400ff0,0x7f408000,1," ",..)>
+        <page2ppn(0x80400ff0,0x7f408000,1," ",..)>
+    <pa2page(0x155000,0x7f408000,1," ",..)>
+    <page_insert(0x83fff000,0,0x80400ffc,0x7f409000,..)>
+      <pgdir_walk(0x83fff000,0x7f409000,0," ",..)>
+      <tlb_invalidate(0,0x7f409000,0,"$",..)>
+        <tlb_out(0x7f409000,0x7f409000,0,"$",..)>
+      <pgdir_walk(0x83fff000,0x7f409000,1,"$",..)>
+      <page2pa(0x80400ffc,0x7f409000,1,"$",..)>
+        <page2ppn(0x80400ffc,0x7f409000,1,"$",..)>
+    <pa2page(0x156000,0x7f409000,1,"$",..)>
+    <page_insert(0x83fff000,0,0x80401008,0x7f40a000,..)>
+      <pgdir_walk(0x83fff000,0x7f40a000,0,"$",..)>
+      <tlb_invalidate(0,0x7f40a000,0,"(",..)>
+        <tlb_out(0x7f40a000,0x7f40a000,0,"(",..)>
+      <pgdir_walk(0x83fff000,0x7f40a000,1,"(",..)>
+      <page2pa(0x80401008,0x7f40a000,1,"(",..)>
+        <page2ppn(0x80401008,0x7f40a000,1,"(",..)>
+    <pa2page(0x157000,0x7f40a000,1,"(",..)>
+    <page_insert(0x83fff000,0,0x80401014,0x7f40b000,..)>
+      <pgdir_walk(0x83fff000,0x7f40b000,0,"(",..)>
+      <tlb_invalidate(0,0x7f40b000,0,",",..)>
+        <tlb_out(0x7f40b000,0x7f40b000,0,",",..)>
+      <pgdir_walk(0x83fff000,0x7f40b000,1,",",..)>
+      <page2pa(0x80401014,0x7f40b000,1,",",..)>
+        <page2ppn(0x80401014,0x7f40b000,1,",",..)>
+    <pa2page(0x158000,0x7f40b000,1,",",..)>
+    <page_insert(0x83fff000,0,0x80401020,0x7f40c000,..)>
+      <pgdir_walk(0x83fff000,0x7f40c000,0,",",..)>
+      <tlb_invalidate(0,0x7f40c000,0,"0",..)>
+        <tlb_out(0x7f40c000,0x7f40c000,0,"0",..)>
+      <pgdir_walk(0x83fff000,0x7f40c000,1,"0",..)>
+      <page2pa(0x80401020,0x7f40c000,1,"0",..)>
+        <page2ppn(0x80401020,0x7f40c000,1,"0",..)>
+    <pa2page(0x159000,0x7f40c000,1,"0",..)>
+    <page_insert(0x83fff000,0,0x8040102c,0x7f40d000,..)>
+      <pgdir_walk(0x83fff000,0x7f40d000,0,"0",..)>
+      <tlb_invalidate(0,0x7f40d000,0,"4",..)>
+        <tlb_out(0x7f40d000,0x7f40d000,0,"4",..)>
+      <pgdir_walk(0x83fff000,0x7f40d000,1,"4",..)>
+      <page2pa(0x8040102c,0x7f40d000,1,"4",..)>
+        <page2ppn(0x8040102c,0x7f40d000,1,"4",..)>
+    <pa2page(0x15a000,0x7f40d000,1,"4",..)>
+    <page_insert(0x83fff000,0,0x80401038,0x7f40e000,..)>
+      <pgdir_walk(0x83fff000,0x7f40e000,0,"4",..)>
+      <tlb_invalidate(0,0x7f40e000,0,"8",..)>
+        <tlb_out(0x7f40e000,0x7f40e000,0,"8",..)>
+      <pgdir_walk(0x83fff000,0x7f40e000,1,"8",..)>
+      <page2pa(0x80401038,0x7f40e000,1,"8",..)>
+        <page2ppn(0x80401038,0x7f40e000,1,"8",..)>
+    <pa2page(0x15b000,0x7f40e000,1,"8",..)>
+    <page_insert(0x83fff000,0,0x80401044,0x7f40f000,..)>
+      <pgdir_walk(0x83fff000,0x7f40f000,0,"8",..)>
+      <tlb_invalidate(0,0x7f40f000,0,"<",..)>
+        <tlb_out(0x7f40f000,0x7f40f000,0,"<",..)>
+      <pgdir_walk(0x83fff000,0x7f40f000,1,"<",..)>
+      <page2pa(0x80401044,0x7f40f000,1,"<",..)>
+        <page2ppn(0x80401044,0x7f40f000,1,"<",..)>
+    <pa2page(0x15c000,0x7f40f000,1,"<",..)>
+    <page_insert(0x83fff000,0,0x80401050,0x7f410000,..)>
+      <pgdir_walk(0x83fff000,0x7f410000,0,"<",..)>
+      <tlb_invalidate(0,0x7f410000,0,"@",..)>
+        <tlb_out(0x7f410000,0x7f410000,0,"@",..)>
+      <pgdir_walk(0x83fff000,0x7f410000,1,"@",..)>
+      <page2pa(0x80401050,0x7f410000,1,"@",..)>
+        <page2ppn(0x80401050,0x7f410000,1,"@",..)>
+    <pa2page(0x15d000,0x7f410000,1,"@",..)>
+    <page_insert(0x83fff000,0,0x8040105c,0x7f411000,..)>
+      <pgdir_walk(0x83fff000,0x7f411000,0,"@",..)>
+      <tlb_invalidate(0,0x7f411000,0,"D",..)>
+        <tlb_out(0x7f411000,0x7f411000,0,"D",..)>
+      <pgdir_walk(0x83fff000,0x7f411000,1,"D",..)>
+      <page2pa(0x8040105c,0x7f411000,1,"D",..)>
+        <page2ppn(0x8040105c,0x7f411000,1,"D",..)>
+    <pa2page(0x15e000,0x7f411000,1,"D",..)>
+    <page_insert(0x83fff000,0,0x80401068,0x7f412000,..)>
+      <pgdir_walk(0x83fff000,0x7f412000,0,"D",..)>
+      <tlb_invalidate(0,0x7f412000,0,"H",..)>
+        <tlb_out(0x7f412000,0x7f412000,0,"H",..)>
+      <pgdir_walk(0x83fff000,0x7f412000,1,"H",..)>
+      <page2pa(0x80401068,0x7f412000,1,"H",..)>
+        <page2ppn(0x80401068,0x7f412000,1,"H",..)>
+    <pa2page(0x15f000,0x7f412000,1,"H",..)>
+    <page_insert(0x83fff000,0,0x80401074,0x7f413000,..)>
+      <pgdir_walk(0x83fff000,0x7f413000,0,"H",..)>
+      <tlb_invalidate(0,0x7f413000,0,"L",..)>
+        <tlb_out(0x7f413000,0x7f413000,0,"L",..)>
+      <pgdir_walk(0x83fff000,0x7f413000,1,"L",..)>
+      <page2pa(0x80401074,0x7f413000,1,"L",..)>
+        <page2ppn(0x80401074,0x7f413000,1,"L",..)>
+    <pa2page(0x160000,0x7f413000,1,"L",..)>
+    <page_insert(0x83fff000,0,0x80401080,0x7f414000,..)>
+      <pgdir_walk(0x83fff000,0x7f414000,0,"L",..)>
+      <tlb_invalidate(0,0x7f414000,0,"P",..)>
+        <tlb_out(0x7f414000,0x7f414000,0,"P",..)>
+      <pgdir_walk(0x83fff000,0x7f414000,1,"P",..)>
+      <page2pa(0x80401080,0x7f414000,1,"P",..)>
+        <page2ppn(0x80401080,0x7f414000,1,"P",..)>
+    <pa2page(0x161000,0x7f414000,1,"P",..)>
+    <page_insert(0x83fff000,0,0x8040108c,0x7f415000,..)>
+      <pgdir_walk(0x83fff000,0x7f415000,0,"P",..)>
+      <tlb_invalidate(0,0x7f415000,0,"T",..)>
+        <tlb_out(0x7f415000,0x7f415000,0,"T",..)>
+      <pgdir_walk(0x83fff000,0x7f415000,1,"T",..)>
+      <page2pa(0x8040108c,0x7f415000,1,"T",..)>
+        <page2ppn(0x8040108c,0x7f415000,1,"T",..)>
+    <pa2page(0x162000,0x7f415000,1,"T",..)>
+    <page_insert(0x83fff000,0,0x80401098,0x7f416000,..)>
+      <pgdir_walk(0x83fff000,0x7f416000,0,"T",..)>
+      <tlb_invalidate(0,0x7f416000,0,"X",..)>
+        <tlb_out(0x7f416000,0x7f416000,0,"X",..)>
+      <pgdir_walk(0x83fff000,0x7f416000,1,"X",..)>
+      <page2pa(0x80401098,0x7f416000,1,"X",..)>
+        <page2ppn(0x80401098,0x7f416000,1,"X",..)>
+    <pa2page(0x163000,0x7f416000,1,"X",..)>
+    <page_insert(0x83fff000,0,0x804010a4,0x7f417000,..)>
+      <pgdir_walk(0x83fff000,0x7f417000,0,"X",..)>
+      <tlb_invalidate(0,0x7f417000,0,"\",..)>
+        <tlb_out(0x7f417000,0x7f417000,0,"\",..)>
+      <pgdir_walk(0x83fff000,0x7f417000,1,"\",..)>
+      <page2pa(0x804010a4,0x7f417000,1,"\",..)>
+        <page2ppn(0x804010a4,0x7f417000,1,"\",..)>
+    <pa2page(0x164000,0x7f417000,1,"\",..)>
+    <page_insert(0x83fff000,0,0x804010b0,0x7f418000,..)>
+      <pgdir_walk(0x83fff000,0x7f418000,0,"\",..)>
+      <tlb_invalidate(0,0x7f418000,0,"`",..)>
+        <tlb_out(0x7f418000,0x7f418000,0,"`",..)>
+      <pgdir_walk(0x83fff000,0x7f418000,1,"`",..)>
+      <page2pa(0x804010b0,0x7f418000,1,"`",..)>
+        <page2ppn(0x804010b0,0x7f418000,1,"`",..)>
+    <pa2page(0x165000,0x7f418000,1,"`",..)>
+    <page_insert(0x83fff000,0,0x804010bc,0x7f419000,..)>
+      <pgdir_walk(0x83fff000,0x7f419000,0,"`",..)>
+      <tlb_invalidate(0,0x7f419000,0,"d",..)>
+        <tlb_out(0x7f419000,0x7f419000,0,"d",..)>
+      <pgdir_walk(0x83fff000,0x7f419000,1,"d",..)>
+      <page2pa(0x804010bc,0x7f419000,1,"d",..)>
+        <page2ppn(0x804010bc,0x7f419000,1,"d",..)>
+    <pa2page(0x166000,0x7f419000,1,"d",..)>
+    <page_insert(0x83fff000,0,0x804010c8,0x7f41a000,..)>
+      <pgdir_walk(0x83fff000,0x7f41a000,0,"d",..)>
+      <tlb_invalidate(0,0x7f41a000,0,"h",..)>
+        <tlb_out(0x7f41a000,0x7f41a000,0,"h",..)>
+      <pgdir_walk(0x83fff000,0x7f41a000,1,"h",..)>
+      <page2pa(0x804010c8,0x7f41a000,1,"h",..)>
+        <page2ppn(0x804010c8,0x7f41a000,1,"h",..)>
+    <pa2page(0x167000,0x7f41a000,1,"h",..)>
+    <page_insert(0x83fff000,0,0x804010d4,0x7f41b000,..)>
+      <pgdir_walk(0x83fff000,0x7f41b000,0,"h",..)>
+      <tlb_invalidate(0,0x7f41b000,0,"l",..)>
+        <tlb_out(0x7f41b000,0x7f41b000,0,"l",..)>
+      <pgdir_walk(0x83fff000,0x7f41b000,1,"l",..)>
+      <page2pa(0x804010d4,0x7f41b000,1,"l",..)>
+        <page2ppn(0x804010d4,0x7f41b000,1,"l",..)>
+    <pa2page(0x168000,0x7f41b000,1,"l",..)>
+    <page_insert(0x83fff000,0,0x804010e0,0x7f41c000,..)>
+      <pgdir_walk(0x83fff000,0x7f41c000,0,"l",..)>
+      <tlb_invalidate(0,0x7f41c000,0,"p",..)>
+        <tlb_out(0x7f41c000,0x7f41c000,0,"p",..)>
+      <pgdir_walk(0x83fff000,0x7f41c000,1,"p",..)>
+      <page2pa(0x804010e0,0x7f41c000,1,"p",..)>
+        <page2ppn(0x804010e0,0x7f41c000,1,"p",..)>
+    <pa2page(0x169000,0x7f41c000,1,"p",..)>
+    <page_insert(0x83fff000,0,0x804010ec,0x7f41d000,..)>
+      <pgdir_walk(0x83fff000,0x7f41d000,0,"p",..)>
+      <tlb_invalidate(0,0x7f41d000,0,"t",..)>
+        <tlb_out(0x7f41d000,0x7f41d000,0,"t",..)>
+      <pgdir_walk(0x83fff000,0x7f41d000,1,"t",..)>
+      <page2pa(0x804010ec,0x7f41d000,1,"t",..)>
+        <page2ppn(0x804010ec,0x7f41d000,1,"t",..)>
+    <pa2page(0x16a000,0x7f41d000,1,"t",..)>
+    <page_insert(0x83fff000,0,0x804010f8,0x7f41e000,..)>
+      <pgdir_walk(0x83fff000,0x7f41e000,0,"t",..)>
+      <tlb_invalidate(0,0x7f41e000,0,"x",..)>
+        <tlb_out(0x7f41e000,0x7f41e000,0,"x",..)>
+      <pgdir_walk(0x83fff000,0x7f41e000,1,"x",..)>
+      <page2pa(0x804010f8,0x7f41e000,1,"x",..)>
+        <page2ppn(0x804010f8,0x7f41e000,1,"x",..)>
+    <pa2page(0x16b000,0x7f41e000,1,"x",..)>
+    <page_insert(0x83fff000,0,0x80401104,0x7f41f000,..)>
+      <pgdir_walk(0x83fff000,0x7f41f000,0,"x",..)>
+      <tlb_invalidate(0,0x7f41f000,0,"|",..)>
+        <tlb_out(0x7f41f000,0x7f41f000,0,"|",..)>
+      <pgdir_walk(0x83fff000,0x7f41f000,1,"|",..)>
+      <page2pa(0x80401104,0x7f41f000,1,"|",..)>
+        <page2ppn(0x80401104,0x7f41f000,1,"|",..)>
+    <pa2page(0x16c000,0x7f41f000,1,"|",..)>
+    <page_insert(0x83fff000,0,0x80401110,0x7f420000,..)>
+      <pgdir_walk(0x83fff000,0x7f420000,0,"|",..)>
+      <tlb_invalidate(0,0x7f420000,0,0x803fff70,..)>
+        <tlb_out(0x7f420000,0x7f420000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f420000,1,0x803fff70,..)>
+      <page2pa(0x80401110,0x7f420000,1,0x803fff70,..)>
+        <page2ppn(0x80401110,0x7f420000,1,0x803fff70,..)>
+    <pa2page(0x16d000,0x7f420000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040111c,0x7f421000,..)>
+      <pgdir_walk(0x83fff000,0x7f421000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f421000,0,0x803fff70,..)>
+        <tlb_out(0x7f421000,0x7f421000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f421000,1,0x803fff70,..)>
+      <page2pa(0x8040111c,0x7f421000,1,0x803fff70,..)>
+        <page2ppn(0x8040111c,0x7f421000,1,0x803fff70,..)>
+    <pa2page(0x16e000,0x7f421000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401128,0x7f422000,..)>
+      <pgdir_walk(0x83fff000,0x7f422000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f422000,0,0x803fff70,..)>
+        <tlb_out(0x7f422000,0x7f422000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f422000,1,0x803fff70,..)>
+      <page2pa(0x80401128,0x7f422000,1,0x803fff70,..)>
+        <page2ppn(0x80401128,0x7f422000,1,0x803fff70,..)>
+    <pa2page(0x16f000,0x7f422000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401134,0x7f423000,..)>
+      <pgdir_walk(0x83fff000,0x7f423000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f423000,0,0x803fff70,..)>
+        <tlb_out(0x7f423000,0x7f423000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f423000,1,0x803fff70,..)>
+      <page2pa(0x80401134,0x7f423000,1,0x803fff70,..)>
+        <page2ppn(0x80401134,0x7f423000,1,0x803fff70,..)>
+    <pa2page(0x170000,0x7f423000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401140,0x7f424000,..)>
+      <pgdir_walk(0x83fff000,0x7f424000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f424000,0,0x803fff70,..)>
+        <tlb_out(0x7f424000,0x7f424000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f424000,1,0x803fff70,..)>
+      <page2pa(0x80401140,0x7f424000,1,0x803fff70,..)>
+        <page2ppn(0x80401140,0x7f424000,1,0x803fff70,..)>
+    <pa2page(0x171000,0x7f424000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040114c,0x7f425000,..)>
+      <pgdir_walk(0x83fff000,0x7f425000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f425000,0,0x803fff70,..)>
+        <tlb_out(0x7f425000,0x7f425000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f425000,1,0x803fff70,..)>
+      <page2pa(0x8040114c,0x7f425000,1,0x803fff70,..)>
+        <page2ppn(0x8040114c,0x7f425000,1,0x803fff70,..)>
+    <pa2page(0x172000,0x7f425000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401158,0x7f426000,..)>
+      <pgdir_walk(0x83fff000,0x7f426000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f426000,0,0x803fff70,..)>
+        <tlb_out(0x7f426000,0x7f426000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f426000,1,0x803fff70,..)>
+      <page2pa(0x80401158,0x7f426000,1,0x803fff70,..)>
+        <page2ppn(0x80401158,0x7f426000,1,0x803fff70,..)>
+    <pa2page(0x173000,0x7f426000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401164,0x7f427000,..)>
+      <pgdir_walk(0x83fff000,0x7f427000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f427000,0,0x803fff70,..)>
+        <tlb_out(0x7f427000,0x7f427000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f427000,1,0x803fff70,..)>
+      <page2pa(0x80401164,0x7f427000,1,0x803fff70,..)>
+        <page2ppn(0x80401164,0x7f427000,1,0x803fff70,..)>
+    <pa2page(0x174000,0x7f427000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401170,0x7f428000,..)>
+      <pgdir_walk(0x83fff000,0x7f428000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f428000,0,0x803fff70,..)>
+        <tlb_out(0x7f428000,0x7f428000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f428000,1,0x803fff70,..)>
+      <page2pa(0x80401170,0x7f428000,1,0x803fff70,..)>
+        <page2ppn(0x80401170,0x7f428000,1,0x803fff70,..)>
+    <pa2page(0x175000,0x7f428000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040117c,0x7f429000,..)>
+      <pgdir_walk(0x83fff000,0x7f429000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f429000,0,0x803fff70,..)>
+        <tlb_out(0x7f429000,0x7f429000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f429000,1,0x803fff70,..)>
+      <page2pa(0x8040117c,0x7f429000,1,0x803fff70,..)>
+        <page2ppn(0x8040117c,0x7f429000,1,0x803fff70,..)>
+    <pa2page(0x176000,0x7f429000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401188,0x7f42a000,..)>
+      <pgdir_walk(0x83fff000,0x7f42a000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f42a000,0,0x803fff70,..)>
+        <tlb_out(0x7f42a000,0x7f42a000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f42a000,1,0x803fff70,..)>
+      <page2pa(0x80401188,0x7f42a000,1,0x803fff70,..)>
+        <page2ppn(0x80401188,0x7f42a000,1,0x803fff70,..)>
+    <pa2page(0x177000,0x7f42a000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401194,0x7f42b000,..)>
+      <pgdir_walk(0x83fff000,0x7f42b000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f42b000,0,0x803fff70,..)>
+        <tlb_out(0x7f42b000,0x7f42b000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f42b000,1,0x803fff70,..)>
+      <page2pa(0x80401194,0x7f42b000,1,0x803fff70,..)>
+        <page2ppn(0x80401194,0x7f42b000,1,0x803fff70,..)>
+    <pa2page(0x178000,0x7f42b000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011a0,0x7f42c000,..)>
+      <pgdir_walk(0x83fff000,0x7f42c000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f42c000,0,0x803fff70,..)>
+        <tlb_out(0x7f42c000,0x7f42c000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f42c000,1,0x803fff70,..)>
+      <page2pa(0x804011a0,0x7f42c000,1,0x803fff70,..)>
+        <page2ppn(0x804011a0,0x7f42c000,1,0x803fff70,..)>
+    <pa2page(0x179000,0x7f42c000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011ac,0x7f42d000,..)>
+      <pgdir_walk(0x83fff000,0x7f42d000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f42d000,0,0x803fff70,..)>
+        <tlb_out(0x7f42d000,0x7f42d000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f42d000,1,0x803fff70,..)>
+      <page2pa(0x804011ac,0x7f42d000,1,0x803fff70,..)>
+        <page2ppn(0x804011ac,0x7f42d000,1,0x803fff70,..)>
+    <pa2page(0x17a000,0x7f42d000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011b8,0x7f42e000,..)>
+      <pgdir_walk(0x83fff000,0x7f42e000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f42e000,0,0x803fff70,..)>
+        <tlb_out(0x7f42e000,0x7f42e000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f42e000,1,0x803fff70,..)>
+      <page2pa(0x804011b8,0x7f42e000,1,0x803fff70,..)>
+        <page2ppn(0x804011b8,0x7f42e000,1,0x803fff70,..)>
+    <pa2page(0x17b000,0x7f42e000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011c4,0x7f42f000,..)>
+      <pgdir_walk(0x83fff000,0x7f42f000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f42f000,0,0x803fff70,..)>
+        <tlb_out(0x7f42f000,0x7f42f000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f42f000,1,0x803fff70,..)>
+      <page2pa(0x804011c4,0x7f42f000,1,0x803fff70,..)>
+        <page2ppn(0x804011c4,0x7f42f000,1,0x803fff70,..)>
+    <pa2page(0x17c000,0x7f42f000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011d0,0x7f430000,..)>
+      <pgdir_walk(0x83fff000,0x7f430000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f430000,0,0x803fff70,..)>
+        <tlb_out(0x7f430000,0x7f430000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f430000,1,0x803fff70,..)>
+      <page2pa(0x804011d0,0x7f430000,1,0x803fff70,..)>
+        <page2ppn(0x804011d0,0x7f430000,1,0x803fff70,..)>
+    <pa2page(0x17d000,0x7f430000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011dc,0x7f431000,..)>
+      <pgdir_walk(0x83fff000,0x7f431000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f431000,0,0x803fff70,..)>
+        <tlb_out(0x7f431000,0x7f431000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f431000,1,0x803fff70,..)>
+      <page2pa(0x804011dc,0x7f431000,1,0x803fff70,..)>
+        <page2ppn(0x804011dc,0x7f431000,1,0x803fff70,..)>
+    <pa2page(0x17e000,0x7f431000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011e8,0x7f432000,..)>
+      <pgdir_walk(0x83fff000,0x7f432000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f432000,0,0x803fff70,..)>
+        <tlb_out(0x7f432000,0x7f432000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f432000,1,0x803fff70,..)>
+      <page2pa(0x804011e8,0x7f432000,1,0x803fff70,..)>
+        <page2ppn(0x804011e8,0x7f432000,1,0x803fff70,..)>
+    <pa2page(0x17f000,0x7f432000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x804011f4,0x7f433000,..)>
+      <pgdir_walk(0x83fff000,0x7f433000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f433000,0,0x803fff70,..)>
+        <tlb_out(0x7f433000,0x7f433000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f433000,1,0x803fff70,..)>
+      <page2pa(0x804011f4,0x7f433000,1,0x803fff70,..)>
+        <page2ppn(0x804011f4,0x7f433000,1,0x803fff70,..)>
+    <pa2page(0x180000,0x7f433000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401200,0x7f434000,..)>
+      <pgdir_walk(0x83fff000,0x7f434000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f434000,0,0x803fff70,..)>
+        <tlb_out(0x7f434000,0x7f434000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f434000,1,0x803fff70,..)>
+      <page2pa(0x80401200,0x7f434000,1,0x803fff70,..)>
+        <page2ppn(0x80401200,0x7f434000,1,0x803fff70,..)>
+    <pa2page(0x181000,0x7f434000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x8040120c,0x7f435000,..)>
+      <pgdir_walk(0x83fff000,0x7f435000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f435000,0,0x803fff70,..)>
+        <tlb_out(0x7f435000,0x7f435000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f435000,1,0x803fff70,..)>
+      <page2pa(0x8040120c,0x7f435000,1,0x803fff70,..)>
+        <page2ppn(0x8040120c,0x7f435000,1,0x803fff70,..)>
+    <pa2page(0x182000,0x7f435000,1,0x803fff70,..)>
+    <page_insert(0x83fff000,0,0x80401218,0x7f436000,..)>
+      <pgdir_walk(0x83fff000,0x7f436000,0,0x803fff70,..)>
+      <tlb_invalidate(0,0x7f436000,0,0x803fff70,..)>
+        <tlb_out(0x7f436000,0x7f436000,0,0x803fff70,..)>
+      <pgdir_walk(0x83fff000,0x7f436000,1,0x803fff70,..)>
+      <page2pa(0x80401218,0x7f436000,1,0x803fff70,..)>
+        <page2ppn(0x80401218,0x7f436000,1,0x803fff70,..)>
+<env_create(&binary_test_testptelibrary_start,0x18370,1,0x803fff70,..)>
+  <env_alloc("0",0,1,0x803fff70,..)>
+    <env_setup_vm(&envs,0,1,0x803fff70,..)>
+      <page_alloc(" ",0,1,0x803fff70,..)>
+        <page2kva(0x8042ffd0,0,1,"x",..)>
+          <page2pa(0x8042ffd0,0,1,"x",..)>
+            <page2ppn(0x8042ffd0,0,1,"x",..)>
+          <page2pa(0x8042ffd0,0,1,"x",..)>
+            <page2ppn(0x8042ffd0,0,1,"x",..)>
+        <memset(0x83ffc000,0,0x1000)>
+      <page2kva(0x8042ffd0,0,0x1000,"x",..)>
+        <page2pa(0x8042ffd0,0,0x1000,"x",..)>
+          <page2ppn(0x8042ffd0,0,0x1000,"x",..)>
+        <page2pa(0x8042ffd0,0,0x1000,"x",..)>
+          <page2ppn(0x8042ffd0,0,0x1000,"x",..)>
+      <memcpy(0x83ffc7f4,0x83fff7f4,8)>
+    <mkenvid(&envs,0x83fff7f4,8,"x",..)>
+    <asid_alloc(0x8014c0a4,0x83fff7f4,8,"x",..)>
+  <load_icode(&envs,&binary_test_testptelibrary_start,0x18370,"x",..)>
+    <elf_from(&binary_test_testptelibrary_start,0x18370,0x18370,"x",..)>
+    <elf_load_seg(0x801336d8,0x80133724,&load_icode_mapper,&envs,..)>
+      <load_icode_mapper(&envs,0x400000,0,0x200,..)>
+        <page_alloc("(",0x400000,0,0x200,..)>
+          <page2kva(0x8042ffc4,0x400000,0,0x200,..)>
+            <page2pa(0x8042ffc4,0x400000,0,0x200,..)>
+              <page2ppn(0x8042ffc4,0x400000,0,0x200,..)>
+            <page2pa(0x8042ffc4,0x400000,0,0x200,..)>
+              <page2ppn(0x8042ffc4,0x400000,0,0x200,..)>
+          <memset(0x83ffb000,0,0x1000)>
+        <page2kva(0x8042ffc4,0,0x1000,0x200,..)>
+          <page2pa(0x8042ffc4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ffc4,0,0x1000,0x200,..)>
+          <page2pa(0x8042ffc4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ffc4,0,0x1000,0x200,..)>
+        <memcpy(0x83ffb000,0x80133724,0x1000)>
+        <page_insert(0x83ffc000,0,0x8042ffc4,0x400000,..)>
+          <pgdir_walk(0x83ffc000,0x400000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x400000,0,0x803ffef0,..)>
+            <tlb_out(0x400000,0x400000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x400000,1,0x803ffef0,..)>
+            <page_alloc(0x803ffec8,0x400000,1,0x803ffef0,..)>
+              <page2kva(0x8042ffb8,0x400000,1,0x803ffef0,..)>
+                <page2pa(0x8042ffb8,0x400000,1,0x803ffef0,..)>
+                  <page2ppn(0x8042ffb8,0x400000,1,0x803ffef0,..)>
+                <page2pa(0x8042ffb8,0x400000,1,0x803ffef0,..)>
+                  <page2ppn(0x8042ffb8,0x400000,1,0x803ffef0,..)>
+              <memset(0x83ffa000,0,0x1000)>
+            <page2pa(0x8042ffb8,0,0x1000,0x803ffef0,..)>
+              <page2ppn(0x8042ffb8,0,0x1000,0x803ffef0,..)>
+          <page2pa(0x8042ffc4,0,0x1000,0x803ffef0,..)>
+            <page2ppn(0x8042ffc4,0,0x1000,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x401000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x401000,0,0x200,..)>
+          <page2kva(0x8042ffac,0x401000,0,0x200,..)>
+            <page2pa(0x8042ffac,0x401000,0,0x200,..)>
+              <page2ppn(0x8042ffac,0x401000,0,0x200,..)>
+            <page2pa(0x8042ffac,0x401000,0,0x200,..)>
+              <page2ppn(0x8042ffac,0x401000,0,0x200,..)>
+          <memset(0x83ff9000,0,0x1000)>
+        <page2kva(0x8042ffac,0,0x1000,0x200,..)>
+          <page2pa(0x8042ffac,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ffac,0,0x1000,0x200,..)>
+          <page2pa(0x8042ffac,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ffac,0,0x1000,0x200,..)>
+        <memcpy(0x83ff9000,0x80134724,0x1000)>
+        <page_insert(0x83ffc000,0,0x8042ffac,0x401000,..)>
+          <pgdir_walk(0x83ffc000,0x401000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x401000,0,0x803ffef0,..)>
+            <tlb_out(0x401000,0x401000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x401000,1,0x803ffef0,..)>
+          <page2pa(0x8042ffac,0x401000,1,0x803ffef0,..)>
+            <page2ppn(0x8042ffac,0x401000,1,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x402000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x402000,0,0x200,..)>
+          <page2kva(0x8042ffa0,0x402000,0,0x200,..)>
+            <page2pa(0x8042ffa0,0x402000,0,0x200,..)>
+              <page2ppn(0x8042ffa0,0x402000,0,0x200,..)>
+            <page2pa(0x8042ffa0,0x402000,0,0x200,..)>
+              <page2ppn(0x8042ffa0,0x402000,0,0x200,..)>
+          <memset(0x83ff8000,0,0x1000)>
+        <page2kva(0x8042ffa0,0,0x1000,0x200,..)>
+          <page2pa(0x8042ffa0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ffa0,0,0x1000,0x200,..)>
+          <page2pa(0x8042ffa0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ffa0,0,0x1000,0x200,..)>
+        <memcpy(0x83ff8000,0x80135724,0x1000)>
+        <page_insert(0x83ffc000,0,0x8042ffa0,0x402000,..)>
+          <pgdir_walk(0x83ffc000,0x402000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x402000,0,0x803ffef0,..)>
+            <tlb_out(0x402000,0x402000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x402000,1,0x803ffef0,..)>
+          <page2pa(0x8042ffa0,0x402000,1,0x803ffef0,..)>
+            <page2ppn(0x8042ffa0,0x402000,1,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x403000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x403000,0,0x200,..)>
+          <page2kva(0x8042ff94,0x403000,0,0x200,..)>
+            <page2pa(0x8042ff94,0x403000,0,0x200,..)>
+              <page2ppn(0x8042ff94,0x403000,0,0x200,..)>
+            <page2pa(0x8042ff94,0x403000,0,0x200,..)>
+              <page2ppn(0x8042ff94,0x403000,0,0x200,..)>
+          <memset(0x83ff7000,0,0x1000)>
+        <page2kva(0x8042ff94,0,0x1000,0x200,..)>
+          <page2pa(0x8042ff94,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ff94,0,0x1000,0x200,..)>
+          <page2pa(0x8042ff94,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ff94,0,0x1000,0x200,..)>
+        <memcpy(0x83ff7000,"Q",0x1000)>
+        <page_insert(0x83ffc000,0,0x8042ff94,0x403000,..)>
+          <pgdir_walk(0x83ffc000,0x403000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x403000,0,0x803ffef0,..)>
+            <tlb_out(0x403000,0x403000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x403000,1,0x803ffef0,..)>
+          <page2pa(0x8042ff94,0x403000,1,0x803ffef0,..)>
+            <page2ppn(0x8042ff94,0x403000,1,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x404000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x404000,0,0x200,..)>
+          <page2kva("|",0x404000,0,0x200,..)>
+            <page2pa("|",0x404000,0,0x200,..)>
+              <page2ppn("|",0x404000,0,0x200,..)>
+            <page2pa("|",0x404000,0,0x200,..)>
+              <page2ppn("|",0x404000,0,0x200,..)>
+          <memset(0x83ff6000,0,0x1000)>
+        <page2kva("|",0,0x1000,0x200,..)>
+          <page2pa("|",0,0x1000,0x200,..)>
+            <page2ppn("|",0,0x1000,0x200,..)>
+          <page2pa("|",0,0x1000,0x200,..)>
+            <page2ppn("|",0,0x1000,0x200,..)>
+        <memcpy(0x83ff6000,0x80137724,0x1000)>
+        <page_insert(0x83ffc000,0,"|",0x404000,..)>
+          <pgdir_walk(0x83ffc000,0x404000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x404000,0,0x803ffef0,..)>
+            <tlb_out(0x404000,0x404000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x404000,1,0x803ffef0,..)>
+          <page2pa("|",0x404000,1,0x803ffef0,..)>
+            <page2ppn("|",0x404000,1,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x405000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x405000,0,0x200,..)>
+          <page2kva("p",0x405000,0,0x200,..)>
+            <page2pa("p",0x405000,0,0x200,..)>
+              <page2ppn("p",0x405000,0,0x200,..)>
+            <page2pa("p",0x405000,0,0x200,..)>
+              <page2ppn("p",0x405000,0,0x200,..)>
+          <memset(0x83ff5000,0,0x1000)>
+        <page2kva("p",0,0x1000,0x200,..)>
+          <page2pa("p",0,0x1000,0x200,..)>
+            <page2ppn("p",0,0x1000,0x200,..)>
+          <page2pa("p",0,0x1000,0x200,..)>
+            <page2ppn("p",0,0x1000,0x200,..)>
+        <memcpy(0x83ff5000,0x80138724,0x1000)>
+        <page_insert(0x83ffc000,0,"p",0x405000,..)>
+          <pgdir_walk(0x83ffc000,0x405000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x405000,0,0x803ffef0,..)>
+            <tlb_out(0x405000,0x405000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x405000,1,0x803ffef0,..)>
+          <page2pa("p",0x405000,1,0x803ffef0,..)>
+            <page2ppn("p",0x405000,1,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x406000,0,0x200,..)>
+        <page_alloc("|",0x406000,0,0x200,..)>
+          <page2kva("d",0x406000,0,0x200,..)>
+            <page2pa("d",0x406000,0,0x200,..)>
+              <page2ppn("d",0x406000,0,0x200,..)>
+            <page2pa("d",0x406000,0,0x200,..)>
+              <page2ppn("d",0x406000,0,0x200,..)>
+          <memset(0x83ff4000,0,0x1000)>
+        <page2kva("d",0,0x1000,0x200,..)>
+          <page2pa("d",0,0x1000,0x200,..)>
+            <page2ppn("d",0,0x1000,0x200,..)>
+          <page2pa("d",0,0x1000,0x200,..)>
+            <page2ppn("d",0,0x1000,0x200,..)>
+        <memcpy(0x83ff4000,0x80139724,0x1000)>
+        <page_insert(0x83ffc000,0,"d",0x406000,..)>
+          <pgdir_walk(0x83ffc000,0x406000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x406000,0,0x803ffef0,..)>
+            <tlb_out(0x406000,0x406000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x406000,1,0x803ffef0,..)>
+          <page2pa("d",0x406000,1,0x803ffef0,..)>
+            <page2ppn("d",0x406000,1,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x407000,0,0x200,..)>
+        <page_alloc("p",0x407000,0,0x200,..)>
+          <page2kva("X",0x407000,0,0x200,..)>
+            <page2pa("X",0x407000,0,0x200,..)>
+              <page2ppn("X",0x407000,0,0x200,..)>
+            <page2pa("X",0x407000,0,0x200,..)>
+              <page2ppn("X",0x407000,0,0x200,..)>
+          <memset(0x83ff3000,0,0x1000)>
+        <page2kva("X",0,0x1000,0x200,..)>
+          <page2pa("X",0,0x1000,0x200,..)>
+            <page2ppn("X",0,0x1000,0x200,..)>
+          <page2pa("X",0,0x1000,0x200,..)>
+            <page2ppn("X",0,0x1000,0x200,..)>
+        <memcpy(0x83ff3000,0x8013a724,0x1000)>
+        <page_insert(0x83ffc000,0,"X",0x407000,..)>
+          <pgdir_walk(0x83ffc000,0x407000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x407000,0,0x803ffef0,..)>
+            <tlb_out(0x407000,0x407000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83ffc000,0x407000,1,0x803ffef0,..)>
+          <page2pa("X",0x407000,1,0x803ffef0,..)>
+            <page2ppn("X",0x407000,1,0x803ffef0,..)>
+      <load_icode_mapper(&envs,0x408000,0,0x200,..)>
+        <page_alloc("d",0x408000,0,0x200,..)>
+          <page2kva("L",0x408000,0,0x200,..)>
+            <page2pa("L",0x408000,0,0x200,..)>
+              <page2ppn("L",0x408000,0,0x200,..)>
+            <page2pa("L",0x408000,0,0x200,..)>
+              <page2ppn("L",0x408000,0,0x200,..)>
+          <memset(0x83ff2000,0,0x1000)>
+        <page2kva("L",0,0x1000,0x200,..)>
+          <page2pa("L",0,0x1000,0x200,..)>
+            <page2ppn("L",0,0x1000,0x200,..)>
+          <page2pa("L",0,0x1000,0x200,..)>
+            <page2ppn("L",0,0x1000,0x200,..)>
+        <memcpy(0x83ff2000,0x8013b724,0xf30)>
+        <page_insert(0x83ffc000,0,"L",0x408000,..)>
+          <pgdir_walk(0x83ffc000,0x408000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x408000,0," ",..)>
+            <tlb_out(0x408000,0x408000,0," ",..)>
+          <pgdir_walk(0x83ffc000,0x408000,1," ",..)>
+          <page2pa("L",0x408000,1," ",..)>
+            <page2ppn("L",0x408000,1," ",..)>
+    <elf_load_seg(0x801336f8,0x8013c664,&load_icode_mapper,&envs,..)>
+      <load_icode_mapper(&envs,0x409000,0,0x600,..)>
+        <page_alloc("X",0x409000,0,0x600,..)>
+          <page2kva("@",0x409000,0,0x600,..)>
+            <page2pa("@",0x409000,0,0x600,..)>
+              <page2ppn("@",0x409000,0,0x600,..)>
+            <page2pa("@",0x409000,0,0x600,..)>
+              <page2ppn("@",0x409000,0,0x600,..)>
+          <memset(0x83ff1000,0,0x1000)>
+        <page2kva("@",0,0x1000,0x600,..)>
+          <page2pa("@",0,0x1000,0x600,..)>
+            <page2ppn("@",0,0x1000,0x600,..)>
+          <page2pa("@",0,0x1000,0x600,..)>
+            <page2ppn("@",0,0x1000,0x600,..)>
+        <memcpy(0x83ff1000,0x8013c664,128)>
+        <page_insert(0x83ffc000,0,"@",0x409000,..)>
+          <pgdir_walk(0x83ffc000,0x409000,0,0x803ffef0,..)>
+          <tlb_invalidate(0,0x409000,0,"$",..)>
+            <tlb_out(0x409000,0x409000,0,"$",..)>
+          <pgdir_walk(0x83ffc000,0x409000,1,"$",..)>
+          <page2pa("@",0x409000,1,"$",..)>
+            <page2ppn("@",0x409000,1,"$",..)>
+      <load_icode_mapper(&envs,0x40a000,0,0x600,..)>
+        <page_alloc("L",0x40a000,0,0x600,..)>
+          <page2kva("4",0x40a000,0,0x600,..)>
+            <page2pa("4",0x40a000,0,0x600,..)>
+              <page2ppn("4",0x40a000,0,0x600,..)>
+            <page2pa("4",0x40a000,0,0x600,..)>
+              <page2ppn("4",0x40a000,0,0x600,..)>
+          <memset(0x83ff0000,0,0x1000)>
+        <page_insert(0x83ffc000,0,"4",0x40a000,..)>
+          <pgdir_walk(0x83ffc000,0x40a000,0,"@",..)>
+          <tlb_invalidate(0,0x40a000,0,"(",..)>
+            <tlb_out(0x40a000,0x40a000,0,"(",..)>
+          <pgdir_walk(0x83ffc000,0x40a000,1,"(",..)>
+          <page2pa("4",0x40a000,1,"(",..)>
+            <page2ppn("4",0x40a000,1,"(",..)>
+      <load_icode_mapper(&envs,0x40b000,0,0x600,..)>
+        <page_alloc("@",0x40b000,0,0x600,..)>
+          <page2kva("(",0x40b000,0,0x600,..)>
+            <page2pa("(",0x40b000,0,0x600,..)>
+              <page2ppn("(",0x40b000,0,0x600,..)>
+            <page2pa("(",0x40b000,0,0x600,..)>
+              <page2ppn("(",0x40b000,0,0x600,..)>
+          <memset(0x83fef000,0,0x1000)>
+        <page_insert(0x83ffc000,0,"(",0x40b000,..)>
+          <pgdir_walk(0x83ffc000,0x40b000,0,"4",..)>
+          <tlb_invalidate(0,0x40b000,0,",",..)>
+            <tlb_out(0x40b000,0x40b000,0,",",..)>
+          <pgdir_walk(0x83ffc000,0x40b000,1,",",..)>
+          <page2pa("(",0x40b000,1,",",..)>
+            <page2ppn("(",0x40b000,1,",",..)>
+<env_create(&binary_fs_serv_start,0x1e190,1,",",..)>
+  <env_alloc(0x803fffd8,0,1,",",..)>
+    <env_setup_vm(0x8014c0dc,0,1,",",..)>
+      <page_alloc(0x803fff9c,0,1,",",..)>
+        <page2kva(0x8042ff28,0,1,",",..)>
+          <page2pa(0x8042ff28,0,1,",",..)>
+            <page2ppn(0x8042ff28,0,1,",",..)>
+          <page2pa(0x8042ff28,0,1,",",..)>
+            <page2ppn(0x8042ff28,0,1,",",..)>
+        <memset(0x83fee000,0,0x1000)>
+      <page2kva(0x8042ff28,0,0x1000,",",..)>
+        <page2pa(0x8042ff28,0,0x1000,",",..)>
+          <page2ppn(0x8042ff28,0,0x1000,",",..)>
+        <page2pa(0x8042ff28,0,0x1000,",",..)>
+          <page2ppn(0x8042ff28,0,0x1000,",",..)>
+      <memcpy(0x83fee7f4,0x83fff7f4,8)>
+    <mkenvid(0x8014c0dc,0x83fff7f4,8,",",..)>
+    <asid_alloc(0x8014c180,0x83fff7f4,8,",",..)>
+  <load_icode(0x8014c0dc,&binary_fs_serv_start,0x1e190,",",..)>
+    <elf_from(&binary_fs_serv_start,0x1e190,0x1e190,",",..)>
+    <elf_load_seg(0x800e2998,0x800e29e4,&load_icode_mapper,0x8014c0dc,..)>
+      <load_icode_mapper(0x8014c0dc,0x400000,0,0x200,..)>
+        <page_alloc("4",0x400000,0,0x200,..)>
+          <page2kva(0x8042ff1c,0x400000,0,0x200,..)>
+            <page2pa(0x8042ff1c,0x400000,0,0x200,..)>
+              <page2ppn(0x8042ff1c,0x400000,0,0x200,..)>
+            <page2pa(0x8042ff1c,0x400000,0,0x200,..)>
+              <page2ppn(0x8042ff1c,0x400000,0,0x200,..)>
+          <memset(0x83fed000,0,0x1000)>
+        <page2kva(0x8042ff1c,0,0x1000,0x200,..)>
+          <page2pa(0x8042ff1c,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ff1c,0,0x1000,0x200,..)>
+          <page2pa(0x8042ff1c,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ff1c,0,0x1000,0x200,..)>
+        <memcpy(0x83fed000,0x800e29e4,0x1000)>
+        <page_insert(0x83fee000,1,0x8042ff1c,0x400000,..)>
+          <pgdir_walk(0x83fee000,0x400000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x400000,0,0x803ffef0,..)>
+            <tlb_out(0x400040,0x400000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x400000,1,0x803ffef0,..)>
+            <page_alloc(0x803ffec8,0x400000,1,0x803ffef0,..)>
+              <page2kva(0x8042ff10,0x400000,1,0x803ffef0,..)>
+                <page2pa(0x8042ff10,0x400000,1,0x803ffef0,..)>
+                  <page2ppn(0x8042ff10,0x400000,1,0x803ffef0,..)>
+                <page2pa(0x8042ff10,0x400000,1,0x803ffef0,..)>
+                  <page2ppn(0x8042ff10,0x400000,1,0x803ffef0,..)>
+              <memset(0x83fec000,0,0x1000)>
+            <page2pa(0x8042ff10,0,0x1000,0x803ffef0,..)>
+              <page2ppn(0x8042ff10,0,0x1000,0x803ffef0,..)>
+          <page2pa(0x8042ff1c,0,0x1000,0x803ffef0,..)>
+            <page2ppn(0x8042ff1c,0,0x1000,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x401000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x401000,0,0x200,..)>
+          <page2kva(0x8042ff04,0x401000,0,0x200,..)>
+            <page2pa(0x8042ff04,0x401000,0,0x200,..)>
+              <page2ppn(0x8042ff04,0x401000,0,0x200,..)>
+            <page2pa(0x8042ff04,0x401000,0,0x200,..)>
+              <page2ppn(0x8042ff04,0x401000,0,0x200,..)>
+          <memset(0x83feb000,0,0x1000)>
+        <page2kva(0x8042ff04,0,0x1000,0x200,..)>
+          <page2pa(0x8042ff04,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ff04,0,0x1000,0x200,..)>
+          <page2pa(0x8042ff04,0,0x1000,0x200,..)>
+            <page2ppn(0x8042ff04,0,0x1000,0x200,..)>
+        <memcpy(0x83feb000,"0",0x1000)>
+        <page_insert(0x83fee000,1,0x8042ff04,0x401000,..)>
+          <pgdir_walk(0x83fee000,0x401000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x401000,0,0x803ffef0,..)>
+            <tlb_out(0x401040,0x401000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x401000,1,0x803ffef0,..)>
+          <page2pa(0x8042ff04,0x401000,1,0x803ffef0,..)>
+            <page2ppn(0x8042ff04,0x401000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x402000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x402000,0,0x200,..)>
+          <page2kva(0x8042fef8,0x402000,0,0x200,..)>
+            <page2pa(0x8042fef8,0x402000,0,0x200,..)>
+              <page2ppn(0x8042fef8,0x402000,0,0x200,..)>
+            <page2pa(0x8042fef8,0x402000,0,0x200,..)>
+              <page2ppn(0x8042fef8,0x402000,0,0x200,..)>
+          <memset(0x83fea000,0,0x1000)>
+        <page2kva(0x8042fef8,0,0x1000,0x200,..)>
+          <page2pa(0x8042fef8,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fef8,0,0x1000,0x200,..)>
+          <page2pa(0x8042fef8,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fef8,0,0x1000,0x200,..)>
+        <memcpy(0x83fea000,"% @",0x1000)>
+        <page_insert(0x83fee000,1,0x8042fef8,0x402000,..)>
+          <pgdir_walk(0x83fee000,0x402000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x402000,0,0x803ffef0,..)>
+            <tlb_out(0x402040,0x402000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x402000,1,0x803ffef0,..)>
+          <page2pa(0x8042fef8,0x402000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fef8,0x402000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x403000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x403000,0,0x200,..)>
+          <page2kva(0x8042feec,0x403000,0,0x200,..)>
+            <page2pa(0x8042feec,0x403000,0,0x200,..)>
+              <page2ppn(0x8042feec,0x403000,0,0x200,..)>
+            <page2pa(0x8042feec,0x403000,0,0x200,..)>
+              <page2ppn(0x8042feec,0x403000,0,0x200,..)>
+          <memset(0x83fe9000,0,0x1000)>
+        <page2kva(0x8042feec,0,0x1000,0x200,..)>
+          <page2pa(0x8042feec,0,0x1000,0x200,..)>
+            <page2ppn(0x8042feec,0,0x1000,0x200,..)>
+          <page2pa(0x8042feec,0,0x1000,0x200,..)>
+            <page2ppn(0x8042feec,0,0x1000,0x200,..)>
+        <memcpy(0x83fe9000,0x800e59e4,0x1000)>
+        <page_insert(0x83fee000,1,0x8042feec,0x403000,..)>
+          <pgdir_walk(0x83fee000,0x403000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x403000,0,0x803ffef0,..)>
+            <tlb_out(0x403040,0x403000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x403000,1,0x803ffef0,..)>
+          <page2pa(0x8042feec,0x403000,1,0x803ffef0,..)>
+            <page2ppn(0x8042feec,0x403000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x404000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x404000,0,0x200,..)>
+          <page2kva(0x8042fee0,0x404000,0,0x200,..)>
+            <page2pa(0x8042fee0,0x404000,0,0x200,..)>
+              <page2ppn(0x8042fee0,0x404000,0,0x200,..)>
+            <page2pa(0x8042fee0,0x404000,0,0x200,..)>
+              <page2ppn(0x8042fee0,0x404000,0,0x200,..)>
+          <memset(0x83fe8000,0,0x1000)>
+        <page2kva(0x8042fee0,0,0x1000,0x200,..)>
+          <page2pa(0x8042fee0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fee0,0,0x1000,0x200,..)>
+          <page2pa(0x8042fee0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fee0,0,0x1000,0x200,..)>
+        <memcpy(0x83fe8000,0x800e69e4,0x1000)>
+        <page_insert(0x83fee000,1,0x8042fee0,0x404000,..)>
+          <pgdir_walk(0x83fee000,0x404000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x404000,0,0x803ffef0,..)>
+            <tlb_out(0x404040,0x404000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x404000,1,0x803ffef0,..)>
+          <page2pa(0x8042fee0,0x404000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fee0,0x404000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x405000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x405000,0,0x200,..)>
+          <page2kva(0x8042fed4,0x405000,0,0x200,..)>
+            <page2pa(0x8042fed4,0x405000,0,0x200,..)>
+              <page2ppn(0x8042fed4,0x405000,0,0x200,..)>
+            <page2pa(0x8042fed4,0x405000,0,0x200,..)>
+              <page2ppn(0x8042fed4,0x405000,0,0x200,..)>
+          <memset(0x83fe7000,0,0x1000)>
+        <page2kva(0x8042fed4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fed4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fed4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fed4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fed4,0,0x1000,0x200,..)>
+        <memcpy(0x83fe7000,"%",0x1000)>
+        <page_insert(0x83fee000,1,0x8042fed4,0x405000,..)>
+          <pgdir_walk(0x83fee000,0x405000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x405000,0,0x803ffef0,..)>
+            <tlb_out(0x405040,0x405000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x405000,1,0x803ffef0,..)>
+          <page2pa(0x8042fed4,0x405000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fed4,0x405000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x406000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x406000,0,0x200,..)>
+          <page2kva(0x8042fec8,0x406000,0,0x200,..)>
+            <page2pa(0x8042fec8,0x406000,0,0x200,..)>
+              <page2ppn(0x8042fec8,0x406000,0,0x200,..)>
+            <page2pa(0x8042fec8,0x406000,0,0x200,..)>
+              <page2ppn(0x8042fec8,0x406000,0,0x200,..)>
+          <memset(0x83fe6000,0,0x1000)>
+        <page2kva(0x8042fec8,0,0x1000,0x200,..)>
+          <page2pa(0x8042fec8,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fec8,0,0x1000,0x200,..)>
+          <page2pa(0x8042fec8,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fec8,0,0x1000,0x200,..)>
+        <memcpy(0x83fe6000,0x800e89e4,0x1000)>
+        <page_insert(0x83fee000,1,0x8042fec8,0x406000,..)>
+          <pgdir_walk(0x83fee000,0x406000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x406000,0,0x803ffef0,..)>
+            <tlb_out(0x406040,0x406000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x406000,1,0x803ffef0,..)>
+          <page2pa(0x8042fec8,0x406000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fec8,0x406000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x407000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x407000,0,0x200,..)>
+          <page2kva(0x8042febc,0x407000,0,0x200,..)>
+            <page2pa(0x8042febc,0x407000,0,0x200,..)>
+              <page2ppn(0x8042febc,0x407000,0,0x200,..)>
+            <page2pa(0x8042febc,0x407000,0,0x200,..)>
+              <page2ppn(0x8042febc,0x407000,0,0x200,..)>
+          <memset(0x83fe5000,0,0x1000)>
+        <page2kva(0x8042febc,0,0x1000,0x200,..)>
+          <page2pa(0x8042febc,0,0x1000,0x200,..)>
+            <page2ppn(0x8042febc,0,0x1000,0x200,..)>
+          <page2pa(0x8042febc,0,0x1000,0x200,..)>
+            <page2ppn(0x8042febc,0,0x1000,0x200,..)>
+        <memcpy(0x83fe5000,0x800e99e4,0x1000)>
+        <page_insert(0x83fee000,1,0x8042febc,0x407000,..)>
+          <pgdir_walk(0x83fee000,0x407000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x407000,0,0x803ffef0,..)>
+            <tlb_out(0x407040,0x407000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fee000,0x407000,1,0x803ffef0,..)>
+          <page2pa(0x8042febc,0x407000,1,0x803ffef0,..)>
+            <page2ppn(0x8042febc,0x407000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c0dc,0x408000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x408000,0,0x200,..)>
+          <page2kva(0x8042feb0,0x408000,0,0x200,..)>
+            <page2pa(0x8042feb0,0x408000,0,0x200,..)>
+              <page2ppn(0x8042feb0,0x408000,0,0x200,..)>
+            <page2pa(0x8042feb0,0x408000,0,0x200,..)>
+              <page2ppn(0x8042feb0,0x408000,0,0x200,..)>
+          <memset(0x83fe4000,0,0x1000)>
+        <page2kva(0x8042feb0,0,0x1000,0x200,..)>
+          <page2pa(0x8042feb0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042feb0,0,0x1000,0x200,..)>
+          <page2pa(0x8042feb0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042feb0,0,0x1000,0x200,..)>
+        <memcpy(0x83fe4000,0x800ea9e4,0x1000)>
+        <page_insert(0x83fee000,1,0x8042feb0,0x408000,..)>
+          <pgdir_walk(0x83fee000,0x408000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x408000,0," ",..)>
+            <tlb_out(0x408040,0x408000,0," ",..)>
+          <pgdir_walk(0x83fee000,0x408000,1," ",..)>
+          <page2pa(0x8042feb0,0x408000,1," ",..)>
+            <page2ppn(0x8042feb0,0x408000,1," ",..)>
+      <load_icode_mapper(0x8014c0dc,0x409000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x409000,0,0x200,..)>
+          <page2kva(0x8042fea4,0x409000,0,0x200,..)>
+            <page2pa(0x8042fea4,0x409000,0,0x200,..)>
+              <page2ppn(0x8042fea4,0x409000,0,0x200,..)>
+            <page2pa(0x8042fea4,0x409000,0,0x200,..)>
+              <page2ppn(0x8042fea4,0x409000,0,0x200,..)>
+          <memset(0x83fe3000,0,0x1000)>
+        <page2kva(0x8042fea4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fea4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fea4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fea4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fea4,0,0x1000,0x200,..)>
+        <memcpy(0x83fe3000,"Address + 0x20, 4)' returned %d",0x730)>
+        <page_insert(0x83fee000,1,0x8042fea4,0x409000,..)>
+          <pgdir_walk(0x83fee000,0x409000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x409000,0,"$",..)>
+            <tlb_out(0x409040,0x409000,0,"$",..)>
+          <pgdir_walk(0x83fee000,0x409000,1,"$",..)>
+          <page2pa(0x8042fea4,0x409000,1,"$",..)>
+            <page2ppn(0x8042fea4,0x409000,1,"$",..)>
+    <elf_load_seg(0x800e29b8,0x800ec924,&load_icode_mapper,0x8014c0dc,..)>
+      <load_icode_mapper(0x8014c0dc,0x40a000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40a000,0,0x600,..)>
+          <page2kva(0x8042fe98,0x40a000,0,0x600,..)>
+            <page2pa(0x8042fe98,0x40a000,0,0x600,..)>
+              <page2ppn(0x8042fe98,0x40a000,0,0x600,..)>
+            <page2pa(0x8042fe98,0x40a000,0,0x600,..)>
+              <page2ppn(0x8042fe98,0x40a000,0,0x600,..)>
+          <memset(0x83fe2000,0,0x1000)>
+        <page2kva(0x8042fe98,0,0x1000,0x600,..)>
+          <page2pa(0x8042fe98,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fe98,0,0x1000,0x600,..)>
+          <page2pa(0x8042fe98,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fe98,0,0x1000,0x600,..)>
+        <memcpy(0x83fe2000,0x800ec924,0x1000)>
+        <page_insert(0x83fee000,1,0x8042fe98,0x40a000,..)>
+          <pgdir_walk(0x83fee000,0x40a000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x40a000,0,"(",..)>
+            <tlb_out(0x40a040,0x40a000,0,"(",..)>
+          <pgdir_walk(0x83fee000,0x40a000,1,"(",..)>
+          <page2pa(0x8042fe98,0x40a000,1,"(",..)>
+            <page2ppn(0x8042fe98,0x40a000,1,"(",..)>
+      <load_icode_mapper(0x8014c0dc,0x40b000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40b000,0,0x600,..)>
+          <page2kva(0x8042fe8c,0x40b000,0,0x600,..)>
+            <page2pa(0x8042fe8c,0x40b000,0,0x600,..)>
+              <page2ppn(0x8042fe8c,0x40b000,0,0x600,..)>
+            <page2pa(0x8042fe8c,0x40b000,0,0x600,..)>
+              <page2ppn(0x8042fe8c,0x40b000,0,0x600,..)>
+          <memset(0x83fe1000,0,0x1000)>
+        <page2kva(0x8042fe8c,0,0x1000,0x600,..)>
+          <page2pa(0x8042fe8c,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fe8c,0,0x1000,0x600,..)>
+          <page2pa(0x8042fe8c,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fe8c,0,0x1000,0x600,..)>
+        <memcpy(0x83fe1000,0x800ed924,0x1000)>
+        <page_insert(0x83fee000,1,0x8042fe8c,0x40b000,..)>
+          <pgdir_walk(0x83fee000,0x40b000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x40b000,0,",",..)>
+            <tlb_out(0x40b040,0x40b000,0,",",..)>
+          <pgdir_walk(0x83fee000,0x40b000,1,",",..)>
+          <page2pa(0x8042fe8c,0x40b000,1,",",..)>
+            <page2ppn(0x8042fe8c,0x40b000,1,",",..)>
+      <load_icode_mapper(0x8014c0dc,0x40c000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40c000,0,0x600,..)>
+          <page2kva("t",0x40c000,0,0x600,..)>
+            <page2pa("t",0x40c000,0,0x600,..)>
+              <page2ppn("t",0x40c000,0,0x600,..)>
+            <page2pa("t",0x40c000,0,0x600,..)>
+              <page2ppn("t",0x40c000,0,0x600,..)>
+          <memset(0x83fe0000,0,0x1000)>
+        <page2kva("t",0,0x1000,0x600,..)>
+          <page2pa("t",0,0x1000,0x600,..)>
+            <page2ppn("t",0,0x1000,0x600,..)>
+          <page2pa("t",0,0x1000,0x600,..)>
+            <page2ppn("t",0,0x1000,0x600,..)>
+        <memcpy(0x83fe0000,0x800ee924,0x1000)>
+        <page_insert(0x83fee000,1,"t",0x40c000,..)>
+          <pgdir_walk(0x83fee000,0x40c000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x40c000,0,"0",..)>
+            <tlb_out(0x40c040,0x40c000,0,"0",..)>
+          <pgdir_walk(0x83fee000,0x40c000,1,"0",..)>
+          <page2pa("t",0x40c000,1,"0",..)>
+            <page2ppn("t",0x40c000,1,"0",..)>
+      <load_icode_mapper(0x8014c0dc,0x40d000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40d000,0,0x600,..)>
+          <page2kva("h",0x40d000,0,0x600,..)>
+            <page2pa("h",0x40d000,0,0x600,..)>
+              <page2ppn("h",0x40d000,0,0x600,..)>
+            <page2pa("h",0x40d000,0,0x600,..)>
+              <page2ppn("h",0x40d000,0,0x600,..)>
+          <memset(0x83fdf000,0,0x1000)>
+        <page2kva("h",0,0x1000,0x600,..)>
+          <page2pa("h",0,0x1000,0x600,..)>
+            <page2ppn("h",0,0x1000,0x600,..)>
+          <page2pa("h",0,0x1000,0x600,..)>
+            <page2ppn("h",0,0x1000,0x600,..)>
+        <memcpy(0x83fdf000,0x800ef924,0x1000)>
+        <page_insert(0x83fee000,1,"h",0x40d000,..)>
+          <pgdir_walk(0x83fee000,0x40d000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x40d000,0,"4",..)>
+            <tlb_out(0x40d040,0x40d000,0,"4",..)>
+          <pgdir_walk(0x83fee000,0x40d000,1,"4",..)>
+          <page2pa("h",0x40d000,1,"4",..)>
+            <page2ppn("h",0x40d000,1,"4",..)>
+      <load_icode_mapper(0x8014c0dc,0x40e000,0,0x600,..)>
+        <page_alloc("t",0x40e000,0,0x600,..)>
+          <page2kva("\",0x40e000,0,0x600,..)>
+            <page2pa("\",0x40e000,0,0x600,..)>
+              <page2ppn("\",0x40e000,0,0x600,..)>
+            <page2pa("\",0x40e000,0,0x600,..)>
+              <page2ppn("\",0x40e000,0,0x600,..)>
+          <memset(0x83fde000,0,0x1000)>
+        <page2kva("\",0,0x1000,0x600,..)>
+          <page2pa("\",0,0x1000,0x600,..)>
+            <page2ppn("\",0,0x1000,0x600,..)>
+          <page2pa("\",0,0x1000,0x600,..)>
+            <page2ppn("\",0,0x1000,0x600,..)>
+        <memcpy(0x83fde000,0x800f0924,112)>
+        <page_insert(0x83fee000,1,"\",0x40e000,..)>
+          <pgdir_walk(0x83fee000,0x40e000,0,0x803ffef0,..)>
+          <tlb_invalidate(1,0x40e000,0,"8",..)>
+            <tlb_out(0x40e040,0x40e000,0,"8",..)>
+          <pgdir_walk(0x83fee000,0x40e000,1,"8",..)>
+          <page2pa("\",0x40e000,1,"8",..)>
+            <page2ppn("\",0x40e000,1,"8",..)>
+      <load_icode_mapper(0x8014c0dc,0x40f000,0,0x600,..)>
+        <page_alloc("h",0x40f000,0,0x600,..)>
+          <page2kva("P",0x40f000,0,0x600,..)>
+            <page2pa("P",0x40f000,0,0x600,..)>
+              <page2ppn("P",0x40f000,0,0x600,..)>
+            <page2pa("P",0x40f000,0,0x600,..)>
+              <page2ppn("P",0x40f000,0,0x600,..)>
+          <memset(0x83fdd000,0,0x1000)>
+        <page_insert(0x83fee000,1,"P",0x40f000,..)>
+          <pgdir_walk(0x83fee000,0x40f000,0,"\",..)>
+          <tlb_invalidate(1,0x40f000,0,"<",..)>
+            <tlb_out(0x40f040,0x40f000,0,"<",..)>
+          <pgdir_walk(0x83fee000,0x40f000,1,"<",..)>
+          <page2pa("P",0x40f000,1,"<",..)>
+            <page2ppn("P",0x40f000,1,"<",..)>
+      <load_icode_mapper(0x8014c0dc,0x410000,0,0x600,..)>
+        <page_alloc("\",0x410000,0,0x600,..)>
+          <page2kva("D",0x410000,0,0x600,..)>
+            <page2pa("D",0x410000,0,0x600,..)>
+              <page2ppn("D",0x410000,0,0x600,..)>
+            <page2pa("D",0x410000,0,0x600,..)>
+              <page2ppn("D",0x410000,0,0x600,..)>
+          <memset(0x83fdc000,0,0x1000)>
+        <page_insert(0x83fee000,1,"D",0x410000,..)>
+          <pgdir_walk(0x83fee000,0x410000,0,"P",..)>
+          <tlb_invalidate(1,0x410000,0,"@",..)>
+            <tlb_out(0x410040,0x410000,0,"@",..)>
+          <pgdir_walk(0x83fee000,0x410000,1,"@",..)>
+          <page2pa("D",0x410000,1,"@",..)>
+            <page2ppn("D",0x410000,1,"@",..)>
+      <load_icode_mapper(0x8014c0dc,0x411000,0,0x600,..)>
+        <page_alloc("P",0x411000,0,0x600,..)>
+          <page2kva("8",0x411000,0,0x600,..)>
+            <page2pa("8",0x411000,0,0x600,..)>
+              <page2ppn("8",0x411000,0,0x600,..)>
+            <page2pa("8",0x411000,0,0x600,..)>
+              <page2ppn("8",0x411000,0,0x600,..)>
+          <memset(0x83fdb000,0,0x1000)>
+        <page_insert(0x83fee000,1,"8",0x411000,..)>
+          <pgdir_walk(0x83fee000,0x411000,0,"D",..)>
+          <tlb_invalidate(1,0x411000,0,"D",..)>
+            <tlb_out(0x411040,0x411000,0,"D",..)>
+          <pgdir_walk(0x83fee000,0x411000,1,"D",..)>
+          <page2pa("8",0x411000,1,"D",..)>
+            <page2ppn("8",0x411000,1,"D",..)>
+<env_create(&binary_test_testpipe_start,0x195cc,1,"D",..)>
+  <env_alloc(0x803fffd8,0,1,"D",..)>
+    <env_setup_vm(0x8014c1b8,0,1,"D",..)>
+      <page_alloc(0x803fff9c,0,1,"D",..)>
+        <page2kva(",",0,1,"D",..)>
+          <page2pa(",",0,1,"D",..)>
+            <page2ppn(",",0,1,"D",..)>
+          <page2pa(",",0,1,"D",..)>
+            <page2ppn(",",0,1,"D",..)>
+        <memset(0x83fda000,0,0x1000)>
+      <page2kva(",",0,0x1000,"D",..)>
+        <page2pa(",",0,0x1000,"D",..)>
+          <page2ppn(",",0,0x1000,"D",..)>
+        <page2pa(",",0,0x1000,"D",..)>
+          <page2ppn(",",0,0x1000,"D",..)>
+      <memcpy(0x83fda7f4,0x83fff7f4,8)>
+    <mkenvid(0x8014c1b8,0x83fff7f4,8,"D",..)>
+    <asid_alloc(0x8014c25c,0x83fff7f4,8,"D",..)>
+  <load_icode(0x8014c1b8,&binary_test_testpipe_start,0x195cc,"D",..)>
+    <elf_from(&binary_test_testpipe_start,0x195cc,0x195cc,"D",..)>
+    <elf_load_seg(0x80100b38,"h",&load_icode_mapper,0x8014c1b8,..)>
+      <load_icode_mapper(0x8014c1b8,0x400000,0,0x200,..)>
+        <page_alloc("D",0x400000,0,0x200,..)>
+          <page2kva(" ",0x400000,0,0x200,..)>
+            <page2pa(" ",0x400000,0,0x200,..)>
+              <page2ppn(" ",0x400000,0,0x200,..)>
+            <page2pa(" ",0x400000,0,0x200,..)>
+              <page2ppn(" ",0x400000,0,0x200,..)>
+          <memset(0x83fd9000,0,0x1000)>
+        <page2kva(" ",0,0x1000,0x200,..)>
+          <page2pa(" ",0,0x1000,0x200,..)>
+            <page2ppn(" ",0,0x1000,0x200,..)>
+          <page2pa(" ",0,0x1000,0x200,..)>
+            <page2ppn(" ",0,0x1000,0x200,..)>
+        <memcpy(0x83fd9000,"h",0x1000)>
+        <page_insert(0x83fda000,2," ",0x400000,..)>
+          <pgdir_walk(0x83fda000,0x400000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x400000,0,0x803ffef0,..)>
+            <tlb_out(0x400080,0x400000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x400000,1,0x803ffef0,..)>
+            <page_alloc(0x803ffec8,0x400000,1,0x803ffef0,..)>
+              <page2kva(0x8042fe20,0x400000,1,0x803ffef0,..)>
+                <page2pa(0x8042fe20,0x400000,1,0x803ffef0,..)>
+                  <page2ppn(0x8042fe20,0x400000,1,0x803ffef0,..)>
+                <page2pa(0x8042fe20,0x400000,1,0x803ffef0,..)>
+                  <page2ppn(0x8042fe20,0x400000,1,0x803ffef0,..)>
+              <memset(0x83fd8000,0,0x1000)>
+            <page2pa(0x8042fe20,0,0x1000,0x803ffef0,..)>
+              <page2ppn(0x8042fe20,0,0x1000,0x803ffef0,..)>
+          <page2pa(" ",0,0x1000,0x803ffef0,..)>
+            <page2ppn(" ",0,0x1000,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x401000,0,0x200,..)>
+        <page_alloc(",",0x401000,0,0x200,..)>
+          <page2kva(0x8042fe14,0x401000,0,0x200,..)>
+            <page2pa(0x8042fe14,0x401000,0,0x200,..)>
+              <page2ppn(0x8042fe14,0x401000,0,0x200,..)>
+            <page2pa(0x8042fe14,0x401000,0,0x200,..)>
+              <page2ppn(0x8042fe14,0x401000,0,0x200,..)>
+          <memset(0x83fd7000,0,0x1000)>
+        <page2kva(0x8042fe14,0,0x1000,0x200,..)>
+          <page2pa(0x8042fe14,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fe14,0,0x1000,0x200,..)>
+          <page2pa(0x8042fe14,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fe14,0,0x1000,0x200,..)>
+        <memcpy(0x83fd7000,0x80101b84,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fe14,0x401000,..)>
+          <pgdir_walk(0x83fda000,0x401000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x401000,0,0x803ffef0,..)>
+            <tlb_out(0x401080,0x401000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x401000,1,0x803ffef0,..)>
+          <page2pa(0x8042fe14,0x401000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fe14,0x401000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x402000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x402000,0,0x200,..)>
+          <page2kva(0x8042fe08,0x402000,0,0x200,..)>
+            <page2pa(0x8042fe08,0x402000,0,0x200,..)>
+              <page2ppn(0x8042fe08,0x402000,0,0x200,..)>
+            <page2pa(0x8042fe08,0x402000,0,0x200,..)>
+              <page2ppn(0x8042fe08,0x402000,0,0x200,..)>
+          <memset(0x83fd6000,0,0x1000)>
+        <page2kva(0x8042fe08,0,0x1000,0x200,..)>
+          <page2pa(0x8042fe08,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fe08,0,0x1000,0x200,..)>
+          <page2pa(0x8042fe08,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fe08,0,0x1000,0x200,..)>
+        <memcpy(0x83fd6000,0x80102b84,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fe08,0x402000,..)>
+          <pgdir_walk(0x83fda000,0x402000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x402000,0,0x803ffef0,..)>
+            <tlb_out(0x402080,0x402000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x402000,1,0x803ffef0,..)>
+          <page2pa(0x8042fe08,0x402000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fe08,0x402000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x403000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x403000,0,0x200,..)>
+          <page2kva(0x8042fdfc,0x403000,0,0x200,..)>
+            <page2pa(0x8042fdfc,0x403000,0,0x200,..)>
+              <page2ppn(0x8042fdfc,0x403000,0,0x200,..)>
+            <page2pa(0x8042fdfc,0x403000,0,0x200,..)>
+              <page2ppn(0x8042fdfc,0x403000,0,0x200,..)>
+          <memset(0x83fd5000,0,0x1000)>
+        <page2kva(0x8042fdfc,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdfc,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdfc,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdfc,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdfc,0,0x1000,0x200,..)>
+        <memcpy(0x83fd5000,0x80103b84,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fdfc,0x403000,..)>
+          <pgdir_walk(0x83fda000,0x403000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x403000,0,0x803ffef0,..)>
+            <tlb_out(0x403080,0x403000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x403000,1,0x803ffef0,..)>
+          <page2pa(0x8042fdfc,0x403000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fdfc,0x403000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x404000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x404000,0,0x200,..)>
+          <page2kva(0x8042fdf0,0x404000,0,0x200,..)>
+            <page2pa(0x8042fdf0,0x404000,0,0x200,..)>
+              <page2ppn(0x8042fdf0,0x404000,0,0x200,..)>
+            <page2pa(0x8042fdf0,0x404000,0,0x200,..)>
+              <page2ppn(0x8042fdf0,0x404000,0,0x200,..)>
+          <memset(0x83fd4000,0,0x1000)>
+        <page2kva(0x8042fdf0,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdf0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdf0,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdf0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdf0,0,0x1000,0x200,..)>
+        <memcpy(0x83fd4000,0x80104b84,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fdf0,0x404000,..)>
+          <pgdir_walk(0x83fda000,0x404000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x404000,0,0x803ffef0,..)>
+            <tlb_out(0x404080,0x404000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x404000,1,0x803ffef0,..)>
+          <page2pa(0x8042fdf0,0x404000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fdf0,0x404000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x405000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x405000,0,0x200,..)>
+          <page2kva(0x8042fde4,0x405000,0,0x200,..)>
+            <page2pa(0x8042fde4,0x405000,0,0x200,..)>
+              <page2ppn(0x8042fde4,0x405000,0,0x200,..)>
+            <page2pa(0x8042fde4,0x405000,0,0x200,..)>
+              <page2ppn(0x8042fde4,0x405000,0,0x200,..)>
+          <memset(0x83fd3000,0,0x1000)>
+        <page2kva(0x8042fde4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fde4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fde4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fde4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fde4,0,0x1000,0x200,..)>
+        <memcpy(0x83fd3000,"%",0x1000)>
+        <page_insert(0x83fda000,2,0x8042fde4,0x405000,..)>
+          <pgdir_walk(0x83fda000,0x405000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x405000,0,0x803ffef0,..)>
+            <tlb_out(0x405080,0x405000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x405000,1,0x803ffef0,..)>
+          <page2pa(0x8042fde4,0x405000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fde4,0x405000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x406000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x406000,0,0x200,..)>
+          <page2kva(0x8042fdd8,0x406000,0,0x200,..)>
+            <page2pa(0x8042fdd8,0x406000,0,0x200,..)>
+              <page2ppn(0x8042fdd8,0x406000,0,0x200,..)>
+            <page2pa(0x8042fdd8,0x406000,0,0x200,..)>
+              <page2ppn(0x8042fdd8,0x406000,0,0x200,..)>
+          <memset(0x83fd2000,0,0x1000)>
+        <page2kva(0x8042fdd8,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdd8,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdd8,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdd8,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdd8,0,0x1000,0x200,..)>
+        <memcpy(0x83fd2000,"%",0x1000)>
+        <page_insert(0x83fda000,2,0x8042fdd8,0x406000,..)>
+          <pgdir_walk(0x83fda000,0x406000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x406000,0,0x803ffef0,..)>
+            <tlb_out(0x406080,0x406000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x406000,1,0x803ffef0,..)>
+          <page2pa(0x8042fdd8,0x406000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fdd8,0x406000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x407000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x407000,0,0x200,..)>
+          <page2kva(0x8042fdcc,0x407000,0,0x200,..)>
+            <page2pa(0x8042fdcc,0x407000,0,0x200,..)>
+              <page2ppn(0x8042fdcc,0x407000,0,0x200,..)>
+            <page2pa(0x8042fdcc,0x407000,0,0x200,..)>
+              <page2ppn(0x8042fdcc,0x407000,0,0x200,..)>
+          <memset(0x83fd1000,0,0x1000)>
+        <page2kva(0x8042fdcc,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdcc,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdcc,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdcc,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdcc,0,0x1000,0x200,..)>
+        <memcpy(0x83fd1000,0x80107b84,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fdcc,0x407000,..)>
+          <pgdir_walk(0x83fda000,0x407000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x407000,0,0x803ffef0,..)>
+            <tlb_out(0x407080,0x407000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fda000,0x407000,1,0x803ffef0,..)>
+          <page2pa(0x8042fdcc,0x407000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fdcc,0x407000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c1b8,0x408000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x408000,0,0x200,..)>
+          <page2kva(0x8042fdc0,0x408000,0,0x200,..)>
+            <page2pa(0x8042fdc0,0x408000,0,0x200,..)>
+              <page2ppn(0x8042fdc0,0x408000,0,0x200,..)>
+            <page2pa(0x8042fdc0,0x408000,0,0x200,..)>
+              <page2ppn(0x8042fdc0,0x408000,0,0x200,..)>
+          <memset(0x83fd0000,0,0x1000)>
+        <page2kva(0x8042fdc0,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdc0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdc0,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdc0,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdc0,0,0x1000,0x200,..)>
+        <memcpy(0x83fd0000,0x80108b84,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fdc0,0x408000,..)>
+          <pgdir_walk(0x83fda000,0x408000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x408000,0," ",..)>
+            <tlb_out(0x408080,0x408000,0," ",..)>
+          <pgdir_walk(0x83fda000,0x408000,1," ",..)>
+          <page2pa(0x8042fdc0,0x408000,1," ",..)>
+            <page2ppn(0x8042fdc0,0x408000,1," ",..)>
+      <load_icode_mapper(0x8014c1b8,0x409000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x409000,0,0x200,..)>
+          <page2kva(0x8042fdb4,0x409000,0,0x200,..)>
+            <page2pa(0x8042fdb4,0x409000,0,0x200,..)>
+              <page2ppn(0x8042fdb4,0x409000,0,0x200,..)>
+            <page2pa(0x8042fdb4,0x409000,0,0x200,..)>
+              <page2ppn(0x8042fdb4,0x409000,0,0x200,..)>
+          <memset(0x83fcf000,0,0x1000)>
+        <page2kva(0x8042fdb4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdb4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdb4,0,0x1000,0x200,..)>
+          <page2pa(0x8042fdb4,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fdb4,0,0x1000,0x200,..)>
+        <memcpy(0x83fcf000,0x80109b84,0x100)>
+        <page_insert(0x83fda000,2,0x8042fdb4,0x409000,..)>
+          <pgdir_walk(0x83fda000,0x409000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x409000,0,"$",..)>
+            <tlb_out(0x409080,0x409000,0,"$",..)>
+          <pgdir_walk(0x83fda000,0x409000,1,"$",..)>
+          <page2pa(0x8042fdb4,0x409000,1,"$",..)>
+            <page2ppn(0x8042fdb4,0x409000,1,"$",..)>
+    <elf_load_seg(0x80100b58,0x8010aac4,&load_icode_mapper,0x8014c1b8,..)>
+      <load_icode_mapper(0x8014c1b8,0x40a000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40a000,0,0x600,..)>
+          <page2kva(0x8042fda8,0x40a000,0,0x600,..)>
+            <page2pa(0x8042fda8,0x40a000,0,0x600,..)>
+              <page2ppn(0x8042fda8,0x40a000,0,0x600,..)>
+            <page2pa(0x8042fda8,0x40a000,0,0x600,..)>
+              <page2ppn(0x8042fda8,0x40a000,0,0x600,..)>
+          <memset(0x83fce000,0,0x1000)>
+        <page2kva(0x8042fda8,0,0x1000,0x600,..)>
+          <page2pa(0x8042fda8,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fda8,0,0x1000,0x600,..)>
+          <page2pa(0x8042fda8,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fda8,0,0x1000,0x600,..)>
+        <memcpy(0x83fce000,0x8010aac4,128)>
+        <page_insert(0x83fda000,2,0x8042fda8,0x40a000,..)>
+          <pgdir_walk(0x83fda000,0x40a000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x40a000,0,"(",..)>
+            <tlb_out(0x40a080,0x40a000,0,"(",..)>
+          <pgdir_walk(0x83fda000,0x40a000,1,"(",..)>
+          <page2pa(0x8042fda8,0x40a000,1,"(",..)>
+            <page2ppn(0x8042fda8,0x40a000,1,"(",..)>
+      <load_icode_mapper(0x8014c1b8,0x40b000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40b000,0,0x600,..)>
+          <page2kva(0x8042fd9c,0x40b000,0,0x600,..)>
+            <page2pa(0x8042fd9c,0x40b000,0,0x600,..)>
+              <page2ppn(0x8042fd9c,0x40b000,0,0x600,..)>
+            <page2pa(0x8042fd9c,0x40b000,0,0x600,..)>
+              <page2ppn(0x8042fd9c,0x40b000,0,0x600,..)>
+          <memset(0x83fcd000,0,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fd9c,0x40b000,..)>
+          <pgdir_walk(0x83fda000,0x40b000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x40b000,0,",",..)>
+            <tlb_out(0x40b080,0x40b000,0,",",..)>
+          <pgdir_walk(0x83fda000,0x40b000,1,",",..)>
+          <page2pa(0x8042fd9c,0x40b000,1,",",..)>
+            <page2ppn(0x8042fd9c,0x40b000,1,",",..)>
+      <load_icode_mapper(0x8014c1b8,0x40c000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40c000,0,0x600,..)>
+          <page2kva(0x8042fd90,0x40c000,0,0x600,..)>
+            <page2pa(0x8042fd90,0x40c000,0,0x600,..)>
+              <page2ppn(0x8042fd90,0x40c000,0,0x600,..)>
+            <page2pa(0x8042fd90,0x40c000,0,0x600,..)>
+              <page2ppn(0x8042fd90,0x40c000,0,0x600,..)>
+          <memset(0x83fcc000,0,0x1000)>
+        <page_insert(0x83fda000,2,0x8042fd90,0x40c000,..)>
+          <pgdir_walk(0x83fda000,0x40c000,0,0x803ffef0,..)>
+          <tlb_invalidate(2,0x40c000,0,"0",..)>
+            <tlb_out(0x40c080,0x40c000,0,"0",..)>
+          <pgdir_walk(0x83fda000,0x40c000,1,"0",..)>
+          <page2pa(0x8042fd90,0x40c000,1,"0",..)>
+            <page2ppn(0x8042fd90,0x40c000,1,"0",..)>
+<env_create(&binary_test_testpiperace_start,0x195c4,1,"0",..)>
+  <env_alloc(0x803fffd8,0,1,"0",..)>
+    <env_setup_vm(0x8014c294,0,1,"0",..)>
+      <page_alloc(0x803fff9c,0,1,"0",..)>
+        <page2kva("x",0,1,"0",..)>
+          <page2pa("x",0,1,"0",..)>
+            <page2ppn("x",0,1,"0",..)>
+          <page2pa("x",0,1,"0",..)>
+            <page2ppn("x",0,1,"0",..)>
+        <memset(0x83fcb000,0,0x1000)>
+      <page2kva("x",0,0x1000,"0",..)>
+        <page2pa("x",0,0x1000,"0",..)>
+          <page2ppn("x",0,0x1000,"0",..)>
+        <page2pa("x",0,0x1000,"0",..)>
+          <page2ppn("x",0,0x1000,"0",..)>
+      <memcpy(0x83fcb7f4,0x83fff7f4,8)>
+    <mkenvid(0x8014c294,0x83fff7f4,8,"0",..)>
+    <asid_alloc(0x8014c338,0x83fff7f4,8,"0",..)>
+  <load_icode(0x8014c294,&binary_test_testpiperace_start,0x195c4,"0",..)>
+    <elf_from(&binary_test_testpiperace_start,0x195c4,0x195c4,"0",..)>
+    <elf_load_seg(0x8011a108,0x8011a154,&load_icode_mapper,0x8014c294,..)>
+      <load_icode_mapper(0x8014c294,0x400000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x400000,0,0x200,..)>
+          <page2kva("l",0x400000,0,0x200,..)>
+            <page2pa("l",0x400000,0,0x200,..)>
+              <page2ppn("l",0x400000,0,0x200,..)>
+            <page2pa("l",0x400000,0,0x200,..)>
+              <page2ppn("l",0x400000,0,0x200,..)>
+          <memset(0x83fca000,0,0x1000)>
+        <page2kva("l",0,0x1000,0x200,..)>
+          <page2pa("l",0,0x1000,0x200,..)>
+            <page2ppn("l",0,0x1000,0x200,..)>
+          <page2pa("l",0,0x1000,0x200,..)>
+            <page2ppn("l",0,0x1000,0x200,..)>
+        <memcpy(0x83fca000,0x8011a154,0x1000)>
+        <page_insert(0x83fcb000,3,"l",0x400000,..)>
+          <pgdir_walk(0x83fcb000,0x400000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x400000,0,0x803ffef0,..)>
+            <tlb_out(0x4000c0,0x400000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x400000,1,0x803ffef0,..)>
+            <page_alloc(0x803ffec8,0x400000,1,0x803ffef0,..)>
+              <page2kva("`",0x400000,1,0x803ffef0,..)>
+                <page2pa("`",0x400000,1,0x803ffef0,..)>
+                  <page2ppn("`",0x400000,1,0x803ffef0,..)>
+                <page2pa("`",0x400000,1,0x803ffef0,..)>
+                  <page2ppn("`",0x400000,1,0x803ffef0,..)>
+              <memset(0x83fc9000,0,0x1000)>
+            <page2pa("`",0,0x1000,0x803ffef0,..)>
+              <page2ppn("`",0,0x1000,0x803ffef0,..)>
+          <page2pa("l",0,0x1000,0x803ffef0,..)>
+            <page2ppn("l",0,0x1000,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x401000,0,0x200,..)>
+        <page_alloc("x",0x401000,0,0x200,..)>
+          <page2kva("T",0x401000,0,0x200,..)>
+            <page2pa("T",0x401000,0,0x200,..)>
+              <page2ppn("T",0x401000,0,0x200,..)>
+            <page2pa("T",0x401000,0,0x200,..)>
+              <page2ppn("T",0x401000,0,0x200,..)>
+          <memset(0x83fc8000,0,0x1000)>
+        <page2kva("T",0,0x1000,0x200,..)>
+          <page2pa("T",0,0x1000,0x200,..)>
+            <page2ppn("T",0,0x1000,0x200,..)>
+          <page2pa("T",0,0x1000,0x200,..)>
+            <page2ppn("T",0,0x1000,0x200,..)>
+        <memcpy(0x83fc8000,"!",0x1000)>
+        <page_insert(0x83fcb000,3,"T",0x401000,..)>
+          <pgdir_walk(0x83fcb000,0x401000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x401000,0,0x803ffef0,..)>
+            <tlb_out(0x4010c0,0x401000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x401000,1,0x803ffef0,..)>
+          <page2pa("T",0x401000,1,0x803ffef0,..)>
+            <page2ppn("T",0x401000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x402000,0,0x200,..)>
+        <page_alloc("`",0x402000,0,0x200,..)>
+          <page2kva("H",0x402000,0,0x200,..)>
+            <page2pa("H",0x402000,0,0x200,..)>
+              <page2ppn("H",0x402000,0,0x200,..)>
+            <page2pa("H",0x402000,0,0x200,..)>
+              <page2ppn("H",0x402000,0,0x200,..)>
+          <memset(0x83fc7000,0,0x1000)>
+        <page2kva("H",0,0x1000,0x200,..)>
+          <page2pa("H",0,0x1000,0x200,..)>
+            <page2ppn("H",0,0x1000,0x200,..)>
+          <page2pa("H",0,0x1000,0x200,..)>
+            <page2ppn("H",0,0x1000,0x200,..)>
+        <memcpy(0x83fc7000,0x8011c154,0x1000)>
+        <page_insert(0x83fcb000,3,"H",0x402000,..)>
+          <pgdir_walk(0x83fcb000,0x402000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x402000,0,0x803ffef0,..)>
+            <tlb_out(0x4020c0,0x402000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x402000,1,0x803ffef0,..)>
+          <page2pa("H",0x402000,1,0x803ffef0,..)>
+            <page2ppn("H",0x402000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x403000,0,0x200,..)>
+        <page_alloc("T",0x403000,0,0x200,..)>
+          <page2kva("<",0x403000,0,0x200,..)>
+            <page2pa("<",0x403000,0,0x200,..)>
+              <page2ppn("<",0x403000,0,0x200,..)>
+            <page2pa("<",0x403000,0,0x200,..)>
+              <page2ppn("<",0x403000,0,0x200,..)>
+          <memset(0x83fc6000,0,0x1000)>
+        <page2kva("<",0,0x1000,0x200,..)>
+          <page2pa("<",0,0x1000,0x200,..)>
+            <page2ppn("<",0,0x1000,0x200,..)>
+          <page2pa("<",0,0x1000,0x200,..)>
+            <page2ppn("<",0,0x1000,0x200,..)>
+        <memcpy(0x83fc6000,0x8011d154,0x1000)>
+        <page_insert(0x83fcb000,3,"<",0x403000,..)>
+          <pgdir_walk(0x83fcb000,0x403000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x403000,0,0x803ffef0,..)>
+            <tlb_out(0x4030c0,0x403000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x403000,1,0x803ffef0,..)>
+          <page2pa("<",0x403000,1,0x803ffef0,..)>
+            <page2ppn("<",0x403000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x404000,0,0x200,..)>
+        <page_alloc("H",0x404000,0,0x200,..)>
+          <page2kva("0",0x404000,0,0x200,..)>
+            <page2pa("0",0x404000,0,0x200,..)>
+              <page2ppn("0",0x404000,0,0x200,..)>
+            <page2pa("0",0x404000,0,0x200,..)>
+              <page2ppn("0",0x404000,0,0x200,..)>
+          <memset(0x83fc5000,0,0x1000)>
+        <page2kva("0",0,0x1000,0x200,..)>
+          <page2pa("0",0,0x1000,0x200,..)>
+            <page2ppn("0",0,0x1000,0x200,..)>
+          <page2pa("0",0,0x1000,0x200,..)>
+            <page2ppn("0",0,0x1000,0x200,..)>
+        <memcpy(0x83fc5000,0x8011e154,0x1000)>
+        <page_insert(0x83fcb000,3,"0",0x404000,..)>
+          <pgdir_walk(0x83fcb000,0x404000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x404000,0,0x803ffef0,..)>
+            <tlb_out(0x4040c0,0x404000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x404000,1,0x803ffef0,..)>
+          <page2pa("0",0x404000,1,0x803ffef0,..)>
+            <page2ppn("0",0x404000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x405000,0,0x200,..)>
+        <page_alloc("<",0x405000,0,0x200,..)>
+          <page2kva("$",0x405000,0,0x200,..)>
+            <page2pa("$",0x405000,0,0x200,..)>
+              <page2ppn("$",0x405000,0,0x200,..)>
+            <page2pa("$",0x405000,0,0x200,..)>
+              <page2ppn("$",0x405000,0,0x200,..)>
+          <memset(0x83fc4000,0,0x1000)>
+        <page2kva("$",0,0x1000,0x200,..)>
+          <page2pa("$",0,0x1000,0x200,..)>
+            <page2ppn("$",0,0x1000,0x200,..)>
+          <page2pa("$",0,0x1000,0x200,..)>
+            <page2ppn("$",0,0x1000,0x200,..)>
+        <memcpy(0x83fc4000,0x8011f154,0x1000)>
+        <page_insert(0x83fcb000,3,"$",0x405000,..)>
+          <pgdir_walk(0x83fcb000,0x405000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x405000,0,0x803ffef0,..)>
+            <tlb_out(0x4050c0,0x405000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x405000,1,0x803ffef0,..)>
+          <page2pa("$",0x405000,1,0x803ffef0,..)>
+            <page2ppn("$",0x405000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x406000,0,0x200,..)>
+        <page_alloc("0",0x406000,0,0x200,..)>
+          <page2kva(0x8042fd24,0x406000,0,0x200,..)>
+            <page2pa(0x8042fd24,0x406000,0,0x200,..)>
+              <page2ppn(0x8042fd24,0x406000,0,0x200,..)>
+            <page2pa(0x8042fd24,0x406000,0,0x200,..)>
+              <page2ppn(0x8042fd24,0x406000,0,0x200,..)>
+          <memset(0x83fc3000,0,0x1000)>
+        <page2kva(0x8042fd24,0,0x1000,0x200,..)>
+          <page2pa(0x8042fd24,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fd24,0,0x1000,0x200,..)>
+          <page2pa(0x8042fd24,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fd24,0,0x1000,0x200,..)>
+        <memcpy(0x83fc3000,0x80120154,0x1000)>
+        <page_insert(0x83fcb000,3,0x8042fd24,0x406000,..)>
+          <pgdir_walk(0x83fcb000,0x406000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x406000,0,0x803ffef0,..)>
+            <tlb_out(0x4060c0,0x406000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x406000,1,0x803ffef0,..)>
+          <page2pa(0x8042fd24,0x406000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fd24,0x406000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x407000,0,0x200,..)>
+        <page_alloc("$",0x407000,0,0x200,..)>
+          <page2kva(0x8042fd18,0x407000,0,0x200,..)>
+            <page2pa(0x8042fd18,0x407000,0,0x200,..)>
+              <page2ppn(0x8042fd18,0x407000,0,0x200,..)>
+            <page2pa(0x8042fd18,0x407000,0,0x200,..)>
+              <page2ppn(0x8042fd18,0x407000,0,0x200,..)>
+          <memset(0x83fc2000,0,0x1000)>
+        <page2kva(0x8042fd18,0,0x1000,0x200,..)>
+          <page2pa(0x8042fd18,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fd18,0,0x1000,0x200,..)>
+          <page2pa(0x8042fd18,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fd18,0,0x1000,0x200,..)>
+        <memcpy(0x83fc2000,":",0x1000)>
+        <page_insert(0x83fcb000,3,0x8042fd18,0x407000,..)>
+          <pgdir_walk(0x83fcb000,0x407000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x407000,0,0x803ffef0,..)>
+            <tlb_out(0x4070c0,0x407000,0,0x803ffef0,..)>
+          <pgdir_walk(0x83fcb000,0x407000,1,0x803ffef0,..)>
+          <page2pa(0x8042fd18,0x407000,1,0x803ffef0,..)>
+            <page2ppn(0x8042fd18,0x407000,1,0x803ffef0,..)>
+      <load_icode_mapper(0x8014c294,0x408000,0,0x200,..)>
+        <page_alloc(0x803fff20,0x408000,0,0x200,..)>
+          <page2kva(0x8042fd0c,0x408000,0,0x200,..)>
+            <page2pa(0x8042fd0c,0x408000,0,0x200,..)>
+              <page2ppn(0x8042fd0c,0x408000,0,0x200,..)>
+            <page2pa(0x8042fd0c,0x408000,0,0x200,..)>
+              <page2ppn(0x8042fd0c,0x408000,0,0x200,..)>
+          <memset(0x83fc1000,0,0x1000)>
+        <page2kva(0x8042fd0c,0,0x1000,0x200,..)>
+          <page2pa(0x8042fd0c,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fd0c,0,0x1000,0x200,..)>
+          <page2pa(0x8042fd0c,0,0x1000,0x200,..)>
+            <page2ppn(0x8042fd0c,0,0x1000,0x200,..)>
+        <memcpy(0x83fc1000,0x80122154,0xf90)>
+        <page_insert(0x83fcb000,3,0x8042fd0c,0x408000,..)>
+          <pgdir_walk(0x83fcb000,0x408000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x408000,0," ",..)>
+            <tlb_out(0x4080c0,0x408000,0," ",..)>
+          <pgdir_walk(0x83fcb000,0x408000,1," ",..)>
+          <page2pa(0x8042fd0c,0x408000,1," ",..)>
+            <page2ppn(0x8042fd0c,0x408000,1," ",..)>
+    <elf_load_seg(0x8011a128,"c",&load_icode_mapper,0x8014c294,..)>
+      <load_icode_mapper(0x8014c294,0x409000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x409000,0,0x600,..)>
+          <page2kva(0x8042fd00,0x409000,0,0x600,..)>
+            <page2pa(0x8042fd00,0x409000,0,0x600,..)>
+              <page2ppn(0x8042fd00,0x409000,0,0x600,..)>
+            <page2pa(0x8042fd00,0x409000,0,0x600,..)>
+              <page2ppn(0x8042fd00,0x409000,0,0x600,..)>
+          <memset(0x83fc0000,0,0x1000)>
+        <page2kva(0x8042fd00,0,0x1000,0x600,..)>
+          <page2pa(0x8042fd00,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fd00,0,0x1000,0x600,..)>
+          <page2pa(0x8042fd00,0,0x1000,0x600,..)>
+            <page2ppn(0x8042fd00,0,0x1000,0x600,..)>
+        <memcpy(0x83fc0000,"c",112)>
+        <page_insert(0x83fcb000,3,0x8042fd00,0x409000,..)>
+          <pgdir_walk(0x83fcb000,0x409000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x409000,0,"$",..)>
+            <tlb_out(0x4090c0,0x409000,0,"$",..)>
+          <pgdir_walk(0x83fcb000,0x409000,1,"$",..)>
+          <page2pa(0x8042fd00,0x409000,1,"$",..)>
+            <page2ppn(0x8042fd00,0x409000,1,"$",..)>
+      <load_icode_mapper(0x8014c294,0x40a000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40a000,0,0x600,..)>
+          <page2kva(0x8042fcf4,0x40a000,0,0x600,..)>
+            <page2pa(0x8042fcf4,0x40a000,0,0x600,..)>
+              <page2ppn(0x8042fcf4,0x40a000,0,0x600,..)>
+            <page2pa(0x8042fcf4,0x40a000,0,0x600,..)>
+              <page2ppn(0x8042fcf4,0x40a000,0,0x600,..)>
+          <memset(0x83fbf000,0,0x1000)>
+        <page_insert(0x83fcb000,3,0x8042fcf4,0x40a000,..)>
+          <pgdir_walk(0x83fcb000,0x40a000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x40a000,0,"(",..)>
+            <tlb_out(0x40a0c0,0x40a000,0,"(",..)>
+          <pgdir_walk(0x83fcb000,0x40a000,1,"(",..)>
+          <page2pa(0x8042fcf4,0x40a000,1,"(",..)>
+            <page2ppn(0x8042fcf4,0x40a000,1,"(",..)>
+      <load_icode_mapper(0x8014c294,0x40b000,0,0x600,..)>
+        <page_alloc(0x803fff20,0x40b000,0,0x600,..)>
+          <page2kva(0x8042fce8,0x40b000,0,0x600,..)>
+            <page2pa(0x8042fce8,0x40b000,0,0x600,..)>
+              <page2ppn(0x8042fce8,0x40b000,0,0x600,..)>
+            <page2pa(0x8042fce8,0x40b000,0,0x600,..)>
+              <page2ppn(0x8042fce8,0x40b000,0,0x600,..)>
+          <memset(0x83fbe000,0,0x1000)>
+        <page_insert(0x83fcb000,3,0x8042fce8,0x40b000,..)>
+          <pgdir_walk(0x83fcb000,0x40b000,0,0x803ffef0,..)>
+          <tlb_invalidate(3,0x40b000,0,",",..)>
+            <tlb_out(0x40b0c0,0x40b000,0,",",..)>
+          <pgdir_walk(0x83fcb000,0x40b000,1,",",..)>
+          <page2pa(0x8042fce8,0x40b000,1,",",..)>
+            <page2ppn(0x8042fce8,0x40b000,1,",",..)>
+<kclock_init(0x8042fce8,0x40b000,1,",",..)>
+<enable_irq(0x8042fce8,0x40b000,1,",",..)>
+<env_run(0x8014c294,0x40b000,1,",",..)>
+  <pre_env_run(0x8014c294,0x40b000,1,",",..)>
+  <env_pop_tf(0x8014c294,3,1,",",..)>
+    <fast_tlb_refill(0x400a30,3,0,0,..)>
+      <do_tlb_refill(0x803ffea8,3,0,0,..)>
+        <_do_tlb_refill(0xc0001000,3,0,0,..)>
+          <page_lookup(0x83fcb000,0xc0001000,"l",0,..)>
+            <pgdir_walk(0x83fcb000,0xc0001000,0,0x803ffe74,..)>
+            <pa2page(0x3fc9200,0xc0001000,0,0x803ffe74,..)>
+    <fast_tlb_refill(0x400a30,3,0,0,..)>
+[ memory READ: from non-existant paddr=0x27bdfa30 len=4 pc=0x00400a30 ]
+to_be_translated(): read failed: TODO
+cpu: UNIMPLEMENTED instruction at 0x400a30
+00400a30: 00000000        nop
+emul: All machines stopped.
+GXemul> quit

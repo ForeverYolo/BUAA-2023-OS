@@ -5,7 +5,7 @@
 tlb_miss_entry:
 	bgtz    sp,fast_tlb
 	nop
-	j 	exc_gen_entry
+	j       exc_gen_entry
 	nop
 fast_tlb:
 	j 	process_fast

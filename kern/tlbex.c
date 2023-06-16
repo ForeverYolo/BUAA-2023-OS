@@ -67,6 +67,7 @@ Pte _do_tlb_refill(u_long va, u_int asid) {
 	{	
 		passive_alloc(va,cur_pgdir,asid);
 	}
+	//printk("Abnormal reentrancy has occurred!\n");
 	return *pte;
 }
 
@@ -75,6 +76,7 @@ Pte fast_tlb_refill(u_long va, u_int asid) {
 	int context = -1;
 	int memEntryHi = -1;
 	asm("mfc0 %0, $10" : "=r"(memEntryHi) :);
+	//printk("TLB quickly refills, and the value of EntryHi for the first test is: %08x\n",memEntryHi);
 	asm("mfc0 %0, $4" : "=r"(context) :);
 	int badVaddr = -1;
 	asm("mfc0 %0, $8" : "=r"(badVaddr) :);
@@ -97,7 +99,9 @@ Pte fast_tlb_refill(u_long va, u_int asid) {
        	{
 		//printk("Alloc ?????????????????????????????????????????????????????????????????????\n");
 		passive_alloc(va,cur_pgdir,asid);
-	}
+	}	
+	//asm("mfc0 %0, $10" : "=r"(memEntryHi) :);
+	//printk("TLB quickly refills, and the value of EntryHi for the second test is: %08x\n",memEntryHi);
 	asm volatile("mtc0 %0, $10" : : "r"(memEntryHi));
 	//printk("fast_tlb Done!\n");
 	return *pte; 
