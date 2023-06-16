@@ -82,9 +82,9 @@ Pte fast_tlb_refill(u_long va, u_int asid) {
 	asm("mfc0 %0, $8" : "=r"(badVaddr) :);
 	//printk("Context : %08x\n",context);
 	//int TableNum = (context >> 2) & 0x7ffff;
-	//printk("=============================\n");
-	//printk("va : %08x\n", va);
-	//printk("badVaddr : %08x\n",badVaddr);
+	printk("=============================\n");
+	printk("va : %08x\n", va);
+	printk("badVaddr : %08x\n",badVaddr);
 	//printk("Context : %08x\n",context);
 	//printk("TableNum : %08x\n",TableNum);
 	//printk("mpt[TableNum] : %08x\n",&(mpt[TableNum]));
@@ -97,7 +97,8 @@ Pte fast_tlb_refill(u_long va, u_int asid) {
 	//printk("inst : %08x\n",*inst);
 	while ( ((*pte) & PTE_V) == 0 )
        	{
-		//printk("Alloc ?????????????????????????????????????????????????????????????????????\n");
+		printk("va : %08x\n",va);
+		printk("cur_pgdir : %08x\n",cur_pgdir);
 		passive_alloc(va,cur_pgdir,asid);
 	}	
 	//asm("mfc0 %0, $10" : "=r"(memEntryHi) :);
