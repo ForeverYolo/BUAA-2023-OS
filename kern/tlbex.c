@@ -100,7 +100,8 @@ Pte fast_tlb_refill(u_long va, u_int asid) {
 		printk("va : %08x\n",va);
 		printk("cur_pgdir : %08x\n",cur_pgdir);
 		passive_alloc(va,cur_pgdir,asid);
-	}	
+	}
+	printk("PTE : %08x\n",*pte);	
 	//asm("mfc0 %0, $10" : "=r"(memEntryHi) :);
 	//printk("TLB quickly refills, and the value of EntryHi for the second test is: %08x\n",memEntryHi);
 	asm volatile("mtc0 %0, $10" : : "r"(memEntryHi));
