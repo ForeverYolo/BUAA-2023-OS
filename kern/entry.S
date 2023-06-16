@@ -48,6 +48,7 @@ process_fast:
 	lw k1,0(k1)
 #读Context(TLB重入)
 
+check_one:
 #有效位判别
 	la	k1,arr
 	lw	k1,24(k1)
