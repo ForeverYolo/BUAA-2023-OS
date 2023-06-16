@@ -160,7 +160,7 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
 void env_init(void) {
 	u_int index = 0xc0000000; 
 	asm volatile("mtc0 %0, $4" : : "r"(index));
-	printk("Write Done!!!!!!\n");
+	//printk("Write Done!!!!!!\n");
 	int i;
 	/* Step 1: Initialize 'env_free_list' with 'LIST_INIT' and 'env_sched_list' with
 	 * 'TAILQ_INIT'. */
