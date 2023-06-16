@@ -1,7 +1,7 @@
 #include <env.h>
 #include <pmap.h>
 int error_count = 0;
-static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
+void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
 	struct Page *p = NULL;
 
 	if (va < UTEMP) {
@@ -20,9 +20,6 @@ static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
 		panic("pages zone");
 	}
 
-	if (va >= ULIM) {
-		panic("kernel address");
-	}
 
 	panic_on(page_alloc(&p));
 	panic_on(page_insert(pgdir, asid, p, PTE_ADDR(va), PTE_D));
