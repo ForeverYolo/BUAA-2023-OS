@@ -158,7 +158,7 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
  *   You may use these macro definitions below: 'LIST_INIT', 'TAILQ_INIT', 'LIST_INSERT_HEAD'
  */
 void env_init(void) {
-	u_int index = 0xffe00000;
+	u_int index = 0xc0000000;
 	asm volatile("mtc0 %0, $4" : : "r"(index));
 	printk("写入完毕！！！！！！！\n");
 	int i;
