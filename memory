@@ -1,0 +1,49 @@
+800182d4 <fast_tlb_refill>:
+fast_tlb_refill():
+/home/git/21373271/21373271/kern/tlbex.c:74
+
+Pte fast_tlb_refill(u_long va, u_int asid) {
+800182d4:	27bdffd8 	addiu	sp,sp,-40
+800182d8:	afbf0024 	sw	ra,36(sp)
+800182dc:	afbe0020 	sw	s8,32(sp)
+800182e0:	03a0f025 	move	s8,sp
+800182e4:	afc40028 	sw	a0,40(s8)
+800182e8:	afc5002c 	sw	a1,44(s8)
+/home/git/21373271/21373271/kern/tlbex.c:75
+	error_count++;
+800182ec:	3c028014 	lui	v0,0x8014
+800182f0:	8c428050 	lw	v0,-32688(v0)
+800182f4:	00000000 	nop
+800182f8:	24430001 	addiu	v1,v0,1
+800182fc:	3c028014 	lui	v0,0x8014
+80018300:	ac438050 	sw	v1,-32688(v0)
+/home/git/21373271/21373271/kern/tlbex.c:76
+	int context = -1;
+80018304:	2402ffff 	li	v0,-1
+80018308:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/kern/tlbex.c:77
+	int memEntryHi = -1;
+8001830c:	2402ffff 	li	v0,-1
+80018310:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/kern/tlbex.c:78
+	asm("mfc0 %0, $10" : "=r"(memEntryHi) :);
+80018314:	40025000 	mfc0	v0,c0_entryhi
+80018318:	00000000 	nop
+8001831c:	afc20014 	sw	v0,20(s8)
+/home/git/21373271/21373271/kern/tlbex.c:80
+	//printk("TLB quickly refills, and the value of EntryHi for the first test is: %08x\n",memEntryHi);
+	asm("mfc0 %0, $4" : "=r"(context) :);
+80018320:	40022000 	mfc0	v0,c0_context
+80018324:	00000000 	nop
+80018328:	afc20010 	sw	v0,16(s8)
+/home/git/21373271/21373271/kern/tlbex.c:81
+	int badVaddr = -1;
+8001832c:	2402ffff 	li	v0,-1
+80018330:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/kern/tlbex.c:82
+	asm("mfc0 %0, $8" : "=r"(badVaddr) :);
+80018334:	40024000 	mfc0	v0,c0_badvaddr
+80018338:	00000000 	nop
+8001833c:	afc20018 	sw	v0,24(s8)
+/home/git/21373271/21373271/kern/tlbex.c:93
+	//printk("Context : %08x\n",context);
