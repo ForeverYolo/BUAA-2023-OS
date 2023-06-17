@@ -30,6 +30,11 @@ void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
  */
 Pte _do_tlb_refill(u_long va, u_int asid) {
 	error_count++;
+	int *pp = 0x8000017C;
+	int num = *pp + 1;
+	*pp = num;
+	//printk("*pp的值为： %d",*pp);
+
 	Pte *pte;
 	/* Hints:
 	 *  Invoke 'page_lookup' repeatedly in a loop to find the page table entry 'pte' associated

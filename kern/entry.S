@@ -18,7 +18,7 @@ exc_gen_entry:
 
 
 arr:
-	.space 52
+	.space 20
 process_fast:
 	la k0,arr
 
@@ -65,54 +65,23 @@ check_one:
 #给passive_alloc传参并跳转
 failed_alloc:
 	la	k1,arr
-	sw	sp,20(k1)
-	sw	v0,24(k1)
-	sw	v1,28(k1)
-	sw	s8,32(k1)
-	sw	a0,36(k1)
-	sw	a1,40(k1)
-	sw	a2,44(k1)
-	sw	a3,48(k1)
-
-	li      sp, KSTACKTOP
-
-	la	k1,arr
-	lw	k1,4(k1)
-	move	a0,k1		#BadVaddr
-
-	lui	a1,0x8018
-	lw	a1,12324(a1)
-
-	la	k1,arr
-	lw	k1,8(k1)	#EntryHi
-	move    a2, k1
-	srl     a2, a2, 6
-	andi    a2, a2, 0b111111
-
-	jal	passive_alloc
-	nop
-
-	la	k1,arr
-	lw	sp,20(k1)
-	lw	v0,24(k1)
-	lw	v1,28(k1)
-	lw	s8,32(k1)
-	lw	a0,36(k1)
-	lw	a1,40(k1)
-	lw	a2,44(k1)
-	lw	a3,48(k1)
-#给passive_alloc传参并跳转
-
-#判断passive_alloc 成功与否
-check_two:
-	la	k1,arr
+	lw	k0,0(k1)
+	mtc0	k0,CP0_EPC
+	lw	k0,4(k1)
+	mtc0	k0,CP0_BADVADDR
+	lw	k0,8(k1)
+	mtc0	k0,CP0_ENTRYHI
 	lw	k0,12(k1)
-	move	k1,k0
-	lw	k1,0(k1)
-	andi	k1,k1,0x200
-	beqz	k1,failed_alloc
+	mtc0	k0,CP0_CONTEXT
+
+	# sw	zero,0(k1)
+	# sw	zero,4(k1)
+	# sw	zero,8(k1)
+	# sw	zero,12(k1)
+
+	j	exc_gen_entry
 	nop
-#判断passive_alloc 成功与否
+#给passive_alloc传参并跳转
 
 #最终重填
 success_alloc:
@@ -140,3 +109,4 @@ success_alloc:
 	rfe
 .set reorder
 #恢复现场
+

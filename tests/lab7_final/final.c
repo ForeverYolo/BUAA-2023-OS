@@ -1,8 +1,8 @@
 #include <lib.h>
 #include <env.h>
-#define NUM 512
+#define NUM 256
 #define MOD 16
-#define ENUM 400
+#define ENUM 100
 int arr[NUM][NUM];
 int brr[NUM][NUM];
 int crr[NUM][NUM];
