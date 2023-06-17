@@ -22,10 +22,6 @@ static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
 		panic("pages zone");
 	}
 
-	if (va >= ULIM && va < KSEG2) {
-		panic("kernel address");
-	}
-
 	panic_on(page_alloc(&p));
 	panic_on(page_insert(pgdir, asid, p, PTE_ADDR(va), PTE_D));
 }
@@ -35,6 +31,9 @@ static void passive_alloc(u_int va, Pde *pgdir, u_int asid) {
  */
 Pte _do_tlb_refill(u_long va, u_int asid) {
 	error_count++;
+	u_int *pp =(u_int *)0x8000017C;
+	u_int num = *pp + 1;
+	*pp = num;
 	Pte *pte;
 	/* Hints:
 	 *  Invoke 'page_lookup' repeatedly in a loop to find the page table entry 'pte' associated

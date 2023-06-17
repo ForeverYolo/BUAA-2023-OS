@@ -11,8 +11,11 @@ extern struct Env *curenv;
 extern int error_count;
 
 int sys_get_error_count(){
-	return error_count;
+	u_int *pp = (u_int*)0x8000017C;
+	//printk("*pp的值为： %d",*pp);
+	return *pp;
 }
+
 
 /* Overview:
  * 	This function is used to print a character on screen.
