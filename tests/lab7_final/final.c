@@ -1,6 +1,6 @@
 #include <lib.h>
 #include <env.h>
-#define NUM 1024
+#define NUM 512
 #define MOD 16
 #define ENUM 400
 int arr[NUM][NUM];

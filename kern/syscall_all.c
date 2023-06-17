@@ -9,7 +9,9 @@
 extern int error_count;
 
 int sys_get_error_count(){
-	return error_count;
+	int *pp = 0x8000017C;
+	//printk("*pp的值为： %d",*pp);
+	return *pp;
 }
 
 extern struct Env *curenv;

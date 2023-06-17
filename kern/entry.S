@@ -18,7 +18,7 @@ exc_gen_entry:
 
 
 arr:
-	.space 40
+	.space 20
 process_fast:
 	la k0,arr
 
@@ -29,15 +29,15 @@ process_fast:
 	sw	k1,4(k0)
 	mfc0	k1,CP0_ENTRYHI
 	sw	k1,8(k0)
-	sw	a0,12(k0)
-	sw	a1,16(k0)
-	sw	a2,20(k0)
 	mfc0	k1,CP0_CONTEXT
-	sw	k1,24(k0)
-	sw	sp,28(k0)
-	sw	v0,32(k0)
-	sw	v1,36(k0)
+	sw	k1,12(k0)
 #保存现场
+
+#记录次数
+	lw	k1,16(k0)
+	addi	k1,k1,1
+	sw	k1,16(k0)
+#记录次数
 
 #取Context
 	mfc0	k1,CP0_CONTEXT
@@ -54,7 +54,7 @@ process_fast:
 check_one:
 #有效位判别
 	la	k1,arr
-	lw	k1,24(k1)
+	lw	k1,12(k1)
 	move 	k0,k1
 	lw	k1,0(k1)
 	andi	k1,k1,0x200
@@ -71,55 +71,17 @@ failed_alloc:
 	mtc0	k0,CP0_BADVADDR
 	lw	k0,8(k1)
 	mtc0	k0,CP0_ENTRYHI
-	lw	k0,24(k1)
+	lw	k0,12(k1)
 	mtc0	k0,CP0_CONTEXT
-	lw	a0,12(k1)
-	lw	a1,16(k1)
-	lw	a2,20(k1)
-	lw	sp,28(k1)
-	lw	v0,32(k1)
-	lw	v1,36(k1)
 
-	sw	zero,0(k1)
-	sw	zero,4(k1)
-	sw	zero,8(k1)
-	sw	zero,12(k1)
-	sw	zero,16(k1)
-	sw	zero,20(k1)
-	sw	zero,24(k1)
-	sw	zero,28(k1)
-	sw	zero,32(k1)
-	sw	zero,36(k1)
+	# sw	zero,0(k1)
+	# sw	zero,4(k1)
+	# sw	zero,8(k1)
+	# sw	zero,12(k1)
 
 	j	exc_gen_entry
 	nop
-	# li      sp, KSTACKTOP
-
-	# la	k1,arr
-	# lw	k1,4(k1)
-	# move	a0,k1		#BadVaddr
-
-	# lui	a1,0x8018
-	# lw	a1,12324(a1)
-
-	# la	k1,arr
-	# lw	k1,8(k1)	#EntryHi
-	# move    a2, k1
-	# srl     a2, a2, 6
-	# andi    a2, a2, 0b111111
-
-	# jal	passive_alloc
-	# nop
 #给passive_alloc传参并跳转
-
-#判断passive_alloc 成功与否
-check_two:
-	move	k1,k0
-	lw	k1,0(k1)
-	andi	k1,k1,0x200
-	beqz	k1,failed_alloc
-	nop
-#判断passive_alloc 成功与否
 
 #最终重填
 success_alloc:
@@ -137,25 +99,13 @@ success_alloc:
 #恢复现场
 	la	k1,arr
 	lw	k0,0(k1)
-	lw	a0,12(k1)
-	lw	a1,16(k1)
-	lw	a2,20(k1)
-	lw	sp,28(k1)
-	lw	v0,32(k1)
-	lw	v1,36(k1)
 
-	sw	zero,0(k1)
-	sw	zero,4(k1)
-	sw	zero,8(k1)
-	sw	zero,12(k1)
-	sw	zero,16(k1)
-	sw	zero,20(k1)
-	sw	zero,24(k1)
-	sw	zero,28(k1)
-	sw	zero,32(k1)
-	sw	zero,36(k1)
+	# sw	zero,0(k1)
+	# sw	zero,4(k1)
+	# sw	zero,8(k1)
+	# sw	zero,12(k1)
 .set noreorder
-	jr k0
+	jr 	k0
 	rfe
 .set reorder
 #恢复现场
