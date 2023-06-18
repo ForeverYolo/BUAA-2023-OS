@@ -423,6 +423,7 @@ void env_free(struct Env *e) {
 		/* Hint: invalidate page table in TLB */
 		tlb_invalidate(e->env_asid, UVPT + (pdeno << PGSHIFT));
 		tlb_invalidate(e->env_asid, MVPT + (VPN(UVPT + (pdeno << PGSHIFT)) << 2));
+		//tlb_invalidate(e->env_asid, MVPT + (pdeno << PGSHIFT));
 	}
 	/* Hint: free the page directory. */
 	page_decref(pa2page(PADDR(e->env_pgdir)));
@@ -430,7 +431,8 @@ void env_free(struct Env *e) {
 	asid_free(e->env_asid);
 	/* Hint: invalidate page directory in TLB */
 	tlb_invalidate(e->env_asid, UVPT + (PDX(UVPT) << PGSHIFT));
-	tlb_invalidate(e->env_asid, MVPT + (VPN(UVPT + (PDX(MVPT) << PGSHIFT)) << 2));
+	tlb_invalidate(e->env_asid, MVPT + (VPN(UVPT + (PDX(UVPT) << PGSHIFT)) << 2));
+	//tlb_invalidate(e->env_asid, MVPT + (PDX(MVPT) << PGSHIFT));
 	/* Hint: return the environment to the free list. */
 	e->env_status = ENV_FREE;
 	LIST_INSERT_HEAD((&env_free_list), (e), env_link);

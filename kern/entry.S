@@ -85,8 +85,6 @@ failed_alloc:
 
 #最终重填
 success_alloc:
-	la	k0,arr
-	lw	k0,12(k0)
 	move	k1,k0
 	lw	k1,0(k1)
 	mtc0	k1,CP0_ENTRYLO0
